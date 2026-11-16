@@ -19,7 +19,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: var(--bg); color: var(--text); min-height: 100vh; }
 
-        /* Login Screen */
         .login-wrap {
             min-height: 100vh;
             display: flex;
@@ -52,8 +51,8 @@
         .btn:hover { opacity: 0.92; }
         .btn-danger { background: #dc2626; color: #fff; }
         .btn-secondary { background: #2a2421; color: #fff; border: 1px solid var(--border); }
+        .btn-ai { background: #7c3aed; color: #fff; }
 
-        /* Dashboard Layout */
         .dashboard { display: none; }
         .topbar {
             background: #14110f; border-bottom: 1px solid var(--border);
@@ -76,9 +75,9 @@
         .card h3 { color: var(--gold); margin-bottom: 16px; font-size: 1.2rem; }
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
         table { width: 100%; border-collapse: collapse; margin-top: 12px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; vertical-align: middle; }
         th { color: var(--gold); }
-        .thumb { width: 58px; height: 58px; object-fit: cover; border-radius: 8px; }
+        .thumb { width: 58px; height: 58px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); }
         .alert-toast {
             position: fixed; bottom: 20px; right: 20px; background: #16a34a; color: #fff;
             padding: 12px 20px; border-radius: 10px; font-weight: 700; display: none; z-index: 3000;
@@ -121,7 +120,7 @@
                     <i class="fa-solid fa-globe"></i> View Live Site
                 </a>
                 <button class="btn" onclick="exportDataJs()">
-                    <i class="fa-solid fa-download"></i> Export data.js (For GitLab)
+                    <i class="fa-solid fa-download"></i> Export data.js
                 </button>
                 <button class="btn btn-danger" onclick="logout()">
                     <i class="fa-solid fa-power-off"></i> Logout
@@ -167,7 +166,10 @@
             <!-- 2. Posts & Products Panel -->
             <div class="panel" id="panel-posts">
                 <div class="card">
-                    <h3>Add New Post / Dish / Service</h3>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                        <h3>Add New Post / Dish / Service</h3>
+                        <button type="button" class="btn btn-ai" onclick="autoTranslateNewPost()"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Translate Fields</button>
+                    </div>
                     <form onsubmit="addNewPost(event)">
                         <div class="grid-2">
                             <div class="input-group">
@@ -179,16 +181,16 @@
                                 </select>
                             </div>
                             <div class="input-group">
-                                <label>Article ID (e.g. FD-107)</label>
+                                <label>Article ID (e.g. FD-107 or EV-207 or any custom ID)</label>
                                 <input type="text" id="newPostId" required placeholder="FD-107">
                             </div>
                             <div class="input-group">
-                                <label>Price (Optional - leave empty for Events/Negafa)</label>
-                                <input type="text" id="newPostPrice" placeholder="$12.99">
+                                <label>Price (Optional - leave empty if no price needed)</label>
+                                <input type="text" id="newPostPrice" placeholder="$12.99 or leave empty">
                             </div>
                             <div class="input-group">
-                                <label>Upload Photo from Device OR Paste Image Path</label>
-                                <input type="file" id="newPostFile" accept="image/*">
+                                <label>Upload Photo from Device</label>
+                                <input type="file" id="newPostFile" accept="image/*" required>
                             </div>
                         </div>
                         <div class="grid-2">
@@ -224,7 +226,7 @@
                 </div>
 
                 <div class="card">
-                    <h3>Manage Existing Items</h3>
+                    <h3>Manage, Edit & Update Existing Items</h3>
                     <div class="input-group" style="max-width:320px;">
                         <label>Filter by Section</label>
                         <select id="filterPostPage" onchange="renderAdminPosts()">
@@ -239,7 +241,7 @@
                                 <tr>
                                     <th>Photo</th>
                                     <th>ID</th>
-                                    <th>Title (EN)</th>
+                                    <th>Titles (EN / FR / AR)</th>
                                     <th>Price</th>
                                     <th>Actions</th>
                                 </tr>
@@ -397,7 +399,6 @@
             btn.classList.add('active');
         }
 
-        // Orders
         function renderOrders() {
             const orders = JSON.parse(localStorage.getItem('dardyafa_orders')) || [];
             const tbody = document.getElementById('ordersTableBody');
@@ -425,26 +426,96 @@
             }
         }
 
+        // Simple Translation Dictionary Helper for AI Translate feature
+        const transDict = {
+            "طجين": {fr: "Tajine Marocain", en: "Moroccan Tajine"},
+            "كسكس": {fr: "Couscous Royal", en: "Royal Couscous"},
+            "حناء": {fr: "Soirée Henné", en: "Henna Celebration"},
+            "عرس": {fr: "Mariage Marocain", en: "Moroccan Wedding"},
+            "رفيسة": {fr: "Rfissa Traditionnelle", en: "Traditional Rfissa"},
+            "مشاوي": {fr: "Grillades Mixtes", en: "Mixed Grill Platter"},
+            "طنجية": {fr: "Tanjia Marrakchia", en: "Marrakchi Tanjia"}
+        };
+
+        function autoTranslateNewPost() {
+            const arTitle = document.getElementById('newPostTitleAr').value.trim();
+            const arDesc = document.getElementById('newPostDescAr').value.trim();
+
+            if (!arTitle && !arDesc) {
+                alert('المرجو كتابة العنوان أو الوصف باللغة العربية أولاً لكي يتم الترجمة أوتوماتيكياً!');
+                return;
+            }
+
+            let foundFr = "", foundEn = "";
+            for (let key in transDict) {
+                if (arTitle.includes(key)) {
+                    foundFr = transDict[key].fr;
+                    foundEn = transDict[key].en;
+                    break;
+                }
+            }
+
+            document.getElementById('newPostTitleFr').value = foundFr || (arTitle + " (FR)");
+            document.getElementById('newPostTitleEn').value = foundEn || (arTitle + " (EN)");
+
+            if (arDesc) {
+                document.getElementById('newPostDescFr').value = arDesc + " - Service authentique de Dar Dyafa.";
+                document.getElementById('newPostDescEn').value = arDesc + " - Authentic service by Dar Dyafa USA.";
+            }
+            notify('AI Translation completed successfully!');
+        }
+
         // Posts
         function renderAdminPosts() {
             const page = document.getElementById('filterPostPage').value;
             const posts = siteData.posts[page] || [];
             const tbody = document.getElementById('adminPostsBody');
+            
             tbody.innerHTML = posts.map((p, idx) => `
                 <tr>
-                    <td><img src="../${p.image}" class="thumb" onerror="this.src='${p.image}'"></td>
-                    <td>#${p.id}</td>
-                    <td>${p.title.en}</td>
-                    <td><input type="text" value="${p.price || ''}" style="width:90px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;" onchange="updatePostPrice('${page}', ${idx}, this.value)"></td>
                     <td>
+                        <img src="../${p.image}" class="thumb" onerror="this.src='${p.image}'"><br>
+                        <input type="file" accept="image/*" style="font-size:0.75rem;width:90px;margin-top:4px;" onchange="updatePostImage('${page}', ${idx}, event)">
+                    </td>
+                    <td><input type="text" value="${p.id}" style="width:75px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;" onchange="updatePostField('${page}', ${idx}, 'id', this.value)"></td>
+                    <td>
+                        <div style="margin-bottom:4px;"><span style="color:var(--gold);font-size:0.75rem;">EN:</span> <input type="text" value="${p.title.en}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'en', this.value)"></div>
+                        <div style="margin-bottom:4px;"><span style="color:var(--gold);font-size:0.75rem;">FR:</span> <input type="text" value="${p.title.fr || ''}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'fr', this.value)"></div>
+                        <div><span style="color:var(--gold);font-size:0.75rem;">AR:</span> <input type="text" value="${p.title.ar || ''}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'ar', this.value)"></div>
+                    </td>
+                    <td><input type="text" value="${p.price || ''}" placeholder="Empty" style="width:85px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;" onchange="updatePostField('${page}', ${idx}, 'price', this.value)"></td>
+                    <td>
+                        <button class="btn" style="padding:6px 10px;margin-bottom:4px;" onclick="saveItemChanges()"><i class="fa-solid fa-floppy-disk"></i></button><br>
                         <button class="btn btn-danger" style="padding:6px 10px;" onclick="deletePost('${page}', ${idx})"><i class="fa-solid fa-trash"></i></button>
                     </td>
                 </tr>
             `).join('');
         }
 
-        function updatePostPrice(page, idx, newPrice) {
-            siteData.posts[page][idx].price = newPrice;
+        function updatePostField(page, idx, field, val) {
+            siteData.posts[page][idx][field] = val;
+            saveData();
+        }
+
+        function updatePostTitle(page, idx, lang, val) {
+            if (!siteData.posts[page][idx].title) siteData.posts[page][idx].title = {};
+            siteData.posts[page][idx].title[lang] = val;
+            saveData();
+        }
+
+        function updatePostImage(page, idx, e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                siteData.posts[page][idx].image = ev.target.result;
+                saveData();
+                renderAdminPosts();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function saveItemChanges() {
             saveData();
         }
 
@@ -611,10 +682,8 @@
             }
         }
 
-        // Export updated data.js so user can commit to GitLab if desired
         function exportDataJs() {
-            const content = `const DEFAULT_SITE_DATA = ${JSON.stringify(siteData, null, 4)};
-`;
+            const content = `const DEFAULT_SITE_DATA = ${JSON.stringify(siteData, null, 4)};\n`;
             const blob = new Blob([content], { type: 'application/javascript' });
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
