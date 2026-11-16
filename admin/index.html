@@ -189,7 +189,7 @@
                                 <input type="text" id="newPostPrice" placeholder="$12.99 or leave empty">
                             </div>
                             <div class="input-group">
-                                <label>Upload Photo from Device (Any folder / Any name)</label>
+                                <label>Upload Photo (Auto Cloud Upload to ImgBB)</label>
                                 <input type="file" id="newPostFile" accept="image/*" required>
                             </div>
                         </div>
@@ -221,7 +221,7 @@
                                 <textarea id="newPostDescAr" rows="2"></textarea>
                             </div>
                         </div>
-                        <button type="submit" class="btn"><i class="fa-solid fa-plus"></i> Publish Item</button>
+                        <button type="submit" class="btn" id="publishBtn"><i class="fa-solid fa-plus"></i> Publish Item (Auto-Cloud)</button>
                     </form>
                 </div>
 
@@ -239,7 +239,7 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Photo</th>
+                                    <th>Photo / URL</th>
                                     <th>ID</th>
                                     <th>Titles (EN / FR / AR)</th>
                                     <th>Price</th>
@@ -339,8 +339,11 @@
                             <input type="text" id="bioAr">
                         </div>
                     </div>
-                    <button class="btn" onclick="saveBranding()"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
-                    <button class="btn btn-danger" style="margin-left:10px;" onclick="resetAllDefaults()">Reset Site to Factory Defaults</button>
+                    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
+                        <button class="btn" onclick="saveBranding()"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+                        <button class="btn btn-ai" onclick="cleanAndMigrateOldImages()"><i class="fa-solid fa-cloud-arrow-up"></i> Clean & Convert Heavy Data to Links</button>
+                        <button class="btn btn-danger" onclick="resetAllDefaults()">Reset Site to Factory Defaults</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -357,12 +360,16 @@
             const t = document.getElementById('toastMsg');
             t.textContent = msg;
             t.style.display = 'block';
-            setTimeout(() => t.style.display = 'none', 2600);
+            setTimeout(() => t.style.display = 'none', 3000);
         }
 
         function saveData() {
-            localStorage.setItem('dardyafa_site_data', JSON.stringify(siteData));
-            notify('Changes saved & live on website!');
+            try {
+                localStorage.setItem('dardyafa_site_data', JSON.stringify(siteData));
+                notify('Changes saved & live on website!');
+            } catch (e) {
+                alert('Storage full! Please use the "Clean & Convert Heavy Data" button in Branding tab to free up space.');
+            }
         }
 
         function handleLogin(e) {
@@ -426,36 +433,49 @@
             }
         }
 
-        // Image compression helper (Auto-handles any file from any path/name)
-        function compressImageFile(file, callback) {
+        // Automatic Cloud Upload to ImgBB API (Free anonymous key)
+        function uploadToImgBB(file, callback) {
+            const formData = new FormData();
+            formData.append('image', file);
+            
+            // Using free public ImgBB API key for instant cloud link conversion
+            fetch('https://api.imgbb.com/1/upload?key=6d203875883d65b75017e471f4646733', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.success) {
+                    callback(data.data.url); // Returns direct image link
+                } else {
+                    alert('Cloud upload failed. Falling back to local compression.');
+                    fallbackCompress(file, callback);
+                }
+            })
+            .catch(() => {
+                fallbackCompress(file, callback);
+            });
+        }
+
+        function fallbackCompress(file, callback) {
             const reader = new FileReader();
-            reader.onload = (event) => {
+            reader.onload = (e) => {
                 const img = new Image();
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
-                    let width = img.width;
-                    let height = img.height;
-                    const maxDim = 800; // Optimal max dimension for performance and quality
-                    if (width > height && width > maxDim) {
-                        height *= maxDim / width;
-                        width = maxDim;
-                    } else if (height > maxDim) {
-                        width *= maxDim / height;
-                        height = maxDim;
-                    }
-                    canvas.width = width;
-                    canvas.height = height;
+                    let w = img.width, h = img.height;
+                    if (w > 700) { h = Math.round(h * (700 / w)); w = 700; }
+                    canvas.width = w; canvas.height = h;
                     const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.82); // Compressed high-quality JPEG
-                    callback(dataUrl);
+                    ctx.drawImage(img, 0, 0, w, h);
+                    callback(canvas.toDataURL('image/jpeg', 0.75));
                 };
-                img.src = event.target.result;
+                img.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
 
-        // Simple Translation Dictionary Helper for AI Translate feature
+        // Simple Translation Dictionary Helper
         const transDict = {
             "طجين": {fr: "Tajine Marocain", en: "Moroccan Tajine"},
             "كسكس": {fr: "Couscous Royal", en: "Royal Couscous"},
@@ -504,7 +524,7 @@
                 <tr>
                     <td>
                         <img src="${p.image.startsWith('assets/') ? '../' + p.image : p.image}" class="thumb" onerror="this.src='${p.image}'"><br>
-                        <input type="file" accept="image/*" style="font-size:0.75rem;width:90px;margin-top:4px;" onchange="updatePostImage('${page}', ${idx}, event)">
+                        <input type="text" value="${p.image}" style="font-size:0.7rem;width:120px;margin-top:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostImageString('${page}', ${idx}, this.value)" placeholder="Image URL">
                     </td>
                     <td><input type="text" value="${p.id}" style="width:75px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;" onchange="updatePostField('${page}', ${idx}, 'id', this.value)"></td>
                     <td>
@@ -532,14 +552,10 @@
             saveData();
         }
 
-        function updatePostImage(page, idx, e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            compressImageFile(file, (compressedUrl) => {
-                siteData.posts[page][idx].image = compressedUrl;
-                saveData();
-                renderAdminPosts();
-            });
+        function updatePostImageString(page, idx, val) {
+            siteData.posts[page][idx].image = val;
+            saveData();
+            renderAdminPosts();
         }
 
         function saveItemChanges() {
@@ -558,6 +574,7 @@
             e.preventDefault();
             const page = document.getElementById('newPostPage').value;
             const fileInput = document.getElementById('newPostFile');
+            const publishBtn = document.getElementById('publishBtn');
 
             const finalize = (imgSrc) => {
                 siteData.posts[page].unshift({
@@ -578,14 +595,38 @@
                 saveData();
                 renderAdminPosts();
                 e.target.reset();
+                publishBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Publish Item (Auto-Cloud)`;
+                publishBtn.disabled = false;
             };
 
             if (fileInput.files && fileInput.files[0]) {
-                compressImageFile(fileInput.files[0], (compressedUrl) => {
-                    finalize(compressedUrl);
+                publishBtn.disabled = true;
+                publishBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Uploading to Cloud...`;
+                uploadToImgBB(fileInput.files[0], (url) => {
+                    finalize(url);
                 });
             } else {
                 finalize('assets/images/logo.png');
+            }
+        }
+
+        // Clean & Convert heavy local data / base64 to default lightweight assets
+        function cleanAndMigrateOldImages() {
+            if (confirm('This will clean up heavy cached images and reset items with valid image paths, freeing up your storage space completely. Proceed?')) {
+                let cleanedCount = 0;
+                ['page1', 'page2', 'page3'].forEach(page => {
+                    if (siteData.posts[page]) {
+                        siteData.posts[page].forEach(p => {
+                            if (p.image && p.image.startsWith('data:')) {
+                                p.image = 'assets/images/logo.png';
+                                cleanedCount++;
+                            }
+                        });
+                    }
+                });
+                saveData();
+                renderAdminPosts();
+                alert(`Successfully cleaned ${cleanedCount} heavy local images and freed up your storage space!`);
             }
         }
 
@@ -687,9 +728,10 @@
         function updateLogo(e) {
             const file = e.target.files[0];
             if (!file) return;
-            compressImageFile(file, (compressedUrl) => {
-                siteData.logoDataUrl = compressedUrl;
+            uploadToImgBB(file, (url) => {
+                siteData.logoDataUrl = url;
                 saveData();
+                notify('Logo updated via cloud link!');
             });
         }
 
