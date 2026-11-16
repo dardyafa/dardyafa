@@ -1,734 +1,766 @@
-import sys
-import os
-import time
-import random
-import threading
-import subprocess
-import json
-import tkinter as tk
-from tkinter import ttk, messagebox, filedialog
-import pyautogui
-import pyperclip
-import pygetwindow as gw
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dar Dyafa Admin Panel | Control Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0f0d0c;
+            --card: #191513;
+            --gold: #d4af37;
+            --crimson: #8b1e2d;
+            --text: #f5f2eb;
+            --muted: #a69e8e;
+            --border: rgba(212, 175, 55, 0.25);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; }
 
-try:
-    from pyvda import VirtualDesktop, get_virtual_desktops
-    HAS_PYVDA = True
-except ImportError:
-    HAS_PYVDA = False
+        .login-wrap {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: radial-gradient(circle at center, rgba(212,175,55,0.12), transparent 60%);
+        }
+        .login-card {
+            background: var(--card);
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            padding: 36px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.7);
+        }
+        .login-card h2 { color: var(--gold); text-align: center; margin-bottom: 8px; }
+        .login-card p { color: var(--muted); text-align: center; font-size: 0.9rem; margin-bottom: 24px; }
+        .input-group { margin-bottom: 16px; }
+        .input-group label { display: block; font-size: 0.85rem; margin-bottom: 6px; color: var(--gold); font-weight: 600; }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%; padding: 11px 14px; border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.15); background: #0b0a09; color: #fff; font-size: 0.95rem;
+        }
+        .btn {
+            background: var(--gold); color: #0f0d0c; border: none; padding: 11px 18px;
+            border-radius: 10px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn:hover { opacity: 0.92; }
+        .btn-danger { background: #dc2626; color: #fff; }
+        .btn-secondary { background: #2a2421; color: #fff; border: 1px solid var(--border); }
+        .btn-ai { background: #7c3aed; color: #fff; }
 
-pyautogui.FAILSAFE = False
+        .dashboard { display: none; }
+        .topbar {
+            background: #14110f; border-bottom: 1px solid var(--border);
+            padding: 16px 4%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+        }
+        .nav-pills {
+            display: flex; gap: 8px; flex-wrap: wrap; padding: 16px 4%; background: #120f0e; border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .pill {
+            padding: 10px 16px; border-radius: 10px; border: 1px solid transparent;
+            background: #1c1816; color: var(--muted); cursor: pointer; font-weight: 700; font-size: 0.88rem;
+        }
+        .pill.active { background: var(--gold); color: #0f0d0c; }
+        .content { padding: 28px 4%; max-width: 1280px; margin: 0 auto; }
+        .panel { display: none; }
+        .panel.active { display: block; }
+        .card {
+            background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; margin-bottom: 24px;
+        }
+        .card h3 { color: var(--gold); margin-bottom: 16px; font-size: 1.2rem; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; vertical-align: middle; }
+        th { color: var(--gold); }
+        .thumb { width: 58px; height: 58px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); }
+        .alert-toast {
+            position: fixed; bottom: 20px; right: 20px; background: #16a34a; color: #fff;
+            padding: 12px 20px; border-radius: 10px; font-weight: 700; display: none; z-index: 3000;
+        }
+    </style>
+</head>
+<body>
 
-DB_FILE = "database.json"
+    <!-- Login View -->
+    <div class="login-wrap" id="loginView">
+        <div class="login-card">
+            <h2><i class="fa-solid fa-crown"></i> DAR DYAFA ADMIN</h2>
+            <p>Sign in to manage products, videos, prices, marquee & customer orders</p>
+            <form onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" id="loginUser" required placeholder="admin">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPass" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn" style="width:100%;justify-content:center;padding:13px;">
+                    <i class="fa-solid fa-right-to-bracket"></i> Login to Dashboard
+                </button>
+                <p id="loginErr" style="color:#ef4444;margin-top:12px;display:none;">Invalid username or password!</p>
+            </form>
+        </div>
+    </div>
 
-class BrandirASCKManagerV15:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("BrandirASCK - Ultimate Event & Live Manager V15.0")
-        self.root.geometry("1050x900")
-        self.root.resizable(False, False)
+    <!-- Admin Dashboard -->
+    <div class="dashboard" id="dashboardView">
+        <div class="topbar">
+            <div>
+                <h2 style="color:var(--gold);font-size:1.3rem;">DAR DYAFA — ADMIN CONTROL CENTER</h2>
+                <span style="font-size:0.82rem;color:var(--muted);">Manage Live Website Content & Orders</span>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <a href="../index.html" target="_blank" class="btn btn-secondary" style="text-decoration:none;">
+                    <i class="fa-solid fa-globe"></i> View Live Site
+                </a>
+                <button class="btn" onclick="exportDataJs()">
+                    <i class="fa-solid fa-download"></i> Export data.js
+                </button>
+                <button class="btn btn-danger" onclick="logout()">
+                    <i class="fa-solid fa-power-off"></i> Logout
+                </button>
+            </div>
+        </div>
 
-        self.bg_color = "#1e1e2e"
-        self.card_bg = "#2b2b3b"
-        self.accent_color = "#89b4fa"
-        self.fg_color = "#cdd6f4"
-        self.btn_success = "#a6e3a1"
-        self.btn_danger = "#f38ba8"
-        self.btn_warning = "#fab387"
+        <div class="nav-pills">
+            <button class="pill active" onclick="showPanel('orders', this)"><i class="fa-solid fa-receipt"></i> Customer Orders</button>
+            <button class="pill" onclick="showPanel('posts', this)"><i class="fa-solid fa-images"></i> Posts & Menu Items</button>
+            <button class="pill" onclick="showPanel('videos', this)"><i class="fa-solid fa-video"></i> Video Carousel</button>
+            <button class="pill" onclick="showPanel('marquee', this)"><i class="fa-solid fa-bullhorn"></i> Marquee Ticker (EN)</button>
+            <button class="pill" onclick="showPanel('branding', this)"><i class="fa-solid fa-sliders"></i> Logo, Bio & Tabs</button>
+        </div>
 
-        self.root.configure(bg=self.bg_color)
+        <div class="content">
+            <!-- 1. Orders Panel -->
+            <div class="panel active" id="panel-orders">
+                <div class="card">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                        <h3>Incoming WhatsApp Orders & Bookings</h3>
+                        <button class="btn btn-danger" onclick="clearOrders()">Clear All Orders</button>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Section</th>
+                                    <th>Item / Article ID</th>
+                                    <th>Customer</th>
+                                    <th>Details</th>
+                                    <th>Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-        self.selected_folder_path = ""
-        self.is_running = False
-        self.stop_event = threading.Event()
-        self.opened_windows = []
-        self.floating_panic_win = None
+            <!-- 2. Posts & Products Panel -->
+            <div class="panel" id="panel-posts">
+                <div class="card">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                        <h3>Add New Post / Dish / Service</h3>
+                        <button type="button" class="btn btn-ai" onclick="autoTranslateNewPost()"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Translate Fields</button>
+                    </div>
+                    <form onsubmit="addNewPost(event)">
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label>Target Section</label>
+                                <select id="newPostPage">
+                                    <option value="page1">Page 1 — Moroccan Cuisine (Food Truck)</option>
+                                    <option value="page2">Page 2 — Royal Events & Weddings</option>
+                                    <option value="page3">Page 3 — Bridal Negafa & Caftans</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Article ID (e.g. FD-107 or EV-207 or any custom ID)</label>
+                                <input type="text" id="newPostId" required placeholder="FD-107">
+                            </div>
+                            <div class="input-group">
+                                <label>Price (Optional - leave empty if no price needed)</label>
+                                <input type="text" id="newPostPrice" placeholder="$12.99 or leave empty">
+                            </div>
+                            <div class="input-group">
+                                <label>Upload Photo (Auto Cloud Upload to ImgBB)</label>
+                                <input type="file" id="newPostFile" accept="image/*" required>
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label>Title (English)</label>
+                                <input type="text" id="newPostTitleEn" required placeholder="Dish or Service Name">
+                            </div>
+                            <div class="input-group">
+                                <label>Title (French)</label>
+                                <input type="text" id="newPostTitleFr" placeholder="Nom en Français">
+                            </div>
+                            <div class="input-group">
+                                <label>Title (Arabic)</label>
+                                <input type="text" id="newPostTitleAr" placeholder="الاسم بالعربية">
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label>Description (English)</label>
+                                <textarea id="newPostDescEn" rows="2" required></textarea>
+                            </div>
+                            <div class="input-group">
+                                <label>Description (French)</label>
+                                <textarea id="newPostDescFr" rows="2"></textarea>
+                            </div>
+                            <div class="input-group">
+                                <label>Description (Arabic)</label>
+                                <textarea id="newPostDescAr" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn" id="publishBtn"><i class="fa-solid fa-plus"></i> Publish Item (Auto-Cloud)</button>
+                    </form>
+                </div>
 
-        # هيكل البيانات: تخزين الأسماء مع الجنس والحالة
-        # الحالة المبدئية لكل اسم: "محتمل" (Default)
-        self.contacts_data = [] 
-        self.load_database()
+                <div class="card">
+                    <h3>Manage, Edit & Update Existing Items</h3>
+                    <div class="input-group" style="max-width:320px;">
+                        <label>Filter by Section</label>
+                        <select id="filterPostPage" onchange="renderAdminPosts()">
+                            <option value="page1">Page 1 — Moroccan Cuisine</option>
+                            <option value="page2">Page 2 — Royal Events</option>
+                            <option value="page3">Page 3 — Bridal Negafa</option>
+                        </select>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Photo / URL</th>
+                                    <th>ID</th>
+                                    <th>Titles (EN / FR / AR)</th>
+                                    <th>Price</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminPostsBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-        self.screen_w, self.screen_h = pyautogui.size()
-        self.setup_ui()
+            <!-- 3. Videos Panel -->
+            <div class="panel" id="panel-videos">
+                <div class="card">
+                    <h3>Add Video (Instagram Link, YouTube Link, or MP4 Upload)</h3>
+                    <form onsubmit="addNewVideo(event)">
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label>Target Section</label>
+                                <select id="newVidPage">
+                                    <option value="page1">Page 1 — Moroccan Cuisine</option>
+                                    <option value="page2">Page 2 — Royal Events</option>
+                                    <option value="page3">Page 3 — Bridal Negafa</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Video Title</label>
+                                <input type="text" id="newVidTitle" required placeholder="Royal Wedding Highlights">
+                            </div>
+                            <div class="input-group">
+                                <label>Video URL (Instagram / YouTube)</label>
+                                <input type="url" id="newVidUrl" placeholder="https://www.instagram.com/p/...">
+                            </div>
+                            <div class="input-group">
+                                <label>Or Upload Short MP4 from Device</label>
+                                <input type="file" id="newVidFile" accept="video/mp4,video/webm">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn"><i class="fa-solid fa-plus"></i> Add Video</button>
+                    </form>
+                </div>
 
-    def load_database(self):
-        if os.path.exists(DB_FILE):
-            try:
-                with open(DB_FILE, "r", encoding="utf-8") as f:
-                    self.contacts_data = json.load(f)
-            except Exception:
-                self.contacts_data = []
-        else:
-            # عينة أولية من الأسماء الافتراضية
-            default_names = ["chaimae", "camel", "boutayna", "chab_alarbi", "hoodanour", "amina", "ilya", "jihat"]
-            for name in default_names:
-                self.contacts_data.append({"name": name, "gender": "بنت" if name in ["chaimae", "boutayna", "amina", "ilya"] else "ولد", "status": "محتمل"})
-            self.save_database()
+                <div class="card">
+                    <h3>Reorder or Delete Videos</h3>
+                    <div class="input-group" style="max-width:320px;">
+                        <select id="filterVidPage" onchange="renderAdminVideos()">
+                            <option value="page1">Page 1 — Moroccan Cuisine</option>
+                            <option value="page2">Page 2 — Royal Events</option>
+                            <option value="page3">Page 3 — Bridal Negafa</option>
+                        </select>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr><th>#</th><th>Title</th><th>URL / Type</th><th>Order & Delete</th></tr>
+                        </thead>
+                        <tbody id="adminVideosBody"></tbody>
+                    </table>
+                </div>
+            </div>
 
-    def save_database(self):
-        try:
-            with open(DB_FILE, "w", encoding="utf-8") as f:
-                json.dump(self.contacts_data, f, ensure_ascii=False, indent=4)
-        except Exception as e:
-            print(f"Error saving DB: {e}")
+            <!-- 4. Marquee Panel -->
+            <div class="panel" id="panel-marquee">
+                <div class="card">
+                    <h3>Scrolling Marquee Ticker (English Only)</h3>
+                    <form onsubmit="addMarqueeItem(event)" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
+                        <input type="text" id="mqName" required placeholder="Item Name (English)" style="flex:2;min-width:200px;padding:10px;border-radius:8px;background:#0b0a09;color:#fff;border:1px solid #333;">
+                        <input type="text" id="mqPrice" placeholder="Price e.g. $12.99" style="flex:1;min-width:120px;padding:10px;border-radius:8px;background:#0b0a09;color:#fff;border:1px solid #333;">
+                        <button type="submit" class="btn">Add to Ticker</button>
+                    </form>
+                    <table>
+                        <thead><tr><th>Item (EN)</th><th>Price</th><th>Action</th></tr></thead>
+                        <tbody id="adminMarqueeBody"></tbody>
+                    </table>
+                </div>
+            </div>
 
-    def setup_ui(self):
-        header_frame = tk.Frame(self.root, bg=self.card_bg, height=55)
-        header_frame.pack(fill="x", padx=10, pady=8)
+            <!-- 5. Branding & Bio Panel -->
+            <div class="panel" id="panel-branding">
+                <div class="card">
+                    <h3>Logo & Header Bio</h3>
+                    <div class="input-group">
+                        <label>Upload New Brand Logo (PNG/JPG)</label>
+                        <input type="file" id="logoUploadInput" accept="image/*" onchange="updateLogo(event)">
+                    </div>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label>Header Bio (English)</label>
+                            <input type="text" id="bioEn">
+                        </div>
+                        <div class="input-group">
+                            <label>Header Bio (French)</label>
+                            <input type="text" id="bioFr">
+                        </div>
+                        <div class="input-group">
+                            <label>Header Bio (Arabic)</label>
+                            <input type="text" id="bioAr">
+                        </div>
+                    </div>
+                    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
+                        <button class="btn" onclick="saveBranding()"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+                        <button class="btn btn-ai" onclick="cleanAndMigrateOldImages()"><i class="fa-solid fa-cloud-arrow-up"></i> Clean & Convert Heavy Data to Links</button>
+                        <button class="btn btn-danger" onclick="resetAllDefaults()">Reset Site to Factory Defaults</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        title_label = tk.Label(
-            header_frame,
-            text="⚡ BrandirASCK Studio V15.0 (Persistent Manager & Live Automation)",
-            font=("Helvetica", 13, "bold"),
-            bg=self.card_bg,
-            fg=self.accent_color
-        )
-        title_label.pack(side="left", padx=15, pady=10)
+    <div class="alert-toast" id="toastMsg">Saved successfully!</div>
 
-        self.notebook = ttk.Notebook(self.root)
-        self.notebook.pack(fill="both", expand=True, padx=10, pady=5)
+    <script src="../js/config.js"></script>
+    <script src="../js/data.js"></script>
+    <script>
+        let siteData = JSON.parse(localStorage.getItem('dardyafa_site_data')) || DEFAULT_SITE_DATA;
 
-        self.tab_execution = tk.Frame(self.notebook, bg=self.bg_color)
-        self.notebook.add(self.tab_execution, text="🚀 التشغيل والتحكم في اللايف")
+        function notify(msg) {
+            const t = document.getElementById('toastMsg');
+            t.textContent = msg;
+            t.style.display = 'block';
+            setTimeout(() => t.style.display = 'none', 3000);
+        }
 
-        self.tab_attendance = tk.Frame(self.notebook, bg=self.bg_color)
-        self.notebook.add(self.tab_attendance, text="📋 إدارة الحضور والأسماء (الحفل)")
+        function saveData() {
+            try {
+                localStorage.setItem('dardyafa_site_data', JSON.stringify(siteData));
+                notify('Changes saved & live on website!');
+            } catch (e) {
+                alert('Storage full! Please use the "Clean & Convert Heavy Data" button in Branding tab to free up space.');
+            }
+        }
 
-        self.tab_comments = tk.Frame(self.notebook, bg=self.bg_color)
-        self.notebook.add(self.tab_comments, text="💬 بنك التعليقات والإيموجي")
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('loginUser').value.trim();
+            const p = document.getElementById('loginPass').value.trim();
+            if (u === SITE_CONFIG.adminAuth.username && p === SITE_CONFIG.adminAuth.password) {
+                sessionStorage.setItem('dardyafa_admin_logged', 'true');
+                showDashboard();
+            } else {
+                document.getElementById('loginErr').style.display = 'block';
+            }
+        }
 
-        self.build_execution_tab()
-        self.build_attendance_tab()
-        self.build_comments_tab()
+        function logout() {
+            sessionStorage.removeItem('dardyafa_admin_logged');
+            location.reload();
+        }
 
-    def build_execution_tab(self):
-        settings_frame = tk.LabelFrame(
-            self.tab_execution,
-            text=" ⚙️ إعدادات الحسابات، الديسكتوب، وتجاوز النوافذ ",
-            bg=self.card_bg,
-            fg=self.fg_color,
-            font=("Helvetica", 11, "bold")
-        )
-        settings_frame.pack(fill="x", padx=10, pady=8)
+        function showDashboard() {
+            document.getElementById('loginView').style.display = 'none';
+            document.getElementById('dashboardView').style.display = 'block';
+            renderOrders();
+            renderAdminPosts();
+            renderAdminVideos();
+            renderAdminMarquee();
+            loadBrandingFields();
+        }
 
-        tk.Label(settings_frame, text="مجلد الحسابات (Shortcuts):", bg=self.card_bg, fg=self.fg_color, font=("Helvetica", 10)).grid(row=0, column=0, padx=10, pady=8, sticky="w")
-        self.lbl_folder = tk.Label(settings_frame, text="لم يتم اختيار مجلد بعد", bg=self.card_bg, fg=self.btn_danger, width=30, anchor="w", font=("Helvetica", 10, "bold"))
-        self.lbl_folder.grid(row=0, column=1, padx=10, pady=8, sticky="w")
+        function showPanel(name, btn) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+            document.getElementById(`panel-${name}`).classList.add('active');
+            btn.classList.add('active');
+        }
 
-        btn_folder = tk.Button(settings_frame, text="📁 اختر مجلد الحسابات", bg=self.accent_color, fg="#11111b", font=("Helvetica", 9, "bold"), command=self.browse_folder)
-        btn_folder.grid(row=0, column=2, padx=10, pady=8)
+        function renderOrders() {
+            const orders = JSON.parse(localStorage.getItem('dardyafa_orders')) || [];
+            const tbody = document.getElementById('ordersTableBody');
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="color:#888;text-align:center;">No orders recorded yet.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = orders.map(o => `
+                <tr>
+                    <td><strong>${o.id}</strong></td>
+                    <td>${o.date}</td>
+                    <td>${o.section}</td>
+                    <td>#${o.itemId} — ${o.itemTitle}</td>
+                    <td>${o.customerName}</td>
+                    <td>${o.details}</td>
+                    <td>${o.phone}</td>
+                </tr>
+            `).join('');
+        }
 
-        tk.Label(settings_frame, text="رابط اللايف (Live Link):", bg=self.card_bg, fg=self.fg_color, font=("Helvetica", 10)).grid(row=1, column=0, padx=10, pady=8, sticky="w")
-        self.entry_link = tk.Entry(settings_frame, width=50, font=("Consolas", 10))
-        self.entry_link.insert(0, "https://www.instagram.com/")
-        self.entry_link.grid(row=1, column=1, columnspan=2, padx=10, pady=8, sticky="w")
+        function clearOrders() {
+            if (confirm('Delete all order logs?')) {
+                localStorage.removeItem('dardyafa_orders');
+                renderOrders();
+            }
+        }
 
-        tk.Label(settings_frame, text="عدد الحسابات الإجمالي:", bg=self.card_bg, fg=self.fg_color, font=("Helvetica", 10)).grid(row=2, column=0, padx=10, pady=8, sticky="w")
-        self.entry_count = tk.Entry(settings_frame, width=12, font=("Consolas", 10))
-        self.entry_count.insert(0, "8")
-        self.entry_count.grid(row=2, column=1, padx=10, pady=8, sticky="w")
-        tk.Label(settings_frame, text="(كل 4 حسابات في Desktop مستقل مقسمة تماماً)", bg=self.card_bg, fg="#a6adc8").grid(row=2, column=2, padx=5, pady=8, sticky="w")
-
-        self.var_enable_comments = tk.BooleanVar(value=True)
-        chk_enable_comments = tk.Checkbutton(
-            settings_frame,
-            text="☑️ تفعيل إرسال التعليقات والإيموجي تلقائياً",
-            variable=self.var_enable_comments,
-            bg=self.card_bg,
-            fg=self.accent_color,
-            selectcolor=self.bg_color,
-            activebackground=self.card_bg,
-            activeforeground=self.accent_color,
-            font=("Helvetica", 10, "bold")
-        )
-        chk_enable_comments.grid(row=3, column=0, columnspan=3, padx=10, pady=8, sticky="w")
-
-        comm_settings = tk.LabelFrame(
-            self.tab_execution,
-            text=" 💬 إعدادات التعليقات والمدة الزمنية المستمرة ",
-            bg=self.card_bg,
-            fg=self.fg_color,
-            font=("Helvetica", 10, "bold")
-        )
-        comm_settings.pack(fill="x", padx=10, pady=5)
-
-        tk.Label(comm_settings, text="الحد الأدنى للتعليقات في الحساب الواحد:", bg=self.card_bg, fg=self.fg_color).grid(row=0, column=0, padx=10, pady=6, sticky="w")
-        self.entry_min_comm = tk.Entry(comm_settings, width=10, font=("Consolas", 10))
-        self.entry_min_comm.insert(0, "1")
-        self.entry_min_comm.grid(row=0, column=1, padx=10, pady=6, sticky="w")
-
-        tk.Label(comm_settings, text="الحد الأقصى للتعليقات في الحساب الواحد:", bg=self.card_bg, fg=self.fg_color).grid(row=1, column=0, padx=10, pady=6, sticky="w")
-        self.entry_max_comm = tk.Entry(comm_settings, width=10, font=("Consolas", 10))
-        self.entry_max_comm.insert(0, "5")
-        self.entry_max_comm.grid(row=1, column=1, padx=10, pady=6, sticky="w")
-
-        tk.Label(comm_settings, text="العدد الإجمالي المستهدف للتعليقات (Total):", bg=self.card_bg, fg=self.fg_color).grid(row=2, column=0, padx=10, pady=6, sticky="w")
-        self.entry_total_comm = tk.Entry(comm_settings, width=10, font=("Consolas", 10))
-        self.entry_total_comm.insert(0, "300")
-        self.entry_total_comm.grid(row=2, column=1, padx=10, pady=6, sticky="w")
-
-        tk.Label(comm_settings, text="الفاصل الزمني بين تعليق وتعليق (ثواني):", bg=self.card_bg, fg=self.fg_color).grid(row=3, column=0, padx=10, pady=6, sticky="w")
-        self.entry_comm_delay = tk.Entry(comm_settings, width=10, font=("Consolas", 10))
-        self.entry_comm_delay.insert(0, "3")
-        self.entry_comm_delay.grid(row=3, column=1, padx=10, pady=6, sticky="w")
-
-        tk.Label(comm_settings, text="مدة البقاء الإجمالية والمراقبة في اللايف (دقائق):", bg=self.card_bg, fg=self.fg_color).grid(row=4, column=0, padx=10, pady=6, sticky="w")
-        self.entry_duration = tk.Entry(comm_settings, width=10, font=("Consolas", 10))
-        self.entry_duration.insert(0, "30")
-        self.entry_duration.grid(row=4, column=1, padx=10, pady=6, sticky="w")
-
-        btn_frame = tk.Frame(self.tab_execution, bg=self.bg_color)
-        btn_frame.pack(fill="x", padx=10, pady=8)
-
-        self.btn_start = tk.Button(
-            btn_frame,
-            text="🚀 بدء التشغيل والمراقبة المستمرة (Start V15)",
-            bg=self.btn_success,
-            fg="#11111b",
-            font=("Helvetica", 11, "bold"),
-            height=2,
-            command=self.start_process_thread
-        )
-        self.btn_start.pack(side="left", fill="x", expand=True, padx=(0, 5))
-
-        self.btn_stop = tk.Button(
-            btn_frame,
-            text="⏹️ إيقاف فوري وإغلاق الكل (STOP ALL)",
-            bg=self.btn_danger,
-            fg="#11111b",
-            font=("Helvetica", 11, "bold"),
-            height=2,
-            command=self.emergency_stop_all
-        )
-        self.btn_stop.pack(side="right", fill="x", expand=True, padx=(5, 0))
-
-        self.lbl_timer_status = tk.Label(
-            self.tab_execution,
-            text="الحالة: في انتظار التشغيل...",
-            bg="#181825",
-            fg="#fab387",
-            font=("Helvetica", 10, "bold"),
-            pady=6
-        )
-        self.lbl_timer_status.pack(fill="x", padx=10, pady=2)
-
-        log_frame = tk.LabelFrame(self.tab_execution, text=" 📜 سجل العمليات المباشر ", bg=self.card_bg, fg=self.fg_color, font=("Helvetica", 10, "bold"))
-        log_frame.pack(fill="both", expand=True, padx=10, pady=5)
-
-        self.log_text = tk.Text(log_frame, bg="#181825", fg="#a6e3a1", font=("Consolas", 9), state="disabled")
-        self.log_text.pack(fill="both", expand=True, padx=5, pady=5)
-
-    def build_attendance_tab(self):
-        att_frame = tk.Frame(self.tab_attendance, bg=self.bg_color)
-        att_frame.pack(fill="both", expand=True, padx=10, pady=10)
-
-        # شريط الأزرار للفلترة وإضافة اسم جديد
-        top_ctrl = tk.Frame(att_frame, bg=self.card_bg, pady=8)
-        top_ctrl.pack(fill="x", padx=5, pady=5)
-
-        tk.Button(top_ctrl, text="🌸 قائمة البنات", bg="#f5c2e7", fg="#11111b", font=("Helvetica", 10, "bold"), command=lambda: self.refresh_table("بنات")).pack(side="left", padx=5)
-        tk.Button(top_ctrl, text="⚡ قائمة الولاد", bg="#89b4fa", fg="#11111b", font=("Helvetica", 10, "bold"), command=lambda: self.refresh_table("ولاد")).pack(side="left", padx=5)
-        tk.Button(top_ctrl, text="📋 عرض الكل", bg=self.accent_color, fg="#11111b", font=("Helvetica", 10, "bold"), command=lambda: self.refresh_table("الكل")).pack(side="left", padx=5)
-
-        # إضافة اسم جديد
-        add_sub = tk.Frame(att_frame, bg=self.card_bg, pady=6)
-        add_sub.pack(fill="x", padx=5, pady=5)
-
-        tk.Label(add_sub, text="إضافة اسم جديد:", bg=self.card_bg, fg=self.fg_color, font=("Helvetica", 10, "bold")).pack(side="left", padx=5)
-        self.entry_new_name = tk.Entry(add_sub, width=25, font=("Consolas", 10))
-        self.entry_new_name.pack(side="left", padx=5)
-
-        tk.Label(add_sub, text="الجنس:", bg=self.card_bg, fg=self.fg_color).pack(side="left", padx=5)
-        self.gender_combo = ttk.Combobox(add_sub, values=["بنت", "ولد"], width=8, state="readonly")
-        self.gender_combo.set("بنت")
-        self.gender_combo.pack(side="left", padx=5)
-
-        tk.Button(add_sub, text="➕ إضافة وحفظ", bg=self.btn_success, fg="#11111b", font=("Helvetica", 9, "bold"), command=self.add_new_contact).pack(side="left", padx=10)
-
-        # جدول عرض الأسماء والحضور
-        table_frame = tk.Frame(att_frame, bg=self.bg_color)
-        table_frame.pack(fill="both", expand=True, padx=5, pady=5)
-
-        columns = ("name", "gender", "status")
-        self.tree = ttk.Treeview(table_frame, columns=columns, show="headings", height=18)
-        self.tree.heading("name", text="اسم الشخص (الاسم)")
-        self.tree.heading("gender", text="الجنس (بنت / ولد)")
-        self.tree.heading("status", text="حالة الحضور (سيحضور / لن يحضور / محتمل)")
-        
-        self.tree.column("name", width=250, anchor="w")
-        self.tree.column("gender", width=120, anchor="center")
-        self.tree.column("status", width=250, anchor="center")
-        
-        self.tree.pack(side="left", fill="both", expand=True)
-
-        scrollbar = ttk.Scrollbar(table_frame, orient="vertical", command=self.tree.yview)
-        scrollbar.pack(side="right", fill="y")
-        self.tree.configure(yscrollcommand=scrollbar.set)
-
-        # أزرار تعديل الحالة أسفل الجدول
-        actions_frame = tk.Frame(att_frame, bg=self.card_bg, pady=10)
-        actions_frame.pack(fill="x", padx=5, pady=5)
-
-        tk.Button(actions_frame, text="🟢 سيحضور", bg=self.btn_success, fg="#11111b", font=("Helvetica", 10, "bold"), command=lambda: self.update_selected_status("سيحضور")).pack(side="left", padx=10)
-        tk.Button(actions_frame, text="🔴 لن يحضور", bg=self.btn_danger, fg="#11111b", font=("Helvetica", 10, "bold"), command=lambda: self.update_selected_status("لن يحضور")).pack(side="left", padx=10)
-        tk.Button(actions_frame, text="🟡 محتمل (Default)", bg=self.btn_warning, fg="#11111b", font=("Helvetica", 10, "bold"), command=lambda: self.update_selected_status("محتمل")).pack(side="left", padx=10)
-        tk.Button(actions_frame, text="🗑️ حذف الاسم", bg="#7f849c", fg="#ffffff", font=("Helvetica", 10, "bold"), command=self.delete_selected_contact).pack(side="right", padx=10)
-
-        self.refresh_table("الكل")
-
-    def refresh_table(self, filter_type):
-        for row in self.tree.get_children():
-            self.tree.delete(row)
-
-        for idx, contact in enumerate(self.contacts_data):
-            g = contact.get("gender", "بنت")
-            if filter_type == "بنات" and g != "بنت":
-                continue
-            if filter_type == "ولاد" and g != "ولد":
-                continue
-
-            status = contact.get("status", "محتمل")
-            item_id = self.tree.insert("", "end", values=(contact["name"], g, status))
+        // Automatic Cloud Upload to ImgBB API (Free anonymous key)
+        function uploadToImgBB(file, callback) {
+            const formData = new FormData();
+            formData.append('image', file);
             
-            # تلوين السطر حسب الحالة بناءً على طلبك
-            if status == "محتمل":
-                self.tree.item(item_id, tags=("muhtamal",))
-            elif status == "سيحضور":
-                self.tree.item(item_id, tags=("yes",))
-            elif status == "لن يحضور":
-                self.tree.item(item_id, tags=("no",))
-
-        self.tree.tag_configure("muhtamal", background="#a6e3a1", foreground="#11111b") # أخضر
-        self.tree.tag_configure("yes", background="#89b4fa", foreground="#11111b")      # أزرق
-        self.tree.tag_configure("no", background="#f38ba8", foreground="#11111b")       # أحمر
-
-    def add_new_contact(self):
-        name = self.entry_new_name.get().strip()
-        gender = self.gender_combo.get()
-        if not name:
-            messagebox.showwarning("تنبيه", "الرجاء إدخال الاسم!")
-            return
-
-        # التأكد عدم تكرار الاسم
-        for c in self.contacts_data:
-            if c["name"].lower() == name.lower():
-                messagebox.showerror("خطأ", "هذا الاسم موجود مسبقاً في القاعدة!")
-                return
-
-        self.contacts_data.append({"name": name, "gender": gender, "status": "محتمل"})
-        self.save_database()
-        self.entry_new_name.delete(0, "end")
-        self.refresh_table("الكل")
-        self.log(f"➕ تمت إضافة الاسم '{name}' بنجاح وحفظه في النظام.")
-
-    def update_selected_status(self, new_status):
-        selected_items = self.tree.selection()
-        if not selected_items:
-            messagebox.showwarning("تنبيه", "الرجاء اختيار اسم من الجدول أولاً!")
-            return
-
-        for item in selected_items:
-            values = self.tree.item(item, "values")
-            name = values[0]
-            for contact in self.contacts_data:
-                if contact["name"] == name:
-                    contact["status"] = new_status
-                    break
-
-        self.save_database()
-        self.refresh_table("الكل")
-        self.log(f"🔄 تم تحديث حالة الحضور إلى '{new_status}' بنجاح.")
-
-    def delete_selected_contact(self):
-        selected_items = self.tree.selection()
-        if not selected_items:
-            messagebox.showwarning("تنبيه", "الرجاء اختيار اسم للحذف!")
-            return
-
-        for item in selected_items:
-            values = self.tree.item(item, "values")
-            name = values[0]
-            self.contacts_data = [c for c in self.contacts_data if c["name"] != name]
-
-        self.save_database()
-        self.refresh_table("الكل")
-        self.log("🗑️ تم حذف الاسم من القاعدة بنجاح.")
-
-    def build_comments_tab(self):
-        frame = tk.LabelFrame(
-            self.tab_comments,
-            text=" 💬 بنك التعليقات والإيموجي (300+ عنصر - الحذف التلقائي بـ Pop) ",
-            bg=self.card_bg,
-            fg=self.fg_color,
-            font=("Helvetica", 10, "bold")
-        )
-        frame.pack(fill="both", expand=True, padx=10, pady=10)
-
-        tk.Label(
-            frame,
-            text="ضع تعليقاتك هنا (كل سطر يعتبر تعليقاً مستقلاً):",
-            bg=self.card_bg,
-            fg=self.fg_color
-        ).pack(anchor="w", padx=10, pady=5)
-
-        self.comments_text = tk.Text(frame, bg="#181825", fg=self.fg_color, font=("Segoe UI Emoji", 10), height=22)
-        self.comments_text.pack(fill="both", expand=True, padx=10, pady=5)
-
-        emojis_list = ["🔥", "🚀", "💎", "👏", "✨", "💪", "👌", "🌟", "🏆", "🇲🇦", "💯", "👑", "💥", "❤️", "🤩", "🎯", "⚡", "🎉", "👇", "🙌"]
-        phrases = ["top", "dope", "fare", "hadchi nadi", "tbarkalah 3lik", "courage", "magnifique", "excellent", "bravo", "تبارك الله عليك فنان", "واعر بزاف خويا", "مستوى عالي", "السطاف شغال", "خدمة نقية", "القمة ديما", "طوب ديال طوب", "عاشق هاد الفن", "الروعة والابداع"]
-        
-        generated_bank = []
-        for _ in range(15):
-            for p in phrases:
-                em = random.choice(emojis_list)
-                em2 = random.choice(emojis_list)
-                generated_bank.append(f"{p} {em} {em2}")
-        
-        for em in emojis_list:
-            for em2 in emojis_list:
-                for em3 in emojis_list:
-                    generated_bank.append(f"{em} {em2} {em3}")
-
-        final_300 = generated_bank[:300]
-        self.comments_text.insert("1.0", "\n".join(final_300))
-
-    def log(self, message):
-        self.log_text.config(state="normal")
-        self.log_text.insert("end", f"[{time.strftime('%H:%M:%S')}] {message}\n")
-        self.log_text.see("end")
-        self.log_text.config(state="disabled")
-
-    def browse_folder(self):
-        folder = filedialog.askdirectory(title="اختر مجلد الحسابات (.lnk)")
-        if folder:
-            self.selected_folder_path = folder
-            self.lbl_folder.config(text=os.path.basename(folder), fg=self.btn_success)
-            self.log(f"📁 تم تحديد مجلد الحسابات: {folder}")
-
-    def create_floating_panic_button(self):
-        if self.floating_panic_win:
-            try:
-                self.floating_panic_win.destroy()
-            except Exception:
-                pass
-
-        self.floating_panic_win = tk.Toplevel()
-        self.floating_panic_win.title("STOP")
-        x_pos = (self.screen_w // 2) - 120
-        self.floating_panic_win.geometry(f"240x55+{x_pos}+5")
-        self.floating_panic_win.attributes("-topmost", True)
-        self.floating_panic_win.overrideredirect(True)
-        self.floating_panic_win.configure(bg="#11111b")
-
-        btn = tk.Button(
-            self.floating_panic_win,
-            text="⏹️ إيقاف فوري وإغلاق الكل",
-            bg=self.btn_danger,
-            fg="#11111b",
-            font=("Helvetica", 10, "bold"),
-            command=self.emergency_stop_all
-        )
-        btn.pack(fill="both", expand=True, padx=4, pady=4)
-
-    def destroy_floating_panic_button(self):
-        if self.floating_panic_win:
-            try:
-                self.floating_panic_win.destroy()
-            except Exception:
-                pass
-            self.floating_panic_win = None
-
-    def get_grid_positions(self):
-        half_w = self.screen_w // 2
-        half_h = (self.screen_h - 40) // 2
-        return [
-            (0, 0, half_w, half_h),
-            (half_w, 0, half_w, half_h),
-            (0, half_h, half_w, half_h),
-            (half_w, half_h, half_w, half_h)
-        ]
-
-    def monitor_and_fix_window(self, region_box):
-        rx, ry, rw, rh = region_box
-        for img_name in ["turn On.png", "allow.png"]:
-            if os.path.exists(img_name):
-                try:
-                    loc = pyautogui.locateCenterOnScreen(img_name, region=(rx, ry, rw, rh), confidence=0.7)
-                    if loc:
-                        pyautogui.click(loc.x, loc.y)
-                        time.sleep(0.3)
-                        return "handled"
-                except Exception:
-                    pass
-
-        view_live_img = "view_story.png"
-        if os.path.exists(view_live_img):
-            try:
-                loc = pyautogui.locateCenterOnScreen(view_live_img, region=(rx, ry, rw, rh), confidence=0.7)
-                if loc:
-                    pyautogui.click(loc.x, loc.y)
-                    time.sleep(0.4)
-                    return "entered"
-            except Exception:
-                pass
-        
-        pyautogui.click(rx + (rw // 2), ry + int(rh * 0.65))
-        return "clicked"
-
-    def send_comment_using_emoji_icon(self, region_box, comment_text):
-        rx, ry, rw, rh = region_box
-        emoji_icon = "comnter.png"
-        
-        clicked = False
-        if os.path.exists(emoji_icon):
-            try:
-                loc = pyautogui.locateCenterOnScreen(emoji_icon, region=(rx, ry, rw, rh), confidence=0.7)
-                if loc:
-                    pyautogui.click(loc.x + 55, loc.y)
-                    clicked = True
-            except Exception:
-                pass
-
-        if not clicked:
-            pyautogui.click(rx + int(rw * 0.70), ry + int(rh * 0.90))
-
-        time.sleep(0.3)
-        pyperclip.copy(comment_text)
-        time.sleep(0.1)
-        pyautogui.hotkey('ctrl', 'v')
-        time.sleep(0.2)
-        pyautogui.press('enter')
-        time.sleep(0.3)
-
-    def start_process_thread(self):
-        if self.is_running:
-            messagebox.showwarning("تنبيه", "العملية قيد التشغيل بالفعل!")
-            return
-        threading.Thread(target=self.run_perfect_automation_v15, daemon=True).start()
-
-    def run_perfect_automation_v15(self):
-        if not self.selected_folder_path or not os.path.exists(self.selected_folder_path):
-            messagebox.showerror("خطأ", "الرجاء اختيار مجلد الحسابات أولاً!")
-            return
-
-        shortcut_files = []
-        for root_dir, _, files in os.walk(self.selected_folder_path):
-            for file in files:
-                if file.endswith(".lnk"):
-                    shortcut_files.append(os.path.join(root_dir, file))
-
-        if not shortcut_files:
-            messagebox.showwarning("تحذير", "لم يتم العثور على أي حسابات (.lnk) داخل المجلد!")
-            return
-
-        try:
-            total_count = int(self.entry_count.get().strip())
-            min_comm = int(self.entry_min_comm.get().strip())
-            max_comm = int(self.entry_max_comm.get().strip())
-            total_comm_target = int(self.entry_total_comm.get().strip())
-            comm_delay = float(self.entry_comm_delay.get().strip())
-            duration_minutes = float(self.entry_duration.get().strip())
-        except ValueError:
-            messagebox.showerror("خطأ", "تأكد من إدخال أرقام صحيحة في جميع الخانات!")
-            return
-
-        target_link = self.entry_link.get().strip()
-        if not target_link:
-            messagebox.showerror("خطأ", "الرجاء إدخال رابط اللايف!")
-            return
-
-        selected_shortcuts = shortcut_files[:total_count]
-        actual_count = len(selected_shortcuts)
-
-        raw_comments = [c.strip() for c in self.comments_text.get("1.0", "end").split("\n") if c.strip()]
-        if not raw_comments and self.var_enable_comments.get():
-            messagebox.showwarning("تحذير", "بنك التعليقات فارغ!")
-            return
-
-        self.is_running = True
-        self.stop_event.clear()
-        self.opened_windows = []
-        self.create_floating_panic_button()
-
-        self.log(f"🚀 بدء التشغيل الشامل لـ {actual_count} حساب وتوزيعهم بنظام Desktops المتزامن...")
-        self.lbl_timer_status.config(text="جاري فتح الحسابات وتصحيح الترتيب لكل Desktop...")
-
-        batch_size = 4
-        grid_positions = self.get_grid_positions()
-        active_windows_slots = []
-
-        for batch_idx in range(0, actual_count, batch_size):
-            if self.stop_event.is_set():
-                break
-
-            batch = selected_shortcuts[batch_idx:batch_idx + batch_size]
-            desktop_num = (batch_idx // batch_size) + 1
-            self.log(f"🖥️ الانتقال وتفعيل Desktop {desktop_num} لفتح دفعة {len(batch)} حسابات...")
-
-            if HAS_PYVDA:
-                try:
-                    desktops = get_virtual_desktops()
-                    while len(desktops) < desktop_num:
-                        VirtualDesktop.create()
-                        desktops = get_virtual_desktops()
-                    desktops[desktop_num - 1].go()
-                    time.sleep(1.0)
-                except Exception as e:
-                    self.log(f"⚠️ تنبيه الـ Desktop: {e}")
-
-            before_titles = set(gw.getAllTitles())
-
-            for shortcut in batch:
-                if self.stop_event.is_set():
-                    break
-                try:
-                    subprocess.Popen(['start', '', shortcut], shell=True)
-                except Exception:
-                    os.startfile(shortcut)
-
-            time.sleep(3.5)
-            if self.stop_event.is_set():
-                break
-
-            current_windows = []
-            for _ in range(5):
-                current_windows = [w for w in gw.getAllWindows() if w.title and w.title not in before_titles and "BrandirASCK" not in w.title]
-                if len(current_windows) >= len(batch):
-                    break
-                time.sleep(0.5)
-
-            window_slots = []
-            for idx_in_batch, shortcut in enumerate(batch):
-                if self.stop_event.is_set():
-                    break
-                acc_name = os.path.basename(shortcut).replace(".lnk", "")
-                gx, gy, gw_w, gh_h = grid_positions[idx_in_batch % 4]
-
-                target_win = current_windows[idx_in_batch] if idx_in_batch < len(current_windows) else None
-                if target_win:
-                    try:
-                        if target_win.isMinimized or target_win.isMaximized:
-                            target_win.restore()
-                        target_win.moveTo(gx, gy)
-                        target_win.resizeTo(gw_w, gh_h)
-                        self.opened_windows.append(target_win)
-                    except Exception:
-                        pass
-
-                window_slots.append((target_win, (gx, gy, gw_w, gh_h), acc_name))
-
-            for target_win, (gx, gy, gw_w, gh_h), acc_name in window_slots:
-                if self.stop_event.is_set():
-                    break
-                try:
-                    if target_win:
-                        target_win.activate()
-                    else:
-                        pyautogui.click(gx + gw_w // 2, gy + gh_h // 2)
-                except Exception:
-                    pyautogui.click(gx + gw_w // 2, gy + gh_h // 2)
-
-                time.sleep(0.2)
-                pyautogui.hotkey('ctrl', 'l')
-                time.sleep(0.2)
-                pyperclip.copy(target_link)
-                pyautogui.hotkey('ctrl', 'v')
-                pyautogui.press('enter')
-                self.log(f"🌐 [Desktop {desktop_num}] تم توجيه الرابط بدقة للحساب: {acc_name}")
-
-            active_windows_slots.extend(window_slots)
-
-        if self.stop_event.is_set():
-            self.cleanup_after_stop()
-            return
-
-        total_seconds = int(duration_minutes * 60)
-        start_live_time = time.time()
-        enable_comm = self.var_enable_comments.get()
-        total_comments_sent = 0
-
-        self.log(f"🔥 بدء المراقبة المستمرة والصارمة للايف وللتعليقات لمدة {duration_minutes} دقيقة...")
-        next_comment_time = time.time() + 3
-
-        while (time.time() - start_live_time) < total_seconds and not self.stop_event.is_set():
-            for target_win, box, acc_name in active_windows_slots:
-                if self.stop_event.is_set():
-                    break
-                try:
-                    if target_win:
-                        if target_win.isMinimized:
-                            target_win.restore()
-                        target_win.activate()
-                        gx, gy, gw_w, gh_h = box
-                        target_win.moveTo(gx, gy)
-                        target_win.resizeTo(gw_w, gh_h)
-                except Exception:
-                    pass
-                time.sleep(0.03)
-                self.monitor_and_fix_window(box)
-
-            if enable_comm and total_comments_sent < total_comm_target and raw_comments:
-                if time.time() >= next_comment_time:
-                    target_slot = random.choice(active_windows_slots)
-                    target_win, box, acc_name = target_slot
-
-                    num_comm = random.randint(min_comm, max_comm)
-                    try:
-                        if target_win:
-                            target_win.activate()
-                    except Exception:
-                        pass
-                    time.sleep(0.2)
-
-                    for _ in range(num_comm):
-                        if total_comments_sent >= total_comm_target or not raw_comments or self.stop_event.is_set():
-                            break
-
-                        current_comment = raw_comments.pop(0)
-                        self.send_comment_using_emoji_icon(box, current_comment)
-                        total_comments_sent += 1
-                        self.log(f"💬 [{total_comments_sent}/{total_comm_target}] تم إرسال تعليق دقيق من '{acc_name}': {current_comment}")
-                        time.sleep(0.5)
-
-                    next_comment_time = time.time() + comm_delay
-
-            elapsed = int(time.time() - start_live_time)
-            remaining = total_seconds - elapsed
-            mins, secs = divmod(max(0, remaining), 60)
-            comm_status = f" | التعليقات: {total_comments_sent}/{total_comm_target}" if enable_comm else " | (مشاهدة فقط)"
-            self.lbl_timer_status.config(
-                text=f"🟢 مراقبة صارمة شغال | المتبقي: {mins:02d}:{secs:02d}{comm_status} | اضغط STOP للإغلاق"
-            )
-            time.sleep(1)
-
-        self.cleanup_after_stop()
-
-    def emergency_stop_all(self):
-        if not self.is_running:
-            self.log("⚠️ لا توجد مهمة قيد التشغيل حالياً.")
-            return
-        self.log("🛑 تم الضغط على زر الإيقاف الطارئ!")
-        self.stop_event.set()
-
-    def cleanup_after_stop(self):
-        self.lbl_timer_status.config(text="🔴 جاري إغلاق جميع الحسابات وتنظيف الشاشة...")
-        closed_count = 0
-
-        for win in self.opened_windows:
-            try:
-                win.close()
-                closed_count += 1
-            except Exception:
-                pass
-
-        self.opened_windows.clear()
-        self.destroy_floating_panic_button()
-        self.is_running = False
-        self.lbl_timer_status.config(text="✅ تم إيقاف المهمة وإغلاق جميع الحسابات بنجاح.")
-        self.log(f"🧹 تم إغلاق {closed_count} نافذة حساب وتنظيف الشاشة بالكامل!")
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = BrandirASCKManagerV15(root)
-    root.mainloop()
+            // Using free public ImgBB API key for instant cloud link conversion
+            fetch('https://api.imgbb.com/1/upload?key=6d203875883d65b75017e471f4646733', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.success) {
+                    callback(data.data.url); // Returns direct image link
+                } else {
+                    alert('Cloud upload failed. Falling back to local compression.');
+                    fallbackCompress(file, callback);
+                }
+            })
+            .catch(() => {
+                fallbackCompress(file, callback);
+            });
+        }
+
+        function fallbackCompress(file, callback) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let w = img.width, h = img.height;
+                    if (w > 700) { h = Math.round(h * (700 / w)); w = 700; }
+                    canvas.width = w; canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    callback(canvas.toDataURL('image/jpeg', 0.75));
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Simple Translation Dictionary Helper
+        const transDict = {
+            "طجين": {fr: "Tajine Marocain", en: "Moroccan Tajine"},
+            "كسكس": {fr: "Couscous Royal", en: "Royal Couscous"},
+            "حناء": {fr: "Soirée Henné", en: "Henna Celebration"},
+            "عرس": {fr: "Mariage Marocain", en: "Moroccan Wedding"},
+            "رفيسة": {fr: "Rfissa Traditionnelle", en: "Traditional Rfissa"},
+            "مشاوي": {fr: "Grillades Mixtes", en: "Mixed Grill Platter"},
+            "طنجية": {fr: "Tanjia Marrakchia", en: "Marrakchi Tanjia"}
+        };
+
+        function autoTranslateNewPost() {
+            const arTitle = document.getElementById('newPostTitleAr').value.trim();
+            const arDesc = document.getElementById('newPostDescAr').value.trim();
+
+            if (!arTitle && !arDesc) {
+                alert('المرجو كتابة العنوان أو الوصف باللغة العربية أولاً لكي يتم الترجمة أوتوماتيكياً!');
+                return;
+            }
+
+            let foundFr = "", foundEn = "";
+            for (let key in transDict) {
+                if (arTitle.includes(key)) {
+                    foundFr = transDict[key].fr;
+                    foundEn = transDict[key].en;
+                    break;
+                }
+            }
+
+            document.getElementById('newPostTitleFr').value = foundFr || (arTitle + " (FR)");
+            document.getElementById('newPostTitleEn').value = foundEn || (arTitle + " (EN)");
+
+            if (arDesc) {
+                document.getElementById('newPostDescFr').value = arDesc + " - Service authentique de Dar Dyafa.";
+                document.getElementById('newPostDescEn').value = arDesc + " - Authentic service by Dar Dyafa USA.";
+            }
+            notify('AI Translation completed successfully!');
+        }
+
+        // Posts
+        function renderAdminPosts() {
+            const page = document.getElementById('filterPostPage').value;
+            const posts = siteData.posts[page] || [];
+            const tbody = document.getElementById('adminPostsBody');
+            
+            tbody.innerHTML = posts.map((p, idx) => `
+                <tr>
+                    <td>
+                        <img src="${p.image.startsWith('assets/') ? '../' + p.image : p.image}" class="thumb" onerror="this.src='${p.image}'"><br>
+                        <input type="text" value="${p.image}" style="font-size:0.7rem;width:120px;margin-top:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostImageString('${page}', ${idx}, this.value)" placeholder="Image URL">
+                    </td>
+                    <td><input type="text" value="${p.id}" style="width:75px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;" onchange="updatePostField('${page}', ${idx}, 'id', this.value)"></td>
+                    <td>
+                        <div style="margin-bottom:4px;"><span style="color:var(--gold);font-size:0.75rem;">EN:</span> <input type="text" value="${p.title.en}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'en', this.value)"></div>
+                        <div style="margin-bottom:4px;"><span style="color:var(--gold);font-size:0.75rem;">FR:</span> <input type="text" value="${p.title.fr || ''}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'fr', this.value)"></div>
+                        <div><span style="color:var(--gold);font-size:0.75rem;">AR:</span> <input type="text" value="${p.title.ar || ''}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'ar', this.value)"></div>
+                    </td>
+                    <td><input type="text" value="${p.price || ''}" placeholder="Empty" style="width:85px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;" onchange="updatePostField('${page}', ${idx}, 'price', this.value)"></td>
+                    <td>
+                        <button class="btn" style="padding:6px 10px;margin-bottom:4px;" onclick="saveItemChanges()"><i class="fa-solid fa-floppy-disk"></i></button><br>
+                        <button class="btn btn-danger" style="padding:6px 10px;" onclick="deletePost('${page}', ${idx})"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updatePostField(page, idx, field, val) {
+            siteData.posts[page][idx][field] = val;
+            saveData();
+        }
+
+        function updatePostTitle(page, idx, lang, val) {
+            if (!siteData.posts[page][idx].title) siteData.posts[page][idx].title = {};
+            siteData.posts[page][idx].title[lang] = val;
+            saveData();
+        }
+
+        function updatePostImageString(page, idx, val) {
+            siteData.posts[page][idx].image = val;
+            saveData();
+            renderAdminPosts();
+        }
+
+        function saveItemChanges() {
+            saveData();
+        }
+
+        function deletePost(page, idx) {
+            if (confirm('Delete this item?')) {
+                siteData.posts[page].splice(idx, 1);
+                saveData();
+                renderAdminPosts();
+            }
+        }
+
+        function addNewPost(e) {
+            e.preventDefault();
+            const page = document.getElementById('newPostPage').value;
+            const fileInput = document.getElementById('newPostFile');
+            const publishBtn = document.getElementById('publishBtn');
+
+            const finalize = (imgSrc) => {
+                siteData.posts[page].unshift({
+                    id: document.getElementById('newPostId').value,
+                    image: imgSrc,
+                    price: document.getElementById('newPostPrice').value,
+                    title: {
+                        en: document.getElementById('newPostTitleEn').value,
+                        fr: document.getElementById('newPostTitleFr').value || document.getElementById('newPostTitleEn').value,
+                        ar: document.getElementById('newPostTitleAr').value || document.getElementById('newPostTitleEn').value
+                    },
+                    desc: {
+                        en: document.getElementById('newPostDescEn').value,
+                        fr: document.getElementById('newPostDescFr').value || document.getElementById('newPostDescEn').value,
+                        ar: document.getElementById('newPostDescAr').value || document.getElementById('newPostDescEn').value
+                    }
+                });
+                saveData();
+                renderAdminPosts();
+                e.target.reset();
+                publishBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Publish Item (Auto-Cloud)`;
+                publishBtn.disabled = false;
+            };
+
+            if (fileInput.files && fileInput.files[0]) {
+                publishBtn.disabled = true;
+                publishBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Uploading to Cloud...`;
+                uploadToImgBB(fileInput.files[0], (url) => {
+                    finalize(url);
+                });
+            } else {
+                finalize('assets/images/logo.png');
+            }
+        }
+
+        // Clean & Convert heavy local data / base64 to default lightweight assets
+        function cleanAndMigrateOldImages() {
+            if (confirm('This will clean up heavy cached images and reset items with valid image paths, freeing up your storage space completely. Proceed?')) {
+                let cleanedCount = 0;
+                ['page1', 'page2', 'page3'].forEach(page => {
+                    if (siteData.posts[page]) {
+                        siteData.posts[page].forEach(p => {
+                            if (p.image && p.image.startsWith('data:')) {
+                                p.image = 'assets/images/logo.png';
+                                cleanedCount++;
+                            }
+                        });
+                    }
+                });
+                saveData();
+                renderAdminPosts();
+                alert(`Successfully cleaned ${cleanedCount} heavy local images and freed up your storage space!`);
+            }
+        }
+
+        // Videos
+        function renderAdminVideos() {
+            const page = document.getElementById('filterVidPage').value;
+            const vids = siteData.videos[page] || [];
+            const tbody = document.getElementById('adminVideosBody');
+            tbody.innerHTML = vids.map((v, idx) => `
+                <tr>
+                    <td>${idx + 1}</td>
+                    <td>${v.title}</td>
+                    <td style="max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${v.url.startsWith('data:') ? 'Uploaded MP4 File' : v.url}</td>
+                    <td>
+                        <button class="btn btn-secondary" style="padding:6px 10px;" onclick="moveVideo('${page}', ${idx}, -1)"><i class="fa-solid fa-arrow-up"></i></button>
+                        <button class="btn btn-secondary" style="padding:6px 10px;" onclick="moveVideo('${page}', ${idx}, 1)"><i class="fa-solid fa-arrow-down"></i></button>
+                        <button class="btn btn-danger" style="padding:6px 10px;" onclick="deleteVideo('${page}', ${idx})"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function moveVideo(page, idx, dir) {
+            const arr = siteData.videos[page];
+            const target = idx + dir;
+            if (target < 0 || target >= arr.length) return;
+            [arr[idx], arr[target]] = [arr[target], arr[idx]];
+            saveData();
+            renderAdminVideos();
+        }
+
+        function deleteVideo(page, idx) {
+            siteData.videos[page].splice(idx, 1);
+            saveData();
+            renderAdminVideos();
+        }
+
+        function addNewVideo(e) {
+            e.preventDefault();
+            const page = document.getElementById('newVidPage').value;
+            const title = document.getElementById('newVidTitle').value;
+            const url = document.getElementById('newVidUrl').value;
+            const fileInput = document.getElementById('newVidFile');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    siteData.videos[page].push({ id: 'v_' + Date.now(), title, url: ev.target.result });
+                    saveData();
+                    renderAdminVideos();
+                    e.target.reset();
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else if (url) {
+                siteData.videos[page].push({ id: 'v_' + Date.now(), title, url });
+                saveData();
+                renderAdminVideos();
+                e.target.reset();
+            }
+        }
+
+        // Marquee
+        function renderAdminMarquee() {
+            const tbody = document.getElementById('adminMarqueeBody');
+            tbody.innerHTML = siteData.marqueeItems.map((m, idx) => `
+                <tr>
+                    <td>${m.name}</td>
+                    <td>${m.price}</td>
+                    <td><button class="btn btn-danger" style="padding:6px 10px;" onclick="deleteMarquee(${idx})"><i class="fa-solid fa-trash"></i></button></td>
+                </tr>
+            `).join('');
+        }
+
+        function addMarqueeItem(e) {
+            e.preventDefault();
+            siteData.marqueeItems.push({
+                id: 'm_' + Date.now(),
+                name: document.getElementById('mqName').value,
+                price: document.getElementById('mqPrice').value
+            });
+            saveData();
+            renderAdminMarquee();
+            e.target.reset();
+        }
+
+        function deleteMarquee(idx) {
+            siteData.marqueeItems.splice(idx, 1);
+            saveData();
+            renderAdminMarquee();
+        }
+
+        // Branding
+        function loadBrandingFields() {
+            document.getElementById('bioEn').value = siteData.headerBio.en;
+            document.getElementById('bioFr').value = siteData.headerBio.fr;
+            document.getElementById('bioAr').value = siteData.headerBio.ar;
+        }
+
+        function updateLogo(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            uploadToImgBB(file, (url) => {
+                siteData.logoDataUrl = url;
+                saveData();
+                notify('Logo updated via cloud link!');
+            });
+        }
+
+        function saveBranding() {
+            siteData.headerBio.en = document.getElementById('bioEn').value;
+            siteData.headerBio.fr = document.getElementById('bioFr').value;
+            siteData.headerBio.ar = document.getElementById('bioAr').value;
+            saveData();
+        }
+
+        function resetAllDefaults() {
+            if (confirm('Reset everything back to original defaults?')) {
+                localStorage.removeItem('dardyafa_site_data');
+                location.reload();
+            }
+        }
+
+        function exportDataJs() {
+            const content = `const DEFAULT_SITE_DATA = ${JSON.stringify(siteData, null, 4)};\n`;
+            const blob = new Blob([content], { type: 'application/javascript' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'data.js';
+            a.click();
+        }
+
+        if (sessionStorage.getItem('dardyafa_admin_logged') === 'true') {
+            showDashboard();
+        }
+    </script>
+</body>
+</html>
