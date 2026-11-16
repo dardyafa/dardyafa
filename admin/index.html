@@ -193,11 +193,11 @@
                                 <input type="text" id="newPostPrice" placeholder="$12.99 or leave empty">
                             </div>
                             <div class="input-group">
-                                <label>Upload PC Photo (Auto Cloud)</label>
+                                <label>Upload PC Photo (Instant Link Conversion)</label>
                                 <input type="file" id="newPostFile" accept="image/*">
                             </div>
                             <div class="input-group" style="grid-column: 1 / -1;">
-                                <label style="color:var(--gold);">Or Paste Direct Image URL (https://i.ibb.co/...) [Fastest Alternative]</label>
+                                <label style="color:var(--gold);">Or Paste Direct Image Link (https://i.ibb.co/...) [Fastest Alternative]</label>
                                 <input type="url" id="newPostUrlInput" placeholder="https://i.ibb.co/... (Leave empty if uploading from PC)">
                             </div>
                         </div>
@@ -247,7 +247,7 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Photo / URL & Cloud Upload</th>
+                                    <th>Photo URL & Cloud Link</th>
                                     <th>ID</th>
                                     <th>Titles (EN / FR / AR)</th>
                                     <th>Price</th>
@@ -400,7 +400,7 @@
             alert('GitHub Token saved securely in your browser!');
         }
 
-        // Automated GitHub Publish via API
+        // Automated GitHub Publish via API (Clean replacing data)
         function publishLiveToGitHub() {
             const token = localStorage.getItem('dardyafa_gh_token') || document.getElementById('ghTokenInput').value.trim();
             if (!token) {
@@ -433,7 +433,7 @@
             .then(fileData => {
                 const sha = fileData.sha;
 
-                // 2. Update file
+                // 2. Update file cleanly replacing old data
                 return fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
                     method: 'PUT',
                     headers: {
@@ -442,7 +442,7 @@
                         'Accept': 'application/vnd.github.v3+json'
                     },
                     body: JSON.stringify({
-                        message: 'Admin Panel Live Update via One-Click Publish',
+                        message: 'Admin Panel Clean Live Update',
                         content: contentEncoded,
                         sha: sha
                     })
@@ -523,7 +523,7 @@
             }
         }
 
-        // ImgBB upload
+        // Reliable ImgBB direct cloud upload with immediate link display
         function uploadToImgBB(file, callback) {
             const formData = new FormData();
             formData.append('image', file);
@@ -536,11 +536,11 @@
                 if (data && data.success) {
                     callback(data.data.url);
                 } else {
-                    alert('Cloud upload failed.');
+                    alert('Cloud upload failed. Please try a smaller image or paste direct link.');
                 }
             })
             .catch(() => {
-                alert('Cloud upload network error.');
+                alert('Cloud upload network error. Please use direct link option.');
             });
         }
 
@@ -587,7 +587,7 @@
                 <tr>
                     <td>
                         <img src="${p.image.startsWith('assets/') ? '../' + p.image : p.image}" class="thumb" onerror="this.src='${p.image}'"><br>
-                        <input type="text" id="imgInput_${page}_${idx}" value="${p.image}" style="font-size:0.7rem;width:130px;margin-top:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostImageString('${page}', ${idx}, this.value)" placeholder="Image URL"><br>
+                        <input type="text" id="imgInput_${page}_${idx}" value="${p.image}" style="font-size:0.7rem;width:140px;margin-top:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostImageString('${page}', ${idx}, this.value)" placeholder="Image URL"><br>
                         <label style="font-size:0.65rem;color:var(--gold);cursor:pointer;display:inline-block;margin-top:3px;">
                             <i class="fa-solid fa-cloud-arrow-up"></i> Upload PC Image
                             <input type="file" accept="image/*" style="display:none;" onchange="uploadExistingPostImage('${page}', ${idx}, this)">
@@ -608,16 +608,15 @@
             `).join('');
         }
 
-        // Instant upload for existing post item image
         function uploadExistingPostImage(page, idx, inputElem) {
             const file = inputElem.files[0];
             if (!file) return;
-            notify('Uploading image to ImgBB cloud...');
+            notify('Uploading image to cloud...');
             uploadToImgBB(file, (url) => {
                 siteData.posts[page][idx].image = url;
                 saveData();
                 renderAdminPosts();
-                notify('Image updated via cloud link successfully!');
+                notify('Image uploaded and link updated successfully!');
             });
         }
 
@@ -676,15 +675,18 @@
                 e.target.reset();
                 publishBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Publish Item`;
                 publishBtn.disabled = false;
+                notify('Item added successfully!');
             };
 
-            // Priority: Direct URL input first, then PC file upload, then default logo
             if (urlInput) {
                 finalize(urlInput);
             } else if (fileInput.files && fileInput.files[0]) {
                 publishBtn.disabled = true;
-                publishBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Uploading to Cloud...`;
-                uploadToImgBB(fileInput.files[0], (url) => { finalize(url); });
+                publishBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Converting to Link...`;
+                uploadToImgBB(fileInput.files[0], (url) => {
+                    document.getElementById('newPostUrlInput').value = url; // Shows the direct link right in front of you
+                    finalize(url);
+                });
             } else {
                 finalize('assets/images/logo.png');
             }
