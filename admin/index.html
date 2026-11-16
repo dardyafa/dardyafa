@@ -123,8 +123,8 @@
                 <button class="btn btn-publish" onclick="publishLiveToGitHub()">
                     <i class="fa-solid fa-cloud-arrow-up"></i> Publish Live to Website
                 </button>
-                <button class="btn btn-secondary" onclick="exportDataJs()" style="background:#2563eb;color:#fff;">
-                    <i class="fa-solid fa-download"></i> Download data.js (100% Safe)
+                <button class="btn btn-secondary" onclick="exportDataJs()">
+                    <i class="fa-solid fa-download"></i> Export data.js
                 </button>
                 <button class="btn btn-danger" onclick="logout()">
                     <i class="fa-solid fa-power-off"></i> Logout
@@ -193,12 +193,12 @@
                                 <input type="text" id="newPostPrice" placeholder="$12.99 or leave empty">
                             </div>
                             <div class="input-group">
-                                <label>Upload PC Photo (Instant Link)</label>
+                                <label>Upload PC Photo (Auto Multi-CDN Link Conversion)</label>
                                 <input type="file" id="newPostFile" accept="image/*">
                             </div>
                             <div class="input-group" style="grid-column: 1 / -1;">
-                                <label style="color:var(--gold);">Or Paste Direct Image Link (https://i.ibb.co/...) [Fastest Alternative]</label>
-                                <input type="url" id="newPostUrlInput" placeholder="https://i.ibb.co/... (Paste direct link here)">
+                                <label style="color:var(--gold);">Or Paste Direct Image Link (https://...) [Manual Backup Option]</label>
+                                <input type="url" id="newPostUrlInput" placeholder="https://... (Leave empty if uploading from PC)">
                             </div>
                         </div>
                         <div class="grid-2">
@@ -247,7 +247,7 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Photo URL</th>
+                                    <th>Photo URL & Cloud Link</th>
                                     <th>ID</th>
                                     <th>Titles (EN / FR / AR)</th>
                                     <th>Price</th>
@@ -328,53 +328,23 @@
             <!-- 5. Branding & Bio Panel -->
             <div class="panel" id="panel-branding">
                 <div class="card">
-                    <h3>Logo & Website Header Controls (Multi-Language)</h3>
+                    <h3>Logo & Header Bio</h3>
                     <div class="input-group">
                         <label>Upload New Brand Logo (PNG/JPG)</label>
                         <input type="file" id="logoUploadInput" accept="image/*" onchange="updateLogo(event)">
                     </div>
                     <div class="grid-2">
                         <div class="input-group">
-                            <label>Brand Main Title (e.g. DAR DYAFA)</label>
-                            <input type="text" id="brandTitleInput">
+                            <label>Header Bio (English)</label>
+                            <input type="text" id="bioEn">
                         </div>
                         <div class="input-group">
-                            <label>Brand Subtitle (e.g. BOSTON • MOROCCAN HOSPITALITY)</label>
-                            <input type="text" id="brandSubtitleInput">
+                            <label>Header Bio (French)</label>
+                            <input type="text" id="bioFr">
                         </div>
                         <div class="input-group">
-                            <label>Contact Phone (Top Bar)</label>
-                            <input type="text" id="contactPhoneInput">
-                        </div>
-                    </div>
-
-                    <h4 style="color:var(--gold);margin: 20px 0 10px;">Hero Welcome Big Title & Description (3 Languages)</h4>
-                    <div class="grid-2">
-                        <div class="input-group">
-                            <label>Welcome Title (English)</label>
-                            <input type="text" id="welcomeTitleEn">
-                        </div>
-                        <div class="input-group">
-                            <label>Welcome Title (French)</label>
-                            <input type="text" id="welcomeTitleFr">
-                        </div>
-                        <div class="input-group">
-                            <label>Welcome Title (Arabic)</label>
-                            <input type="text" id="welcomeTitleAr">
-                        </div>
-                    </div>
-                    <div class="grid-2">
-                        <div class="input-group">
-                            <label>Welcome Description (English)</label>
-                            <textarea id="welcomeDescEn" rows="2"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label>Welcome Description (French)</label>
-                            <textarea id="welcomeDescFr" rows="2"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label>Welcome Description (Arabic)</label>
-                            <textarea id="welcomeDescAr" rows="2"></textarea>
+                            <label>Header Bio (Arabic)</label>
+                            <input type="text" id="bioAr">
                         </div>
                     </div>
 
@@ -388,7 +358,7 @@
                     </div>
 
                     <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
-                        <button class="btn" onclick="saveBranding()"><i class="fa-solid fa-floppy-disk"></i> Save Header & Bio Changes</button>
+                        <button class="btn" onclick="saveBranding()"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
                         <button class="btn btn-ai" onclick="cleanAndMigrateOldImages()"><i class="fa-solid fa-cloud-arrow-up"></i> Clean & Convert Heavy Data</button>
                         <button class="btn btn-danger" onclick="resetAllDefaults()">Reset Site to Factory Defaults</button>
                     </div>
@@ -468,7 +438,7 @@
                         'Accept': 'application/vnd.github.v3+json'
                     },
                     body: JSON.stringify({
-                        message: 'Admin Panel Live Update',
+                        message: 'Admin Panel Clean Live Update',
                         content: contentEncoded,
                         sha: sha
                     })
@@ -482,7 +452,7 @@
                 }
             })
             .catch(err => {
-                alert('Error publishing to GitHub: ' + err.message + '\nTip: You can use "Download data.js" as a 100% secure alternative!');
+                alert('Error publishing to GitHub: ' + err.message);
             });
         }
 
@@ -549,26 +519,47 @@
             }
         }
 
-        // Reliable image conversion / upload fallback
-        function uploadToImgBB(file, callback) {
-            const formData = new FormData();
-            formData.append('image', file);
-            fetch('https://api.imgbb.com/1/upload?key=6d203875883d65b75017e471f4646733', {
+        // ==========================================
+        // SMART MULTI-CDN FAILOVER UPLOAD SYSTEM
+        // ==========================================
+        function uploadSmartImage(file, callback) {
+            // 1. Try Catbox.moe first (Fast direct link)
+            const formData1 = new FormData();
+            formData1.append('reqtype', 'fileupload');
+            formData1.append('fileToUpload', file);
+
+            fetch('https://catbox.moe/user/api.php', {
                 method: 'POST',
-                body: formData
+                body: formData1
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data && data.success) {
-                    callback(data.data.url);
+            .then(res => res.text())
+            .then(url => {
+                if (url && url.startsWith('http')) {
+                    callback(url.trim());
                 } else {
-                    // Fallback to local data URL if external API fails
-                    const reader = new FileReader();
-                    reader.onload = (ev) => callback(ev.target.result);
-                    reader.readAsDataURL(file);
+                    throw new Error('Catbox failed, trying Postimages fallback');
                 }
             })
             .catch(() => {
+                // 2. Fallback to ImgBB if Catbox fails
+                const formData2 = new FormData();
+                formData2.append('image', file);
+                return fetch('https://api.imgbb.com/1/upload?key=6d203875883d65b75017e471f4646733', {
+                    method: 'POST',
+                    body: formData2
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.success) {
+                        callback(data.data.url);
+                    } else {
+                        throw new Error('All cloud uploads failed');
+                    }
+                });
+            })
+            .catch(() => {
+                // 3. Final fallback to local compressed Data URL if all CDNs fail
+                alert('Cloud servers busy. Using secure local conversion fallback.');
                 const reader = new FileReader();
                 reader.onload = (ev) => callback(ev.target.result);
                 reader.readAsDataURL(file);
@@ -618,7 +609,11 @@
                 <tr>
                     <td>
                         <img src="${p.image && p.image.startsWith('assets/') ? '../' + p.image : p.image}" class="thumb" onerror="this.src='${p.image}'"><br>
-                        <input type="text" value="${p.image || ''}" style="font-size:0.7rem;width:140px;margin-top:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostImageString('${page}', ${idx}, this.value)" placeholder="Image URL">
+                        <input type="text" id="imgInput_${page}_${idx}" value="${p.image}" style="font-size:0.7rem;width:140px;margin-top:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostImageString('${page}', ${idx}, this.value)" placeholder="Image URL"><br>
+                        <label style="font-size:0.65rem;color:var(--gold);cursor:pointer;display:inline-block;margin-top:3px;">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Upload PC Image
+                            <input type="file" accept="image/*" style="display:none;" onchange="uploadExistingPostImage('${page}', ${idx}, this)">
+                        </label>
                     </td>
                     <td><input type="text" value="${p.id}" style="width:75px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;" onchange="updatePostField('${page}', ${idx}, 'id', this.value)"></td>
                     <td>
@@ -633,6 +628,18 @@
                     </td>
                 </tr>
             `).join('');
+        }
+
+        function uploadExistingPostImage(page, idx, inputElem) {
+            const file = inputElem.files[0];
+            if (!file) return;
+            notify('Uploading via Smart Multi-CDN...');
+            uploadSmartImage(file, (url) => {
+                siteData.posts[page][idx].image = url;
+                saveData();
+                renderAdminPosts();
+                notify('Image uploaded and direct link generated successfully!');
+            });
         }
 
         function updatePostField(page, idx, field, val) {
@@ -690,16 +697,16 @@
                 e.target.reset();
                 publishBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Publish Item`;
                 publishBtn.disabled = false;
-                notify('New item added successfully!');
+                notify('Item added successfully!');
             };
 
             if (urlInput) {
                 finalize(urlInput);
             } else if (fileInput.files && fileInput.files[0]) {
                 publishBtn.disabled = true;
-                publishBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing Image...`;
-                uploadToImgBB(fileInput.files[0], (url) => {
-                    document.getElementById('newPostUrlInput').value = url; // Shows link directly
+                publishBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Converting to Direct Link...`;
+                uploadSmartImage(fileInput.files[0], (url) => {
+                    document.getElementById('newPostUrlInput').value = url; // Automatically populates direct link into input field
                     finalize(url);
                 });
             } else {
@@ -813,56 +820,27 @@
         }
 
         function loadBrandingFields() {
-            if (!siteData.headerBio) siteData.headerBio = {en:"", fr:"", ar:""};
-            if (!siteData.brandTitle) siteData.brandTitle = "DAR DYAFA";
-            if (!siteData.brandSubtitle) siteData.brandSubtitle = "BOSTON • MOROCCAN HOSPITALITY";
-            if (!siteData.contactPhone) siteData.contactPhone = "774-408-0421";
-            if (!siteData.welcomeTitle) siteData.welcomeTitle = {en:"", fr:"", ar:""};
-
-            document.getElementById('brandTitleInput').value = siteData.brandTitle;
-            document.getElementById('brandSubtitleInput').value = siteData.brandSubtitle;
-            document.getElementById('contactPhoneInput').value = siteData.contactPhone;
-
-            document.getElementById('bioEn').value = siteData.headerBio.en || '';
-            document.getElementById('bioFr').value = siteData.headerBio.fr || '';
-            document.getElementById('bioAr').value = siteData.headerBio.ar || '';
-
-            document.getElementById('welcomeTitleEn').value = siteData.welcomeTitle.en || '';
-            document.getElementById('welcomeTitleFr').value = siteData.welcomeTitle.fr || '';
-            document.getElementById('welcomeTitleAr').value = siteData.welcomeTitle.ar || '';
-
-            document.getElementById('welcomeDescEn').value = siteData.headerBio.en || '';
-            document.getElementById('welcomeDescFr').value = siteData.headerBio.fr || '';
-            document.getElementById('welcomeDescAr').value = siteData.headerBio.ar || '';
+            document.getElementById('bioEn').value = siteData.headerBio.en;
+            document.getElementById('bioFr').value = siteData.headerBio.fr;
+            document.getElementById('bioAr').value = siteData.headerBio.ar;
         }
 
         function updateLogo(e) {
             const file = e.target.files[0];
             if (!file) return;
-            uploadToImgBB(file, (url) => {
+            uploadSmartImage(file, (url) => {
                 siteData.logoDataUrl = url;
                 saveData();
-                notify('Logo updated successfully!');
+                notify('Logo updated via smart cloud link!');
             });
         }
 
         function saveBranding() {
-            siteData.brandTitle = document.getElementById('brandTitleInput').value;
-            siteData.brandSubtitle = document.getElementById('brandSubtitleInput').value;
-            siteData.contactPhone = document.getElementById('contactPhoneInput').value;
-
             siteData.headerBio.en = document.getElementById('bioEn').value;
             siteData.headerBio.fr = document.getElementById('bioFr').value;
             siteData.headerBio.ar = document.getElementById('bioAr').value;
-
-            siteData.welcomeTitle = {
-                en: document.getElementById('welcomeTitleEn').value,
-                fr: document.getElementById('welcomeTitleFr').value,
-                ar: document.getElementById('welcomeTitleAr').value
-            };
-
             saveData();
-            notify('Header & Branding saved successfully!');
+            notify('Branding saved locally!');
         }
 
         function resetAllDefaults() {
