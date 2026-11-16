@@ -8,6 +8,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Reel 9:16 Vertical Custom Player Polish */
+        .video-stage iframe, .video-stage video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        .video-player-box {
+            max-width: 380px !important;
+            margin: 0 auto;
+            aspect-ratio: 9/16;
+            background: #000;
+            position: relative;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body dir="ltr">
 
@@ -29,7 +48,7 @@
     <!-- Main Sticky Header -->
     <header class="main-header">
         <a href="index.html" class="brand">
-            <img id="siteLogoImg" src="assets/images/logo.png" alt="Dar Dyafa Logo">
+            <img id="siteLogoImg" src="assets/images/logo.png" alt="Dar Dyafa Logo" onerror="this.src='assets/images/logo.jpg'">
             <div class="brand-text">
                 <h1>DAR DYAFA</h1>
                 <span>BOSTON • MOROCCAN HOSPITALITY</span>
@@ -81,9 +100,9 @@
                 <button class="video-nav-btn video-prev" onclick="prevVideo()" title="Previous Video"><i class="fa-solid fa-chevron-left"></i></button>
                 <button class="video-nav-btn video-next" onclick="nextVideo()" title="Next Video"><i class="fa-solid fa-chevron-right"></i></button>
                 <div class="video-stage" id="videoStage"></div>
-                <div class="video-controls-bar">
-                    <div id="currentVideoTitle" style="font-weight:700;color:var(--gold-light);"></div>
-                    <div class="video-dots" id="videoDots"></div>
+                <div class="video-controls-bar" style="position:absolute;bottom:0;width:100%;background:rgba(0,0,0,0.7);padding:10px;text-align:center;">
+                    <div id="currentVideoTitle" style="font-weight:700;color:var(--gold-light);font-size:0.9rem;"></div>
+                    <div class="video-dots" id="videoDots" style="margin-top:4px;"></div>
                 </div>
             </div>
         </div>
@@ -129,7 +148,6 @@
                 <input type="hidden" id="orderItemTitle">
                 <input type="hidden" id="orderItemPrice">
 
-                <!-- Dynamic fields depending on Tab 1 vs Tab 2/3 -->
                 <div id="foodFields">
                     <div class="form-group">
                         <label data-i18n="labelName">Full Name</label>
@@ -258,7 +276,6 @@
         let siteData = JSON.parse(localStorage.getItem('dardyafa_site_data')) || DEFAULT_SITE_DATA;
 
         function initSite() {
-            // Top links from config
             document.getElementById('topMapLink').href = SITE_CONFIG.locationMap;
             document.getElementById('topIg').href = SITE_CONFIG.socials.page1.instagram;
             document.getElementById('topFb').href = SITE_CONFIG.socials.page1.facebook;
@@ -285,14 +302,12 @@
                 btn.classList.toggle('active', btn.dataset.lang === lang);
             });
 
-            // Update static texts
             const t = UI_TRANSLATIONS[lang];
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (t[key]) el.textContent = t[key];
             });
 
-            // Dynamic translated texts from siteData
             document.getElementById('headerBioText').textContent = siteData.headerBio[lang] || siteData.headerBio.en;
             document.getElementById('welcomeTitleText').textContent = siteData.welcomeTitle[lang] || siteData.welcomeTitle.en;
             document.getElementById('welcomeSubText').textContent = siteData.welcomeSub[lang] || siteData.welcomeSub.en;
@@ -303,7 +318,6 @@
             renderCurrentTabContent();
         }
 
-        // Marquee ALWAYS stays in English regardless of selected site language
         function renderMarquee() {
             const track = document.getElementById('marqueeTrack');
             const items = siteData.marqueeItems || [];
@@ -359,32 +373,19 @@
         }
 
         function getEmbedHtml(url) {
-            if (!url) return '<p style="color:#888;">No video URL</p>';
-            // Direct MP4 / local upload
+            if (!url) return '<p style="color:#888;text-align:center;padding-top:50%;">No video URL</p>';
             if (url.startsWith('data:video') || url.endsWith('.mp4') || url.endsWith('.webm')) {
                 return `<video src="${url}" controls autoplay muted playsinline></video>`;
             }
-            // YouTube
             const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
             if (ytMatch) {
-                return `<iframe src="https://www.youtube.com/embed/${ytMatch[1]}?autoplay=0&rel=0" allowfullscreen></iframe>`;
+                return `<iframe src="https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1&mute=1&loop=1&playlist=${ytMatch[1]}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
             }
-            // Instagram Post/Reel
             const igMatch = url.match(/instagram\.com\/(?:p|reel)\/([\w-]+)/);
             if (igMatch) {
-                return `<iframe src="https://www.instagram.com/p/${igMatch[1]}/embed" scrolling="no" allowtransparency="true"></iframe>`;
+                return `<iframe src="https://www.instagram.com/p/${igMatch[1]}/embed" scrolling="no" frameborder="0" allowtransparency="true"></iframe>`;
             }
-            // Fallback stylish preview card with direct launch button (for Instagram Highlights / TikTok / Facebook links)
-            return `
-                <div style="text-align:center;padding:40px 20px;">
-                    <i class="fa-brands fa-instagram" style="font-size:3.5rem;color:var(--gold);margin-bottom:16px;"></i>
-                    <h4 style="font-size:1.25rem;margin-bottom:10px;">Watch Exclusive Reel / Highlight</h4>
-                    <p style="color:var(--text-muted);margin-bottom:20px;max-width:420px;">Click below to view this video directly on our official social media channel.</p>
-                    <a href="${url}" target="_blank" class="btn-order" style="text-decoration:none;">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Video
-                    </a>
-                </div>
-            `;
+            return `<iframe src="${url}" scrolling="no" frameborder="0" allowtransparency="true"></iframe>`;
         }
 
         function renderVideos() {
@@ -395,7 +396,7 @@
             const dotsEl = document.getElementById('videoDots');
 
             if (vids.length === 0) {
-                stage.innerHTML = '<p style="color:#888;">No videos added yet.</p>';
+                stage.innerHTML = '<p style="color:#888;text-align:center;padding-top:50%;">No videos added yet.</p>';
                 counter.textContent = '0 / 0';
                 titleEl.textContent = '';
                 dotsEl.innerHTML = '';
@@ -411,7 +412,7 @@
             titleEl.textContent = activeVid.title || `Video #${currentVideoIdx + 1}`;
 
             dotsEl.innerHTML = vids.map((_, idx) => `
-                <span class="v-dot ${idx === currentVideoIdx ? 'active' : ''}" onclick="goToVideo(${idx})"></span>
+                <span class="v-dot ${idx === currentVideoIdx ? 'active' : ''}" onclick="goToVideo(${idx})" style="display:inline-block;width:8px;height:8px;margin:0 3px;background:${idx === currentVideoIdx ? 'var(--gold)' : '#555'};border-radius:50%;cursor:pointer;"></span>
             `).join('');
         }
 
@@ -419,7 +420,6 @@
         function prevVideo() { currentVideoIdx--; renderVideos(); }
         function goToVideo(idx) { currentVideoIdx = idx; renderVideos(); }
 
-        // Keyboard arrow navigation for videos
         document.addEventListener('keydown', (e) => {
             if (document.getElementById('orderModal').classList.contains('open')) return;
             if (e.key === 'ArrowRight') nextVideo();
@@ -570,16 +570,14 @@
                 waMessage += `*Service:* ${evType}%0A`;
                 waMessage += `*Event Date:* ${evDate}%0A`;
                 waMessage += `*City & Venue:* ${evLoc}%0A`;
-                waMessage += `*Client Name:* ${name}%0A`;
+                waMessage +`*Client Name:* ${name}%0A`;
                 waMessage += `*Phone:* ${phone}%0A`;
             }
 
-            // Save order to localStorage so /admin sees it immediately
             const existingOrders = JSON.parse(localStorage.getItem('dardyafa_orders')) || [];
             existingOrders.unshift(orderRecord);
             localStorage.setItem('dardyafa_orders', JSON.stringify(existingOrders));
 
-            // Redirect to WhatsApp with formatted message
             const whatsappUrl = `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${waMessage}`;
             window.open(whatsappUrl, '_blank');
             closeModal();
