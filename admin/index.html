@@ -136,8 +136,8 @@
             <button class="pill active" onclick="showPanel('orders', this)"><i class="fa-solid fa-receipt"></i> Customer Orders</button>
             <button class="pill" onclick="showPanel('posts', this)"><i class="fa-solid fa-images"></i> Posts & Menu Items</button>
             <button class="pill" onclick="showPanel('videos', this)"><i class="fa-solid fa-video"></i> Video Carousel</button>
-            <button class="pill" onclick="showPanel('marquee', this)"><i class="fa-solid fa-bullhorn"></i> Marquee Ticker (EN)</button>
-            <button class="pill" onclick="showPanel('branding', this)"><i class="fa-solid fa-sliders"></i> Logo, Bio & Tabs</button>
+            <button class="pill" onclick="showPanel('marquee', this)"><i class="fa-solid fa-bullhorn"></i> معرض الثمن (Marquee Ticker)</button>
+            <button class="pill" onclick="showPanel('branding', this)"><i class="fa-solid fa-sliders"></i> أعلا الصفحة وأسفل الصفحة</button>
         </div>
 
         <div class="content">
@@ -309,10 +309,10 @@
                 </div>
             </div>
 
-            <!-- 4. Marquee Panel -->
+            <!-- 4. Marquee Panel (معرض الثمن) -->
             <div class="panel" id="panel-marquee">
                 <div class="card">
-                    <h3>Scrolling Marquee Ticker (English Only)</h3>
+                    <h3>معرض الثمن (Scrolling Marquee Ticker - English Only)</h3>
                     <form onsubmit="addMarqueeItem(event)" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
                         <input type="text" id="mqName" required placeholder="Item Name (English)" style="flex:2;min-width:200px;padding:10px;border-radius:8px;background:#0b0a09;color:#fff;border:1px solid #333;">
                         <input type="text" id="mqPrice" placeholder="Price e.g. $12.99" style="flex:1;min-width:120px;padding:10px;border-radius:8px;background:#0b0a09;color:#fff;border:1px solid #333;">
@@ -325,26 +325,80 @@
                 </div>
             </div>
 
-            <!-- 5. Branding & Bio Panel -->
+            <!-- 5. Branding, Top Header & Footer Panel (أعلا الصفحة وأسفل الصفحة) -->
             <div class="panel" id="panel-branding">
                 <div class="card">
-                    <h3>Logo & Header Bio</h3>
-                    <div class="input-group">
-                        <label>Upload New Brand Logo (PNG/JPG)</label>
-                        <input type="file" id="logoUploadInput" accept="image/*" onchange="updateLogo(event)">
+                    <h3 style="color:var(--gold);margin-bottom:15px;"><i class="fa-solid fa-arrow-up"></i> أعلَى الصفحة (Top Bar Header - 3 Languages)</h3>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label>Top Header Text (English)</label>
+                            <input type="text" id="topHeaderEn">
+                        </div>
+                        <div class="input-group">
+                            <label>Top Header Text (French)</label>
+                            <input type="text" id="topHeaderFr">
+                        </div>
+                        <div class="input-group">
+                            <label>Top Header Text (Arabic)</label>
+                            <input type="text" id="topHeaderAr">
+                        </div>
                     </div>
                     <div class="grid-2">
                         <div class="input-group">
-                            <label>Header Bio (English)</label>
-                            <input type="text" id="bioEn">
+                            <label>Location / Address Text (English)</label>
+                            <input type="text" id="topLocEn">
                         </div>
                         <div class="input-group">
-                            <label>Header Bio (French)</label>
-                            <input type="text" id="bioFr">
+                            <label>Location / Address Text (Arabic/Fr)</label>
+                            <input type="text" id="topLocAr">
                         </div>
                         <div class="input-group">
-                            <label>Header Bio (Arabic)</label>
-                            <input type="text" id="bioAr">
+                            <label>Phone Number</label>
+                            <input type="text" id="topPhone">
+                        </div>
+                    </div>
+
+                    <h3 style="color:var(--gold);margin:25px 0 15px;"><i class="fa-solid fa-share-nodes"></i> روابط وسائل التواصل الاجتماعي (Social Media Links)</h3>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label><i class="fa-brands fa-whatsapp"></i> WhatsApp Number / Link</label>
+                            <input type="text" id="socialWhatsapp" placeholder="+17744080421">
+                        </div>
+                        <div class="input-group">
+                            <label><i class="fa-brands fa-instagram"></i> Instagram URL</label>
+                            <input type="url" id="socialInstagram" placeholder="https://instagram.com/...">
+                        </div>
+                        <div class="input-group">
+                            <label><i class="fa-brands fa-tiktok"></i> TikTok URL</label>
+                            <input type="url" id="socialTiktok" placeholder="https://tiktok.com/...">
+                        </div>
+                        <div class="input-group">
+                            <label><i class="fa-brands fa-facebook"></i> Facebook URL</label>
+                            <input type="url" id="socialFacebook" placeholder="https://facebook.com/...">
+                        </div>
+                        <div class="input-group">
+                            <label><i class="fa-brands fa-youtube"></i> YouTube URL</label>
+                            <input type="url" id="socialYoutube" placeholder="https://youtube.com/...">
+                        </div>
+                        <div class="input-group">
+                            <label><i class="fa-solid fa-envelope"></i> Gmail Address</label>
+                            <input type="email" id="socialGmail" placeholder="dardyafa@gmail.com">
+                        </div>
+                    </div>
+
+                    <h3 style="color:var(--gold);margin:25px 0 15px;"><i class="fa-solid fa-arrow-down"></i> أسفَل الصفحة (Footer Content - 3 Languages)</h3>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label>Footer Description (English)</label>
+                            <textarea id="footerDescEn" rows="2"></textarea>
+                        </div>
+                        <div class="input-group">
+                            <label>Footer Description (French)</label>
+                            <textarea id="footerDescFr" rows="2"></textarea>
+                        </div>
+                        <div class="input-group">
+                            <label>Footer Description (Arabic)</label>
+                            <textarea id="footerDescAr" rows="2"></textarea>
                         </div>
                     </div>
 
@@ -358,7 +412,7 @@
                     </div>
 
                     <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
-                        <button class="btn" onclick="saveBranding()"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+                        <button class="btn" onclick="saveBranding()"><i class="fa-solid fa-floppy-disk"></i> Save All Header & Footer Settings</button>
                         <button class="btn btn-ai" onclick="cleanAndMigrateOldImages()"><i class="fa-solid fa-cloud-arrow-up"></i> Clean & Convert Heavy Data</button>
                         <button class="btn btn-danger" onclick="resetAllDefaults()">Reset Site to Factory Defaults</button>
                     </div>
@@ -419,13 +473,15 @@
             const contentEncoded = btoa(unescape(encodeURIComponent(fileContent)));
 
             fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                method: 'GET',
                 headers: { 
                     'Authorization': `token ${token}`,
-                    'Accept': 'application/vnd.github.v3+json'
+                    'Accept': 'application/vnd.github.v3+json',
+                    'User-Agent': 'DarDyafa-Admin-Panel'
                 }
             })
             .then(res => {
-                if (!res.ok) throw new Error('File not found or invalid token permissions. Make sure "repo" scope is checked!');
+                if (!res.ok) throw new Error('Could not find js/data.js on GitHub repository. Check repository name or token permissions!');
                 return res.json();
             })
             .then(fileData => {
@@ -435,10 +491,11 @@
                     headers: {
                         'Authorization': `token ${token}`,
                         'Content-Type': 'application/json',
-                        'Accept': 'application/vnd.github.v3+json'
+                        'Accept': 'application/vnd.github.v3+json',
+                        'User-Agent': 'DarDyafa-Admin-Panel'
                     },
                     body: JSON.stringify({
-                        message: 'Admin Panel Clean Live Update',
+                        message: 'Admin Panel Clean Live Update via API',
                         content: contentEncoded,
                         sha: sha
                     })
@@ -452,7 +509,7 @@
                 }
             })
             .catch(err => {
-                alert('Error publishing to GitHub: ' + err.message);
+                alert('GitHub Publish Error: ' + err.message + '\n\nTip: Make sure your Token has "repo" scope checked.');
             });
         }
 
@@ -519,11 +576,7 @@
             }
         }
 
-        // ==========================================
-        // SMART MULTI-CDN FAILOVER UPLOAD SYSTEM
-        // ==========================================
         function uploadSmartImage(file, callback) {
-            // 1. Try Catbox.moe first (Fast direct link)
             const formData1 = new FormData();
             formData1.append('reqtype', 'fileupload');
             formData1.append('fileToUpload', file);
@@ -537,11 +590,10 @@
                 if (url && url.startsWith('http')) {
                     callback(url.trim());
                 } else {
-                    throw new Error('Catbox failed, trying Postimages fallback');
+                    throw new Error('Catbox failed');
                 }
             })
             .catch(() => {
-                // 2. Fallback to ImgBB if Catbox fails
                 const formData2 = new FormData();
                 formData2.append('image', file);
                 return fetch('https://api.imgbb.com/1/upload?key=6d203875883d65b75017e471f4646733', {
@@ -553,12 +605,11 @@
                     if (data && data.success) {
                         callback(data.data.url);
                     } else {
-                        throw new Error('All cloud uploads failed');
+                        throw new Error('ImgBB failed');
                     }
                 });
             })
             .catch(() => {
-                // 3. Final fallback to local compressed Data URL if all CDNs fail
                 alert('Cloud servers busy. Using secure local conversion fallback.');
                 const reader = new FileReader();
                 reader.onload = (ev) => callback(ev.target.result);
@@ -706,7 +757,7 @@
                 publishBtn.disabled = true;
                 publishBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Converting to Direct Link...`;
                 uploadSmartImage(fileInput.files[0], (url) => {
-                    document.getElementById('newPostUrlInput').value = url; // Automatically populates direct link into input field
+                    document.getElementById('newPostUrlInput').value = url;
                     finalize(url);
                 });
             } else {
@@ -820,27 +871,57 @@
         }
 
         function loadBrandingFields() {
-            document.getElementById('bioEn').value = siteData.headerBio.en;
-            document.getElementById('bioFr').value = siteData.headerBio.fr;
-            document.getElementById('bioAr').value = siteData.headerBio.ar;
-        }
+            if (!siteData.topHeader) siteData.topHeader = { en: "", fr: "", ar: "" };
+            if (!siteData.topLocation) siteData.topLocation = { en: "", ar: "" };
+            if (!siteData.socialLinks) siteData.socialLinks = { whatsapp: "", instagram: "", tiktok: "", facebook: "", youtube: "", gmail: "" };
+            if (!siteData.footerDesc) siteData.footerDesc = { en: "", fr: "", ar: "" };
 
-        function updateLogo(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            uploadSmartImage(file, (url) => {
-                siteData.logoDataUrl = url;
-                saveData();
-                notify('Logo updated via smart cloud link!');
-            });
+            document.getElementById('topHeaderEn').value = siteData.topHeader.en || '';
+            document.getElementById('topHeaderFr').value = siteData.topHeader.fr || '';
+            document.getElementById('topHeaderAr').value = siteData.topHeader.ar || '';
+
+            document.getElementById('topLocEn').value = siteData.topLocation.en || '';
+            document.getElementById('topLocAr').value = siteData.topLocation.ar || '';
+            document.getElementById('topPhone').value = siteData.contactPhone || '';
+
+            document.getElementById('socialWhatsapp').value = siteData.socialLinks.whatsapp || '';
+            document.getElementById('socialInstagram').value = siteData.socialLinks.instagram || '';
+            document.getElementById('socialTiktok').value = siteData.socialLinks.tiktok || '';
+            document.getElementById('socialFacebook').value = siteData.socialLinks.facebook || '';
+            document.getElementById('socialYoutube').value = siteData.socialLinks.youtube || '';
+            document.getElementById('socialGmail').value = siteData.socialLinks.gmail || '';
+
+            document.getElementById('footerDescEn').value = siteData.footerDesc.en || '';
+            document.getElementById('footerDescFr').value = siteData.footerDesc.fr || '';
+            document.getElementById('footerDescAr').value = siteData.footerDesc.ar || '';
         }
 
         function saveBranding() {
-            siteData.headerBio.en = document.getElementById('bioEn').value;
-            siteData.headerBio.fr = document.getElementById('bioFr').value;
-            siteData.headerBio.ar = document.getElementById('bioAr').value;
+            if (!siteData.topHeader) siteData.topHeader = {};
+            siteData.topHeader.en = document.getElementById('topHeaderEn').value;
+            siteData.topHeader.fr = document.getElementById('topHeaderFr').value;
+            siteData.topHeader.ar = document.getElementById('topHeaderAr').value;
+
+            if (!siteData.topLocation) siteData.topLocation = {};
+            siteData.topLocation.en = document.getElementById('topLocEn').value;
+            siteData.topLocation.ar = document.getElementById('topLocAr').value;
+            siteData.contactPhone = document.getElementById('topPhone').value;
+
+            if (!siteData.socialLinks) siteData.socialLinks = {};
+            siteData.socialLinks.whatsapp = document.getElementById('socialWhatsapp').value;
+            siteData.socialLinks.instagram = document.getElementById('socialInstagram').value;
+            siteData.socialLinks.tiktok = document.getElementById('socialTiktok').value;
+            siteData.socialLinks.facebook = document.getElementById('socialFacebook').value;
+            siteData.socialLinks.youtube = document.getElementById('socialYoutube').value;
+            siteData.socialLinks.gmail = document.getElementById('socialGmail').value;
+
+            if (!siteData.footerDesc) siteData.footerDesc = {};
+            siteData.footerDesc.en = document.getElementById('footerDescEn').value;
+            siteData.footerDesc.fr = document.getElementById('footerDescFr').value;
+            siteData.footerDesc.ar = document.getElementById('footerDescAr').value;
+
             saveData();
-            notify('Branding saved locally!');
+            notify('أعلا الصفحة وأسفل الصفحة تم حفظها بنجاح!');
         }
 
         function resetAllDefaults() {
