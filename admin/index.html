@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dar Dyafa Admin Panel | Control Center</title>
+    <!-- Website Favicon Logo -->
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -120,8 +122,8 @@
                 <a href="../index.html" target="_blank" class="btn btn-secondary" style="text-decoration:none;">
                     <i class="fa-solid fa-globe"></i> View Live Site
                 </a>
-                <button class="btn btn-publish" onclick="publishLiveToVercel()">
-                    <i class="fa-solid fa-cloud-arrow-up"></i> Publish Live via Vercel
+                <button class="btn btn-publish" onclick="publishLiveToGitHub()">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Publish Live to Website
                 </button>
                 <button class="btn btn-secondary" onclick="exportDataJs()">
                     <i class="fa-solid fa-download"></i> Export data.js
@@ -325,7 +327,7 @@
                 </div>
             </div>
 
-            <!-- 5. Branding, Top Header & Footer Panel -->
+            <!-- 5. Branding, Top Header & Footer Panel (أعلا الصفحة وأسفل الصفحة) -->
             <div class="panel" id="panel-branding">
                 <div class="card">
                     <h3 style="color:var(--gold);margin-bottom:15px;"><i class="fa-solid fa-arrow-up"></i> أعلَى الصفحة (Top Bar Header - 3 Languages)</h3>
@@ -403,12 +405,12 @@
                     </div>
 
                     <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:20px;">
-                        <h3>Vercel Deployment Hook (Publish Integration)</h3>
-                        <div class="input-group" style="max-width:550px;">
-                            <label>Paste Vercel Deploy Hook URL (https://api.vercel.com/v1/integrations/deploy/...)</label>
-                            <input type="password" id="vercelHookInput" placeholder="Paste your Vercel Deploy Hook URL here">
+                        <h3>Vercel Deployment Hook / Token (Anti-GitHub Block)</h3>
+                        <div class="input-group" style="max-width:500px;">
+                            <label>Vercel Deploy Hook URL or Token (vcp_...)</label>
+                            <input type="password" id="ghTokenInput" placeholder="Paste your vcp_ token or Hook URL here">
                         </div>
-                        <button class="btn btn-secondary" onclick="saveVercelHook()">Save Vercel Hook Securely</button>
+                        <button class="btn btn-secondary" onclick="saveGitHubToken()">Save Hook Securely</button>
                     </div>
 
                     <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
@@ -444,44 +446,47 @@
             }
         }
 
-        function saveVercelHook() {
-            const hookUrl = document.getElementById('vercelHookInput').value.trim();
-            if (!hookUrl || !hookUrl.startsWith('http')) {
-                alert('Please enter a valid Vercel Deployment Hook URL.');
+        function saveGitHubToken() {
+            const hookUrl = document.getElementById('ghTokenInput').value.trim();
+            if (!hookUrl) {
+                alert('Please enter a valid Vercel Deployment Hook URL or Token.');
                 return;
             }
-            localStorage.setItem('dardyafa_vercel_hook', hookUrl);
-            alert('Vercel Deploy Hook saved securely in your browser!');
+            localStorage.setItem('dardyafa_gh_token', hookUrl);
+            alert('Vercel Deploy Hook / Token saved securely in your browser!');
         }
 
         // ==========================================
-        // VERCEL LIVE PUBLISH HOOK FUNCTION
+        // VERCEL DEPLOY HOOK PUBLISH FUNCTION
         // ==========================================
-        function publishLiveToVercel() {
-            const hookUrl = localStorage.getItem('dardyafa_vercel_hook') || document.getElementById('vercelHookInput').value.trim();
+        function publishLiveToGitHub() {
+            const hookUrl = localStorage.getItem('dardyafa_gh_token') || document.getElementById('ghTokenInput').value.trim();
             if (!hookUrl) {
-                alert('Please go to Branding tab, paste your Vercel Deployment Hook URL, and click "Save Vercel Hook Securely" first!');
+                alert('Please go to Branding tab, paste your Vercel Deployment Hook URL or Token, and click "Save Hook Securely" first!');
                 showPanel('branding', document.querySelectorAll('.pill')[4]);
                 return;
             }
 
-            if (!confirm('Trigger Vercel live build & deployment now?')) return;
+            // If it's a Vercel Deploy Hook URL, trigger it directly via POST
+            if (hookUrl.startsWith('http')) {
+                if (!confirm('Trigger Vercel live build & deployment now?')) return;
+                notify('Triggering Vercel deployment...');
 
-            notify('Triggering Vercel deployment...');
-
-            fetch(hookUrl, {
-                method: 'POST'
-            })
-            .then(res => {
-                if (res.ok) {
-                    alert('🎉 Deployment triggered successfully! Vercel is now updating your live website (takes ~30 seconds).');
-                } else {
-                    throw new Error('Failed to trigger Vercel deployment hook');
-                }
-            })
-            .catch(err => {
-                alert('Vercel Publish Error: ' + err.message);
-            });
+                fetch(hookUrl, { method: 'POST' })
+                .then(res => {
+                    if (res.ok) {
+                        alert('🎉 Deployment triggered successfully! Vercel is now updating your live website (takes ~30 seconds).');
+                    } else {
+                        throw new Error('Failed to trigger Vercel deployment hook');
+                    }
+                })
+                .catch(err => {
+                    alert('Vercel Publish Error: ' + err.message);
+                });
+            } else {
+                // Fallback for export or manual token notification
+                alert('Token saved! Note: For instant 1-click publishing without GitHub blocks, please use a Vercel Deployment Hook URL (https://api.vercel.com/v1/integrations/deploy/...) in this field.');
+            }
         }
 
         function handleLogin(e) {
@@ -509,8 +514,8 @@
             renderAdminVideos();
             renderAdminMarquee();
             loadBrandingFields();
-            const savedHook = localStorage.getItem('dardyafa_vercel_hook');
-            if (savedHook) document.getElementById('vercelHookInput').value = savedHook;
+            const savedHook = localStorage.getItem('dardyafa_gh_token');
+            if (savedHook) document.getElementById('ghTokenInput').value = savedHook;
         }
 
         function showPanel(name, btn) {
