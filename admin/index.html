@@ -185,16 +185,20 @@
                                 </select>
                             </div>
                             <div class="input-group">
-                                <label>Article ID (e.g. FD-107 or EV-207 or any custom ID)</label>
+                                <label>Article ID (e.g. FD-107 or EV-207)</label>
                                 <input type="text" id="newPostId" required placeholder="FD-107">
                             </div>
                             <div class="input-group">
-                                <label>Price (Optional - leave empty if no price needed)</label>
+                                <label>Price (Optional)</label>
                                 <input type="text" id="newPostPrice" placeholder="$12.99 or leave empty">
                             </div>
                             <div class="input-group">
-                                <label>Upload Photo (Auto Cloud Upload to ImgBB)</label>
-                                <input type="file" id="newPostFile" accept="image/*" required>
+                                <label>Upload PC Photo (Auto Cloud)</label>
+                                <input type="file" id="newPostFile" accept="image/*">
+                            </div>
+                            <div class="input-group" style="grid-column: 1 / -1;">
+                                <label style="color:var(--gold);">Or Paste Direct Image URL (https://i.ibb.co/...) [Fastest Alternative]</label>
+                                <input type="url" id="newPostUrlInput" placeholder="https://i.ibb.co/... (Leave empty if uploading from PC)">
                             </div>
                         </div>
                         <div class="grid-2">
@@ -225,7 +229,7 @@
                                 <textarea id="newPostDescAr" rows="2"></textarea>
                             </div>
                         </div>
-                        <button type="submit" class="btn" id="publishBtn"><i class="fa-solid fa-plus"></i> Publish Item (Auto-Cloud)</button>
+                        <button type="submit" class="btn" id="publishBtn"><i class="fa-solid fa-plus"></i> Publish Item</button>
                     </form>
                 </div>
 
@@ -396,7 +400,7 @@
             alert('GitHub Token saved securely in your browser!');
         }
 
-        // Automated GitHub Publish via API (Fixed owner & repo paths)
+        // Automated GitHub Publish via API
         function publishLiveToGitHub() {
             const token = localStorage.getItem('dardyafa_gh_token') || document.getElementById('ghTokenInput').value.trim();
             if (!token) {
@@ -648,6 +652,7 @@
             e.preventDefault();
             const page = document.getElementById('newPostPage').value;
             const fileInput = document.getElementById('newPostFile');
+            const urlInput = document.getElementById('newPostUrlInput').value.trim();
             const publishBtn = document.getElementById('publishBtn');
 
             const finalize = (imgSrc) => {
@@ -669,11 +674,14 @@
                 saveData();
                 renderAdminPosts();
                 e.target.reset();
-                publishBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Publish Item (Auto-Cloud)`;
+                publishBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Publish Item`;
                 publishBtn.disabled = false;
             };
 
-            if (fileInput.files && fileInput.files[0]) {
+            // Priority: Direct URL input first, then PC file upload, then default logo
+            if (urlInput) {
+                finalize(urlInput);
+            } else if (fileInput.files && fileInput.files[0]) {
                 publishBtn.disabled = true;
                 publishBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Uploading to Cloud...`;
                 uploadToImgBB(fileInput.files[0], (url) => { finalize(url); });
