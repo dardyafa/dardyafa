@@ -52,6 +52,7 @@
         .btn-danger { background: #dc2626; color: #fff; }
         .btn-secondary { background: #2a2421; color: #fff; border: 1px solid var(--border); }
         .btn-ai { background: #7c3aed; color: #fff; }
+        .btn-publish { background: #16a34a; color: #fff; }
 
         .dashboard { display: none; }
         .topbar {
@@ -119,7 +120,10 @@
                 <a href="../index.html" target="_blank" class="btn btn-secondary" style="text-decoration:none;">
                     <i class="fa-solid fa-globe"></i> View Live Site
                 </a>
-                <button class="btn" onclick="exportDataJs()">
+                <button class="btn btn-publish" onclick="publishLiveToGitHub()">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Publish Live to Website
+                </button>
+                <button class="btn btn-secondary" onclick="exportDataJs()">
                     <i class="fa-solid fa-download"></i> Export data.js
                 </button>
                 <button class="btn btn-danger" onclick="logout()">
@@ -239,7 +243,7 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Photo / URL</th>
+                                    <th>Photo / URL & Cloud Upload</th>
                                     <th>ID</th>
                                     <th>Titles (EN / FR / AR)</th>
                                     <th>Price</th>
@@ -339,9 +343,19 @@
                             <input type="text" id="bioAr">
                         </div>
                     </div>
-                    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
+
+                    <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:20px;">
+                        <h3>GitHub Live Publish Settings</h3>
+                        <div class="input-group" style="max-width:450px;">
+                            <label>GitHub Personal Access Token (ghp_...)</label>
+                            <input type="password" id="ghTokenInput" placeholder="Paste your ghp_ token here">
+                        </div>
+                        <button class="btn btn-secondary" onclick="saveGitHubToken()">Save Token Securely</button>
+                    </div>
+
+                    <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
                         <button class="btn" onclick="saveBranding()"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
-                        <button class="btn btn-ai" onclick="cleanAndMigrateOldImages()"><i class="fa-solid fa-cloud-arrow-up"></i> Clean & Convert Heavy Data to Links</button>
+                        <button class="btn btn-ai" onclick="cleanAndMigrateOldImages()"><i class="fa-solid fa-cloud-arrow-up"></i> Clean & Convert Heavy Data</button>
                         <button class="btn btn-danger" onclick="resetAllDefaults()">Reset Site to Factory Defaults</button>
                     </div>
                 </div>
@@ -366,10 +380,73 @@
         function saveData() {
             try {
                 localStorage.setItem('dardyafa_site_data', JSON.stringify(siteData));
-                notify('Changes saved & live on website!');
+                notify('Changes saved locally!');
             } catch (e) {
-                alert('Storage full! Please use the "Clean & Convert Heavy Data" button in Branding tab to free up space.');
+                alert('Storage full! Please use the Clean & Convert button.');
             }
+        }
+
+        function saveGitHubToken() {
+            const token = document.getElementById('ghTokenInput').value.trim();
+            if (!token) {
+                alert('Please enter a valid token.');
+                return;
+            }
+            localStorage.setItem('dardyafa_gh_token', token);
+            alert('GitHub Token saved securely in your browser!');
+        }
+
+        // Automated GitHub Publish via API
+        function publishLiveToGitHub() {
+            const token = localStorage.getItem('dardyafa_gh_token') || document.getElementById('ghTokenInput').value.trim();
+            if (!token) {
+                alert('Please go to Branding tab, paste your GitHub Personal Access Token (ghp_...), and click "Save Token Securely" first!');
+                showPanel('branding', document.querySelectorAll('.pill')[4]);
+                return;
+            }
+
+            if (!confirm('Publish all current changes live to your website via GitHub?')) return;
+
+            notify('Connecting to GitHub & publishing...');
+
+            const owner = 'dardyafa';
+            const repo = 'dardyafa';
+            const path = 'js/data.js';
+            const fileContent = `const DEFAULT_SITE_DATA = ${JSON.stringify(siteData, null, 4)};\n`;
+            const contentEncoded = btoa(unescape(encodeURIComponent(fileContent)));
+
+            // 1. Get existing file SHA
+            fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                headers: { 'Authorization': `token ${token}` }
+            })
+            .then(res => res.json())
+            .then(fileData => {
+                const sha = fileData.sha;
+
+                // 2. Update file
+                return fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Admin Panel Live Update via One-Click Publish',
+                        content: contentEncoded,
+                        sha: sha
+                    })
+                });
+            })
+            .then(res => {
+                if (res.ok) {
+                    alert('🎉 Successfully published live to website! Vercel is now deploying your changes (takes ~30 seconds).');
+                } else {
+                    return res.json().then(err => { throw new Error(err.message || 'Publish failed'); });
+                }
+            })
+            .catch(err => {
+                alert('Error publishing to GitHub: ' + err.message);
+            });
         }
 
         function handleLogin(e) {
@@ -397,6 +474,8 @@
             renderAdminVideos();
             renderAdminMarquee();
             loadBrandingFields();
+            const savedToken = localStorage.getItem('dardyafa_gh_token');
+            if (savedToken) document.getElementById('ghTokenInput').value = savedToken;
         }
 
         function showPanel(name, btn) {
@@ -433,12 +512,10 @@
             }
         }
 
-        // Automatic Cloud Upload to ImgBB API (Free anonymous key)
+        // ImgBB upload
         function uploadToImgBB(file, callback) {
             const formData = new FormData();
             formData.append('image', file);
-            
-            // Using free public ImgBB API key for instant cloud link conversion
             fetch('https://api.imgbb.com/1/upload?key=6d203875883d65b75017e471f4646733', {
                 method: 'POST',
                 body: formData
@@ -446,36 +523,16 @@
             .then(response => response.json())
             .then(data => {
                 if (data && data.success) {
-                    callback(data.data.url); // Returns direct image link
+                    callback(data.data.url);
                 } else {
-                    alert('Cloud upload failed. Falling back to local compression.');
-                    fallbackCompress(file, callback);
+                    alert('Cloud upload failed.');
                 }
             })
             .catch(() => {
-                fallbackCompress(file, callback);
+                alert('Cloud upload network error.');
             });
         }
 
-        function fallbackCompress(file, callback) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const img = new Image();
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    let w = img.width, h = img.height;
-                    if (w > 700) { h = Math.round(h * (700 / w)); w = 700; }
-                    canvas.width = w; canvas.height = h;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, w, h);
-                    callback(canvas.toDataURL('image/jpeg', 0.75));
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // Simple Translation Dictionary Helper
         const transDict = {
             "طجين": {fr: "Tajine Marocain", en: "Moroccan Tajine"},
             "كسكس": {fr: "Couscous Royal", en: "Royal Couscous"},
@@ -489,12 +546,10 @@
         function autoTranslateNewPost() {
             const arTitle = document.getElementById('newPostTitleAr').value.trim();
             const arDesc = document.getElementById('newPostDescAr').value.trim();
-
             if (!arTitle && !arDesc) {
-                alert('المرجو كتابة العنوان أو الوصف باللغة العربية أولاً لكي يتم الترجمة أوتوماتيكياً!');
+                alert('المرجو كتابة العنوان أو الوصف باللغة العربية أولاً!');
                 return;
             }
-
             let foundFr = "", foundEn = "";
             for (let key in transDict) {
                 if (arTitle.includes(key)) {
@@ -503,18 +558,15 @@
                     break;
                 }
             }
-
             document.getElementById('newPostTitleFr').value = foundFr || (arTitle + " (FR)");
             document.getElementById('newPostTitleEn').value = foundEn || (arTitle + " (EN)");
-
             if (arDesc) {
-                document.getElementById('newPostDescFr').value = arDesc + " - Service authentique de Dar Dyafa.";
-                document.getElementById('newPostDescEn').value = arDesc + " - Authentic service by Dar Dyafa USA.";
+                document.getElementById('newPostDescFr').value = arDesc + " - Service authentique.";
+                document.getElementById('newPostDescEn').value = arDesc + " - Authentic service by Dar Dyafa.";
             }
-            notify('AI Translation completed successfully!');
+            notify('AI Translation completed!');
         }
 
-        // Posts
         function renderAdminPosts() {
             const page = document.getElementById('filterPostPage').value;
             const posts = siteData.posts[page] || [];
@@ -524,7 +576,11 @@
                 <tr>
                     <td>
                         <img src="${p.image.startsWith('assets/') ? '../' + p.image : p.image}" class="thumb" onerror="this.src='${p.image}'"><br>
-                        <input type="text" value="${p.image}" style="font-size:0.7rem;width:120px;margin-top:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostImageString('${page}', ${idx}, this.value)" placeholder="Image URL">
+                        <input type="text" id="imgInput_${page}_${idx}" value="${p.image}" style="font-size:0.7rem;width:130px;margin-top:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostImageString('${page}', ${idx}, this.value)" placeholder="Image URL"><br>
+                        <label style="font-size:0.65rem;color:var(--gold);cursor:pointer;display:inline-block;margin-top:3px;">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Upload PC Image
+                            <input type="file" accept="image/*" style="display:none;" onchange="uploadExistingPostImage('${page}', ${idx}, this)">
+                        </label>
                     </td>
                     <td><input type="text" value="${p.id}" style="width:75px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;" onchange="updatePostField('${page}', ${idx}, 'id', this.value)"></td>
                     <td>
@@ -539,6 +595,19 @@
                     </td>
                 </tr>
             `).join('');
+        }
+
+        // Instant upload for existing post item image
+        function uploadExistingPostImage(page, idx, inputElem) {
+            const file = inputElem.files[0];
+            if (!file) return;
+            notify('Uploading image to ImgBB cloud...');
+            uploadToImgBB(file, (url) => {
+                siteData.posts[page][idx].image = url;
+                saveData();
+                renderAdminPosts();
+                notify('Image updated via cloud link successfully!');
+            });
         }
 
         function updatePostField(page, idx, field, val) {
@@ -558,9 +627,7 @@
             renderAdminPosts();
         }
 
-        function saveItemChanges() {
-            saveData();
-        }
+        function saveItemChanges() { saveData(); }
 
         function deletePost(page, idx) {
             if (confirm('Delete this item?')) {
@@ -602,17 +669,14 @@
             if (fileInput.files && fileInput.files[0]) {
                 publishBtn.disabled = true;
                 publishBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Uploading to Cloud...`;
-                uploadToImgBB(fileInput.files[0], (url) => {
-                    finalize(url);
-                });
+                uploadToImgBB(fileInput.files[0], (url) => { finalize(url); });
             } else {
                 finalize('assets/images/logo.png');
             }
         }
 
-        // Clean & Convert heavy local data / base64 to default lightweight assets
         function cleanAndMigrateOldImages() {
-            if (confirm('This will clean up heavy cached images and reset items with valid image paths, freeing up your storage space completely. Proceed?')) {
+            if (confirm('Clean up heavy local cached images?')) {
                 let cleanedCount = 0;
                 ['page1', 'page2', 'page3'].forEach(page => {
                     if (siteData.posts[page]) {
@@ -626,11 +690,10 @@
                 });
                 saveData();
                 renderAdminPosts();
-                alert(`Successfully cleaned ${cleanedCount} heavy local images and freed up your storage space!`);
+                alert(`Cleaned ${cleanedCount} images!`);
             }
         }
 
-        // Videos
         function renderAdminVideos() {
             const page = document.getElementById('filterVidPage').value;
             const vids = siteData.videos[page] || [];
@@ -639,7 +702,7 @@
                 <tr>
                     <td>${idx + 1}</td>
                     <td>${v.title}</td>
-                    <td style="max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${v.url.startsWith('data:') ? 'Uploaded MP4 File' : v.url}</td>
+                    <td style="max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${v.url}</td>
                     <td>
                         <button class="btn btn-secondary" style="padding:6px 10px;" onclick="moveVideo('${page}', ${idx}, -1)"><i class="fa-solid fa-arrow-up"></i></button>
                         <button class="btn btn-secondary" style="padding:6px 10px;" onclick="moveVideo('${page}', ${idx}, 1)"><i class="fa-solid fa-arrow-down"></i></button>
@@ -688,7 +751,6 @@
             }
         }
 
-        // Marquee
         function renderAdminMarquee() {
             const tbody = document.getElementById('adminMarqueeBody');
             tbody.innerHTML = siteData.marqueeItems.map((m, idx) => `
@@ -718,7 +780,6 @@
             renderAdminMarquee();
         }
 
-        // Branding
         function loadBrandingFields() {
             document.getElementById('bioEn').value = siteData.headerBio.en;
             document.getElementById('bioFr').value = siteData.headerBio.fr;
@@ -740,10 +801,11 @@
             siteData.headerBio.fr = document.getElementById('bioFr').value;
             siteData.headerBio.ar = document.getElementById('bioAr').value;
             saveData();
+            notify('Branding saved locally!');
         }
 
         function resetAllDefaults() {
-            if (confirm('Reset everything back to original defaults?')) {
+            if (confirm('Reset everything back to defaults?')) {
                 localStorage.removeItem('dardyafa_site_data');
                 location.reload();
             }
