@@ -1,162 +1,605 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dar Dyafa | الموقع مغلق مؤقتاً</title>
+    <title>Dar Dyafa | Authentic Moroccan Cuisine, Royal Events & Bridal Negafa in USA</title>
     <!-- Website Favicon Logo -->
     <link rel="icon" type="image/png" href="assets/images/logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        :root {
-            --bg: #0f0d0c;
-            --card: #191513;
-            --gold: #d4af37;
-            --gold-light: #f3e5ab;
-            --text: #f5f2eb;
-            --muted: #a69e8e;
-            --border: rgba(212, 175, 55, 0.3);
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
-        body {
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background: radial-gradient(circle at center, rgba(212,175,55,0.12), #0f0d0c 70%);
-        }
-        .lock-container {
-            background: var(--card);
-            border: 2px solid var(--gold);
-            border-radius: 24px;
-            padding: 40px 30px;
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+        /* Reel 9:16 Vertical Custom Player Polish */
+        .video-player-box {
+            max-width: 380px !important;
+            margin: 0 auto;
+            background: #000;
             position: relative;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+            border-radius: 16px;
             overflow: hidden;
         }
-        .lock-container::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 4px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-        }
-        .logo-img {
-            width: 90px;
-            height: 90px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 2px solid var(--gold);
-            margin-bottom: 20px;
-            box-shadow: 0 5px 20px rgba(212,175,55,0.3);
-        }
-        /* إيموجي الأشغال المتحرك 3D */
-        .animated-emoji {
-            font-size: 64px;
-            margin: 15px 0;
-            display: inline-block;
-            animation: bounceAndRotate 2s infinite ease-in-out;
-            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
-        }
-        @keyframes bounceAndRotate {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(8deg); }
-        }
-        h1 {
-            color: var(--gold-light);
-            font-size: 1.7rem;
-            font-weight: 800;
-            margin-bottom: 16px;
-            line-height: 1.5;
-        }
-        .agency-link {
-            display: inline-block;
-            color: var(--gold);
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-decoration: none;
-            margin: 15px 0 25px 0;
-            border-bottom: 1px dashed var(--gold);
-            padding-bottom: 3px;
-            transition: 0.3s;
-        }
-        .agency-link:hover {
-            color: #fff;
-            border-color: #fff;
-        }
-        .contact-box {
+        .video-stage {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 9/16;
+            background: #000;
+            overflow: hidden;
             display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 20px;
-        }
-        .btn-action {
-            background: #25d366;
-            color: #fff;
-            padding: 14px 24px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-decoration: none;
-            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
-            transition: 0.3s;
         }
-        .btn-action:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-        .footer-note {
-            margin-top: 30px;
-            font-size: 0.85rem;
-            color: var(--muted);
-            border-top: 1px solid rgba(255,255,255,0.08);
-            padding-top: 15px;
+        .video-stage iframe, 
+        .video-stage video {
+            width: 100% !important;
+            height: 100% !important;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: none;
+            object-fit: cover;
+            border-radius: 12px;
         }
     </style>
 </head>
-<body>
+<body dir="ltr">
 
-    <div class="lock-container">
-        <!-- Logo Dar Dyafa -->
-        <img src="assets/images/logo.png" alt="Dar Dyafa Logo" class="logo-img" onerror="this.src='assets/images/logo.jpg'">
-        
-        <!-- 3D Animated Construction Emoji -->
-        <div>
-            <span class="animated-emoji">🏗️</span>
+    <!-- Top Bar: Phone, Bio, Socials, Google Maps, WhatsApp -->
+    <div class="top-bar">
+        <div class="top-contact">
+            <a href="tel:7744080421"><i class="fa-solid fa-phone"></i> <span>774-408-0421</span></a>
+            <a id="topMapLink" href="#" target="_blank"><i class="fa-solid fa-location-dot"></i> <span data-i18n="locationLabel">Revere & Boston, MA</span></a>
         </div>
-
-        <!-- Main Warning Message -->
-        <h1>الموقع مغلق، يجب تسوية الوضعية مع وكالة Brandirasck لِإتمام العمل</h1>
-
-        <!-- Agency Link -->
-        <div>
-            <a href="https://www.brandirasck.site" target="_blank" class="agency-link">
-                <i class="fa-solid fa-globe"></i> www.brandirasck.site
-            </a>
-        </div>
-
-        <!-- WhatsApp Direct Contact -->
-        <div class="contact-box">
-            <a href="https://wa.me/212605320470" target="_blank" class="btn-action">
-                <i class="fa-brands fa-whatsapp" style="font-size:1.4rem;"></i>
-                تواصل معنا عبر واتساب الوكالة: +212 605-320470
-            </a>
-        </div>
-
-        <div class="footer-note">
-            © 2026 BRANDIRASCK Agency. All Rights Reserved.
+        <div class="top-bio" id="headerBioText"></div>
+        <div class="top-socials">
+            <a id="topIg" href="#" target="_blank" class="social-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a id="topFb" href="#" target="_blank" class="social-icon" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a id="topTt" href="#" target="_blank" class="social-icon" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a id="topWa" href="#" target="_blank" class="social-icon" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
     </div>
 
+    <!-- Main Sticky Header -->
+    <header class="main-header">
+        <a href="index.html" class="brand">
+            <img id="siteLogoImg" src="assets/images/logo.png" alt="Dar Dyafa Logo" onerror="this.src='assets/images/logo.jpg'">
+            <div class="brand-text">
+                <h1>DAR DYAFA</h1>
+                <span>BOSTON • MOROCCAN HOSPITALITY</span>
+            </div>
+        </a>
+
+        <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+            <button class="lang-btn" data-lang="fr" onclick="setLanguage('fr')">FR</button>
+            <button class="lang-btn" data-lang="ar" onclick="setLanguage('ar')">عربي</button>
+        </div>
+    </header>
+
+    <!-- Continuous English-Only Marquee Ticker -->
+    <div class="marquee-wrapper" aria-label="Food Truck Menu Ticker">
+        <div class="marquee-track" id="marqueeTrack"></div>
+    </div>
+
+    <!-- Hero Welcome & 3 Main Category Tabs -->
+    <section class="hero-section">
+        <h2 id="welcomeTitleText"></h2>
+        <p id="welcomeSubText"></p>
+
+        <div class="category-tabs">
+            <div class="cat-card active" id="tabBtn1" onclick="switchTab(1)">
+                <div class="cat-icon"><i class="fa-solid fa-utensils"></i></div>
+                <div class="cat-label" id="tabLabel1">Moroccan Cuisine</div>
+            </div>
+            <div class="cat-card" id="tabBtn2" onclick="switchTab(2)">
+                <div class="cat-icon"><i class="fa-solid fa-crown"></i></div>
+                <div class="cat-label" id="tabLabel2">Royal Events</div>
+            </div>
+            <div class="cat-card" id="tabBtn3" onclick="switchTab(3)">
+                <div class="cat-icon"><i class="fa-solid fa-gem"></i></div>
+                <div class="cat-label" id="tabLabel3">Bridal Negafa</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Dynamic Content Area -->
+    <main class="section-container">
+        <!-- Videos Section -->
+        <div id="videosSection">
+            <div class="section-header">
+                <h3><i class="fa-solid fa-play-circle"></i> <span data-i18n="featuredVideos">Featured Videos & Reels</span></h3>
+                <span id="videoCounter" style="color:var(--text-muted);font-size:0.9rem;">1 / 3</span>
+            </div>
+            <div class="video-player-box">
+                <button class="video-nav-btn video-prev" onclick="prevVideo()" title="Previous Video"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="video-nav-btn video-next" onclick="nextVideo()" title="Next Video"><i class="fa-solid fa-chevron-right"></i></button>
+                <div class="video-stage" id="videoStage"></div>
+                <div class="video-controls-bar" style="position:absolute;bottom:0;width:100%;background:rgba(0,0,0,0.7);padding:10px;text-align:center;z-index:25;">
+                    <div id="currentVideoTitle" style="font-weight:700;color:var(--gold-light);font-size:0.9rem;"></div>
+                    <div class="video-dots" id="videoDots" style="margin-top:4px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Posts / Catalog Section -->
+        <div style="margin-top:44px;">
+            <div class="section-header">
+                <h3><i class="fa-solid fa-sparkles"></i> <span id="sectionPostsHeading">Our Menu & Specialties</span></h3>
+                <button class="btn-order" id="generalBookingBtn" style="display:none;" onclick="openGeneralBooking()">
+                    <i class="fa-solid fa-calendar-check"></i> <span data-i18n="bookEventNow">Book Your Celebration</span>
+                </button>
+            </div>
+            <div class="posts-grid" id="postsGrid"></div>
+        </div>
+
+        <!-- Page-Specific Social Media Bar -->
+        <div class="page-social-bar">
+            <div style="font-weight:700;color:var(--gold-light);" data-i18n="followSection">Follow this department on social media:</div>
+            <div class="top-socials" id="pageSpecificSocials"></div>
+        </div>
+    </main>
+
+    <!-- Footer Contact -->
+    <footer class="site-footer">
+        <h3 style="color:var(--gold);margin-bottom:8px;">DAR DYAFA — BOSTON, USA</h3>
+        <p style="color:var(--text-muted);font-size:0.92rem;" data-i18n="footerTagline">Authentic Moroccan Food Truck, Luxury Wedding Catering & Negafa Services</p>
+        <div class="footer-contacts">
+            <a href="mailto:dardyafa@gmail.com"><i class="fa-solid fa-envelope"></i> dardyafa@gmail.com</a>
+            <a href="tel:7744080421"><i class="fa-solid fa-phone"></i> 774-408-0421</a>
+            <a id="footerWaLink" href="#" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp: +1 774-408-0421</a>
+        </div>
+        <p style="color:#666;font-size:0.8rem;margin-top:18px;">© 2026 Dar Dyafa USA. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Order / Booking Modal -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 id="modalHeading" style="color:var(--gold);margin-bottom:14px;">Order Now</h3>
+            <div class="modal-preview" id="modalPreview"></div>
+            <form id="orderForm" onsubmit="submitOrder(event)">
+                <input type="hidden" id="orderItemId">
+                <input type="hidden" id="orderItemTitle">
+                <input type="hidden" id="orderItemPrice">
+
+                <div id="foodFields">
+                    <div class="form-group">
+                        <label data-i18n="labelName">Full Name</label>
+                        <input type="text" id="custName" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="labelQty">Quantity</label>
+                        <input type="number" id="custQty" min="1" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="labelAddress">Delivery Address / Pickup Location</label>
+                        <input type="text" id="custAddress" required placeholder="Street, City, MA">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="labelPhone">Phone Number</label>
+                        <input type="tel" id="custPhone" required placeholder="(774) 000-0000">
+                    </div>
+                </div>
+
+                <div id="eventFields" style="display:none;">
+                    <div class="form-group">
+                        <label data-i18n="labelName">Full Name</label>
+                        <input type="text" id="evName" placeholder="Your Full Name">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="labelEventType">Event Type</label>
+                        <select id="evType">
+                            <option value="Wedding / عرس">Wedding / Mariage / عرس</option>
+                            <option value="Engagement / خطوبة">Engagement / Fiançailles / خطوبة</option>
+                            <option value="Henna Night / حناء">Henna Night / Soirée Henné / ليلة الحناء</option>
+                            <option value="Circumcision / ختانة">Circumcision / Baptême / ختانة</option>
+                            <option value="Gala / Private Party">Gala / Private Party / حفل خاص</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="labelEventDate">Event Date</label>
+                        <input type="date" id="evDate">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="labelEventCity">City & Exact Venue Location (USA)</label>
+                        <input type="text" id="evLocation" placeholder="Boston, MA - Venue Name">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="labelPhone">Phone Number</label>
+                        <input type="tel" id="evPhone" placeholder="(774) 000-0000">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-whatsapp-confirm">
+                    <i class="fa-brands fa-whatsapp" style="font-size:1.3rem;"></i>
+                    <span data-i18n="confirmOrderBtn">Confirm Order via WhatsApp</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/data.js"></script>
+    <script>
+        const UI_TRANSLATIONS = {
+            en: {
+                locationLabel: "Revere & Boston, MA",
+                featuredVideos: "Featured Videos & Reels",
+                menuHeading1: "Food Truck Menu & Specials",
+                menuHeading2: "Royal Moroccan Weddings & Events in USA",
+                menuHeading3: "Bridal Negafa, Caftans & Makeup",
+                orderNow: "Order Now",
+                bookNow: "Inquire / Book Now",
+                bookEventNow: "Book Your Celebration",
+                followSection: "Follow this department on social media:",
+                footerTagline: "Authentic Moroccan Food Truck, Luxury Wedding Catering & Negafa Services",
+                labelName: "Full Name",
+                labelQty: "Quantity",
+                labelAddress: "Exact Delivery Address / Pickup Location",
+                labelPhone: "Phone Number",
+                labelEventType: "Celebration Type",
+                labelEventDate: "Celebration Date",
+                labelEventCity: "City & Exact Venue Address",
+                confirmOrderBtn: "Confirm Order via WhatsApp"
+            },
+            fr: {
+                locationLabel: "Revere & Boston, MA",
+                featuredVideos: "Vidéos & Reels en Vedette",
+                menuHeading1: "Menu Food Truck & Spécialités",
+                menuHeading2: "Mariages Royaux & Événements aux USA",
+                menuHeading3: "Negafa Mariée, Caftans & Maquillage",
+                orderNow: "Commander",
+                bookNow: "Réserver",
+                bookEventNow: "Réserver Votre Événement",
+                followSection: "Suivez ce département sur les réseaux sociaux :",
+                footerTagline: "Food Truck Marocain Authentique, Traiteur Mariage & Services Negafa",
+                labelName: "Nom Complet",
+                labelQty: "Quantité",
+                labelAddress: "Adresse Exacte de Livraison / Retrait",
+                labelPhone: "Numéro de Téléphone",
+                labelEventType: "Type de Célébration",
+                labelEventDate: "Date de l'Événement",
+                labelEventCity: "Ville et Adresse Exacte de la Salle",
+                confirmOrderBtn: "Confirmer via WhatsApp"
+            },
+            ar: {
+                locationLabel: "ريفير وبوسطن، أمريكا",
+                featuredVideos: "فيديوهات ومقاطع مميزة",
+                menuHeading1: "قائمة مأكولات الشاحنة والأطباق المغربية",
+                menuHeading2: "تنظيم الأعراس والحفلات المغربية في أمريكا",
+                menuHeading3: "خدمات النكافة، القفطان المغربي ومكياج العروس",
+                orderNow: "اطلب الآن",
+                bookNow: "احجز الآن",
+                bookEventNow: "احجز حفلتك الآن",
+                followSection: "تابع هذا القسم على مواقع التواصل الاجتماعي:",
+                footerTagline: "مأكولات مغربية أصيلة، تنظيم أعراس ملكية وخدمات النكافة في أمريكا",
+                labelName: "الاسم الكامل",
+                labelQty: "الكمية المطلوبة",
+                labelAddress: "العنوان الدقيق للتوصيل أو الاستلام",
+                labelPhone: "رقم الهاتف",
+                labelEventType: "نوع الحفل (عرس، خطوبة، حناء، ختانة...)",
+                labelEventDate: "تاريخ الحفل",
+                labelEventCity: "المدينة ومكان القاعة بالتحديد",
+                confirmOrderBtn: "تأكيد الطلب عبر واتساب"
+            }
+        };
+
+        let currentLang = 'en';
+        let currentTab = 1;
+        let currentVideoIdx = 0;
+        let siteData = JSON.parse(localStorage.getItem('dardyafa_site_data')) || DEFAULT_SITE_DATA;
+
+        function initSite() {
+            document.getElementById('topMapLink').href = SITE_CONFIG.locationMap;
+            document.getElementById('topIg').href = SITE_CONFIG.socials.page1.instagram;
+            document.getElementById('topFb').href = SITE_CONFIG.socials.page1.facebook;
+            document.getElementById('topTt').href = SITE_CONFIG.socials.page1.tiktok;
+            const waUrl = `https://wa.me/${SITE_CONFIG.whatsappNumber}`;
+            document.getElementById('topWa').href = waUrl;
+            document.getElementById('footerWaLink').href = waUrl;
+
+            if (siteData.logoDataUrl) {
+                document.getElementById('siteLogoImg').src = siteData.logoDataUrl;
+            }
+
+            renderMarquee();
+            setLanguage('en');
+            switchTab(1);
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            document.documentElement.lang = lang;
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            const t = UI_TRANSLATIONS[lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) el.textContent = t[key];
+            });
+
+            document.getElementById('headerBioText').textContent = siteData.headerBio[lang] || siteData.headerBio.en;
+            document.getElementById('welcomeTitleText').textContent = siteData.welcomeTitle[lang] || siteData.welcomeTitle.en;
+            document.getElementById('welcomeSubText').textContent = siteData.welcomeSub[lang] || siteData.welcomeSub.en;
+            document.getElementById('tabLabel1').textContent = siteData.tabs.tab1[lang] || siteData.tabs.tab1.en;
+            document.getElementById('tabLabel2').textContent = siteData.tabs.tab2[lang] || siteData.tabs.tab2.en;
+            document.getElementById('tabLabel3').textContent = siteData.tabs.tab3[lang] || siteData.tabs.tab3.en;
+
+            renderCurrentTabContent();
+        }
+
+        function renderMarquee() {
+            const track = document.getElementById('marqueeTrack');
+            const items = siteData.marqueeItems || [];
+            const htmlSingle = items.map(item => `
+                <div class="marquee-item">
+                    <span>✦ ${item.name}</span>
+                    ${item.price ? `<span class="marquee-price">${item.price}</span>` : ''}
+                </div>
+            `).join('');
+            track.innerHTML = htmlSingle + htmlSingle;
+        }
+
+        function switchTab(tabNum) {
+            currentTab = tabNum;
+            currentVideoIdx = 0;
+            [1, 2, 3].forEach(n => {
+                document.getElementById(`tabBtn${n}`).classList.toggle('active', n === tabNum);
+            });
+            renderCurrentTabContent();
+        }
+
+        function renderCurrentTabContent() {
+            const t = UI_TRANSLATIONS[currentLang];
+            const headingEl = document.getElementById('sectionPostsHeading');
+            const bookingBtn = document.getElementById('generalBookingBtn');
+
+            if (currentTab === 1) {
+                headingEl.textContent = t.menuHeading1;
+                bookingBtn.style.display = 'none';
+            } else if (currentTab === 2) {
+                headingEl.textContent = t.menuHeading2;
+                bookingBtn.style.display = 'inline-flex';
+            } else {
+                headingEl.textContent = t.menuHeading3;
+                bookingBtn.style.display = 'inline-flex';
+            }
+
+            renderVideos();
+            renderPosts();
+            renderPageSocials();
+        }
+
+        function renderPageSocials() {
+            const key = `page${currentTab}`;
+            const soc = SITE_CONFIG.socials[key];
+            const container = document.getElementById('pageSpecificSocials');
+            container.innerHTML = `
+                ${soc.instagram ? `<a href="${soc.instagram}" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>` : ''}
+                ${soc.facebook ? `<a href="${soc.facebook}" target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>` : ''}
+                ${soc.tiktok ? `<a href="${soc.tiktok}" target="_blank" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>` : ''}
+                <a href="https://wa.me/${SITE_CONFIG.whatsappNumber}" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
+            `;
+        }
+
+        function getEmbedHtml(url) {
+            if (!url) return '<p style="color:#888;text-align:center;padding-top:50%;">No video URL</p>';
+            if (url.startsWith('data:video') || url.endsWith('.mp4') || url.endsWith('.webm')) {
+                return `<video src="${url}" controls autoplay muted playsinline></video>`;
+            }
+            const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+            if (ytMatch) {
+                return `<iframe src="https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1&mute=1&loop=1&playlist=${ytMatch[1]}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+            }
+            const igMatch = url.match(/instagram\.com\/(?:p|reel)\/([\w-]+)/);
+            if (igMatch) {
+                return `<iframe src="https://www.instagram.com/p/${igMatch[1]}/embed" scrolling="no" frameborder="0" allowtransparency="true"></iframe>`;
+            }
+            return `<iframe src="${url}" scrolling="no" frameborder="0" allowtransparency="true"></iframe>`;
+        }
+
+        function renderVideos() {
+            const vids = siteData.videos[`page${currentTab}`] || [];
+            const stage = document.getElementById('videoStage');
+            const counter = document.getElementById('videoCounter');
+            const titleEl = document.getElementById('currentVideoTitle');
+            const dotsEl = document.getElementById('videoDots');
+
+            if (vids.length === 0) {
+                stage.innerHTML = '<p style="color:#888;text-align:center;padding-top:50%;">No videos added yet.</p>';
+                counter.textContent = '0 / 0';
+                titleEl.textContent = '';
+                dotsEl.innerHTML = '';
+                return;
+            }
+
+            if (currentVideoIdx >= vids.length) currentVideoIdx = 0;
+            if (currentVideoIdx < 0) currentVideoIdx = vids.length - 1;
+
+            const activeVid = vids[currentVideoIdx];
+            stage.innerHTML = getEmbedHtml(activeVid.url);
+            counter.textContent = `${currentVideoIdx + 1} / ${vids.length}`;
+            titleEl.textContent = activeVid.title || `Video #${currentVideoIdx + 1}`;
+
+            dotsEl.innerHTML = vids.map((_, idx) => `
+                <span class="v-dot ${idx === currentVideoIdx ? 'active' : ''}" onclick="goToVideo(${idx})" style="display:inline-block;width:8px;height:8px;margin:0 3px;background:${idx === currentVideoIdx ? 'var(--gold)' : '#555'};border-radius:50%;cursor:pointer;"></span>
+            `).join('');
+        }
+
+        function nextVideo() { currentVideoIdx++; renderVideos(); }
+        function prevVideo() { currentVideoIdx--; renderVideos(); }
+        function goToVideo(idx) { currentVideoIdx = idx; renderVideos(); }
+
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('orderModal').classList.contains('open')) return;
+            if (e.key === 'ArrowRight') nextVideo();
+            if (e.key === 'ArrowLeft') prevVideo();
+        });
+
+        function renderPosts() {
+            const posts = siteData.posts[`page${currentTab}`] || [];
+            const grid = document.getElementById('postsGrid');
+            const t = UI_TRANSLATIONS[currentLang];
+            const btnText = currentTab === 1 ? t.orderNow : t.bookNow;
+
+            grid.innerHTML = posts.map((post, index) => {
+                const title = post.title[currentLang] || post.title.en;
+                const desc = post.desc[currentLang] || post.desc.en;
+                return `
+                    <div class="post-card" onclick="openOrderModal(${index})">
+                        <div class="post-img-wrap">
+                            <span class="post-id-badge">#${post.id}</span>
+                            <img src="${post.image}" alt="${title}" onerror="this.src='assets/images/logo.png'">
+                        </div>
+                        <div class="post-body">
+                            <div>
+                                <h4 class="post-title">${title}</h4>
+                                <p class="post-desc">${desc}</p>
+                            </div>
+                            <div class="post-footer">
+                                <div class="post-price">${post.price ? post.price : ''}</div>
+                                <button class="btn-order" type="button">
+                                    <i class="fa-brands fa-whatsapp"></i> ${btnText}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openOrderModal(postIndex) {
+            const post = siteData.posts[`page${currentTab}`][postIndex];
+            const title = post.title[currentLang] || post.title.en;
+            const t = UI_TRANSLATIONS[currentLang];
+
+            document.getElementById('orderItemId').value = post.id;
+            document.getElementById('orderItemTitle').value = post.title.en;
+            document.getElementById('orderItemPrice').value = post.price || 'Custom Quote';
+
+            document.getElementById('modalHeading').textContent = currentTab === 1 ? t.orderNow : t.bookNow;
+            document.getElementById('modalPreview').innerHTML = `
+                <img src="${post.image}" alt="${title}">
+                <div>
+                    <div style="font-size:0.8rem;color:var(--gold);font-weight:700;">ID: #${post.id}</div>
+                    <div style="font-weight:800;font-size:1.05rem;">${title}</div>
+                    ${post.price ? `<div style="color:#facc15;font-weight:700;">${post.price}</div>` : ''}
+                </div>
+            `;
+
+            toggleModalFields();
+            document.getElementById('orderModal').classList.add('open');
+        }
+
+        function openGeneralBooking() {
+            const t = UI_TRANSLATIONS[currentLang];
+            const deptName = currentTab === 2 ? 'Royal Event & Wedding Planning' : 'Bridal Negafa & Caftan Services';
+            document.getElementById('orderItemId').value = currentTab === 2 ? 'EVENT-BOOKING' : 'NEGAFA-BOOKING';
+            document.getElementById('orderItemTitle').value = deptName;
+            document.getElementById('orderItemPrice').value = 'Custom Package';
+
+            document.getElementById('modalHeading').textContent = t.bookEventNow;
+            document.getElementById('modalPreview').innerHTML = `
+                <img src="assets/images/logo.png" alt="Dar Dyafa">
+                <div>
+                    <div style="font-weight:800;font-size:1.05rem;">${deptName}</div>
+                    <div style="color:var(--text-muted);font-size:0.85rem;">Dar Dyafa USA</div>
+                </div>
+            `;
+
+            toggleModalFields();
+            document.getElementById('orderModal').classList.add('open');
+        }
+
+        function toggleModalFields() {
+            const isFood = currentTab === 1;
+            document.getElementById('foodFields').style.display = isFood ? 'block' : 'none';
+            document.getElementById('eventFields').style.display = isFood ? 'none' : 'block';
+
+            document.getElementById('custName').required = isFood;
+            document.getElementById('custQty').required = isFood;
+            document.getElementById('custAddress').required = isFood;
+            document.getElementById('custPhone').required = isFood;
+
+            document.getElementById('evName').required = !isFood;
+            document.getElementById('evDate').required = !isFood;
+            document.getElementById('evLocation').required = !isFood;
+            document.getElementById('evPhone').required = !isFood;
+        }
+
+        function closeModal() {
+            document.getElementById('orderModal').classList.remove('open');
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+            const itemId = document.getElementById('orderItemId').value;
+            const itemTitle = document.getElementById('orderItemTitle').value;
+            const itemPrice = document.getElementById('orderItemPrice').value;
+
+            let orderRecord = {
+                id: 'ORD-' + Date.now().toString().slice(-6),
+                date: new Date().toLocaleString(),
+                section: `Page ${currentTab}`,
+                itemId,
+                itemTitle,
+                itemPrice
+            };
+
+            let waMessage = `*NEW ORDER - DAR DYAFA USA*%0A`;
+            waMessage += `----------------------------%0A`;
+            waMessage += `*Article ID:* #${itemId}%0A`;
+            waMessage += `*Item:* ${itemTitle}%0A`;
+
+            if (currentTab === 1) {
+                const name = document.getElementById('custName').value;
+                const qty = document.getElementById('custQty').value;
+                const address = document.getElementById('custAddress').value;
+                const phone = document.getElementById('custPhone').value;
+
+                orderRecord.customerName = name;
+                orderRecord.details = `Qty: ${qty} | Address: ${address}`;
+                orderRecord.phone = phone;
+
+                waMessage += `*Price:* ${itemPrice}%0A`;
+                waMessage += `*Quantity:* ${qty}%0A`;
+                waMessage += `*Customer Name:* ${name}%0A`;
+                waMessage += `*Location/Address:* ${address}%0A`;
+                waMessage += `*Phone:* ${phone}%0A`;
+            } else {
+                const name = document.getElementById('evName').value;
+                const evType = document.getElementById('evType').value;
+                const evDate = document.getElementById('evDate').value;
+                const evLoc = document.getElementById('evLocation').value;
+                const phone = document.getElementById('evPhone').value;
+
+                orderRecord.customerName = name;
+                orderRecord.details = `${evType} | Date: ${evDate} | City/Venue: ${evLoc}`;
+                orderRecord.phone = phone;
+
+                waMessage += `*Service:* ${evType}%0A`;
+                waMessage += `*Event Date:* ${evDate}%0A`;
+                waMessage += `*City & Venue:* ${evLoc}%0A`;
+                waMessage += `*Client Name:* ${name}%0A`;
+                waMessage += `*Phone:* ${phone}%0A`;
+            }
+
+            const existingOrders = JSON.parse(localStorage.getItem('dardyafa_orders')) || [];
+            existingOrders.unshift(orderRecord);
+            localStorage.setItem('dardyafa_orders', JSON.stringify(existingOrders));
+
+            const whatsappUrl = `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${waMessage}`;
+            window.open(whatsappUrl, '_blank');
+            closeModal();
+        }
+
+        window.addEventListener('DOMContentLoaded', initSite);
+    </script>
 </body>
 </html>
