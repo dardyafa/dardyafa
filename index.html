@@ -168,6 +168,84 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
         }
+
+        /* Multi-Photo Badge on Gallery Cards */
+        .photo-count-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.75);
+            color: var(--gold-light);
+            border: 1px solid var(--gold);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 5;
+        }
+
+        /* Gallery Slider Modal Styles */
+        .gallery-slider-stage {
+            position: relative;
+            width: 100%;
+            max-height: 420px;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery-slider-stage img {
+            max-width: 100%;
+            max-height: 420px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+        .gallery-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: 0.2s;
+        }
+        .gallery-nav-btn:hover {
+            background: var(--gold);
+            color: #000;
+        }
+        .gallery-prev { left: 10px; }
+        .gallery-next { right: 10px; }
+        .gallery-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 12px;
+        }
+        .g-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #555;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .g-dot.active {
+            background: var(--gold);
+            transform: scale(1.2);
+        }
     </style>
 </head>
 <body dir="ltr">
@@ -328,7 +406,30 @@
         </div>
     </div>
 
-    <!-- Order / Booking Modal -->
+    <!-- Multi-Photo Gallery Modal (For Page 2 & 3) -->
+    <div class="modal-overlay" id="galleryModal">
+        <div class="modal-box" style="max-width:560px;">
+            <button class="modal-close" onclick="closeGalleryModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 id="galleryTitle" style="color:var(--gold);margin-bottom:10px;font-size:1.15rem;"></h3>
+            
+            <div class="gallery-slider-stage" id="galleryStage">
+                <button class="gallery-nav-btn gallery-prev" onclick="prevGalleryImage()"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="gallery-nav-btn gallery-next" onclick="nextGalleryImage()"><i class="fa-solid fa-chevron-right"></i></button>
+                <img id="galleryActiveImg" src="" alt="Gallery Photo" onerror="this.src='assets/images/logo.png'">
+            </div>
+            
+            <div class="gallery-dots" id="galleryDots"></div>
+            
+            <p id="galleryDesc" style="color:var(--text-muted);font-size:0.9rem;margin-top:14px;line-height:1.5;text-align:center;"></p>
+            
+            <button type="button" class="btn-whatsapp-confirm" style="margin-top:16px;" onclick="closeGalleryModal(); openGeneralBooking();">
+                <i class="fa-solid fa-calendar-check" style="font-size:1.1rem;"></i>
+                <span data-i18n="bookThisEventBtn">Inquire / Book This Service</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Order / Booking Modal (For Page 1) -->
     <div class="modal-overlay" id="orderModal">
         <div class="modal-box">
             <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -425,7 +526,7 @@
                 menuHeading2: "Royal Moroccan Weddings & Events in USA",
                 menuHeading3: "Bridal Negafa, Caftans & Makeup",
                 orderNow: "Order Now",
-                bookNow: "Inquire / Book Now",
+                bookNow: "View Gallery / Inquire",
                 bookEventNow: "Book Your Celebration",
                 floatingOrderBtn: "Order / Book Now",
                 followSection: "Follow this department on social media:",
@@ -448,7 +549,9 @@
                 expStat1: "Certified Diploma",
                 expStat2: "Experience Since",
                 expStat3: "Quality & Authenticity",
-                expCloseBtn: "Close"
+                expCloseBtn: "Close",
+                bookThisEventBtn: "Inquire / Book This Service",
+                photosCountLabel: "Photos"
             },
             fr: {
                 locationLabel: "Revere & Boston, MA",
@@ -457,7 +560,7 @@
                 menuHeading2: "Mariages Royaux & Événements aux USA",
                 menuHeading3: "Negafa Mariée, Caftans & Maquillage",
                 orderNow: "Commander",
-                bookNow: "Réserver",
+                bookNow: "Voir Galerie",
                 bookEventNow: "Réserver Votre Événement",
                 floatingOrderBtn: "Commander / Réserver",
                 followSection: "Suivez ce département sur les réseaux sociaux :",
@@ -480,7 +583,9 @@
                 expStat1: "Diplôme Certifié",
                 expStat2: "Expérience Depuis",
                 expStat3: "Qualité & Authenticité",
-                expCloseBtn: "Fermer"
+                expCloseBtn: "Fermer",
+                bookThisEventBtn: "Réserver ce Service",
+                photosCountLabel: "Photos"
             },
             ar: {
                 locationLabel: "ريفير وبوسطن، أمريكا",
@@ -489,7 +594,7 @@
                 menuHeading2: "تنظيم الأعراس والحفلات المغربية في أمريكا",
                 menuHeading3: "خدمات النكافة، القفطان المغربي ومكياج العروس",
                 orderNow: "اطلب الآن",
-                bookNow: "احجز الآن",
+                bookNow: "عرض الصور والحجز",
                 bookEventNow: "احجز حفلتك الآن",
                 floatingOrderBtn: "اطلب الآن",
                 followSection: "تابع هذا القسم على مواقع التواصل الاجتماعي:",
@@ -512,7 +617,9 @@
                 expStat1: "دبلوم معتمد",
                 expStat2: "خبرة منذ",
                 expStat3: "جودة وأصالة",
-                expCloseBtn: "إغلاق"
+                expCloseBtn: "إغلاق",
+                bookThisEventBtn: "احجز أو استفسر عن هذه الخدمة",
+                photosCountLabel: "صور"
             }
         };
 
@@ -520,6 +627,10 @@
         let currentTab = 1;
         let currentVideoIdx = 0;
         let siteData = JSON.parse(localStorage.getItem('dardyafa_site_data')) || DEFAULT_SITE_DATA;
+
+        // Multi-Photo Gallery State
+        let activeGalleryImages = [];
+        let currentGalleryIdx = 0;
 
         function initSite() {
             const activeSocials = siteData.socials || SITE_CONFIG.socials;
@@ -574,7 +685,6 @@
                 if (t[key]) el.textContent = t[key];
             });
 
-            // Dynamic overrides from Admin if customized
             if (siteData.locationTexts && siteData.locationTexts[lang]) {
                 document.getElementById('topLocationText').textContent = siteData.locationTexts[lang];
             }
@@ -589,7 +699,6 @@
             document.getElementById('tabLabel2').textContent = siteData.tabs.tab2[lang] || siteData.tabs.tab2.en;
             document.getElementById('tabLabel3').textContent = siteData.tabs.tab3[lang] || siteData.tabs.tab3.en;
 
-            // Expertise modal text
             const customExp = siteData.expertiseText && siteData.expertiseText[lang];
             document.getElementById('expModalBody').textContent = customExp || t.expFullText;
 
@@ -713,7 +822,7 @@
         function goToVideo(idx) { currentVideoIdx = idx; renderVideos(); }
 
         document.addEventListener('keydown', (e) => {
-            if (document.getElementById('orderModal').classList.contains('open') || document.getElementById('expertiseModal').classList.contains('open')) return;
+            if (document.getElementById('orderModal').classList.contains('open') || document.getElementById('expertiseModal').classList.contains('open') || document.getElementById('galleryModal').classList.contains('open')) return;
             if (e.key === 'ArrowRight') nextVideo();
             if (e.key === 'ArrowLeft') prevVideo();
         });
@@ -750,24 +859,111 @@
                     `;
                 }).join('');
             } else {
-                // Page 2 & Page 3: Pure Gallery Portfolio (No ID badge, No Order button on cards)
-                grid.innerHTML = posts.map((post) => {
+                // Page 2 & Page 3: Multi-Photo Gallery Portfolio
+                grid.innerHTML = posts.map((post, index) => {
                     const title = post.title[currentLang] || post.title.en;
                     const desc = post.desc[currentLang] || post.desc.en;
+                    const imagesArr = (post.images && post.images.length > 0) ? post.images : [post.image];
+                    const photoCount = imagesArr.length;
+
                     return `
-                        <div class="post-card" style="cursor:default;">
+                        <div class="post-card" onclick="openGalleryModal(${index})" style="cursor:pointer;">
                             <div class="post-img-wrap">
-                                <img src="${post.image}" alt="${title}" onerror="this.src='assets/images/logo.png'">
+                                ${photoCount > 1 ? `
+                                    <span class="photo-count-badge">
+                                        <i class="fa-solid fa-images"></i> ${photoCount} ${t.photosCountLabel}
+                                    </span>
+                                ` : ''}
+                                <img src="${imagesArr[0]}" alt="${title}" onerror="this.src='assets/images/logo.png'">
                             </div>
                             <div class="post-body">
                                 <div>
                                     <h4 class="post-title">${title}</h4>
                                     <p class="post-desc">${desc}</p>
                                 </div>
+                                <div class="post-footer" style="margin-top:10px;">
+                                    <span style="font-size:0.82rem;color:var(--gold);font-weight:700;">
+                                        <i class="fa-solid fa-eye"></i> ${t.bookNow}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     `;
                 }).join('');
+            }
+        }
+
+        // Multi-Photo Gallery Modal Handlers
+        function openGalleryModal(postIndex) {
+            const post = siteData.posts[`page${currentTab}`][postIndex];
+            const title = post.title[currentLang] || post.title.en;
+            const desc = post.desc[currentLang] || post.desc.en;
+
+            activeGalleryImages = (post.images && post.images.length > 0) ? post.images : [post.image];
+            currentGalleryIdx = 0;
+
+            document.getElementById('galleryTitle').textContent = title;
+            document.getElementById('galleryDesc').textContent = desc;
+
+            renderGalleryStage();
+            document.getElementById('galleryModal').classList.add('open');
+        }
+
+        function closeGalleryModal() {
+            document.getElementById('galleryModal').classList.remove('open');
+        }
+
+        function renderGalleryStage() {
+            const imgEl = document.getElementById('galleryActiveImg');
+            const dotsEl = document.getElementById('galleryDots');
+            
+            if (activeGalleryImages.length === 0) return;
+
+            imgEl.src = activeGalleryImages[currentGalleryIdx];
+
+            dotsEl.innerHTML = activeGalleryImages.map((_, idx) => `
+                <span class="g-dot ${idx === currentGalleryIdx ? 'active' : ''}" onclick="goToGalleryImage(${idx})"></span>
+            `).join('');
+        }
+
+        function nextGalleryImage() {
+            currentGalleryIdx = (currentGalleryIdx + 1) % activeGalleryImages.length;
+            renderGalleryStage();
+        }
+
+        function prevGalleryImage() {
+            currentGalleryIdx = (currentGalleryIdx - 1 + activeGalleryImages.length) % activeGalleryImages.length;
+            renderGalleryStage();
+        }
+
+        function goToGalleryImage(idx) {
+            currentGalleryIdx = idx;
+            renderGalleryStage();
+        }
+
+        // Touch Swipe Support for Gallery Mobile View
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const stage = document.getElementById('galleryStage');
+            if (stage) {
+                stage.addEventListener('touchstart', e => {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, false);
+                stage.addEventListener('touchend', e => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipeGesture();
+                }, false);
+            }
+        });
+
+        function handleSwipeGesture() {
+            if (touchEndX < touchStartX - 50) {
+                nextGalleryImage(); // Swipe Left
+            }
+            if (touchEndX > touchStartX + 50) {
+                prevGalleryImage(); // Swipe Right
             }
         }
 
