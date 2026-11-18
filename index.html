@@ -42,6 +42,132 @@
             object-fit: cover;
             border-radius: 12px;
         }
+
+        /* Expertise Trust Badge & Button */
+        .expertise-banner {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            padding: 10px 18px;
+            border-radius: 50px;
+            margin: 14px auto 22px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+        }
+        .expertise-badge-text {
+            color: var(--gold-light);
+            font-size: 0.92rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-expertise {
+            background: var(--gold);
+            color: #000;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 0.84rem;
+            cursor: pointer;
+            transition: 0.25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-expertise:hover {
+            transform: scale(1.04);
+            background: #facc15;
+        }
+
+        /* Expertise Modal Cards */
+        .exp-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 18px 0;
+        }
+        .exp-stat-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 12px;
+            padding: 12px 8px;
+            text-align: center;
+        }
+        .exp-stat-num {
+            color: var(--gold);
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+        .exp-stat-lbl {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            margin-top: 4px;
+        }
+
+        /* Tax Breakdown Box in Order Modal */
+        .tax-summary-box {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 12px;
+            padding: 12px 14px;
+            margin: 14px 0;
+        }
+        .tax-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .tax-row.total-row {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed rgba(212, 175, 55, 0.4);
+            color: var(--gold-light);
+            font-weight: 800;
+            font-size: 1.08rem;
+            margin-bottom: 0;
+        }
+
+        /* Floating Side Booking Button for Page 2 & 3 */
+        .floating-book-btn {
+            position: fixed;
+            bottom: 26px;
+            right: 22px;
+            z-index: 900;
+            background: linear-gradient(135deg, #d4af37, #f59e0b);
+            color: #000;
+            border: 2px solid #fff3c4;
+            padding: 14px 22px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.98rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.45);
+            display: none;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            animation: pulseFloat 2.4s infinite;
+        }
+        [dir="rtl"] .floating-book-btn {
+            right: auto;
+            left: 22px;
+        }
+        .floating-book-btn:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 14px 35px rgba(212, 175, 55, 0.65);
+        }
+        @keyframes pulseFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
     </style>
 </head>
 <body dir="ltr">
@@ -49,8 +175,8 @@
     <!-- Top Bar: Phone, Bio, Socials, Google Maps, WhatsApp -->
     <div class="top-bar">
         <div class="top-contact">
-            <a href="tel:7744080421"><i class="fa-solid fa-phone"></i> <span>774-408-0421</span></a>
-            <a id="topMapLink" href="#" target="_blank"><i class="fa-solid fa-location-dot"></i> <span data-i18n="locationLabel">Revere & Boston, MA</span></a>
+            <a id="topPhoneLink" href="tel:7744080421"><i class="fa-solid fa-phone"></i> <span id="topPhoneText">774-408-0421</span></a>
+            <a id="topMapLink" href="#" target="_blank"><i class="fa-solid fa-location-dot"></i> <span id="topLocationText" data-i18n="locationLabel">Revere & Boston, MA</span></a>
         </div>
         <div class="top-bio" id="headerBioText"></div>
         <div class="top-socials">
@@ -66,8 +192,8 @@
         <a href="index.html" class="brand">
             <img id="siteLogoImg" src="assets/images/logo.png" alt="Dar Dyafa Logo" onerror="this.src='assets/images/logo.jpg'">
             <div class="brand-text">
-                <h1>DAR DYAFA</h1>
-                <span>BOSTON • MOROCCAN HOSPITALITY</span>
+                <h1 id="brandMainName">DAR DYAFA</h1>
+                <span id="brandSubTagline">BOSTON • MOROCCAN HOSPITALITY</span>
             </div>
         </a>
 
@@ -78,7 +204,7 @@
         </div>
     </header>
 
-    <!-- Continuous English-Only Marquee Ticker -->
+    <!-- Continuous Marquee Ticker -->
     <div class="marquee-wrapper" aria-label="Food Truck Menu Ticker">
         <div class="marquee-track" id="marqueeTrack"></div>
     </div>
@@ -87,6 +213,18 @@
     <section class="hero-section">
         <h2 id="welcomeTitleText"></h2>
         <p id="welcomeSubText"></p>
+
+        <!-- Expertise Trust Badge & Interactive Button -->
+        <div class="expertise-banner">
+            <span class="expertise-badge-text">
+                <i class="fa-solid fa-award" style="color:var(--gold);font-size:1.1rem;"></i>
+                <span data-i18n="expShortBadge">Serving USA Since 2007 • Certified Culinary & Event Diploma (2004)</span>
+            </span>
+            <button type="button" class="btn-expertise" onclick="openExpertiseModal()">
+                <i class="fa-solid fa-circle-info"></i>
+                <span data-i18n="expBtnLabel">Our Expertise</span>
+            </button>
+        </div>
 
         <div class="category-tabs">
             <div class="cat-card active" id="tabBtn1" onclick="switchTab(1)">
@@ -141,17 +279,54 @@
         </div>
     </main>
 
+    <!-- Floating Side Action Button (Visible on Page 2 & Page 3) -->
+    <button type="button" class="floating-book-btn" id="floatingBookBtn" onclick="openGeneralBooking()">
+        <i class="fa-solid fa-calendar-check" style="font-size:1.2rem;"></i>
+        <span data-i18n="floatingOrderBtn">Order / Book Now</span>
+    </button>
+
     <!-- Footer Contact -->
     <footer class="site-footer">
-        <h3 style="color:var(--gold);margin-bottom:8px;">DAR DYAFA — BOSTON, USA</h3>
-        <p style="color:var(--text-muted);font-size:0.92rem;" data-i18n="footerTagline">Authentic Moroccan Food Truck, Luxury Wedding Catering & Negafa Services</p>
+        <h3 id="footerTitleText" style="color:var(--gold);margin-bottom:8px;">DAR DYAFA — BOSTON, USA</h3>
+        <p id="footerTaglineText" style="color:var(--text-muted);font-size:0.92rem;" data-i18n="footerTagline">Authentic Moroccan Food Truck, Luxury Wedding Catering & Negafa Services</p>
         <div class="footer-contacts">
-            <a href="mailto:dardyafa@gmail.com"><i class="fa-solid fa-envelope"></i> dardyafa@gmail.com</a>
-            <a href="tel:7744080421"><i class="fa-solid fa-phone"></i> 774-408-0421</a>
-            <a id="footerWaLink" href="#" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp: +1 774-408-0421</a>
+            <a id="footerEmailLink" href="mailto:dardyafa@gmail.com"><i class="fa-solid fa-envelope"></i> <span id="footerEmailText">dardyafa@gmail.com</span></a>
+            <a id="footerPhoneLink" href="tel:7744080421"><i class="fa-solid fa-phone"></i> <span id="footerPhoneText">774-408-0421</span></a>
+            <a id="footerWaLink" href="#" target="_blank"><i class="fa-brands fa-whatsapp"></i> <span id="footerWaText">WhatsApp: +1 774-408-0421</span></a>
         </div>
-        <p style="color:#666;font-size:0.8rem;margin-top:18px;">© 2026 Dar Dyafa USA. All Rights Reserved.</p>
+        <p id="footerCopyrightText" style="color:#666;font-size:0.8rem;margin-top:18px;">© 2026 Dar Dyafa USA. All Rights Reserved.</p>
     </footer>
+
+    <!-- Expertise & Diploma Modal -->
+    <div class="modal-overlay" id="expertiseModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeExpertiseModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div style="text-align:center;">
+                <div style="width:60px;height:60px;border-radius:50%;background:rgba(212,175,55,0.15);border:2px solid var(--gold);display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px;">
+                    <i class="fa-solid fa-award" style="color:var(--gold);font-size:1.7rem;"></i>
+                </div>
+                <h3 style="color:var(--gold);margin-bottom:10px;" data-i18n="expModalTitle">Our Culinary Heritage & Accredited Diploma</h3>
+            </div>
+            <p id="expModalBody" style="color:var(--text-main);line-height:1.75;font-size:0.96rem;text-align:center;margin-top:8px;"></p>
+            <div class="exp-stats-grid">
+                <div class="exp-stat-card">
+                    <div class="exp-stat-num">2004</div>
+                    <div class="exp-stat-lbl" data-i18n="expStat1">Certified Diploma</div>
+                </div>
+                <div class="exp-stat-card">
+                    <div class="exp-stat-num">2007</div>
+                    <div class="exp-stat-lbl" data-i18n="expStat2">Active Since</div>
+                </div>
+                <div class="exp-stat-card">
+                    <div class="exp-stat-num">100%</div>
+                    <div class="exp-stat-lbl" data-i18n="expStat3">Authentic Mastery</div>
+                </div>
+            </div>
+            <button type="button" class="btn-whatsapp-confirm" style="background:var(--gold);color:#000;" onclick="closeExpertiseModal()">
+                <span data-i18n="expCloseBtn">Got It</span>
+            </button>
+        </div>
+    </div>
 
     <!-- Order / Booking Modal -->
     <div class="modal-overlay" id="orderModal">
@@ -163,6 +338,7 @@
                 <input type="hidden" id="orderItemId">
                 <input type="hidden" id="orderItemTitle">
                 <input type="hidden" id="orderItemPrice">
+                <input type="hidden" id="orderUnitPriceNum" value="0">
 
                 <div id="foodFields">
                     <div class="form-group">
@@ -171,7 +347,7 @@
                     </div>
                     <div class="form-group">
                         <label data-i18n="labelQty">Quantity</label>
-                        <input type="number" id="custQty" min="1" value="1" required>
+                        <input type="number" id="custQty" min="1" value="1" required oninput="recalculateFoodTax()" onchange="recalculateFoodTax()">
                     </div>
                     <div class="form-group">
                         <label data-i18n="labelAddress">Delivery Address / Pickup Location</label>
@@ -180,6 +356,22 @@
                     <div class="form-group">
                         <label data-i18n="labelPhone">Phone Number</label>
                         <input type="tel" id="custPhone" required placeholder="(774) 000-0000">
+                    </div>
+
+                    <!-- Automatic 2.25% Tax Calculator Box -->
+                    <div class="tax-summary-box" id="taxSummaryBox">
+                        <div class="tax-row">
+                            <span data-i18n="subtotalLabel">Subtotal:</span>
+                            <span id="calcSubtotal">$0.00</span>
+                        </div>
+                        <div class="tax-row">
+                            <span data-i18n="taxLabel">MA Meals Tax (+2.25%):</span>
+                            <span id="calcTaxAmount">+$0.00</span>
+                        </div>
+                        <div class="tax-row total-row">
+                            <span data-i18n="totalLabel">Total Amount:</span>
+                            <span id="calcTotalAmount">$0.00</span>
+                        </div>
                     </div>
                 </div>
 
@@ -223,6 +415,8 @@
     <script src="js/config.js"></script>
     <script src="js/data.js"></script>
     <script>
+        const TAX_RATE = 0.0225; // 2.25%
+
         const UI_TRANSLATIONS = {
             en: {
                 locationLabel: "Revere & Boston, MA",
@@ -233,6 +427,7 @@
                 orderNow: "Order Now",
                 bookNow: "Inquire / Book Now",
                 bookEventNow: "Book Your Celebration",
+                floatingOrderBtn: "Order / Book Now",
                 followSection: "Follow this department on social media:",
                 footerTagline: "Authentic Moroccan Food Truck, Luxury Wedding Catering & Negafa Services",
                 labelName: "Full Name",
@@ -242,7 +437,18 @@
                 labelEventType: "Celebration Type",
                 labelEventDate: "Celebration Date",
                 labelEventCity: "City & Exact Venue Address",
-                confirmOrderBtn: "Confirm Order via WhatsApp"
+                confirmOrderBtn: "Confirm Order via WhatsApp",
+                subtotalLabel: "Subtotal:",
+                taxLabel: "Tax (+2.25%):",
+                totalLabel: "Total:",
+                expShortBadge: "Experience Since 2007 • Certified Culinary & Event Diploma (2004)",
+                expBtnLabel: "Our Expertise",
+                expModalTitle: "Our Expertise & Accredited Diploma",
+                expFullText: "Bringing authentic Moroccan culinary excellence and luxury event catering to the USA since 2007. Backed by a certified professional diploma in Culinary Arts and Event Management earned in 2004, we combine decades of mastery across our Food Truck and high-end wedding & catering services to make your celebrations unforgettable.",
+                expStat1: "Certified Diploma",
+                expStat2: "Experience Since",
+                expStat3: "Quality & Authenticity",
+                expCloseBtn: "Close"
             },
             fr: {
                 locationLabel: "Revere & Boston, MA",
@@ -253,6 +459,7 @@
                 orderNow: "Commander",
                 bookNow: "Réserver",
                 bookEventNow: "Réserver Votre Événement",
+                floatingOrderBtn: "Commander / Réserver",
                 followSection: "Suivez ce département sur les réseaux sociaux :",
                 footerTagline: "Food Truck Marocain Authentique, Traiteur Mariage & Services Negafa",
                 labelName: "Nom Complet",
@@ -262,7 +469,18 @@
                 labelEventType: "Type de Célébration",
                 labelEventDate: "Date de l'Événement",
                 labelEventCity: "Ville et Adresse Exacte de la Salle",
-                confirmOrderBtn: "Confirmer via WhatsApp"
+                confirmOrderBtn: "Confirmer via WhatsApp",
+                subtotalLabel: "Sous-total :",
+                taxLabel: "Taxe (+2.25%) :",
+                totalLabel: "Total :",
+                expShortBadge: "Expérience depuis 2007 • Diplôme reconnu en Cuisine & Événementiel (2004)",
+                expBtnLabel: "Notre Savoir-Faire",
+                expModalTitle: "Notre Savoir-Faire & Diplôme Certifié",
+                expFullText: "Excellence culinaire marocaine et service traiteur haut de gamme aux USA depuis 2007. Forts d'un diplôme professionnel reconnu en cuisine et organisation d'événements obtenu en 2004, nous mettons notre savoir-faire de décennies à votre service, du Food Truck aux plus grands mariages et réceptions.",
+                expStat1: "Diplôme Certifié",
+                expStat2: "Expérience Depuis",
+                expStat3: "Qualité & Authenticité",
+                expCloseBtn: "Fermer"
             },
             ar: {
                 locationLabel: "ريفير وبوسطن، أمريكا",
@@ -273,6 +491,7 @@
                 orderNow: "اطلب الآن",
                 bookNow: "احجز الآن",
                 bookEventNow: "احجز حفلتك الآن",
+                floatingOrderBtn: "اطلب الآن",
                 followSection: "تابع هذا القسم على مواقع التواصل الاجتماعي:",
                 footerTagline: "مأكولات مغربية أصيلة، تنظيم أعراس ملكية وخدمات النكافة في أمريكا",
                 labelName: "الاسم الكامل",
@@ -282,7 +501,18 @@
                 labelEventType: "نوع الحفل (عرس، خطوبة، حناء، ختانة...)",
                 labelEventDate: "تاريخ الحفل",
                 labelEventCity: "المدينة ومكان القاعة بالتحديد",
-                confirmOrderBtn: "تأكيد الطلب عبر واتساب"
+                confirmOrderBtn: "تأكيد الطلب عبر واتساب",
+                subtotalLabel: "المجموع الفرعي:",
+                taxLabel: "الضريبة (+2.25%):",
+                totalLabel: "المجموع النهائي:",
+                expShortBadge: "خبرة منذ 2007 • دبلوم معتمد في الطبخ وتنظيم الأفراح (2004)",
+                expBtnLabel: "خبرتنا",
+                expModalTitle: "خبرتنا والدبلوم المعتمد",
+                expFullText: "خبرة متواصلة منذ 2007 في فنون الطبخ العصري والأصيل وتنظيم الحفلات الكبرى. نستند في إبداعاتنا إلى دبلوم معتمد في الطبخ وتنظيم الأفراح يعود لسنة 2004، لنقدم لكم جودة لا تُعلى وتجربة ضيافة استثنائية سواء عبر شاحنة الطعام (Food Truck) أو خدمات التموين الفاخر (Traiteur) لأعراسكم وحفلاتكم.",
+                expStat1: "دبلوم معتمد",
+                expStat2: "خبرة منذ",
+                expStat3: "جودة وأصالة",
+                expCloseBtn: "إغلاق"
             }
         };
 
@@ -292,13 +522,33 @@
         let siteData = JSON.parse(localStorage.getItem('dardyafa_site_data')) || DEFAULT_SITE_DATA;
 
         function initSite() {
-            document.getElementById('topMapLink').href = SITE_CONFIG.locationMap;
-            document.getElementById('topIg').href = SITE_CONFIG.socials.page1.instagram;
-            document.getElementById('topFb').href = SITE_CONFIG.socials.page1.facebook;
-            document.getElementById('topTt').href = SITE_CONFIG.socials.page1.tiktok;
-            const waUrl = `https://wa.me/${SITE_CONFIG.whatsappNumber}`;
+            const activeSocials = siteData.socials || SITE_CONFIG.socials;
+            const phoneVal = siteData.phone || SITE_CONFIG.phone || '774-408-0421';
+            const waNum = siteData.whatsappNumber || SITE_CONFIG.whatsappNumber;
+            const emailVal = siteData.email || 'dardyafa@gmail.com';
+
+            document.getElementById('topMapLink').href = siteData.locationMap || SITE_CONFIG.locationMap;
+            document.getElementById('topPhoneLink').href = `tel:${phoneVal.replace(/\D/g, '')}`;
+            document.getElementById('topPhoneText').textContent = phoneVal;
+
+            document.getElementById('topIg').href = activeSocials.page1.instagram || '#';
+            document.getElementById('topFb').href = activeSocials.page1.facebook || '#';
+            document.getElementById('topTt').href = activeSocials.page1.tiktok || '#';
+
+            const waUrl = `https://wa.me/${waNum}`;
             document.getElementById('topWa').href = waUrl;
             document.getElementById('footerWaLink').href = waUrl;
+            document.getElementById('footerWaText').textContent = siteData.footerWaLabel || `WhatsApp: +${waNum}`;
+
+            document.getElementById('footerEmailLink').href = `mailto:${emailVal}`;
+            document.getElementById('footerEmailText').textContent = emailVal;
+            document.getElementById('footerPhoneLink').href = `tel:${phoneVal.replace(/\D/g, '')}`;
+            document.getElementById('footerPhoneText').textContent = phoneVal;
+
+            if (siteData.brandName) document.getElementById('brandMainName').textContent = siteData.brandName;
+            if (siteData.brandSubTagline) document.getElementById('brandSubTagline').textContent = siteData.brandSubTagline;
+            if (siteData.footerTitle) document.getElementById('footerTitleText').textContent = siteData.footerTitle;
+            if (siteData.copyrightText) document.getElementById('footerCopyrightText').textContent = siteData.copyrightText;
 
             if (siteData.logoDataUrl) {
                 document.getElementById('siteLogoImg').src = siteData.logoDataUrl;
@@ -324,6 +574,14 @@
                 if (t[key]) el.textContent = t[key];
             });
 
+            // Dynamic overrides from Admin if customized
+            if (siteData.locationTexts && siteData.locationTexts[lang]) {
+                document.getElementById('topLocationText').textContent = siteData.locationTexts[lang];
+            }
+            if (siteData.footerTagline && typeof siteData.footerTagline === 'object' && siteData.footerTagline[lang]) {
+                document.getElementById('footerTaglineText').textContent = siteData.footerTagline[lang];
+            }
+
             document.getElementById('headerBioText').textContent = siteData.headerBio[lang] || siteData.headerBio.en;
             document.getElementById('welcomeTitleText').textContent = siteData.welcomeTitle[lang] || siteData.welcomeTitle.en;
             document.getElementById('welcomeSubText').textContent = siteData.welcomeSub[lang] || siteData.welcomeSub.en;
@@ -331,7 +589,19 @@
             document.getElementById('tabLabel2').textContent = siteData.tabs.tab2[lang] || siteData.tabs.tab2.en;
             document.getElementById('tabLabel3').textContent = siteData.tabs.tab3[lang] || siteData.tabs.tab3.en;
 
+            // Expertise modal text
+            const customExp = siteData.expertiseText && siteData.expertiseText[lang];
+            document.getElementById('expModalBody').textContent = customExp || t.expFullText;
+
             renderCurrentTabContent();
+        }
+
+        function openExpertiseModal() {
+            document.getElementById('expertiseModal').classList.add('open');
+        }
+
+        function closeExpertiseModal() {
+            document.getElementById('expertiseModal').classList.remove('open');
         }
 
         function renderMarquee() {
@@ -359,16 +629,20 @@
             const t = UI_TRANSLATIONS[currentLang];
             const headingEl = document.getElementById('sectionPostsHeading');
             const bookingBtn = document.getElementById('generalBookingBtn');
+            const floatingBtn = document.getElementById('floatingBookBtn');
 
             if (currentTab === 1) {
                 headingEl.textContent = t.menuHeading1;
                 bookingBtn.style.display = 'none';
+                floatingBtn.style.display = 'none';
             } else if (currentTab === 2) {
                 headingEl.textContent = t.menuHeading2;
                 bookingBtn.style.display = 'inline-flex';
+                floatingBtn.style.display = 'inline-flex';
             } else {
                 headingEl.textContent = t.menuHeading3;
                 bookingBtn.style.display = 'inline-flex';
+                floatingBtn.style.display = 'inline-flex';
             }
 
             renderVideos();
@@ -378,13 +652,15 @@
 
         function renderPageSocials() {
             const key = `page${currentTab}`;
-            const soc = SITE_CONFIG.socials[key];
+            const activeSocials = siteData.socials || SITE_CONFIG.socials;
+            const soc = activeSocials[key] || SITE_CONFIG.socials[key];
+            const waNum = siteData.whatsappNumber || SITE_CONFIG.whatsappNumber;
             const container = document.getElementById('pageSpecificSocials');
             container.innerHTML = `
                 ${soc.instagram ? `<a href="${soc.instagram}" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>` : ''}
                 ${soc.facebook ? `<a href="${soc.facebook}" target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>` : ''}
                 ${soc.tiktok ? `<a href="${soc.tiktok}" target="_blank" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>` : ''}
-                <a href="https://wa.me/${SITE_CONFIG.whatsappNumber}" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://wa.me/${waNum}" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
             `;
         }
 
@@ -437,7 +713,7 @@
         function goToVideo(idx) { currentVideoIdx = idx; renderVideos(); }
 
         document.addEventListener('keydown', (e) => {
-            if (document.getElementById('orderModal').classList.contains('open')) return;
+            if (document.getElementById('orderModal').classList.contains('open') || document.getElementById('expertiseModal').classList.contains('open')) return;
             if (e.key === 'ArrowRight') nextVideo();
             if (e.key === 'ArrowLeft') prevVideo();
         });
@@ -446,44 +722,88 @@
             const posts = siteData.posts[`page${currentTab}`] || [];
             const grid = document.getElementById('postsGrid');
             const t = UI_TRANSLATIONS[currentLang];
-            const btnText = currentTab === 1 ? t.orderNow : t.bookNow;
 
-            grid.innerHTML = posts.map((post, index) => {
-                const title = post.title[currentLang] || post.title.en;
-                const desc = post.desc[currentLang] || post.desc.en;
-                return `
-                    <div class="post-card" onclick="openOrderModal(${index})">
-                        <div class="post-img-wrap">
-                            <span class="post-id-badge">#${post.id}</span>
-                            <img src="${post.image}" alt="${title}" onerror="this.src='assets/images/logo.png'">
-                        </div>
-                        <div class="post-body">
-                            <div>
-                                <h4 class="post-title">${title}</h4>
-                                <p class="post-desc">${desc}</p>
+            if (currentTab === 1) {
+                // Page 1: Food Truck with ID badge, price, and Order Now button
+                grid.innerHTML = posts.map((post, index) => {
+                    const title = post.title[currentLang] || post.title.en;
+                    const desc = post.desc[currentLang] || post.desc.en;
+                    return `
+                        <div class="post-card" onclick="openOrderModal(${index})">
+                            <div class="post-img-wrap">
+                                <span class="post-id-badge">#${post.id}</span>
+                                <img src="${post.image}" alt="${title}" onerror="this.src='assets/images/logo.png'">
                             </div>
-                            <div class="post-footer">
-                                <div class="post-price">${post.price ? post.price : ''}</div>
-                                <button class="btn-order" type="button">
-                                    <i class="fa-brands fa-whatsapp"></i> ${btnText}
-                                </button>
+                            <div class="post-body">
+                                <div>
+                                    <h4 class="post-title">${title}</h4>
+                                    <p class="post-desc">${desc}</p>
+                                </div>
+                                <div class="post-footer">
+                                    <div class="post-price">${post.price ? post.price : ''}</div>
+                                    <button class="btn-order" type="button">
+                                        <i class="fa-brands fa-whatsapp"></i> ${t.orderNow}
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
-            }).join('');
+                    `;
+                }).join('');
+            } else {
+                // Page 2 & Page 3: Pure Gallery Portfolio (No ID badge, No Order button on cards)
+                grid.innerHTML = posts.map((post) => {
+                    const title = post.title[currentLang] || post.title.en;
+                    const desc = post.desc[currentLang] || post.desc.en;
+                    return `
+                        <div class="post-card" style="cursor:default;">
+                            <div class="post-img-wrap">
+                                <img src="${post.image}" alt="${title}" onerror="this.src='assets/images/logo.png'">
+                            </div>
+                            <div class="post-body">
+                                <div>
+                                    <h4 class="post-title">${title}</h4>
+                                    <p class="post-desc">${desc}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        function parsePriceNumber(priceStr) {
+            if (!priceStr) return 0;
+            const cleaned = priceStr.toString().replace(/[^0-9.]/g, '');
+            const num = parseFloat(cleaned);
+            return isNaN(num) ? 0 : num;
+        }
+
+        function recalculateFoodTax() {
+            const unitPrice = parseFloat(document.getElementById('orderUnitPriceNum').value) || 0;
+            const qty = Math.max(1, parseInt(document.getElementById('custQty').value, 10) || 1);
+
+            const subtotal = unitPrice * qty;
+            const taxAmount = subtotal * TAX_RATE;
+            const totalAmount = subtotal + taxAmount;
+
+            document.getElementById('calcSubtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('calcTaxAmount').textContent = `+$${taxAmount.toFixed(2)}`;
+            document.getElementById('calcTotalAmount').textContent = `$${totalAmount.toFixed(2)}`;
         }
 
         function openOrderModal(postIndex) {
             const post = siteData.posts[`page${currentTab}`][postIndex];
             const title = post.title[currentLang] || post.title.en;
             const t = UI_TRANSLATIONS[currentLang];
+            const unitNum = parsePriceNumber(post.price);
 
             document.getElementById('orderItemId').value = post.id;
             document.getElementById('orderItemTitle').value = post.title.en;
-            document.getElementById('orderItemPrice').value = post.price || 'Custom Quote';
+            document.getElementById('orderItemPrice').value = post.price || '$0.00';
+            document.getElementById('orderUnitPriceNum').value = unitNum;
+            document.getElementById('custQty').value = 1;
 
-            document.getElementById('modalHeading').textContent = currentTab === 1 ? t.orderNow : t.bookNow;
+            document.getElementById('modalHeading').textContent = t.orderNow;
             document.getElementById('modalPreview').innerHTML = `
                 <img src="${post.image}" alt="${title}">
                 <div>
@@ -494,6 +814,9 @@
             `;
 
             toggleModalFields();
+            if (currentTab === 1) {
+                recalculateFoodTax();
+            }
             document.getElementById('orderModal').classList.add('open');
         }
 
@@ -542,6 +865,7 @@
             const itemId = document.getElementById('orderItemId').value;
             const itemTitle = document.getElementById('orderItemTitle').value;
             const itemPrice = document.getElementById('orderItemPrice').value;
+            const waNum = siteData.whatsappNumber || SITE_CONFIG.whatsappNumber;
 
             let orderRecord = {
                 id: 'ORD-' + Date.now().toString().slice(-6),
@@ -559,16 +883,26 @@
 
             if (currentTab === 1) {
                 const name = document.getElementById('custName').value;
-                const qty = document.getElementById('custQty').value;
+                const qty = Math.max(1, parseInt(document.getElementById('custQty').value, 10) || 1);
                 const address = document.getElementById('custAddress').value;
                 const phone = document.getElementById('custPhone').value;
 
-                orderRecord.customerName = name;
-                orderRecord.details = `Qty: ${qty} | Address: ${address}`;
-                orderRecord.phone = phone;
+                const unitPrice = parseFloat(document.getElementById('orderUnitPriceNum').value) || 0;
+                const subtotal = unitPrice * qty;
+                const taxAmount = subtotal * TAX_RATE;
+                const totalAmount = subtotal + taxAmount;
 
-                waMessage += `*Price:* ${itemPrice}%0A`;
+                orderRecord.customerName = name;
+                orderRecord.details = `Qty: ${qty} | Subtotal: $${subtotal.toFixed(2)} | Tax (2.25%): $${taxAmount.toFixed(2)} | Total: $${totalAmount.toFixed(2)} | Address: ${address}`;
+                orderRecord.phone = phone;
+                orderRecord.itemPrice = `$${totalAmount.toFixed(2)}`;
+
+                waMessage += `*Unit Price:* $${unitPrice.toFixed(2)}%0A`;
                 waMessage += `*Quantity:* ${qty}%0A`;
+                waMessage += `*Subtotal:* $${subtotal.toFixed(2)}%0A`;
+                waMessage += `*Tax (+2.25%):* +$${taxAmount.toFixed(2)}%0A`;
+                waMessage += `*TOTAL AMOUNT:* $${totalAmount.toFixed(2)}%0A`;
+                waMessage += `----------------------------%0A`;
                 waMessage += `*Customer Name:* ${name}%0A`;
                 waMessage += `*Location/Address:* ${address}%0A`;
                 waMessage += `*Phone:* ${phone}%0A`;
@@ -594,7 +928,7 @@
             existingOrders.unshift(orderRecord);
             localStorage.setItem('dardyafa_orders', JSON.stringify(existingOrders));
 
-            const whatsappUrl = `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${waMessage}`;
+            const whatsappUrl = `https://wa.me/${waNum}?text=${waMessage}`;
             window.open(whatsappUrl, '_blank');
             closeModal();
         }
