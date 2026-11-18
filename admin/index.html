@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dar Dyafa Admin Panel | Control Center</title>
+    <title>Dar Dyafa Admin Panel | Full Control Center</title>
     <!-- Website Favicon Logo -->
     <link rel="icon" type="image/png" href="../assets/images/logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
             --bg: #0f0d0c;
             --card: #191513;
             --gold: #d4af37;
+            --gold-light: #f3e5ab;
             --crimson: #8b1e2d;
             --text: #f5f2eb;
             --muted: #a69e8e;
             --border: rgba(212, 175, 55, 0.25);
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif; }
         body { background: var(--bg); color: var(--text); min-height: 100vh; }
 
         .login-wrap {
@@ -46,11 +47,15 @@
             width: 100%; padding: 11px 14px; border-radius: 10px;
             border: 1px solid rgba(255,255,255,0.15); background: #0b0a09; color: #fff; font-size: 0.95rem;
         }
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+            border-color: var(--gold); outline: none;
+        }
         .btn {
             background: var(--gold); color: #0f0d0c; border: none; padding: 11px 18px;
             border-radius: 10px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+            transition: 0.25s;
         }
-        .btn:hover { opacity: 0.92; }
+        .btn:hover { opacity: 0.92; transform: translateY(-1px); }
         .btn-danger { background: #dc2626; color: #fff; }
         .btn-secondary { background: #2a2421; color: #fff; border: 1px solid var(--border); }
         .btn-ai { background: #7c3aed; color: #fff; }
@@ -66,17 +71,18 @@
         }
         .pill {
             padding: 10px 16px; border-radius: 10px; border: 1px solid transparent;
-            background: #1c1816; color: var(--muted); cursor: pointer; font-weight: 700; font-size: 0.88rem;
+            background: #1c1816; color: var(--muted); cursor: pointer; font-weight: 700; font-size: 0.88rem; transition: 0.2s;
         }
-        .pill.active { background: var(--gold); color: #0f0d0c; }
+        .pill.active, .pill:hover { background: var(--gold); color: #0f0d0c; }
         .content { padding: 28px 4%; max-width: 1280px; margin: 0 auto; }
         .panel { display: none; }
         .panel.active { display: block; }
         .card {
             background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; margin-bottom: 24px;
         }
-        .card h3 { color: var(--gold); margin-bottom: 16px; font-size: 1.2rem; }
+        .card h3 { color: var(--gold); margin-bottom: 16px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
         table { width: 100%; border-collapse: collapse; margin-top: 12px; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; vertical-align: middle; }
         th { color: var(--gold); }
@@ -84,7 +90,16 @@
         .alert-toast {
             position: fixed; bottom: 20px; right: 20px; background: #16a34a; color: #fff;
             padding: 12px 20px; border-radius: 10px; font-weight: 700; display: none; z-index: 3000;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
+        .sub-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(212,175,55,0.15);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .sub-box h4 { color: var(--gold-light); font-size: 0.95rem; margin-bottom: 12px; }
     </style>
 </head>
 <body>
@@ -138,8 +153,8 @@
             <button class="pill active" onclick="showPanel('orders', this)"><i class="fa-solid fa-receipt"></i> Customer Orders</button>
             <button class="pill" onclick="showPanel('posts', this)"><i class="fa-solid fa-images"></i> Posts & Menu Items</button>
             <button class="pill" onclick="showPanel('videos', this)"><i class="fa-solid fa-video"></i> Video Carousel</button>
-            <button class="pill" onclick="showPanel('marquee', this)"><i class="fa-solid fa-bullhorn"></i> معرض الثمن (Marquee Ticker)</button>
-            <button class="pill" onclick="showPanel('branding', this)"><i class="fa-solid fa-sliders"></i> أعلا الصفحة وأسفل الصفحة</button>
+            <button class="pill" onclick="showPanel('marquee', this)"><i class="fa-solid fa-bullhorn"></i> شريط الأسعار (Marquee)</button>
+            <button class="pill" onclick="showPanel('branding', this)"><i class="fa-solid fa-sliders"></i> التحكم الشامل (Header, Socials & Footer)</button>
         </div>
 
         <div class="content">
@@ -203,7 +218,7 @@
                                 <input type="url" id="newPostUrlInput" placeholder="https://... (Leave empty if uploading from PC)">
                             </div>
                         </div>
-                        <div class="grid-2">
+                        <div class="grid-3">
                             <div class="input-group">
                                 <label>Title (English)</label>
                                 <input type="text" id="newPostTitleEn" required placeholder="Dish or Service Name">
@@ -217,7 +232,7 @@
                                 <input type="text" id="newPostTitleAr" placeholder="الاسم بالعربية">
                             </div>
                         </div>
-                        <div class="grid-2">
+                        <div class="grid-3">
                             <div class="input-group">
                                 <label>Description (English)</label>
                                 <textarea id="newPostDescEn" rows="2" required></textarea>
@@ -314,38 +329,39 @@
             <!-- 4. Marquee Panel (معرض الثمن) -->
             <div class="panel" id="panel-marquee">
                 <div class="card">
-                    <h3>معرض الثمن (Scrolling Marquee Ticker - English Only)</h3>
-                    <form onsubmit="addMarqueeItem(event)" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
-                        <input type="text" id="mqName" required placeholder="Item Name (English)" style="flex:2;min-width:200px;padding:10px;border-radius:8px;background:#0b0a09;color:#fff;border:1px solid #333;">
-                        <input type="text" id="mqPrice" placeholder="Price e.g. $12.99" style="flex:1;min-width:120px;padding:10px;border-radius:8px;background:#0b0a09;color:#fff;border:1px solid #333;">
-                        <button type="submit" class="btn">Add to Ticker</button>
+                    <h3>معرض الثمن والشريط المتحرك (Scrolling Marquee Ticker)</h3>
+                    <form onsubmit="addOrUpdateMarqueeItem(event)" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
+                        <input type="hidden" id="editMarqueeIdx" value="-1">
+                        <input type="text" id="mqName" required placeholder="Item Name (English/Arabic)" style="flex:2;min-width:200px;padding:11px;border-radius:10px;background:#0b0a09;color:#fff;border:1px solid #333;">
+                        <input type="text" id="mqPrice" placeholder="Price e.g. $12.99" style="flex:1;min-width:120px;padding:11px;border-radius:10px;background:#0b0a09;color:#fff;border:1px solid #333;">
+                        <button type="submit" class="btn" id="mqSubmitBtn">Add to Ticker</button>
                     </form>
                     <table>
-                        <thead><tr><th>Item (EN)</th><th>Price</th><th>Action</th></tr></thead>
+                        <thead><tr><th>Item Name</th><th>Price</th><th>Actions</th></tr></thead>
                         <tbody id="adminMarqueeBody"></tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- 5. Branding, Top Header & Footer Panel (أعلا الصفحة وأسفل الصفحة) -->
+            <!-- 5. Comprehensive Branding, Socials & Footer Panel -->
             <div class="panel" id="panel-branding">
                 <div class="card">
-                    <h3 style="color:var(--gold);margin-bottom:15px;"><i class="fa-solid fa-arrow-up"></i> أعلَى الصفحة (Top Bar Header - 3 Languages)</h3>
-                    <div class="grid-2">
+                    <h3 style="color:var(--gold);margin-bottom:15px;"><i class="fa-solid fa-arrow-up"></i> أعلى الصفحة (Top Bar Header - 3 Languages)</h3>
+                    <div class="grid-3">
                         <div class="input-group">
-                            <label>Top Header Text (English)</label>
+                            <label>Top Header Bio (English)</label>
                             <input type="text" id="topHeaderEn">
                         </div>
                         <div class="input-group">
-                            <label>Top Header Text (French)</label>
+                            <label>Top Header Bio (French)</label>
                             <input type="text" id="topHeaderFr">
                         </div>
                         <div class="input-group">
-                            <label>Top Header Text (Arabic)</label>
+                            <label>Top Header Bio (Arabic)</label>
                             <input type="text" id="topHeaderAr">
                         </div>
                     </div>
-                    <div class="grid-2">
+                    <div class="grid-3">
                         <div class="input-group">
                             <label>Location / Address Text (English)</label>
                             <input type="text" id="topLocEn">
@@ -355,41 +371,73 @@
                             <input type="text" id="topLocAr">
                         </div>
                         <div class="input-group">
-                            <label>Phone Number</label>
+                            <label>Phone Number (Global)</label>
                             <input type="text" id="topPhone">
                         </div>
                     </div>
 
-                    <h3 style="color:var(--gold);margin:25px 0 15px;"><i class="fa-solid fa-share-nodes"></i> روابط وسائل التواصل الاجتماعي (Social Media Links)</h3>
+                    <h3 style="color:var(--gold);margin:25px 0 15px;"><i class="fa-solid fa-crown"></i> العناوين والترحيب في البطل (Welcome Hero Titles - 3 Languages)</h3>
+                    <div class="grid-3">
+                        <div class="input-group">
+                            <label>Welcome Title (English)</label>
+                            <input type="text" id="welcomeTitleEn">
+                        </div>
+                        <div class="input-group">
+                            <label>Welcome Title (French)</label>
+                            <input type="text" id="welcomeTitleFr">
+                        </div>
+                        <div class="input-group">
+                            <label>Welcome Title (Arabic)</label>
+                            <input type="text" id="welcomeTitleAr">
+                        </div>
+                    </div>
+
+                    <h3 style="color:var(--gold);margin:25px 0 15px;"><i class="fa-solid fa-share-nodes"></i> روابط وسائل التواصل الاجتماعي لكل صفحة على حدة</h3>
+                    
+                    <!-- Page 1 Socials -->
+                    <div class="sub-box">
+                        <h4>الصفحة 1 (Food Truck & Moroccan Cuisine)</h4>
+                        <div class="grid-3">
+                            <div class="input-group"><label>Instagram URL</label><input type="url" id="soc1Ig" placeholder="https://instagram.com/..."></div>
+                            <div class="input-group"><label>Facebook URL</label><input type="url" id="soc1Fb" placeholder="https://facebook.com/..."></div>
+                            <div class="input-group"><label>TikTok URL</label><input type="url" id="soc1Tt" placeholder="https://tiktok.com/..."></div>
+                        </div>
+                    </div>
+
+                    <!-- Page 2 Socials -->
+                    <div class="sub-box">
+                        <h4>الصفحة 2 (Royal Events & Weddings)</h4>
+                        <div class="grid-3">
+                            <div class="input-group"><label>Instagram URL</label><input type="url" id="soc2Ig" placeholder="https://instagram.com/..."></div>
+                            <div class="input-group"><label>Facebook URL</label><input type="url" id="soc2Fb" placeholder="https://facebook.com/..."></div>
+                            <div class="input-group"><label>TikTok URL</label><input type="url" id="soc2Tt" placeholder="https://tiktok.com/..."></div>
+                        </div>
+                    </div>
+
+                    <!-- Page 3 Socials -->
+                    <div class="sub-box">
+                        <h4>الصفحة 3 (Bridal Negafa & Caftans)</h4>
+                        <div class="grid-3">
+                            <div class="input-group"><label>Instagram URL</label><input type="url" id="soc3Ig" placeholder="https://instagram.com/..."></div>
+                            <div class="input-group"><label>Facebook URL</label><input type="url" id="soc3Fb" placeholder="https://facebook.com/..."></div>
+                            <div class="input-group"><label>TikTok URL</label><input type="url" id="soc3Tt" placeholder="https://tiktok.com/..."></div>
+                        </div>
+                    </div>
+
+                    <!-- General Contacts -->
                     <div class="grid-2">
                         <div class="input-group">
-                            <label><i class="fa-brands fa-whatsapp"></i> WhatsApp Number / Link</label>
-                            <input type="text" id="socialWhatsapp" placeholder="+17744080421">
+                            <label><i class="fa-brands fa-whatsapp"></i> رقم الواتساب الموحد (WhatsApp Number)</label>
+                            <input type="text" id="socialWhatsapp" placeholder="17744080421">
                         </div>
                         <div class="input-group">
-                            <label><i class="fa-brands fa-instagram"></i> Instagram URL</label>
-                            <input type="url" id="socialInstagram" placeholder="https://instagram.com/...">
-                        </div>
-                        <div class="input-group">
-                            <label><i class="fa-brands fa-tiktok"></i> TikTok URL</label>
-                            <input type="url" id="socialTiktok" placeholder="https://tiktok.com/...">
-                        </div>
-                        <div class="input-group">
-                            <label><i class="fa-brands fa-facebook"></i> Facebook URL</label>
-                            <input type="url" id="socialFacebook" placeholder="https://facebook.com/...">
-                        </div>
-                        <div class="input-group">
-                            <label><i class="fa-brands fa-youtube"></i> YouTube URL</label>
-                            <input type="url" id="socialYoutube" placeholder="https://youtube.com/...">
-                        </div>
-                        <div class="input-group">
-                            <label><i class="fa-solid fa-envelope"></i> Gmail Address</label>
+                            <label><i class="fa-solid fa-envelope"></i> البريد الإلكتروني (Gmail)</label>
                             <input type="email" id="socialGmail" placeholder="dardyafa@gmail.com">
                         </div>
                     </div>
 
-                    <h3 style="color:var(--gold);margin:25px 0 15px;"><i class="fa-solid fa-arrow-down"></i> أسفَل الصفحة (Footer Content - 3 Languages)</h3>
-                    <div class="grid-2">
+                    <h3 style="color:var(--gold);margin:25px 0 15px;"><i class="fa-solid fa-arrow-down"></i> أسفل الصفحة والتذييل (Footer Content - 3 Languages)</h3>
+                    <div class="grid-3">
                         <div class="input-group">
                             <label>Footer Description (English)</label>
                             <textarea id="footerDescEn" rows="2"></textarea>
@@ -404,6 +452,17 @@
                         </div>
                     </div>
 
+                    <div class="grid-2" style="margin-top:15px;">
+                        <div class="input-group">
+                            <label>Footer Title / Brand Name</label>
+                            <input type="text" id="footerTitleText">
+                        </div>
+                        <div class="input-group">
+                            <label>Copyright Text (e.g. © 2026 Dar Dyafa USA)</label>
+                            <input type="text" id="footerCopyrightText">
+                        </div>
+                    </div>
+
                     <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:20px;">
                         <h3>Vercel Deployment Hook / Token (Anti-GitHub Block)</h3>
                         <div class="input-group" style="max-width:500px;">
@@ -414,7 +473,7 @@
                     </div>
 
                     <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
-                        <button class="btn" onclick="saveBranding()"><i class="fa-solid fa-floppy-disk"></i> Save All Header & Footer Settings</button>
+                        <button class="btn" onclick="saveBranding()"><i class="fa-solid fa-floppy-disk"></i> Save All Header, Socials & Footer Settings</button>
                         <button class="btn btn-ai" onclick="cleanAndMigrateOldImages()"><i class="fa-solid fa-cloud-arrow-up"></i> Clean & Convert Heavy Data</button>
                         <button class="btn btn-danger" onclick="resetAllDefaults()">Reset Site to Factory Defaults</button>
                     </div>
@@ -456,9 +515,6 @@
             alert('Vercel Deploy Hook / Token saved securely in your browser!');
         }
 
-        // ==========================================
-        // VERCEL DEPLOY HOOK PUBLISH FUNCTION
-        // ==========================================
         function publishLiveToGitHub() {
             const hookUrl = localStorage.getItem('dardyafa_gh_token') || document.getElementById('ghTokenInput').value.trim();
             if (!hookUrl) {
@@ -467,7 +523,6 @@
                 return;
             }
 
-            // If it's a Vercel Deploy Hook URL, trigger it directly via POST
             if (hookUrl.startsWith('http')) {
                 if (!confirm('Trigger Vercel live build & deployment now?')) return;
                 notify('Triggering Vercel deployment...');
@@ -484,8 +539,7 @@
                     alert('Vercel Publish Error: ' + err.message);
                 });
             } else {
-                // Fallback for export or manual token notification
-                alert('Token saved! Note: For instant 1-click publishing without GitHub blocks, please use a Vercel Deployment Hook URL (https://api.vercel.com/v1/integrations/deploy/...) in this field.');
+                alert('Token saved! Note: For instant 1-click publishing without GitHub blocks, please use a Vercel Deployment Hook URL in this field.');
             }
         }
 
@@ -557,32 +611,20 @@
             formData1.append('reqtype', 'fileupload');
             formData1.append('fileToUpload', file);
 
-            fetch('https://catbox.moe/user/api.php', {
-                method: 'POST',
-                body: formData1
-            })
+            fetch('https://catbox.moe/user/api.php', { method: 'POST', body: formData1 })
             .then(res => res.text())
             .then(url => {
-                if (url && url.startsWith('http')) {
-                    callback(url.trim());
-                } else {
-                    throw new Error('Catbox failed');
-                }
+                if (url && url.startsWith('http')) callback(url.trim());
+                else throw new Error('Catbox failed');
             })
             .catch(() => {
                 const formData2 = new FormData();
                 formData2.append('image', file);
-                return fetch('https://api.imgbb.com/1/upload?key=6d203875883d65b75017e471f4646733', {
-                    method: 'POST',
-                    body: formData2
-                })
+                return fetch('https://api.imgbb.com/1/upload?key=6d203875883d65b75017e471f4646733', { method: 'POST', body: formData2 })
                 .then(res => res.json())
                 .then(data => {
-                    if (data && data.success) {
-                        callback(data.data.url);
-                    } else {
-                        throw new Error('ImgBB failed');
-                    }
+                    if (data && data.success) callback(data.data.url);
+                    else throw new Error('ImgBB failed');
                 });
             })
             .catch(() => {
@@ -686,7 +728,7 @@
             renderAdminPosts();
         }
 
-        function saveItemChanges() { saveData(); }
+        function saveItemChanges() { saveData(); notify('تم حفظ التعديلات بنجاح!'); }
 
         function deletePost(page, idx) {
             if (confirm('Delete this item?')) {
@@ -817,27 +859,50 @@
             }
         }
 
+        // Marquee Ticker Management with Edit & Add
         function renderAdminMarquee() {
             const tbody = document.getElementById('adminMarqueeBody');
-            tbody.innerHTML = siteData.marqueeItems.map((m, idx) => `
+            const items = siteData.marqueeItems || [];
+            tbody.innerHTML = items.map((m, idx) => `
                 <tr>
                     <td>${m.name}</td>
-                    <td>${m.price}</td>
-                    <td><button class="btn btn-danger" style="padding:6px 10px;" onclick="deleteMarquee(${idx})"><i class="fa-solid fa-trash"></i></button></td>
+                    <td>${m.price || '-'}</td>
+                    <td>
+                        <button class="btn btn-secondary" style="padding:6px 10px;" onclick="editMarquee(${idx})"><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn btn-danger" style="padding:6px 10px;" onclick="deleteMarquee(${idx})"><i class="fa-solid fa-trash"></i></button>
+                    </td>
                 </tr>
             `).join('');
         }
 
-        function addMarqueeItem(e) {
+        function addOrUpdateMarqueeItem(e) {
             e.preventDefault();
-            siteData.marqueeItems.push({
-                id: 'm_' + Date.now(),
-                name: document.getElementById('mqName').value,
-                price: document.getElementById('mqPrice').value
-            });
+            const editIdx = parseInt(document.getElementById('editMarqueeIdx').value, 10);
+            const name = document.getElementById('mqName').value.trim();
+            const price = document.getElementById('mqPrice').value.trim();
+
+            if (!siteData.marqueeItems) siteData.marqueeItems = [];
+
+            if (editIdx >= 0) {
+                siteData.marqueeItems[editIdx] = { name, price };
+                document.getElementById('editMarqueeIdx').value = -1;
+                document.getElementById('mqSubmitBtn').textContent = 'Add to Ticker';
+            } else {
+                siteData.marqueeItems.push({ id: 'm_' + Date.now(), name, price });
+            }
+
             saveData();
             renderAdminMarquee();
             e.target.reset();
+            notify('تم تحديث شريط الأسعار بنجاح!');
+        }
+
+        function editMarquee(idx) {
+            const item = siteData.marqueeItems[idx];
+            document.getElementById('mqName').value = item.name;
+            document.getElementById('mqPrice').value = item.price || '';
+            document.getElementById('editMarqueeIdx').value = idx;
+            document.getElementById('mqSubmitBtn').textContent = 'Update Item';
         }
 
         function deleteMarquee(idx) {
@@ -849,7 +914,8 @@
         function loadBrandingFields() {
             if (!siteData.topHeader) siteData.topHeader = { en: "", fr: "", ar: "" };
             if (!siteData.topLocation) siteData.topLocation = { en: "", ar: "" };
-            if (!siteData.socialLinks) siteData.socialLinks = { whatsapp: "", instagram: "", tiktok: "", facebook: "", youtube: "", gmail: "" };
+            if (!siteData.welcomeTitle) siteData.welcomeTitle = { en: "", fr: "", ar: "" };
+            if (!siteData.socials) siteData.socials = { page1: {instagram:"", facebook:"", tiktok:""}, page2: {instagram:"", facebook:"", tiktok:""}, page3: {instagram:"", facebook:"", tiktok:""} };
             if (!siteData.footerDesc) siteData.footerDesc = { en: "", fr: "", ar: "" };
 
             document.getElementById('topHeaderEn').value = siteData.topHeader.en || '';
@@ -858,18 +924,36 @@
 
             document.getElementById('topLocEn').value = siteData.topLocation.en || '';
             document.getElementById('topLocAr').value = siteData.topLocation.ar || '';
-            document.getElementById('topPhone').value = siteData.contactPhone || '';
+            document.getElementById('topPhone').value = siteData.whatsappNumber || SITE_CONFIG.whatsappNumber || '';
 
-            document.getElementById('socialWhatsapp').value = siteData.socialLinks.whatsapp || '';
-            document.getElementById('socialInstagram').value = siteData.socialLinks.instagram || '';
-            document.getElementById('socialTiktok').value = siteData.socialLinks.tiktok || '';
-            document.getElementById('socialFacebook').value = siteData.socialLinks.facebook || '';
-            document.getElementById('socialYoutube').value = siteData.socialLinks.youtube || '';
-            document.getElementById('socialGmail').value = siteData.socialLinks.gmail || '';
+            document.getElementById('welcomeTitleEn').value = siteData.welcomeTitle.en || '';
+            document.getElementById('welcomeTitleFr').value = siteData.welcomeTitle.fr || '';
+            document.getElementById('welcomeTitleAr').value = siteData.welcomeTitle.ar || '';
 
-            document.getElementById('footerDescEn').value = siteData.footerDesc.en || '';
-            document.getElementById('footerDescFr').value = siteData.footerDesc.fr || '';
-            document.getElementById('footerDescAr').value = siteData.footerDesc.ar || '';
+            // Page 1 socials
+            document.getElementById('soc1Ig').value = siteData.socials.page1?.instagram || '';
+            document.getElementById('soc1Fb').value = siteData.socials.page1?.facebook || '';
+            document.getElementById('soc1Tt').value = siteData.socials.page1?.tiktok || '';
+
+            // Page 2 socials
+            document.getElementById('soc2Ig').value = siteData.socials.page2?.instagram || '';
+            document.getElementById('soc2Fb').value = siteData.socials.page2?.facebook || '';
+            document.getElementById('soc2Tt').value = siteData.socials.page2?.tiktok || '';
+
+            // Page 3 socials
+            document.getElementById('soc3Ig').value = siteData.socials.page3?.instagram || '';
+            document.getElementById('soc3Fb').value = siteData.socials.page3?.facebook || '';
+            document.getElementById('soc3Tt').value = siteData.socials.page3?.tiktok || '';
+
+            document.getElementById('socialWhatsapp').value = siteData.whatsappNumber || SITE_CONFIG.whatsappNumber || '';
+            document.getElementById('socialGmail').value = siteData.email || 'dardyafa@gmail.com';
+
+            document.getElementById('footerDescEn').value = siteData.footerTagline?.en || '';
+            document.getElementById('footerDescFr').value = siteData.footerTagline?.fr || '';
+            document.getElementById('footerDescAr').value = siteData.footerTagline?.ar || '';
+
+            document.getElementById('footerTitleText').value = siteData.footerTitle || 'DAR DYAFA — BOSTON, USA';
+            document.getElementById('footerCopyrightText').value = siteData.copyrightText || '© 2026 Dar Dyafa USA. All Rights Reserved.';
         }
 
         function saveBranding() {
@@ -881,23 +965,46 @@
             if (!siteData.topLocation) siteData.topLocation = {};
             siteData.topLocation.en = document.getElementById('topLocEn').value;
             siteData.topLocation.ar = document.getElementById('topLocAr').value;
-            siteData.contactPhone = document.getElementById('topPhone').value;
+            
+            const newPhone = document.getElementById('topPhone').value;
+            siteData.whatsappNumber = newPhone;
+            siteData.contactPhone = newPhone;
 
-            if (!siteData.socialLinks) siteData.socialLinks = {};
-            siteData.socialLinks.whatsapp = document.getElementById('socialWhatsapp').value;
-            siteData.socialLinks.instagram = document.getElementById('socialInstagram').value;
-            siteData.socialLinks.tiktok = document.getElementById('socialTiktok').value;
-            siteData.socialLinks.facebook = document.getElementById('socialFacebook').value;
-            siteData.socialLinks.youtube = document.getElementById('socialYoutube').value;
-            siteData.socialLinks.gmail = document.getElementById('socialGmail').value;
+            if (!siteData.welcomeTitle) siteData.welcomeTitle = {};
+            siteData.welcomeTitle.en = document.getElementById('welcomeTitleEn').value;
+            siteData.welcomeTitle.fr = document.getElementById('welcomeTitleFr').value;
+            siteData.welcomeTitle.ar = document.getElementById('welcomeTitleAr').value;
 
-            if (!siteData.footerDesc) siteData.footerDesc = {};
-            siteData.footerDesc.en = document.getElementById('footerDescEn').value;
-            siteData.footerDesc.fr = document.getElementById('footerDescFr').value;
-            siteData.footerDesc.ar = document.getElementById('footerDescAr').value;
+            if (!siteData.socials) siteData.socials = { page1:{}, page2:{}, page3:{} };
+            siteData.socials.page1 = {
+                instagram: document.getElementById('soc1Ig').value,
+                facebook: document.getElementById('soc1Fb').value,
+                tiktok: document.getElementById('soc1Tt').value
+            };
+            siteData.socials.page2 = {
+                instagram: document.getElementById('soc2Ig').value,
+                facebook: document.getElementById('soc2Fb').value,
+                tiktok: document.getElementById('soc2Tt').value
+            };
+            siteData.socials.page3 = {
+                instagram: document.getElementById('soc3Ig').value,
+                facebook: document.getElementById('soc3Fb').value,
+                tiktok: document.getElementById('soc3Tt').value
+            };
+
+            siteData.whatsappNumber = document.getElementById('socialWhatsapp').value;
+            siteData.email = document.getElementById('socialGmail').value;
+
+            if (!siteData.footerTagline) siteData.footerTagline = {};
+            siteData.footerTagline.en = document.getElementById('footerDescEn').value;
+            siteData.footerTagline.fr = document.getElementById('footerDescFr').value;
+            siteData.footerTagline.ar = document.getElementById('footerDescAr').value;
+
+            siteData.footerTitle = document.getElementById('footerTitleText').value;
+            siteData.copyrightText = document.getElementById('footerCopyrightText').value;
 
             saveData();
-            notify('أعلا الصفحة وأسفل الصفحة تم حفظها بنجاح!');
+            notify('تم حفظ إعدادات الهوية، السوشيال ميديا والتذييل بنجاح!');
         }
 
         function resetAllDefaults() {
