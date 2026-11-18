@@ -87,7 +87,7 @@
         table { width: 100%; border-collapse: collapse; margin-top: 12px; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; vertical-align: middle; }
         th { color: var(--gold); }
-        .thumb { width: 58px; height: 58px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); }
+        .thumb { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); margin: 2px; }
         .alert-toast {
             position: fixed; bottom: 20px; right: 20px; background: #16a34a; color: #fff;
             padding: 12px 20px; border-radius: 10px; font-weight: 700; display: none; z-index: 3000;
@@ -101,6 +101,12 @@
             margin-bottom: 16px;
         }
         .sub-box h4 { color: var(--gold-light); font-size: 0.95rem; margin-bottom: 12px; }
+        .dynamic-img-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 <body>
@@ -192,7 +198,7 @@
             <div class="panel" id="panel-posts">
                 <div class="card">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                        <h3>Add New Post / Dish / Service</h3>
+                        <h3>Add New Post / Dish / Service (Multi-Photo Supported)</h3>
                         <button type="button" class="btn btn-ai" onclick="autoTranslateNewPost()"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Translate Fields</button>
                     </div>
                     <form onsubmit="addNewPost(event)">
@@ -209,17 +215,20 @@
                                 <label>Article ID (e.g. FD-107 or EV-207)</label>
                                 <input type="text" id="newPostId" required placeholder="FD-107">
                             </div>
-                            <div class="input-group">
-                                <label>Price (Optional)</label>
-                                <input type="text" id="newPostPrice" placeholder="$12.99 or leave empty">
-                            </div>
-                            <div class="input-group">
-                                <label>Upload PC Photo (Auto Multi-CDN Link Conversion)</label>
-                                <input type="file" id="newPostFile" accept="image/*">
-                            </div>
                             <div class="input-group" style="grid-column: 1 / -1;">
-                                <label style="color:var(--gold);">Or Paste Direct Image Link (https://...) [Manual Backup Option]</label>
-                                <input type="url" id="newPostUrlInput" placeholder="https://... (Leave empty if uploading from PC)">
+                                <label>Post Images (First image is main cover, add up to 8 photos)</label>
+                                <div id="newPostImagesContainer">
+                                    <div class="dynamic-img-row">
+                                        <input type="url" class="new-post-img-input" placeholder="https://... (Direct Image URL)" required style="flex:2;">
+                                        <input type="file" accept="image/*" style="flex:1;font-size:0.8rem;" onchange="uploadRowImage(this)">
+                                        <button type="button" class="btn btn-danger" style="padding:8px 12px;" onclick="removeImgRow(this)"><i class="fa-solid fa-trash"></i></button>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-secondary" style="margin-top:8px;" onclick="addImgInputRow()"><i class="fa-solid fa-plus"></i> Add Another Photo</button>
+                            </div>
+                            <div class="input-group">
+                                <label>Price (Optional for Page 1)</label>
+                                <input type="text" id="newPostPrice" placeholder="$12.99 or leave empty">
                             </div>
                         </div>
                         <div class="grid-3">
@@ -250,12 +259,12 @@
                                 <textarea id="newPostDescAr" rows="2"></textarea>
                             </div>
                         </div>
-                        <button type="submit" class="btn" id="publishBtn"><i class="fa-solid fa-plus"></i> Publish Item</button>
+                        <button type="submit" class="btn" id="publishBtn"><i class="fa-solid fa-plus"></i> Publish Multi-Photo Item</button>
                     </form>
                 </div>
 
                 <div class="card">
-                    <h3>Manage, Edit & Update Existing Items</h3>
+                    <h3>Manage, Edit & Update Existing Items & Galleries</h3>
                     <div class="input-group" style="max-width:320px;">
                         <label>Filter by Section</label>
                         <select id="filterPostPage" onchange="renderAdminPosts()">
@@ -268,7 +277,7 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Photo URL & Cloud Link</th>
+                                    <th>Photos (Cover & Gallery)</th>
                                     <th>ID</th>
                                     <th>Titles (EN / FR / AR)</th>
                                     <th>Price</th>
@@ -682,46 +691,106 @@
             notify('AI Translation completed!');
         }
 
+        // Dynamic Multi-Image Row Handlers in Add Form
+        function addImgInputRow() {
+            const container = document.getElementById('newPostImagesContainer');
+            const row = document.createElement('div');
+            row.className = 'dynamic-img-row';
+            row.innerHTML = `
+                <input type="url" class="new-post-img-input" placeholder="https://... (Direct Image URL)" required style="flex:2;">
+                <input type="file" accept="image/*" style="flex:1;font-size:0.8rem;" onchange="uploadRowImage(this)">
+                <button type="button" class="btn btn-danger" style="padding:8px 12px;" onclick="removeImgRow(this)"><i class="fa-solid fa-trash"></i></button>
+            `;
+            container.appendChild(row);
+        }
+
+        function removeImgRow(btn) {
+            const rows = document.querySelectorAll('.dynamic-img-row');
+            if (rows.length > 1) {
+                btn.closest('.dynamic-img-row').remove();
+            } else {
+                alert('You must keep at least one image!');
+            }
+        }
+
+        function uploadRowImage(fileInput) {
+            const file = fileInput.files[0];
+            if (!file) return;
+            const urlInput = fileInput.previousElementSibling;
+            urlInput.value = "Uploading...";
+            uploadSmartImage(file, (url) => {
+                urlInput.value = url;
+                notify('Image uploaded and direct link generated!');
+            });
+        }
+
         function renderAdminPosts() {
             const page = document.getElementById('filterPostPage').value;
             const posts = siteData.posts[page] || [];
             const tbody = document.getElementById('adminPostsBody');
             
-            tbody.innerHTML = posts.map((p, idx) => `
-                <tr>
-                    <td>
-                        <img src="${p.image && p.image.startsWith('assets/') ? '../' + p.image : p.image}" class="thumb" onerror="this.src='${p.image}'"><br>
-                        <input type="text" id="imgInput_${page}_${idx}" value="${p.image}" style="font-size:0.7rem;width:140px;margin-top:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostImageString('${page}', ${idx}, this.value)" placeholder="Image URL"><br>
-                        <label style="font-size:0.65rem;color:var(--gold);cursor:pointer;display:inline-block;margin-top:3px;">
-                            <i class="fa-solid fa-cloud-arrow-up"></i> Upload PC Image
-                            <input type="file" accept="image/*" style="display:none;" onchange="uploadExistingPostImage('${page}', ${idx}, this)">
-                        </label>
-                    </td>
-                    <td><input type="text" value="${p.id}" style="width:75px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;" onchange="updatePostField('${page}', ${idx}, 'id', this.value)"></td>
-                    <td>
-                        <div style="margin-bottom:4px;"><span style="color:var(--gold);font-size:0.75rem;">EN:</span> <input type="text" value="${p.title.en}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'en', this.value)"></div>
-                        <div style="margin-bottom:4px;"><span style="color:var(--gold);font-size:0.75rem;">FR:</span> <input type="text" value="${p.title.fr || ''}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'fr', this.value)"></div>
-                        <div><span style="color:var(--gold);font-size:0.75rem;">AR:</span> <input type="text" value="${p.title.ar || ''}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'ar', this.value)"></div>
-                    </td>
-                    <td><input type="text" value="${p.price || ''}" placeholder="Empty" style="width:85px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;" onchange="updatePostField('${page}', ${idx}, 'price', this.value)"></td>
-                    <td>
-                        <button class="btn" style="padding:6px 10px;margin-bottom:4px;" onclick="saveItemChanges()"><i class="fa-solid fa-floppy-disk"></i></button><br>
-                        <button class="btn btn-danger" style="padding:6px 10px;" onclick="deletePost('${page}', ${idx})"><i class="fa-solid fa-trash"></i></button>
-                    </td>
-                </tr>
-            `).join('');
+            tbody.innerHTML = posts.map((p, idx) => {
+                const images = (p.images && p.images.length > 0) ? p.images : [p.image];
+                const thumbsHtml = images.map((img, imgIdx) => `
+                    <div style="display:inline-block;position:relative;margin:2px;">
+                        <img src="${img && img.startsWith('assets/') ? '../' + img : img}" class="thumb" onerror="this.src='${img}'">
+                        <button type="button" onclick="removePostImage('${page}', ${idx}, ${imgIdx})" style="position:absolute;top:-4px;right:-4px;background:red;color:#fff;border:none;border-radius:50%;width:16px;height:16px;font-size:10px;cursor:pointer;">×</button>
+                    </div>
+                `).join('');
+
+                return `
+                    <tr>
+                        <td>
+                            <div style="max-height:140px;overflow-y:auto;margin-bottom:6px;">
+                                ${thumbsHtml}
+                            </div>
+                            <div style="display:flex;gap:4px;margin-top:4px;">
+                                <input type="url" id="newImg_${page}_${idx}" placeholder="Add image URL" style="font-size:0.75rem;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;flex:1;">
+                                <button class="btn" style="padding:4px 8px;font-size:0.75rem;" onclick="addPostImage('${page}', ${idx})"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </td>
+                        <td><input type="text" value="${p.id}" style="width:75px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;" onchange="updatePostField('${page}', ${idx}, 'id', this.value)"></td>
+                        <td>
+                            <div style="margin-bottom:4px;"><span style="color:var(--gold);font-size:0.75rem;">EN:</span> <input type="text" value="${p.title.en}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'en', this.value)"></div>
+                            <div style="margin-bottom:4px;"><span style="color:var(--gold);font-size:0.75rem;">FR:</span> <input type="text" value="${p.title.fr || ''}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'fr', this.value)"></div>
+                            <div><span style="color:var(--gold);font-size:0.75rem;">AR:</span> <input type="text" value="${p.title.ar || ''}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'ar', this.value)"></div>
+                        </td>
+                        <td><input type="text" value="${p.price || ''}" placeholder="Empty" style="width:85px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;" onchange="updatePostField('${page}', ${idx}, 'price', this.value)"></td>
+                        <td>
+                            <button class="btn" style="padding:6px 10px;margin-bottom:4px;" onclick="saveItemChanges()"><i class="fa-solid fa-floppy-disk"></i></button><br>
+                            <button class="btn btn-danger" style="padding:6px 10px;" onclick="deletePost('${page}', ${idx})"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
         }
 
-        function uploadExistingPostImage(page, idx, inputElem) {
-            const file = inputElem.files[0];
-            if (!file) return;
-            notify('Uploading via Smart Multi-CDN...');
-            uploadSmartImage(file, (url) => {
-                siteData.posts[page][idx].image = url;
-                saveData();
-                renderAdminPosts();
-                notify('Image uploaded and direct link generated successfully!');
-            });
+        function addPostImage(page, idx) {
+            const input = document.getElementById(`newImg_${page}_${idx}`);
+            const url = input.value.trim();
+            if (!url) return;
+            const post = siteData.posts[page][idx];
+            if (!post.images) post.images = [post.image || 'assets/images/logo.png'];
+            post.images.push(url);
+            post.image = post.images[0];
+            saveData();
+            renderAdminPosts();
+            notify('Image added to gallery!');
+        }
+
+        function removePostImage(page, idx, imgIdx) {
+            const post = siteData.posts[page][idx];
+            let images = (post.images && post.images.length > 0) ? post.images : [post.image];
+            if (images.length <= 1) {
+                alert('A post must have at least one image!');
+                return;
+            }
+            images.splice(imgIdx, 1);
+            post.images = images;
+            post.image = images[0];
+            saveData();
+            renderAdminPosts();
+            notify('Image removed from gallery!');
         }
 
         function updatePostField(page, idx, field, val) {
@@ -733,12 +802,6 @@
             if (!siteData.posts[page][idx].title) siteData.posts[page][idx].title = {};
             siteData.posts[page][idx].title[lang] = val;
             saveData();
-        }
-
-        function updatePostImageString(page, idx, val) {
-            siteData.posts[page][idx].image = val;
-            saveData();
-            renderAdminPosts();
         }
 
         function saveItemChanges() { saveData(); notify('تم حفظ التعديلات بنجاح!'); }
@@ -754,46 +817,44 @@
         function addNewPost(e) {
             e.preventDefault();
             const page = document.getElementById('newPostPage').value;
-            const fileInput = document.getElementById('newPostFile');
-            const urlInput = document.getElementById('newPostUrlInput').value.trim();
             const publishBtn = document.getElementById('publishBtn');
+            const imgInputs = document.querySelectorAll('.new-post-img-input');
+            
+            let imagesArr = [];
+            imgInputs.forEach(inp => {
+                if (inp.value.trim()) imagesArr.push(inp.value.trim());
+            });
 
-            const finalize = (imgSrc) => {
-                siteData.posts[page].unshift({
-                    id: document.getElementById('newPostId').value,
-                    image: imgSrc,
-                    price: document.getElementById('newPostPrice').value,
-                    title: {
-                        en: document.getElementById('newPostTitleEn').value,
-                        fr: document.getElementById('newPostTitleFr').value || document.getElementById('newPostTitleEn').value,
-                        ar: document.getElementById('newPostTitleAr').value || document.getElementById('newPostTitleEn').value
-                    },
-                    desc: {
-                        en: document.getElementById('newPostDescEn').value,
-                        fr: document.getElementById('newPostDescFr').value || document.getElementById('newPostDescEn').value,
-                        ar: document.getElementById('newPostDescAr').value || document.getElementById('newPostDescEn').value
-                    }
-                });
-                saveData();
-                renderAdminPosts();
-                e.target.reset();
-                publishBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Publish Item`;
-                publishBtn.disabled = false;
-                notify('Item added successfully!');
-            };
+            if (imagesArr.length === 0) imagesArr = ['assets/images/logo.png'];
 
-            if (urlInput) {
-                finalize(urlInput);
-            } else if (fileInput.files && fileInput.files[0]) {
-                publishBtn.disabled = true;
-                publishBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Converting to Direct Link...`;
-                uploadSmartImage(fileInput.files[0], (url) => {
-                    document.getElementById('newPostUrlInput').value = url;
-                    finalize(url);
-                });
-            } else {
-                finalize('assets/images/logo.png');
-            }
+            siteData.posts[page].unshift({
+                id: document.getElementById('newPostId').value,
+                image: imagesArr[0],
+                images: imagesArr,
+                price: document.getElementById('newPostPrice').value,
+                title: {
+                    en: document.getElementById('newPostTitleEn').value,
+                    fr: document.getElementById('newPostTitleFr').value || document.getElementById('newPostTitleEn').value,
+                    ar: document.getElementById('newPostTitleAr').value || document.getElementById('newPostTitleEn').value
+                },
+                desc: {
+                    en: document.getElementById('newPostDescEn').value,
+                    fr: document.getElementById('newPostDescFr').value || document.getElementById('newPostDescEn').value,
+                    ar: document.getElementById('newPostDescAr').value || document.getElementById('newPostDescEn').value
+                }
+            });
+
+            saveData();
+            renderAdminPosts();
+            e.target.reset();
+            document.getElementById('newPostImagesContainer').innerHTML = `
+                <div class="dynamic-img-row">
+                    <input type="url" class="new-post-img-input" placeholder="https://... (Direct Image URL)" required style="flex:2;">
+                    <input type="file" accept="image/*" style="flex:1;font-size:0.8rem;" onchange="uploadRowImage(this)">
+                    <button type="button" class="btn btn-danger" style="padding:8px 12px;" onclick="removeImgRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `;
+            notify('Multi-photo item published successfully!');
         }
 
         function cleanAndMigrateOldImages() {
