@@ -416,6 +416,73 @@
                         </div>
                     </div>
 
+                    <!-- Section Separator Moving Banners (Between 1->2 and 2->3) in 3 Languages -->
+                    <h3 style="color:var(--gold);margin:25px 0 15px;"><i class="fa-solid fa-film"></i> الأشرطة المتحركة الفاصلة بين الفقرات (1→2 و 2→3 - 3 لغات)</h3>
+
+                    <div class="sub-box">
+                        <h4>الشريط 1: الفاصل بين المأكولات اليومية والجمعة/الكسكس (Moving Banner 1)</h4>
+                        <div class="grid-3">
+                            <div class="input-group">
+                                <label>Moving Sentence (English)</label>
+                                <input type="text" id="fridayBannerEn" placeholder="SPECIAL EVERY FRIDAY">
+                            </div>
+                            <div class="input-group">
+                                <label>Moving Sentence (French)</label>
+                                <input type="text" id="fridayBannerFr" placeholder="SPÉCIAL CHAQUE VENDREDI">
+                            </div>
+                            <div class="input-group">
+                                <label>Moving Sentence (Arabic)</label>
+                                <input type="text" id="fridayBannerAr" placeholder="SPECIAL EVERY FRIDAY">
+                            </div>
+                        </div>
+                        <div class="grid-3">
+                            <div class="input-group">
+                                <label>Side Badge / Pill (English)</label>
+                                <input type="text" id="fridayPillEn" placeholder="Moroccan Couscous & Friday Tradition">
+                            </div>
+                            <div class="input-group">
+                                <label>Side Badge / Pill (French)</label>
+                                <input type="text" id="fridayPillFr" placeholder="Couscous Marocain du Vendredi">
+                            </div>
+                            <div class="input-group">
+                                <label>Side Badge / Pill (Arabic)</label>
+                                <input type="text" id="fridayPillAr" placeholder="كسكس الجمعة المغربي الأصيل">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sub-box">
+                        <h4>الشريط 2: الفاصل بين الفقرة 2 والفقرة 3 (Moments at Dar Dyafa - Moving Banner 2)</h4>
+                        <div class="grid-3">
+                            <div class="input-group">
+                                <label>Moving Sentence (English)</label>
+                                <input type="text" id="galleryBannerEn" placeholder="Moments at Dar Dyafa">
+                            </div>
+                            <div class="input-group">
+                                <label>Moving Sentence (French)</label>
+                                <input type="text" id="galleryBannerFr" placeholder="Moments at Dar Dyafa">
+                            </div>
+                            <div class="input-group">
+                                <label>Moving Sentence (Arabic)</label>
+                                <input type="text" id="galleryBannerAr" placeholder="Moments at Dar Dyafa">
+                            </div>
+                        </div>
+                        <div class="grid-3">
+                            <div class="input-group">
+                                <label>Side Badge / Pill (English)</label>
+                                <input type="text" id="galleryPillEn" placeholder="Dar Dyafa Photo Gallery">
+                            </div>
+                            <div class="input-group">
+                                <label>Side Badge / Pill (French)</label>
+                                <input type="text" id="galleryPillFr" placeholder="Galerie Photos Dar Dyafa">
+                            </div>
+                            <div class="input-group">
+                                <label>Side Badge / Pill (Arabic)</label>
+                                <input type="text" id="galleryPillAr" placeholder="ألبوم صور دار الضيافة">
+                            </div>
+                        </div>
+                    </div>
+
                     <h3 style="color:var(--gold);margin:25px 0 15px;"><i class="fa-solid fa-share-nodes"></i> روابط وسائل التواصل الاجتماعي لكل صفحة على حدة</h3>
                     
                     <!-- Page 1 Socials -->
@@ -1032,6 +1099,10 @@
             if (!siteData.topHeader) siteData.topHeader = { en: "", fr: "", ar: "" };
             if (!siteData.topLocation) siteData.topLocation = { en: "", ar: "" };
             if (!siteData.welcomeTitle) siteData.welcomeTitle = { en: "", fr: "", ar: "" };
+            if (!siteData.fridayBannerTitle) siteData.fridayBannerTitle = { en: "SPECIAL EVERY FRIDAY", fr: "SPÉCIAL CHAQUE VENDREDI", ar: "SPECIAL EVERY FRIDAY" };
+            if (!siteData.fridayBannerPill) siteData.fridayBannerPill = { en: "Moroccan Couscous & Friday Tradition", fr: "Couscous Marocain du Vendredi", ar: "كسكس الجمعة المغربي الأصيل" };
+            if (!siteData.galleryBannerTitle) siteData.galleryBannerTitle = { en: "Moments at Dar Dyafa", fr: "Moments at Dar Dyafa", ar: "Moments at Dar Dyafa" };
+            if (!siteData.galleryBannerPill) siteData.galleryBannerPill = { en: "Dar Dyafa Photo Gallery", fr: "Galerie Photos Dar Dyafa", ar: "ألبوم صور دار الضيافة" };
             if (!siteData.socials) siteData.socials = { page1: {instagram:"", facebook:"", tiktok:""}, page2: {instagram:"", facebook:"", tiktok:""}, page3: {instagram:"", facebook:"", tiktok:""} };
             if (!siteData.footerDesc) siteData.footerDesc = { en: "", fr: "", ar: "" };
 
@@ -1046,6 +1117,20 @@
             document.getElementById('welcomeTitleEn').value = siteData.welcomeTitle.en || '';
             document.getElementById('welcomeTitleFr').value = siteData.welcomeTitle.fr || '';
             document.getElementById('welcomeTitleAr').value = siteData.welcomeTitle.ar || '';
+
+            document.getElementById('fridayBannerEn').value = siteData.fridayBannerTitle.en || '';
+            document.getElementById('fridayBannerFr').value = siteData.fridayBannerTitle.fr || '';
+            document.getElementById('fridayBannerAr').value = siteData.fridayBannerTitle.ar || '';
+            document.getElementById('fridayPillEn').value = siteData.fridayBannerPill.en || '';
+            document.getElementById('fridayPillFr').value = siteData.fridayBannerPill.fr || '';
+            document.getElementById('fridayPillAr').value = siteData.fridayBannerPill.ar || '';
+
+            document.getElementById('galleryBannerEn').value = siteData.galleryBannerTitle.en || '';
+            document.getElementById('galleryBannerFr').value = siteData.galleryBannerTitle.fr || '';
+            document.getElementById('galleryBannerAr').value = siteData.galleryBannerTitle.ar || '';
+            document.getElementById('galleryPillEn').value = siteData.galleryBannerPill.en || '';
+            document.getElementById('galleryPillFr').value = siteData.galleryBannerPill.fr || '';
+            document.getElementById('galleryPillAr').value = siteData.galleryBannerPill.ar || '';
 
             document.getElementById('soc1Ig').value = siteData.socials.page1?.instagram || '';
             document.getElementById('soc1Fb').value = siteData.socials.page1?.facebook || '';
@@ -1089,6 +1174,28 @@
             siteData.welcomeTitle.fr = document.getElementById('welcomeTitleFr').value;
             siteData.welcomeTitle.ar = document.getElementById('welcomeTitleAr').value;
 
+            siteData.fridayBannerTitle = {
+                en: document.getElementById('fridayBannerEn').value.trim(),
+                fr: document.getElementById('fridayBannerFr').value.trim(),
+                ar: document.getElementById('fridayBannerAr').value.trim()
+            };
+            siteData.fridayBannerPill = {
+                en: document.getElementById('fridayPillEn').value.trim(),
+                fr: document.getElementById('fridayPillFr').value.trim(),
+                ar: document.getElementById('fridayPillAr').value.trim()
+            };
+
+            siteData.galleryBannerTitle = {
+                en: document.getElementById('galleryBannerEn').value.trim(),
+                fr: document.getElementById('galleryBannerFr').value.trim(),
+                ar: document.getElementById('galleryBannerAr').value.trim()
+            };
+            siteData.galleryBannerPill = {
+                en: document.getElementById('galleryPillEn').value.trim(),
+                fr: document.getElementById('galleryPillFr').value.trim(),
+                ar: document.getElementById('galleryPillAr').value.trim()
+            };
+
             if (!siteData.socials) siteData.socials = { page1:{}, page2:{}, page3:{} };
             siteData.socials.page1 = {
                 instagram: document.getElementById('soc1Ig').value,
@@ -1118,7 +1225,7 @@
             siteData.copyrightText = document.getElementById('footerCopyrightText').value;
 
             saveData();
-            notify('تم حفظ إعدادات الهوية، السوشيال ميديا والتذييل بنجاح!');
+            notify('تم حفظ إعدادات الهوية، الأشرطة المتحركة، السوشيال ميديا والتذييل بنجاح!');
         }
 
         function resetAllDefaults() {
