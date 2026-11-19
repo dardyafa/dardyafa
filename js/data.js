@@ -71,19 +71,24 @@ const DEFAULT_SITE_DATA = {
     "videos": {
         "page1": [
             {
-                "id": "v_1795040103114",
-                "title": "Dar Dyafa Food Truck Live",
-                "url": "https://www.youtube.com/shorts/huu49stRAv8"
-            },
-            {
                 "id": "v_1795040233562",
                 "title": "Dar Dyafa Food Truck Live",
                 "url": "https://www.youtube.com/shorts/RBcgN737uEw"
             },
             {
+                "id": "v_1795099624734",
+                "title": "Dar Dyafa Food Truck Live",
+                "url": "https://www.youtube.com/shorts/sfHsxfyXeK8"
+            },
+            {
                 "id": "v_1795059325580",
                 "title": "Dar Dyafa Food Truck Live",
                 "url": "https://www.youtube.com/shorts/sGAZ8STNGGo"
+            },
+            {
+                "id": "v_1795040103114",
+                "title": "Dar Dyafa Food Truck Live",
+                "url": "https://www.youtube.com/shorts/huu49stRAv8"
             }
         ],
         "page2": [
@@ -224,6 +229,25 @@ const DEFAULT_SITE_DATA = {
     "posts": {
         "page1": [
             {
+                "id": "FD-321",
+                "image": "https://i.ibb.co/j9N8Wy7n/Chicken-platter-everyone-halalfood-foodtruck-massachaussetts-Events-bostonevents.jpg",
+                "images": [
+                    "https://i.ibb.co/j9N8Wy7n/Chicken-platter-everyone-halalfood-foodtruck-massachaussetts-Events-bostonevents.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "$15.00",
+                "title": {
+                    "en": "Seasoned Chicken Pieces with Rice, Fries, and Salad",
+                    "fr": "Morceaux de poulet épicés avec riz, frites et salade",
+                    "ar": "قطع دجاج متبّلة مع أرز، بطاطس مقلية وسلطة"
+                },
+                "desc": {
+                    "en": "Our dishes stand out with an amazing flavor, a blend of Moroccan culinary culture and modernity. Dar Dyafa, the magical touch in every dish",
+                    "fr": "Nos plats se distinguent par leur goût exquis, un alliance entre la culture culinaire marocaine et la modernité. Dar Dyafa, la touche magique dans chaque assiette",
+                    "ar": "تتميّز أطباقنا بالمذاق الرائع، مزيج بين الثقافة المغربية في الطبخ والعصرنة. دار ضيافة، اللمسة السحرية في الأطباق"
+                }
+            },
+            {
                 "id": "FD-101",
                 "image": "https://i.ibb.co/mV8h2xfV/3db45be11722472a8e0bbb39a2a20722.jpg",
                 "price": "$11.99",
@@ -276,46 +300,6 @@ const DEFAULT_SITE_DATA = {
                 "images": [
                     "https://i.ibb.co/G42b34g1/e32ff0ba6fc1bdc0c05edefa280d923f.jpg"
                 ]
-            },
-            {
-                "id": "FD-104",
-                "image": "https://i.ibb.co/zHWt2RP0/c2a560eb6c551618e2c9385edbba8d4d.jpg",
-                "price": "$10.00",
-                "title": {
-                    "en": "Friday Special: Royal Couscous",
-                    "fr": "Spécial Vendredi : Couscous Royal",
-                    "ar": "طبق الجمعة الخاص: الكسكس المغربي"
-                },
-                "desc": {
-                    "en": "Traditional steamed semolina topped with slow-cooked tender meat and seven caramelized vegetables.",
-                    "fr": "Semoule traditionnelle cuite à la vapeur avec viande tendre mijotée et sept légumes.",
-                    "ar": "كسكس مغربي تقليدي مطهو على البخار مع لحم طري وسبع خضار."
-                },
-                "images": [
-                    "https://i.ibb.co/zHWt2RP0/c2a560eb6c551618e2c9385edbba8d4d.jpg"
-                ]
-            },
-            {
-                "id": "FD-105",
-                "image": "https://i.ibb.co/cSyQCFHw/5.jpg",
-                "price": "",
-                "title": {
-                    "en": "Dar Dyafa Food Truck — Revere & Boston",
-                    "fr": "Food Truck Dar Dyafa — Revere & Boston",
-                    "ar": "شاحنة دار ضيافة للمأكولات — بوسطن"
-                },
-                "desc": {
-                    "en": "Visit us at 61 Squire Rd, Revere, MA 02151 or book our truck for private events & festivals.",
-                    "fr": "Retrouvez-nous au 61 Squire Rd, Revere, MA 02151 ou réservez notre camion pour vos événements.",
-                    "ar": "زورونا في 61 Squire Rd, Revere, MA أو احجزوا شاحنتنا لمناسباتكم الخاصة."
-                },
-                "images": [
-                    "https://i.ibb.co/cSyQCFHw/5.jpg",
-                    "https://i.ibb.co/k66rFzqf/7.jpg",
-                    "https://i.ibb.co/LXq5z4G3/8.jpg",
-                    "https://i.ibb.co/gLJdd4Qs/9.jpg"
-                ],
-                "slideMode": "auto"
             }
         ],
         "page2": [
@@ -625,11 +609,78 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/s9H70BmV/image.webp"
                 ]
             }
+        ],
+        "page1_friday": [
+            {
+                "id": "FD-332",
+                "image": "https://i.ibb.co/LhvKbZfs/lamb.jpg",
+                "images": [
+                    "https://i.ibb.co/LhvKbZfs/lamb.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "$18.00",
+                "title": {
+                    "en": "Lamb Couscous with Vegetables and Tfaya",
+                    "fr": "Couscous à l'agneau avec légumes et tfaya",
+                    "ar": "كسكس باللحم مع الخضار والتفاية"
+                },
+                "desc": {
+                    "en": "Our dishes stand out with an amazing flavor, a blend of Moroccan culinary culture and modernity. Dar Dyafa, the magical touch in every dish",
+                    "fr": "Nos plats se distinguent par leur goût exquis, un alliance entre la culture culinaire marocaine et la modernité. Dar Dyafa, la touche magique dans chaque assiette",
+                    "ar": "تتميّز أطباقنا بالمذاق الرائع، مزيج بين الثقافة المغربية في الطبخ والعصرنة. دار ضيافة، اللمسة السحرية في الأطباق"
+                }
+            },
+            {
+                "id": "FD-330",
+                "image": "https://i.ibb.co/Pyk9ntM/chekan.jpg",
+                "images": [
+                    "https://i.ibb.co/Pyk9ntM/chekan.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "$16.00",
+                "title": {
+                    "en": "Moroccan Chicken Couscous with Vegetables & Tfaya",
+                    "fr": "Couscous au Poulet, Légumes & Tfaya",
+                    "ar": "كسكس بالدجاج مع الخضار والتفاية"
+                },
+                "desc": {
+                    "en": "An authentic Moroccan couscous prepared with care and craftsmanship, which at Dar Dyafa we make with full professionalism and a special touch that gives it a rich flavor and balanced sweetness in both taste and presentation",
+                    "fr": "Un couscous marocain authentique préparé avec soin et savoir-faire, que chez Dar Dyafa nous réalisons avec professionnalisme et une touche spéciale qui lui donne une saveur riche et une douceur équilibrée, aussi bien dans le goût que dans la présentation",
+                    "ar": "طبق كسكس مغربي أصيل يُحضّر بعناية وإتقان، وفي Dar Dyafa نُقدّمه بكل حرفية وبلمسة خاصة تمنحه مذاقاً غنياً وحلاوة متوازنة في الطعم وفي التقديم"
+                }
+            }
+        ],
+        "page1_gallery": [
+            {
+                "id": "FD-333",
+                "image": "https://i.ibb.co/Z9S0Vg5/9.jpg",
+                "images": [
+                    "https://i.ibb.co/Z9S0Vg5/9.jpg",
+                    "https://i.ibb.co/Xx5WLQ9G/6.jpg",
+                    "https://i.ibb.co/FL5dWd3H/7.jpg",
+                    "https://i.ibb.co/Gf4hzzLs/8.jpg",
+                    "https://i.ibb.co/HfNv71fM/5.jpg",
+                    "https://i.ibb.co/cKshS7fT/p-2.jpg",
+                    "https://i.ibb.co/tMBNQYYF/page-02.jpg"
+                ],
+                "slideMode": "auto",
+                "price": "",
+                "title": {
+                    "en": "Dar Dyafa Food Truck — Revere & Boston",
+                    "fr": "Food Truck Dar Dyafa — Revere & Boston",
+                    "ar": "شاحنة دار ضيافة للمأكولات — بوسطن"
+                },
+                "desc": {
+                    "en": "Visit us at 61 Squire Rd, Revere, MA 02151 or book our truck for private events & festivals.",
+                    "fr": "Rendez-nous visite au 61 Squire Rd, Revere, MA 02151 ou réservez notre camion pour des événements privés et des festivals.",
+                    "ar": "تفضل بزيارتنا على العنوان التالي: 61 Squire Rd, Revere, MA 02151 أو احجز شاحنتنا للمناسبات والمهرجانات الخاصة."
+                }
+            }
         ]
     },
     "brandTitle": "DAR DYAFA",
     "brandSubtitle": "BOSTON • MOROCCAN HOSPITALITY",
-    "contactPhone": "774-408-0421",
+    "contactPhone": "17744080421",
     "topHeader": {
         "en": "",
         "fr": "",
@@ -654,19 +705,28 @@ const DEFAULT_SITE_DATA = {
     },
     "socials": {
         "page1": {
-            "instagram": "",
-            "facebook": "",
-            "tiktok": ""
+            "instagram": "https://www.instagram.com/dardyafaboston/",
+            "facebook": "https://www.facebook.com/Dardyafa2026",
+            "tiktok": "https://www.tiktok.com/@dardyafarevere"
         },
         "page2": {
-            "instagram": "",
+            "instagram": "https://www.instagram.com/sultanaeventandpartyplanner/",
             "facebook": "",
             "tiktok": ""
         },
         "page3": {
-            "instagram": "",
-            "facebook": "",
-            "tiktok": ""
+            "instagram": "https://www.instagram.com/negafanoraboston/",
+            "facebook": "https://www.facebook.com/nora.charrat.2025",
+            "tiktok": "https://www.tiktok.com/@bostonnegafaservices"
         }
-    }
+    },
+    "whatsappNumber": "17744080421",
+    "email": "Dardyafaboston@gmail.com",
+    "footerTagline": {
+        "en": "",
+        "fr": "",
+        "ar": ""
+    },
+    "footerTitle": "DAR DYAFA — BOSTON, USA",
+    "copyrightText": "© 2026 Dar Dyafa USA. All Rights Reserved."
 };
