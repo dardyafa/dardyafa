@@ -223,6 +223,74 @@
             color: #000;
         }
 
+        /* 3D Animated Friday Banner */
+        .friday-3d-wrapper {
+            margin: 44px 0 22px;
+            perspective: 900px;
+        }
+        .friday-3d-banner {
+            position: relative;
+            background: linear-gradient(135deg, rgba(139, 30, 45, 0.92), rgba(38, 28, 18, 0.96) 50%, rgba(139, 30, 45, 0.92));
+            border: 2px solid var(--gold);
+            border-radius: 18px;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            overflow: hidden;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65), 0 0 28px rgba(212, 175, 55, 0.25);
+            transform-style: preserve-3d;
+            animation: friday3dFloat 3.6s ease-in-out infinite;
+        }
+        .friday-3d-banner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 75%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 243, 196, 0.28), transparent);
+            transform: skewX(-22deg);
+            animation: fridayShine 3.8s infinite;
+        }
+        .friday-3d-title {
+            position: relative;
+            z-index: 2;
+            font-size: 1.45rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: var(--gold-light);
+            text-shadow: 0 2px 0 #7c5800, 0 5px 14px rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .friday-3d-pill {
+            position: relative;
+            z-index: 2;
+            background: var(--gold);
+            color: #0f0d0c;
+            padding: 7px 15px;
+            border-radius: 30px;
+            font-size: 0.84rem;
+            font-weight: 800;
+            box-shadow: 0 6px 16px rgba(212, 175, 55, 0.35);
+        }
+        @keyframes friday3dFloat {
+            0%, 100% {
+                transform: rotateX(2deg) rotateY(-1.5deg) translateY(0px);
+            }
+            50% {
+                transform: rotateX(-2deg) rotateY(1.5deg) translateY(-5px);
+            }
+        }
+        @keyframes fridayShine {
+            0% { left: -120%; }
+            55%, 100% { left: 150%; }
+        }
+
         /* Gallery Slider Modal Styles (Full Cover Framing) */
         .gallery-slider-stage {
             position: relative;
@@ -296,12 +364,7 @@
             <a id="topMapLink" href="#" target="_blank"><i class="fa-solid fa-location-dot"></i> <span id="topLocationText" data-i18n="locationLabel">Revere & Boston, MA</span></a>
         </div>
         <div class="top-bio" id="headerBioText"></div>
-        <div class="top-socials">
-            <a id="topIg" href="#" target="_blank" class="social-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-            <a id="topFb" href="#" target="_blank" class="social-icon" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-            <a id="topTt" href="#" target="_blank" class="social-icon" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-            <a id="topWa" href="#" target="_blank" class="social-icon" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-        </div>
+        <div class="top-socials" id="topSocialsBar"></div>
     </div>
 
     <!-- Main Sticky Header -->
@@ -387,6 +450,31 @@
                 </button>
             </div>
             <div class="posts-grid" id="postsGrid"></div>
+
+            <!-- Page 1 Extra Sections: 3D Friday Banner + Friday Posts + Photo Gallery Without Price -->
+            <div id="page1ExtraSections" style="display:none;">
+                <div class="friday-3d-wrapper">
+                    <div class="friday-3d-banner">
+                        <div class="friday-3d-title">
+                            <i class="fa-solid fa-moon-star" style="color:var(--gold);"></i>
+                            <span data-i18n="friday3dTitle">SPECIAL EVERY FRIDAY</span>
+                        </div>
+                        <div class="friday-3d-pill" data-i18n="friday3dPill">Couscous & Friday Tradition</div>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h3><i class="fa-solid fa-bowl-rice"></i> <span data-i18n="fridayMenuHeading">Friday Specials & Couscous</span></h3>
+                </div>
+                <div class="posts-grid" id="fridayPostsGrid"></div>
+
+                <div style="margin-top:44px;">
+                    <div class="section-header">
+                        <h3><i class="fa-solid fa-photo-film"></i> <span data-i18n="gallerySection3Title">Moments at Dar Dyafa</span></h3>
+                    </div>
+                    <div class="posts-grid" id="galleryNoPriceGrid"></div>
+                </div>
+            </div>
         </div>
 
         <!-- Page-Specific Social Media Bar -->
@@ -563,6 +651,10 @@
                 locationLabel: "Revere & Boston, MA",
                 featuredVideos: "Featured Videos & Reels",
                 menuHeading1: "Food Truck Menu & Specials",
+                friday3dTitle: "SPECIAL EVERY FRIDAY",
+                friday3dPill: "Moroccan Couscous & Friday Tradition",
+                fridayMenuHeading: "Friday Specials & Couscous",
+                gallerySection3Title: "Moments at Dar Dyafa",
                 menuHeading2: "Royal Moroccan Weddings & Events in USA",
                 menuHeading3: "Bridal Negafa, Caftans & Makeup",
                 orderNow: "Order Now",
@@ -599,6 +691,10 @@
                 locationLabel: "Revere & Boston, MA",
                 featuredVideos: "Vidéos & Reels en Vedette",
                 menuHeading1: "Menu Food Truck & Spécialités",
+                friday3dTitle: "SPÉCIAL CHAQUE VENDREDI",
+                friday3dPill: "Couscous Marocain du Vendredi",
+                fridayMenuHeading: "Spécialités du Vendredi & Couscous",
+                gallerySection3Title: "Instants Dar Dyafa",
                 menuHeading2: "Mariages Royaux & Événements aux USA",
                 menuHeading3: "Negafa Mariée, Caftans & Maquillage",
                 orderNow: "Commander",
@@ -635,6 +731,10 @@
                 locationLabel: "ريفير وبوسطن، أمريكا",
                 featuredVideos: "فيديوهات ومقاطع مميزة",
                 menuHeading1: "قائمة مأكولات الشاحنة والأطباق المغربية",
+                friday3dTitle: "خاص كل يوم جمعة • SPECIAL EVERY FRIDAY",
+                friday3dPill: "كسكس الجمعة المغربي الأصيل",
+                fridayMenuHeading: "أطباق الجمعة والكسكس الخاص",
+                gallerySection3Title: "لقطات من دار الضيافة",
                 menuHeading2: "تنظيم الأعراس والحفلات المغربية في أمريكا",
                 menuHeading3: "خدمات النكافة، القفطان المغربي ومكياج العروس",
                 orderNow: "اطلب الآن",
@@ -688,6 +788,56 @@
             return post.image ? [post.image] : ['assets/images/logo.png'];
         }
 
+        function getPostsByBucket(bucketKey) {
+            if (!siteData.posts) siteData.posts = {};
+            if (Array.isArray(siteData.posts[bucketKey])) {
+                return siteData.posts[bucketKey];
+            }
+            if (bucketKey === 'page1_friday') {
+                return (siteData.posts.page1 || []).filter(p =>
+                    p.isFriday === true ||
+                    p.category === 'friday' ||
+                    (p.id && p.id.toString().toUpperCase().startsWith('FR-'))
+                );
+            }
+            if (bucketKey === 'page1_gallery') {
+                return (siteData.posts.page1 || []).filter(p =>
+                    p.isGalleryNoPrice === true ||
+                    p.category === 'gallery_no_price' ||
+                    (p.id && p.id.toString().toUpperCase().startsWith('GL-'))
+                );
+            }
+            return [];
+        }
+
+        function getPageSocials(pageKey) {
+            const cfgPage = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.socials && SITE_CONFIG.socials[pageKey]) ? SITE_CONFIG.socials[pageKey] : {};
+            const dataPage = (siteData && siteData.socials && siteData.socials[pageKey]) ? siteData.socials[pageKey] : {};
+
+            return {
+                instagram: (dataPage.instagram && dataPage.instagram.trim() !== '') ? dataPage.instagram.trim() : ((cfgPage.instagram && cfgPage.instagram.trim() !== '') ? cfgPage.instagram.trim() : ''),
+                facebook: (dataPage.facebook && dataPage.facebook.trim() !== '') ? dataPage.facebook.trim() : ((cfgPage.facebook && cfgPage.facebook.trim() !== '') ? cfgPage.facebook.trim() : ''),
+                tiktok: (dataPage.tiktok && dataPage.tiktok.trim() !== '') ? dataPage.tiktok.trim() : ((cfgPage.tiktok && cfgPage.tiktok.trim() !== '') ? cfgPage.tiktok.trim() : '')
+            };
+        }
+
+        function buildSocialIconsHtml(socObj, waNum) {
+            let html = '';
+            if (socObj.instagram) {
+                html += `<a href="${socObj.instagram}" target="_blank" rel="noopener noreferrer" class="social-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>`;
+            }
+            if (socObj.facebook) {
+                html += `<a href="${socObj.facebook}" target="_blank" rel="noopener noreferrer" class="social-icon" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>`;
+            }
+            if (socObj.tiktok) {
+                html += `<a href="${socObj.tiktok}" target="_blank" rel="noopener noreferrer" class="social-icon" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>`;
+            }
+            if (waNum) {
+                html += `<a href="https://wa.me/${waNum}" target="_blank" rel="noopener noreferrer" class="social-icon" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>`;
+            }
+            return html;
+        }
+
         function clearCardAutoTimers() {
             cardAutoTimers.forEach(timer => clearInterval(timer));
             cardAutoTimers = [];
@@ -710,21 +860,19 @@
         }
 
         function initSite() {
-            const activeSocials = siteData.socials || SITE_CONFIG.socials;
-            const phoneVal = siteData.phone || SITE_CONFIG.phone || '774-408-0421';
+            const phoneVal = siteData.phone || SITE_CONFIG.phone || SITE_CONFIG.displayPhone || '774-408-0421';
             const waNum = siteData.whatsappNumber || SITE_CONFIG.whatsappNumber;
-            const emailVal = siteData.email || 'dardyafa@gmail.com';
+            const emailVal = siteData.email || SITE_CONFIG.email || 'dardyafa@gmail.com';
 
             document.getElementById('topMapLink').href = siteData.locationMap || SITE_CONFIG.locationMap;
             document.getElementById('topPhoneLink').href = `tel:${phoneVal.replace(/\D/g, '')}`;
             document.getElementById('topPhoneText').textContent = phoneVal;
 
-            document.getElementById('topIg').href = activeSocials.page1?.instagram || '#';
-            document.getElementById('topFb').href = activeSocials.page1?.facebook || '#';
-            document.getElementById('topTt').href = activeSocials.page1?.tiktok || '#';
+            // Top bar always keeps Page 1 (Dar Dyafa) social links + WhatsApp
+            const page1Socials = getPageSocials('page1');
+            document.getElementById('topSocialsBar').innerHTML = buildSocialIconsHtml(page1Socials, waNum);
 
             const waUrl = `https://wa.me/${waNum}`;
-            document.getElementById('topWa').href = waUrl;
             document.getElementById('footerWaLink').href = waUrl;
             document.getElementById('footerWaText').textContent = siteData.footerWaLabel || `WhatsApp: +${waNum}`;
 
@@ -816,19 +964,23 @@
             const headingEl = document.getElementById('sectionPostsHeading');
             const bookingBtn = document.getElementById('generalBookingBtn');
             const floatingBtn = document.getElementById('floatingBookBtn');
+            const page1Extra = document.getElementById('page1ExtraSections');
 
             if (currentTab === 1) {
                 headingEl.textContent = t.menuHeading1;
                 bookingBtn.style.display = 'none';
                 floatingBtn.style.display = 'none';
+                page1Extra.style.display = 'block';
             } else if (currentTab === 2) {
                 headingEl.textContent = t.menuHeading2;
                 bookingBtn.style.display = 'inline-flex';
                 floatingBtn.style.display = 'inline-flex';
+                page1Extra.style.display = 'none';
             } else {
                 headingEl.textContent = t.menuHeading3;
                 bookingBtn.style.display = 'inline-flex';
                 floatingBtn.style.display = 'inline-flex';
+                page1Extra.style.display = 'none';
             }
 
             renderVideos();
@@ -838,16 +990,10 @@
 
         function renderPageSocials() {
             const key = `page${currentTab}`;
-            const activeSocials = siteData.socials || SITE_CONFIG.socials;
-            const soc = activeSocials[key] || SITE_CONFIG.socials[key];
+            const soc = getPageSocials(key);
             const waNum = siteData.whatsappNumber || SITE_CONFIG.whatsappNumber;
             const container = document.getElementById('pageSpecificSocials');
-            container.innerHTML = `
-                ${soc.instagram ? `<a href="${soc.instagram}" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>` : ''}
-                ${soc.facebook ? `<a href="${soc.facebook}" target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>` : ''}
-                ${soc.tiktok ? `<a href="${soc.tiktok}" target="_blank" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>` : ''}
-                <a href="https://wa.me/${waNum}" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
-            `;
+            container.innerHTML = buildSocialIconsHtml(soc, waNum);
         }
 
         function getEmbedHtml(url) {
@@ -904,16 +1050,14 @@
             if (e.key === 'ArrowLeft') prevVideo();
         });
 
-        function setupCardAutoSlides() {
-            clearCardAutoTimers();
-            const posts = siteData.posts[`page${currentTab}`] || [];
-            posts.forEach((post, index) => {
+        function registerCardAutoSlide(postsList, bucketKey) {
+            postsList.forEach((post, index) => {
                 const mode = post.slideMode || 'manual';
                 const imagesArr = getPostImages(post);
                 if (mode === 'auto' && imagesArr.length > 1) {
                     let imgIdx = 0;
                     const timer = setInterval(() => {
-                        const imgEl = document.getElementById(`cardImg_${currentTab}_${index}`);
+                        const imgEl = document.getElementById(`cardImg_${bucketKey}_${index}`);
                         if (!imgEl || imgEl.dataset.paused === 'true') return;
                         imgIdx = (imgIdx + 1) % imagesArr.length;
                         imgEl.src = imagesArr[imgIdx];
@@ -923,104 +1067,133 @@
             });
         }
 
-        function renderPosts() {
-            const posts = siteData.posts[`page${currentTab}`] || [];
-            const grid = document.getElementById('postsGrid');
+        function renderOrderableCardsHtml(postsList, bucketKey) {
             const t = UI_TRANSLATIONS[currentLang];
+            return postsList.map((post, index) => {
+                const title = post.title[currentLang] || post.title.en;
+                const desc = post.desc[currentLang] || post.desc.en;
+                const imagesArr = getPostImages(post);
+                const photoCount = imagesArr.length;
+                const hasPrice = Boolean(post.price && post.price.toString().trim() !== '');
 
-            if (currentTab === 1) {
-                grid.innerHTML = posts.map((post, index) => {
-                    const title = post.title[currentLang] || post.title.en;
-                    const desc = post.desc[currentLang] || post.desc.en;
-                    const imagesArr = getPostImages(post);
-                    const photoCount = imagesArr.length;
-                    const hasPrice = Boolean(post.price && post.price.toString().trim() !== '');
-
-                    return `
-                        <div class="post-card"
-                             onmouseenter="pauseCardSlide(${currentTab}, ${index}, true)"
-                             onmouseleave="pauseCardSlide(${currentTab}, ${index}, false)">
-                            <div class="post-img-wrap" onclick="${hasPrice ? `openOrderModal(${index})` : `openGalleryModal(${index})`}" style="cursor:pointer;">
-                                <span class="post-id-badge">#${post.id}</span>
-                                ${photoCount > 1 ? `
-                                    <span class="photo-count-badge">
-                                        <i class="fa-solid fa-images"></i> ${photoCount} ${t.photosCountLabel}
-                                    </span>
-                                ` : ''}
-                                <img id="cardImg_${currentTab}_${index}" src="${imagesArr[0]}" alt="${title}" onerror="this.src='assets/images/logo.png'">
+                return `
+                    <div class="post-card"
+                         onmouseenter="pauseCardSlide('${bucketKey}', ${index}, true)"
+                         onmouseleave="pauseCardSlide('${bucketKey}', ${index}, false)">
+                        <div class="post-img-wrap" onclick="${hasPrice ? `openOrderModal('${bucketKey}', ${index})` : `openGalleryModal('${bucketKey}', ${index})`}" style="cursor:pointer;">
+                            <span class="post-id-badge">#${post.id}</span>
+                            ${photoCount > 1 ? `
+                                <span class="photo-count-badge">
+                                    <i class="fa-solid fa-images"></i> ${photoCount} ${t.photosCountLabel}
+                                </span>
+                            ` : ''}
+                            <img id="cardImg_${bucketKey}_${index}" src="${imagesArr[0]}" alt="${title}" onerror="this.src='assets/images/logo.png'">
+                        </div>
+                        <div class="post-body">
+                            <div>
+                                <h4 class="post-title">${title}</h4>
+                                <p class="post-desc">${desc}</p>
                             </div>
-                            <div class="post-body">
-                                <div>
-                                    <h4 class="post-title">${title}</h4>
-                                    <p class="post-desc">${desc}</p>
-                                </div>
-                                <div class="post-footer">
-                                    <div class="post-price">${hasPrice ? post.price : ''}</div>
-                                    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-                                        ${photoCount > 1 ? `
-                                            <button class="card-gallery-btn" type="button" onclick="event.stopPropagation(); openGalleryModal(${index})">
-                                                <i class="fa-solid fa-images"></i> ${t.viewPhotosBtn}
-                                            </button>
-                                        ` : ''}
-                                        <button class="btn-order" type="button" onclick="event.stopPropagation(); ${hasPrice ? `openOrderModal(${index})` : `openGeneralBooking()`}">
-                                            <i class="fa-brands fa-whatsapp"></i> ${hasPrice ? t.orderNow : t.inquireNow}
+                            <div class="post-footer">
+                                <div class="post-price">${hasPrice ? post.price : ''}</div>
+                                <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                                    ${photoCount > 1 ? `
+                                        <button class="card-gallery-btn" type="button" onclick="event.stopPropagation(); openGalleryModal('${bucketKey}', ${index})">
+                                            <i class="fa-solid fa-images"></i> ${t.viewPhotosBtn}
                                         </button>
-                                    </div>
+                                    ` : ''}
+                                    <button class="btn-order" type="button" onclick="event.stopPropagation(); ${hasPrice ? `openOrderModal('${bucketKey}', ${index})` : `openGeneralBooking()`}">
+                                        <i class="fa-brands fa-whatsapp"></i> ${hasPrice ? t.orderNow : t.inquireNow}
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    `;
-                }).join('');
-            } else {
-                grid.innerHTML = posts.map((post, index) => {
-                    const title = post.title[currentLang] || post.title.en;
-                    const desc = post.desc[currentLang] || post.desc.en;
-                    const imagesArr = getPostImages(post);
-                    const photoCount = imagesArr.length;
-
-                    return `
-                        <div class="post-card"
-                             onclick="openGalleryModal(${index})"
-                             onmouseenter="pauseCardSlide(${currentTab}, ${index}, true)"
-                             onmouseleave="pauseCardSlide(${currentTab}, ${index}, false)"
-                             style="cursor:pointer;">
-                            <div class="post-img-wrap">
-                                ${photoCount > 1 ? `
-                                    <span class="photo-count-badge">
-                                        <i class="fa-solid fa-images"></i> ${photoCount} ${t.photosCountLabel}
-                                    </span>
-                                ` : ''}
-                                <img id="cardImg_${currentTab}_${index}" src="${imagesArr[0]}" alt="${title}" onerror="this.src='assets/images/logo.png'">
-                            </div>
-                            <div class="post-body">
-                                <div>
-                                    <h4 class="post-title">${title}</h4>
-                                    <p class="post-desc">${desc}</p>
-                                </div>
-                                <div class="post-footer" style="margin-top:10px;">
-                                    <span style="font-size:0.82rem;color:var(--gold);font-weight:700;">
-                                        <i class="fa-solid fa-eye"></i> ${t.bookNow}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            }
-
-            setupCardAutoSlides();
+                    </div>
+                `;
+            }).join('');
         }
 
-        function pauseCardSlide(tabNum, index, paused) {
-            const imgEl = document.getElementById(`cardImg_${tabNum}_${index}`);
+        function renderGalleryCardsHtml(postsList, bucketKey) {
+            const t = UI_TRANSLATIONS[currentLang];
+            return postsList.map((post, index) => {
+                const title = post.title[currentLang] || post.title.en;
+                const desc = post.desc[currentLang] || post.desc.en;
+                const imagesArr = getPostImages(post);
+                const photoCount = imagesArr.length;
+
+                return `
+                    <div class="post-card"
+                         onclick="openGalleryModal('${bucketKey}', ${index})"
+                         onmouseenter="pauseCardSlide('${bucketKey}', ${index}, true)"
+                         onmouseleave="pauseCardSlide('${bucketKey}', ${index}, false)"
+                         style="cursor:pointer;">
+                        <div class="post-img-wrap">
+                            ${photoCount > 1 ? `
+                                <span class="photo-count-badge">
+                                    <i class="fa-solid fa-images"></i> ${photoCount} ${t.photosCountLabel}
+                                </span>
+                            ` : ''}
+                            <img id="cardImg_${bucketKey}_${index}" src="${imagesArr[0]}" alt="${title}" onerror="this.src='assets/images/logo.png'">
+                        </div>
+                        <div class="post-body">
+                            <div>
+                                <h4 class="post-title">${title}</h4>
+                                <p class="post-desc">${desc}</p>
+                            </div>
+                            <div class="post-footer" style="margin-top:10px;">
+                                <span style="font-size:0.82rem;color:var(--gold);font-weight:700;">
+                                    <i class="fa-solid fa-eye"></i> ${t.bookNow}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderPosts() {
+            clearCardAutoTimers();
+            const grid = document.getElementById('postsGrid');
+
+            if (currentTab === 1) {
+                const mainPosts = siteData.posts.page1 || [];
+                const fridayPosts = getPostsByBucket('page1_friday');
+                const galleryPosts = getPostsByBucket('page1_gallery');
+
+                grid.innerHTML = renderOrderableCardsHtml(mainPosts, 'page1');
+                document.getElementById('fridayPostsGrid').innerHTML = fridayPosts.length
+                    ? renderOrderableCardsHtml(fridayPosts, 'page1_friday')
+                    : '';
+                document.getElementById('galleryNoPriceGrid').innerHTML = galleryPosts.length
+                    ? renderGalleryCardsHtml(galleryPosts, 'page1_gallery')
+                    : '';
+
+                registerCardAutoSlide(mainPosts, 'page1');
+                registerCardAutoSlide(fridayPosts, 'page1_friday');
+                registerCardAutoSlide(galleryPosts, 'page1_gallery');
+            } else {
+                const bucketKey = `page${currentTab}`;
+                const posts = siteData.posts[bucketKey] || [];
+                grid.innerHTML = renderGalleryCardsHtml(posts, bucketKey);
+                registerCardAutoSlide(posts, bucketKey);
+            }
+        }
+
+        function pauseCardSlide(bucketKey, index, paused) {
+            const imgEl = document.getElementById(`cardImg_${bucketKey}_${index}`);
             if (imgEl) {
                 imgEl.dataset.paused = paused ? 'true' : 'false';
             }
         }
 
         // Multi-Photo Gallery Modal Handlers
-        function openGalleryModal(postIndex) {
-            const post = siteData.posts[`page${currentTab}`][postIndex];
+        function openGalleryModal(bucketKey, postIndex) {
+            const list = (bucketKey === 'page1_friday' || bucketKey === 'page1_gallery')
+                ? getPostsByBucket(bucketKey)
+                : (siteData.posts[bucketKey] || []);
+            const post = list[postIndex];
+            if (!post) return;
+
             const title = post.title[currentLang] || post.title.en;
             const desc = post.desc[currentLang] || post.desc.en;
 
@@ -1126,8 +1299,11 @@
             document.getElementById('calcTotalAmount').textContent = `$${totalAmount.toFixed(2)}`;
         }
 
-        function openOrderModal(postIndex) {
-            const post = siteData.posts[`page${currentTab}`][postIndex];
+        function openOrderModal(bucketKey, postIndex) {
+            const list = (bucketKey === 'page1_friday') ? getPostsByBucket('page1_friday') : (siteData.posts[bucketKey] || []);
+            const post = list[postIndex];
+            if (!post) return;
+
             const title = post.title[currentLang] || post.title.en;
             const t = UI_TRANSLATIONS[currentLang];
             const unitNum = parsePriceNumber(post.price);
@@ -1149,17 +1325,19 @@
                 </div>
             `;
 
-            toggleModalFields();
-            if (currentTab === 1) {
-                recalculateFoodTax();
-            }
+            toggleModalFields(true);
+            recalculateFoodTax();
             document.getElementById('orderModal').classList.add('open');
         }
 
         function openGeneralBooking() {
             const t = UI_TRANSLATIONS[currentLang];
-            const deptName = currentTab === 2 ? 'Royal Event & Wedding Planning' : 'Bridal Negafa & Caftan Services';
-            document.getElementById('orderItemId').value = currentTab === 2 ? 'EVENT-BOOKING' : 'NEGAFA-BOOKING';
+            const deptName = currentTab === 1
+                ? 'Dar Dyafa Special Inquiry'
+                : (currentTab === 2 ? 'Royal Event & Wedding Planning' : 'Bridal Negafa & Caftan Services');
+            document.getElementById('orderItemId').value = currentTab === 1
+                ? 'DARDYAFA-INQUIRY'
+                : (currentTab === 2 ? 'EVENT-BOOKING' : 'NEGAFA-BOOKING');
             document.getElementById('orderItemTitle').value = deptName;
             document.getElementById('orderItemPrice').value = 'Custom Package';
 
@@ -1172,24 +1350,23 @@
                 </div>
             `;
 
-            toggleModalFields();
+            toggleModalFields(false);
             document.getElementById('orderModal').classList.add('open');
         }
 
-        function toggleModalFields() {
-            const isFood = currentTab === 1;
-            document.getElementById('foodFields').style.display = isFood ? 'block' : 'none';
-            document.getElementById('eventFields').style.display = isFood ? 'none' : 'block';
+        function toggleModalFields(isFoodOrder = (currentTab === 1)) {
+            document.getElementById('foodFields').style.display = isFoodOrder ? 'block' : 'none';
+            document.getElementById('eventFields').style.display = isFoodOrder ? 'none' : 'block';
 
-            document.getElementById('custName').required = isFood;
-            document.getElementById('custQty').required = isFood;
-            document.getElementById('custAddress').required = isFood;
-            document.getElementById('custPhone').required = isFood;
+            document.getElementById('custName').required = isFoodOrder;
+            document.getElementById('custQty').required = isFoodOrder;
+            document.getElementById('custAddress').required = isFoodOrder;
+            document.getElementById('custPhone').required = isFoodOrder;
 
-            document.getElementById('evName').required = !isFood;
-            document.getElementById('evDate').required = !isFood;
-            document.getElementById('evLocation').required = !isFood;
-            document.getElementById('evPhone').required = !isFood;
+            document.getElementById('evName').required = !isFoodOrder;
+            document.getElementById('evDate').required = !isFoodOrder;
+            document.getElementById('evLocation').required = !isFoodOrder;
+            document.getElementById('evPhone').required = !isFoodOrder;
         }
 
         function closeModal() {
@@ -1202,6 +1379,7 @@
             const itemTitle = document.getElementById('orderItemTitle').value;
             const itemPrice = document.getElementById('orderItemPrice').value;
             const waNum = siteData.whatsappNumber || SITE_CONFIG.whatsappNumber;
+            const isFoodOrder = document.getElementById('foodFields').style.display !== 'none';
 
             let orderRecord = {
                 id: 'ORD-' + Date.now().toString().slice(-6),
@@ -1217,7 +1395,7 @@
             waMessage += `*Article ID:* #${itemId}%0A`;
             waMessage += `*Item:* ${itemTitle}%0A`;
 
-            if (currentTab === 1) {
+            if (isFoodOrder) {
                 const name = document.getElementById('custName').value;
                 const qty = Math.max(1, parseInt(document.getElementById('custQty').value, 10) || 1);
                 const address = document.getElementById('custAddress').value;
