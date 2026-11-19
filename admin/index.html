@@ -1,48 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dar Dyafa Admin Panel | Full Control Center</title>
+    <!-- Website Favicon Logo -->
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0f0d0c;
+            --card: #191513;
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --crimson: #8b1e2d;
+            --text: #f5f2eb;
+            --muted: #a69e8e;
+            --border: rgba(212, 175, 55, 0.25);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; }
 
-0670172384
-212661553897
-212668166142
+        .login-wrap {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: radial-gradient(circle at center, rgba(212,175,55,0.12), transparent 60%);
+        }
+        .login-card {
+            background: var(--card);
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            padding: 36px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.7);
+        }
+        .login-card h2 { color: var(--gold); text-align: center; margin-bottom: 8px; }
+        .login-card p { color: var(--muted); text-align: center; font-size: 0.9rem; margin-bottom: 24px; }
+        .input-group { margin-bottom: 16px; }
+        .input-group label { display: block; font-size: 0.85rem; margin-bottom: 6px; color: var(--gold); font-weight: 600; }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%; padding: 11px 14px; border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.15); background: #0b0a09; color: #fff; font-size: 0.95rem;
+        }
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+            border-color: var(--gold); outline: none;
+        }
+        .btn {
+            background: var(--gold); color: #0f0d0c; border: none; padding: 11px 18px;
+            border-radius: 10px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+            transition: 0.25s;
+        }
+        .btn:hover { opacity: 0.92; transform: translateY(-1px); }
+        .btn-danger { background: #dc2626; color: #fff; }
+        .btn-secondary { background: #2a2421; color: #fff; border: 1px solid var(--border); }
+        .btn-ai { background: #7c3aed; color: #fff; }
+        .btn-publish { background: #16a34a; color: #fff; }
+        .btn-copy { background: #2563eb; color: #fff; position: fixed; top: 20px; left: 20px; z-index: 4000; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
 
---- wa.me traiteur sidi bernoussi ---
-0662189993
-0673821259
-06369889316869
-06300240110459875
+        .dashboard { display: none; }
+        .topbar {
+            background: #14110f; border-bottom: 1px solid var(--border);
+            padding: 16px 4%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+        }
+        .nav-pills {
+            display: flex; gap: 8px; flex-wrap: wrap; padding: 16px 4%; background: #120f0e; border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .pill {
+            padding: 10px 16px; border-radius: 10px; border: 1px solid transparent;
+            background: #1c1816; color: var(--muted); cursor: pointer; font-weight: 700; font-size: 0.88rem; transition: 0.2s;
+        }
+        .pill.active, .pill:hover { background: var(--gold); color: #0f0d0c; }
+        .content { padding: 28px 4%; max-width: 1280px; margin: 0 auto; }
+        .panel { display: none; }
+        .panel.active { display: block; }
+        .card {
+            background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; margin-bottom: 24px;
+        }
+        .card h3 { color: var(--gold); margin-bottom: 16px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; vertical-align: middle; }
+        th { color: var(--gold); }
+        .thumb { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); margin: 2px; }
+        .alert-toast {
+            position: fixed; bottom: 20px; right: 20px; background: #16a34a; color: #fff;
+            padding: 12px 20px; border-radius: 10px; font-weight: 700; display: none; z-index: 3000;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .sub-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(212,175,55,0.15);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .sub-box h4 { color: var(--gold-light); font-size: 0.95rem; margin-bottom: 12px; }
+        .dynamic-img-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
 
---- wa.me traiteur sidi bernoussi ---
-06039619579
+    <!-- Quick Copy Button for the User -->
+    <button class="btn btn-copy" onclick="copyFullCode()"><i class="fa-solid fa-copy"></i> Couper / Copier le Code</button>
 
---- wa.me traiteur sidi moumen ---
-0679193608
-068114304209
-212679193608
-0666937410
-212663339794
-0708925901
+    <!-- Login View -->
+    <div class="login-wrap" id="loginView">
+        <div class="login-card">
+            <h2><i class="fa-solid fa-crown"></i> DAR DYAFA ADMIN</h2>
+            <p>Sign in to manage products, videos, prices, marquee & customer orders</p>
+            <form onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" id="loginUser" required placeholder="admin">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPass" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn" style="width:100%;justify-content:center;padding:13px;">
+                    <i class="fa-solid fa-right-to-bracket"></i> Login to Dashboard
+                </button>
+                <p id="loginErr" style="color:#ef4444;margin-top:12px;display:none;">Invalid username or password!</p>
+            </form>
+        </div>
+    </div>
 
---- wa.me traiteur sidi moumen ---
-0662742327
-0688761936
-0700863879
-0680871073
-212660126045
+    <!-- Admin Dashboard -->
+    <div class="dashboard" id="dashboardView">
+        <div class="topbar">
+            <div>
+                <h2 style="color:var(--gold);font-size:1.3rem;">DAR DYAFA — ADMIN CONTROL CENTER</h2>
+                <span style="font-size:0.82rem;color:var(--muted);">Manage Live Website Content & Orders</span>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <a href="../index.html" target="_blank" class="btn btn-secondary" style="text-decoration:none;">
+                    <i class="fa-solid fa-globe"></i> View Live Site
+                </a>
+                <button class="btn btn-publish" onclick="publishLiveToGitHub()">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Publish Live to Website
+                </button>
+                <button class="btn btn-secondary" onclick="exportDataJs()">
+                    <i class="fa-solid fa-download"></i> Export data.js
+                </button>
+                <button class="btn btn-danger" onclick="logout()">
+                    <i class="fa-solid fa-power-off"></i> Logout
+                </button>
+            </div>
+        </div>
 
---- wa.me traiteur sidi moumen ---
-0674489333
+        <div class="nav-pills">
+            <button class="pill active" onclick="showPanel('orders', this)"><i class="fa-solid fa-receipt"></i> Customer Orders</button>
+            <button class="pill" onclick="showPanel('posts', this)"><i class="fa-solid fa-images"></i> Posts & Menu Items</button>
+            <button class="pill" onclick="showPanel('videos', this)"><i class="fa-solid fa-video"></i> Video Carousel</button>
+            <button class="pill" onclick="showPanel('marquee', this)"><i class="fa-solid fa-bullhorn"></i> شريط الأسعار (Marquee)</button>
+            <button class="pill" onclick="showPanel('branding', this)"><i class="fa-solid fa-sliders"></i> التحكم الشامل (Header, Socials & Footer)</button>
+        </div>
 
---- wa.me traiteur hay mohammadi ---
-0661727465
-0651715595259
-212661727465
-0660066004
+        <div class="content">
+            <!-- 1. Orders Panel -->
+            <div class="panel active" id="panel-orders">
+                <div class="card">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                        <h3>Incoming WhatsApp Orders & Bookings</h3>
+                        <button class="btn btn-danger" onclick="clearOrders()">Clear All Orders</button>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Section</th>
+                                    <th>Item / Article ID</th>
+                                    <th>Customer</th>
+                                    <th>Details</th>
+                                    <th>Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
---- wa.me traiteur hay mohammadi ---
-212664724320
-064530824454
+            <!-- 2. Posts & Products Panel -->
+            <div class="panel" id="panel-posts">
+                <div class="card">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                        <h3>Add New Post / Dish / Service (Multi-Photo Supported)</h3>
+                        <button type="button" class="btn btn-ai" onclick="autoTranslateNewPost()"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Translate Fields</button>
+                    </div>
+                    <form onsubmit="addNewPost(event)">
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label>Target Section</label>
+                                <select id="newPostPage">
+                                    <option value="page1">Page 1 — Moroccan Cuisine (Food Truck)</option>
+                                    <option value="page1_friday">Page 1 Friday — أطباق الجمعة والكسكس (Special Every Friday)</option>
+                                    <option value="page1_gallery">Page 1 Gallery — قائمة الصور بلا ثمن (Photo Sets)</option>
+                                    <option value="page2">Page 2 — Royal Events & Weddings</option>
+                                    <option value="page3">Page 3 — Bridal Negafa & Caftans</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Article ID (e.g. FD-107, FR-01, GL-01 or EV-207)</label>
+                                <input type="text" id="newPostId" required placeholder="FD-107">
+                            </div>
+                            <div class="input-group">
+                                <label>Gallery Slide Mode (Auto vs Manual)</label>
+                                <select id="newPostSlideMode">
+                                    <option value="manual">Manual (Client clicks arrows / swipes)</option>
+                                    <option value="auto">Auto Slide (Automatic rotation)</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Price (Optional — leave empty for Gallery)</label>
+                                <input type="text" id="newPostPrice" placeholder="$12.99 or leave empty">
+                            </div>
+                            <div class="input-group" style="grid-column: 1 / -1;">
+                                <label>Post Images (First image is main cover, add up to 8 photos)</label>
+                                <div id="newPostImagesContainer">
+                                    <div class="dynamic-img-row">
+                                        <input type="url" class="new-post-img-input" placeholder="https://... (Direct Image URL)" required style="flex:2;">
+                                        <input type="file" accept="image/*" style="flex:1;font-size:0.8rem;" onchange="uploadRowImage(this)">
+                                        <button type="button" class="btn btn-danger" style="padding:8px 12px;" onclick="removeImgRow(this)"><i class="fa-solid fa-trash"></i></button>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-secondary" style="margin-top:8px;" onclick="addImgInputRow()"><i class="fa-solid fa-plus"></i> Add Another Photo</button>
+                            </div>
+                        </div>
+                        <div class="grid-3">
+                            <div class="input-group">
+                                <label>Title (English)</label>
+                                <input type="text" id="newPostTitleEn" required placeholder="Dish or Service Name">
+                            </div>
+                            <div class="input-group">
+                                <label>Title (French)</label>
+                                <input type="text" id="newPostTitleFr" placeholder="Nom en Français">
+                            </div>
+                            <div class="input-group">
+                                <label>Title (Arabic)</label>
+                                <input type="text" id="newPostTitleAr" placeholder="الاسم بالعربية">
+                            </div>
+                        </div>
+                        <div class="grid-3">
+                            <div class="input-group">
+                                <label>Description (English)</label>
+                                <textarea id="newPostDescEn" rows="2" required></textarea>
+                            </div>
+                            <div class="input-group">
+                                <label>Description (French)</label>
+                                <textarea id="newPostDescFr" rows="2"></textarea>
+                            </div>
+                            <div class="input-group">
+                                <label>Description (Arabic)</label>
+                                <textarea id="newPostDescAr" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn" id="publishBtn"><i class="fa-solid fa-plus"></i> Publish Multi-Photo Item</button>
+                    </form>
+                </div>
 
---- wa.me traiteur hay mohammadi ---
-069949389451
-0668449716
-0604787933
-0664724320
-0606210618
+                <div class="card">
+                    <h3>Manage, Edit & Update Existing Items & Galleries</h3>
+                    <div class="input-group" style="max-width:380px;">
+                        <label>Filter by Section</label>
+                        <select id="filterPostPage" onchange="renderAdminPosts()">
+                            <option value="page1">Page 1 — Moroccan Cuisine</option>
+                            <option value="page1_friday">Page 1 Friday — أطباق الجمعة والكسكس</option>
+                            <option value="page1_gallery">Page 1 Gallery — قائمة الصور بلا ثمن</option>
+                            <option value="page2">Page 2 — Royal Events</option>
+                            <option value="page3">Page 3 — Bridal Negafa</option>
+                        </select>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Photos (Cover & Gallery)</th>
+                                    <th>ID & Slide Mode</th>
+                                    <th>Titles (EN / FR / AR)</th>
+                                    <th>Price</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminPostsBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Videos Panel -->
+            <div class="panel" id="panel-videos">
+                <div class="card">
+                    <h3>Add Video (Instagram Link, YouTube Link, or MP4 Upload)</h3>
+                    <form onsubmit="addNewVideo(event)">
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label>Target Section</label>
+                                <select id="newVidPage">
+                                    <option value="page1">Page 1 — Moroccan Cuisine</option>
+                                    <option value="page2">Page 2 — Royal Events</option>
+                                    <option value="page3">Page 3 — Bridal Negafa</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Video Title</label>
+                                <input type="text" id="newVidTitle" required placeholder="Royal Wedding Highlights">
+                            </div>
+                            <div class="input-group">
+                                <label>Video URL (Instagram / YouTube)</label>
+                                <input type="url" id="newVidUrl" placeholder="https://www.instagram.com/p/...">
+                            </div>
+                            <div class="input-group">
+                                <label>Or Upload Short MP4 from Device</label>
+                                <input type="file" id="newVidFile" accept="video/mp4,video/webm">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn"><i class="fa-solid fa-plus"></i> Add Video</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Reorder or Delete Videos</h3>
+                    <div class="input-group" style="max-width:320px;">
+                        <select id="filterVidPage" onchange="renderAdminVideos()">
+                            <option value="page1">Page 1 — Moroccan Cuisine</option>
+                            <option value="page2">Page 2 — Royal Events</option>
+                            <option value="page3">Page 3 — Bridal Negafa</option>
+                        </select>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr><th>#</th><th>Title</th><th>URL / Type</th><th>Order & Delete</th></tr>
+                        </thead>
+                        <tbody id="adminVideosBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 4. Marquee Panel (معرض الثمن) -->
+            <div class="panel" id="panel-marquee">
+                <div class="card">
+                    <h3>معرض الثمن والشريط المتحرك (Scrolling Marquee Ticker)</h3>
+                    <form onsubmit="addOrUpdateMarqueeItem(event)" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
+                        <input type="hidden" id="editMarqueeIdx" value="-1">
+                        <input type="text" id="mqName" required placeholder="Item Name (English/Arabic)" style="flex:2;min-width:200px;padding:11px;border-radius:10px;background:#0b0a09;color:#fff;border:1px solid #333;">
+                        <input type="text" id="mqPrice" placeholder="Price e.g. $12.99" style="flex:1;min-width:120px;padding:11px;border-radius:10px;background:#0b0a09;color:#fff;border:1px solid #333;">
+                        <button type="submit" class="btn" id="mqSubmitBtn">Add to Ticker</button>
+                    </form>
+                    <table>
+                        <thead><tr><th>Item Name</th><th>Price</th><th>Actions</th></tr></thead>
+                        <tbody id="adminMarqueeBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 5. Comprehensive Branding, Socials & Footer Panel -->
+            <div class="panel" id="panel-branding">
+                <div class="card">
+                    <h3 style="color:var(--gold);margin-bottom:15px;"><i class="fa-solid fa-arrow-up"></i> أعلى الصفحة (Top Bar Header - 3 Languages)</h3>
+                    <div class="grid-3">
+                        <div class="input-group">
+                            <label>Top Header Bio (English)</label>
+                            <input type="text" id="topHeaderEn">
+                        </div>
+                        <div class="input-group">
+                            <label>Top Header Bio (French)</label>
+                            <input type="text" id="topHeaderFr">
+                        </div>
+                        <div class="input-group">
+                            <label>Top Header Bio (Arabic)</label>
+                            <input type="text" id="topHeaderAr">
+                        </div>
+                    </div>
+                    <div class="grid-3">
+                        <div class="input-group">
+                            <label>Location / Address Text (English)</label>
+                            <input type="text" id="topLocEn">
+                        </div>
+                        <div class="input-group">
+                            <label>Location / Address Text (Arabic/Fr)</label>
+                            <input type="text" id="topLocAr">
+                        </div>
+                        <div class="input-group">
+                            <label>Phone Number (Global)</label>
+                            <input type="text" id="topPhone">
+                        </div>
+                    </div>
+
+                    <h3 style="color:var(--gold);margin:25px 0 15px;"><i class="fa-solid fa-crown"></i> العناوين والترحيب في البطل (Welcome Hero Titles - 3 Languages)</h3>
+                    <div class="grid-3">
+                        <div class="input-group">
+                            <label>Welcome Title (English)</label>
+                            <input type="text" id="welcomeTitleEn">
+                        </div>
+                        <div class="input-group">
+                            <label>Welcome Title (French)</label>
+                            <input type="text" id="welcomeTitleFr">
+                        </div>
+                        <div class="input-group">
+                            <label>Welcome Title (Arabic)</label>
+                            <input type="text" id="welcomeTitleAr">
+                        </div>
+                    </div>
+
+                    <h3 style="color:var(--gold);margin:25px 0 15px;"><i class="fa-solid fa-share-nodes"></i> روابط وسائل التواصل الاجتماعي لكل صفحة على حدة</h3>
+                    
+                    <!-- Page 1 Socials -->
+                    <div class="sub-box">
+                        <h4>الصفحة 1 (Food Truck & Moroccan Cuisine)</h4>
+                        <div class="grid-3">
+                            <div class="input-group"><label>Instagram URL</label><input type="url" id="soc1Ig" placeholder="https://instagram.com/..."></div>
+                            <div class="input-group"><label>Facebook URL</label><input type="url" id="soc1Fb" placeholder="https://facebook.com/..."></div>
+                            <div class="input-group"><label>TikTok URL</label><input type="url" id="soc1Tt" placeholder="https://tiktok.com/..."></div>
+                        </div>
+                    </div>
+
+                    <!-- Page 2 Socials -->
+                    <div class="sub-box">
+                        <h4>الصفحة 2 (Royal Events & Weddings)</h4>
+                        <div class="grid-3">
+                            <div class="input-group"><label>Instagram URL</label><input type="url" id="soc2Ig" placeholder="https://instagram.com/..."></div>
+                            <div class="input-group"><label>Facebook URL</label><input type="url" id="soc2Fb" placeholder="https://facebook.com/..."></div>
+                            <div class="input-group"><label>TikTok URL</label><input type="url" id="soc2Tt" placeholder="https://tiktok.com/..."></div>
+                        </div>
+                    </div>
+
+                    <!-- Page 3 Socials -->
+                    <div class="sub-box">
+                        <h4>الصفحة 3 (Bridal Negafa & Caftans)</h4>
+                        <div class="grid-3">
+                            <div class="input-group"><label>Instagram URL</label><input type="url" id="soc3Ig" placeholder="https://instagram.com/..."></div>
+                            <div class="input-group"><label>Facebook URL</label><input type="url" id="soc3Fb" placeholder="https://facebook.com/..."></div>
+                            <div class="input-group"><label>TikTok URL</label><input type="url" id="soc3Tt" placeholder="https://tiktok.com/..."></div>
+                        </div>
+                    </div>
+
+                    <!-- General Contacts -->
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label><i class="fa-brands fa-whatsapp"></i> رقم الواتساب الموحد (WhatsApp Number)</label>
+                            <input type="text" id="socialWhatsapp" placeholder="17744080421">
+                        </div>
+                        <div class="input-group">
+                            <label><i class="fa-solid fa-envelope"></i> البريد الإلكتروني (Gmail)</label>
+                            <input type="email" id="socialGmail" placeholder="dardyafa@gmail.com">
+                        </div>
+                    </div>
+
+                    <h3 style="color:var(--gold);margin:25px 0 15px;"><i class="fa-solid fa-arrow-down"></i> أسفل الصفحة والتذييل (Footer Content - 3 Languages)</h3>
+                    <div class="grid-3">
+                        <div class="input-group">
+                            <label>Footer Description (English)</label>
+                            <textarea id="footerDescEn" rows="2"></textarea>
+                        </div>
+                        <div class="input-group">
+                            <label>Footer Description (French)</label>
+                            <textarea id="footerDescFr" rows="2"></textarea>
+                        </div>
+                        <div class="input-group">
+                            <label>Footer Description (Arabic)</label>
+                            <textarea id="footerDescAr" rows="2"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="grid-2" style="margin-top:15px;">
+                        <div class="input-group">
+                            <label>Footer Title / Brand Name</label>
+                            <input type="text" id="footerTitleText">
+                        </div>
+                        <div class="input-group">
+                            <label>Copyright Text (e.g. © 2026 Dar Dyafa USA)</label>
+                            <input type="text" id="footerCopyrightText">
+                        </div>
+                    </div>
+
+                    <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:20px;">
+                        <h3>Vercel Deployment Hook / Token (Anti-GitHub Block)</h3>
+                        <div class="input-group" style="max-width:500px;">
+                            <label>Vercel Deploy Hook URL or Token (vcp_...)</label>
+                            <input type="password" id="ghTokenInput" placeholder="Paste your vcp_ token or Hook URL here">
+                        </div>
+                        <button class="btn btn-secondary" onclick="saveGitHubToken()">Save Hook Securely</button>
+                    </div>
+
+                    <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
+                        <button class="btn" onclick="saveBranding()"><i class="fa-solid fa-floppy-disk"></i> Save All Header, Socials & Footer Settings</button>
+                        <button class="btn btn-ai" onclick="cleanAndMigrateOldImages()"><i class="fa-solid fa-cloud-arrow-up"></i> Clean & Convert Heavy Data</button>
+                        <button class="btn btn-danger" onclick="resetAllDefaults()">Reset Site to Factory Defaults</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert-toast" id="toastMsg">Saved successfully!</div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/data.js"></script>
+    <script>
+        const POST_SECTIONS = ['page1', 'page1_friday', 'page1_gallery', 'page2', 'page3'];
+
+        function copyFullCode() {
+            const htmlContent = document.documentElement.outerHTML;
+            navigator.clipboard.writeText(htmlContent).then(() => {
+                alert('🎉 تم نسخ الكود بالكامل بنجاح!');
+            }).catch(err => {
+                alert('فشل النسخ تلقائياً، يرجى النسخ اليدوي.');
+            });
+        }
+
+        function ensureSiteDataStructure(raw) {
+            const base = JSON.parse(JSON.stringify(typeof DEFAULT_SITE_DATA !== 'undefined' ? DEFAULT_SITE_DATA : {}));
+            const merged = Object.assign({}, base, raw || {});
+            merged.posts = Object.assign({}, base.posts || {}, (raw && raw.posts) || {});
+            POST_SECTIONS.forEach(sec => {
+                if (!Array.isArray(merged.posts[sec])) {
+                    merged.posts[sec] = [];
+                }
+            });
+            merged.videos = Object.assign({ page1: [], page2: [], page3: [] }, base.videos || {}, (raw && raw.videos) || {});
+            if (!Array.isArray(merged.marqueeItems)) merged.marqueeItems = [];
+            return merged;
+        }
+
+        let siteData = ensureSiteDataStructure(JSON.parse(localStorage.getItem('dardyafa_site_data')));
+
+        function notify(msg) {
+            const t = document.getElementById('toastMsg');
+            t.textContent = msg;
+            t.style.display = 'block';
+            setTimeout(() => t.style.display = 'none', 3000);
+        }
+
+        function saveData() {
+            try {
+                localStorage.setItem('dardyafa_site_data', JSON.stringify(siteData));
+                notify('Changes saved locally!');
+            } catch (e) {
+                alert('Storage full! Please use the Clean & Convert button.');
+            }
+        }
+
+        function saveGitHubToken() {
+            const hookUrl = document.getElementById('ghTokenInput').value.trim();
+            if (!hookUrl) {
+                alert('Please enter a valid Vercel Deployment Hook URL or Token.');
+                return;
+            }
+            localStorage.setItem('dardyafa_gh_token', hookUrl);
+            alert('Vercel Deploy Hook / Token saved securely in your browser!');
+        }
+
+        function publishLiveToGitHub() {
+            const hookUrl = localStorage.getItem('dardyafa_gh_token') || document.getElementById('ghTokenInput').value.trim();
+            if (!hookUrl) {
+                alert('Please go to Branding tab, paste your Vercel Deployment Hook URL or Token, and click "Save Hook Securely" first!');
+                showPanel('branding', document.querySelectorAll('.pill')[4]);
+                return;
+            }
+
+            if (hookUrl.startsWith('http')) {
+                if (!confirm('Trigger Vercel live build & deployment now?')) return;
+                notify('Triggering Vercel deployment...');
+
+                fetch(hookUrl, { method: 'POST' })
+                .then(res => {
+                    if (res.ok) {
+                        alert('🎉 Deployment triggered successfully! Vercel is now updating your live website (takes ~30 seconds).');
+                    } else {
+                        throw new Error('Failed to trigger Vercel deployment hook');
+                    }
+                })
+                .catch(err => {
+                    alert('Vercel Publish Error: ' + err.message);
+                });
+            } else {
+                alert('Token saved! Note: For instant 1-click publishing without GitHub blocks, please use a Vercel Deployment Hook URL in this field.');
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('loginUser').value.trim();
+            const p = document.getElementById('loginPass').value.trim();
+            if (u === SITE_CONFIG.adminAuth.username && p === SITE_CONFIG.adminAuth.password) {
+                sessionStorage.setItem('dardyafa_admin_logged', 'true');
+                showDashboard();
+            } else {
+                document.getElementById('loginErr').style.display = 'block';
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('dardyafa_admin_logged');
+            location.reload();
+        }
+
+        function showDashboard() {
+            document.getElementById('loginView').style.display = 'none';
+            document.getElementById('dashboardView').style.display = 'block';
+            renderOrders();
+            renderAdminPosts();
+            renderAdminVideos();
+            renderAdminMarquee();
+            loadBrandingFields();
+            const savedHook = localStorage.getItem('dardyafa_gh_token');
+            if (savedHook) document.getElementById('ghTokenInput').value = savedHook;
+        }
+
+        function showPanel(name, btn) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+            document.getElementById(`panel-${name}`).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        function renderOrders() {
+            const orders = JSON.parse(localStorage.getItem('dardyafa_orders')) || [];
+            const tbody = document.getElementById('ordersTableBody');
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="color:#888;text-align:center;">No orders recorded yet.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = orders.map(o => `
+                <tr>
+                    <td><strong>${o.id}</strong></td>
+                    <td>${o.date}</td>
+                    <td>${o.section}</td>
+                    <td>#${o.itemId} — ${o.itemTitle}</td>
+                    <td>${o.customerName}</td>
+                    <td>${o.details}</td>
+                    <td>${o.phone}</td>
+                </tr>
+            `).join('');
+        }
+
+        function clearOrders() {
+            if (confirm('Delete all order logs?')) {
+                localStorage.removeItem('dardyafa_orders');
+                renderOrders();
+            }
+        }
+
+        function uploadSmartImage(file, callback) {
+            const formData1 = new FormData();
+            formData1.append('reqtype', 'fileupload');
+            formData1.append('fileToUpload', file);
+
+            fetch('https://catbox.moe/user/api.php', { method: 'POST', body: formData1 })
+            .then(res => res.text())
+            .then(url => {
+                if (url && url.startsWith('http')) callback(url.trim());
+                else throw new Error('Catbox failed');
+            })
+            .catch(() => {
+                const formData2 = new FormData();
+                formData2.append('image', file);
+                return fetch('https://api.imgbb.com/1/upload?key=6d203875883d65b75017e471f4646733', { method: 'POST', body: formData2 })
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.success) callback(data.data.url);
+                    else throw new Error('ImgBB failed');
+                });
+            })
+            .catch(() => {
+                alert('Cloud servers busy. Using secure local conversion fallback.');
+                const reader = new FileReader();
+                reader.onload = (ev) => callback(ev.target.result);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        const transDict = {
+            "طجين": {fr: "Tajine Marocain", en: "Moroccan Tajine"},
+            "كسكس": {fr: "Couscous Royal", en: "Royal Couscous"},
+            "حناء": {fr: "Soirée Henné", en: "Henna Celebration"},
+            "عرس": {fr: "Mariage Marocain", en: "Moroccan Wedding"},
+            "رفيسة": {fr: "Rfissa Traditionnelle", en: "Traditional Rfissa"},
+            "مشاوي": {fr: "Grillades Mixtes", en: "Mixed Grill Platter"},
+            "طنجية": {fr: "Tanjia Marrakchia", en: "Marrakchi Tanjia"}
+        };
+
+        function autoTranslateNewPost() {
+            const arTitle = document.getElementById('newPostTitleAr').value.trim();
+            const arDesc = document.getElementById('newPostDescAr').value.trim();
+            if (!arTitle && !arDesc) {
+                alert('المرجو كتابة العنوان أو الوصف باللغة العربية أولاً!');
+                return;
+            }
+            let foundFr = "", foundEn = "";
+            for (let key in transDict) {
+                if (arTitle.includes(key)) {
+                    foundFr = transDict[key].fr;
+                    foundEn = transDict[key].en;
+                    break;
+                }
+            }
+            document.getElementById('newPostTitleFr').value = foundFr || (arTitle + " (FR)");
+            document.getElementById('newPostTitleEn').value = foundEn || (arTitle + " (EN)");
+            if (arDesc) {
+                document.getElementById('newPostDescFr').value = arDesc + " - Service authentique.";
+                document.getElementById('newPostDescEn').value = arDesc + " - Authentic service by Dar Dyafa.";
+            }
+            notify('AI Translation completed!');
+        }
+
+        function addImgInputRow() {
+            const container = document.getElementById('newPostImagesContainer');
+            const row = document.createElement('div');
+            row.className = 'dynamic-img-row';
+            row.innerHTML = `
+                <input type="url" class="new-post-img-input" placeholder="https://... (Direct Image URL)" required style="flex:2;">
+                <input type="file" accept="image/*" style="flex:1;font-size:0.8rem;" onchange="uploadRowImage(this)">
+                <button type="button" class="btn btn-danger" style="padding:8px 12px;" onclick="removeImgRow(this)"><i class="fa-solid fa-trash"></i></button>
+            `;
+            container.appendChild(row);
+        }
+
+        function removeImgRow(btn) {
+            const rows = document.querySelectorAll('.dynamic-img-row');
+            if (rows.length > 1) {
+                btn.closest('.dynamic-img-row').remove();
+            } else {
+                alert('You must keep at least one image!');
+            }
+        }
+
+        function uploadRowImage(fileInput) {
+            const file = fileInput.files[0];
+            if (!file) return;
+            const urlInput = fileInput.previousElementSibling;
+            urlInput.value = "Uploading...";
+            uploadSmartImage(file, (url) => {
+                urlInput.value = url;
+                notify('Image uploaded and direct link generated!');
+            });
+        }
+
+        function renderAdminPosts() {
+            const page = document.getElementById('filterPostPage').value;
+            if (!Array.isArray(siteData.posts[page])) siteData.posts[page] = [];
+            const posts = siteData.posts[page];
+            const tbody = document.getElementById('adminPostsBody');
+            
+            if (posts.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="color:#888;text-align:center;">No items in this section yet.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = posts.map((p, idx) => {
+                const images = (p.images && p.images.length > 0) ? p.images : [p.image || 'assets/images/logo.png'];
+                const currentMode = p.slideMode || 'manual';
+
+                const thumbsHtml = images.map((img, imgIdx) => `
+                    <div style="display:inline-block;position:relative;margin:2px;">
+                        <img src="${img && img.startsWith('assets/') ? '../' + img : img}" class="thumb" onerror="this.src='${img}'">
+                        <button type="button" onclick="removePostImage('${page}', ${idx}, ${imgIdx})" style="position:absolute;top:-4px;right:-4px;background:red;color:#fff;border:none;border-radius:50%;width:16px;height:16px;font-size:10px;cursor:pointer;">×</button>
+                    </div>
+                `).join('');
+
+                return `
+                    <tr>
+                        <td>
+                            <div style="max-height:140px;overflow-y:auto;margin-bottom:6px;">
+                                ${thumbsHtml}
+                            </div>
+                            <div style="display:flex;gap:4px;margin-top:4px;">
+                                <input type="url" id="newImg_${page}_${idx}" placeholder="Add image URL" style="font-size:0.75rem;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;flex:1;">
+                                <button class="btn" style="padding:4px 8px;font-size:0.75rem;" onclick="addPostImage('${page}', ${idx})"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" value="${p.id}" style="width:85px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;margin-bottom:6px;" onchange="updatePostField('${page}', ${idx}, 'id', this.value)"><br>
+                            <select style="width:105px;padding:4px;background:#0b0a09;color:var(--gold);border:1px solid #333;border-radius:6px;font-size:0.75rem;" onchange="updatePostField('${page}', ${idx}, 'slideMode', this.value)">
+                                <option value="manual" ${currentMode === 'manual' ? 'selected' : ''}>Manual</option>
+                                <option value="auto" ${currentMode === 'auto' ? 'selected' : ''}>Auto Slide</option>
+                            </select>
+                        </td>
+                        <td>
+                            <div style="margin-bottom:4px;"><span style="color:var(--gold);font-size:0.75rem;">EN:</span> <input type="text" value="${p.title.en}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'en', this.value)"></div>
+                            <div style="margin-bottom:4px;"><span style="color:var(--gold);font-size:0.75rem;">FR:</span> <input type="text" value="${p.title.fr || ''}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'fr', this.value)"></div>
+                            <div><span style="color:var(--gold);font-size:0.75rem;">AR:</span> <input type="text" value="${p.title.ar || ''}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'ar', this.value)"></div>
+                        </td>
+                        <td><input type="text" value="${p.price || ''}" placeholder="Empty" style="width:85px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;" onchange="updatePostField('${page}', ${idx}, 'price', this.value)"></td>
+                        <td>
+                            <button class="btn" style="padding:6px 10px;margin-bottom:4px;" onclick="saveItemChanges()"><i class="fa-solid fa-floppy-disk"></i></button><br>
+                            <button class="btn btn-danger" style="padding:6px 10px;" onclick="deletePost('${page}', ${idx})"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function addPostImage(page, idx) {
+            const input = document.getElementById(`newImg_${page}_${idx}`);
+            const url = input.value.trim();
+            if (!url) return;
+            const post = siteData.posts[page][idx];
+            if (!post.images) post.images = [post.image || 'assets/images/logo.png'];
+            post.images.push(url);
+            post.image = post.images[0];
+            saveData();
+            renderAdminPosts();
+            notify('Image added to gallery!');
+        }
+
+        function removePostImage(page, idx, imgIdx) {
+            const post = siteData.posts[page][idx];
+            let images = (post.images && post.images.length > 0) ? post.images : [post.image];
+            if (images.length <= 1) {
+                alert('A post must have at least one image!');
+                return;
+            }
+            images.splice(imgIdx, 1);
+            post.images = images;
+            post.image = images[0];
+            saveData();
+            renderAdminPosts();
+            notify('Image removed from gallery!');
+        }
+
+        function updatePostField(page, idx, field, val) {
+            siteData.posts[page][idx][field] = val;
+            saveData();
+        }
+
+        function updatePostTitle(page, idx, lang, val) {
+            if (!siteData.posts[page][idx].title) siteData.posts[page][idx].title = {};
+            siteData.posts[page][idx].title[lang] = val;
+            saveData();
+        }
+
+        function saveItemChanges() { saveData(); notify('تم حفظ التعديلات بنجاح!'); }
+
+        function deletePost(page, idx) {
+            if (confirm('Delete this item?')) {
+                siteData.posts[page].splice(idx, 1);
+                saveData();
+                renderAdminPosts();
+            }
+        }
+
+        function addNewPost(e) {
+            e.preventDefault();
+            const page = document.getElementById('newPostPage').value;
+            if (!Array.isArray(siteData.posts[page])) siteData.posts[page] = [];
+
+            const slideMode = document.getElementById('newPostSlideMode').value;
+            const imgInputs = document.querySelectorAll('.new-post-img-input');
+            
+            let imagesArr = [];
+            imgInputs.forEach(inp => {
+                if (inp.value.trim()) imagesArr.push(inp.value.trim());
+            });
+
+            if (imagesArr.length === 0) imagesArr = ['assets/images/logo.png'];
+
+            siteData.posts[page].unshift({
+                id: document.getElementById('newPostId').value,
+                image: imagesArr[0],
+                images: imagesArr,
+                slideMode: slideMode,
+                price: page === 'page1_gallery' ? '' : document.getElementById('newPostPrice').value,
+                title: {
+                    en: document.getElementById('newPostTitleEn').value,
+                    fr: document.getElementById('newPostTitleFr').value || document.getElementById('newPostTitleEn').value,
+                    ar: document.getElementById('newPostTitleAr').value || document.getElementById('newPostTitleEn').value
+                },
+                desc: {
+                    en: document.getElementById('newPostDescEn').value,
+                    fr: document.getElementById('newPostDescFr').value || document.getElementById('newPostDescEn').value,
+                    ar: document.getElementById('newPostDescAr').value || document.getElementById('newPostDescEn').value
+                }
+            });
+
+            saveData();
+            document.getElementById('filterPostPage').value = page;
+            renderAdminPosts();
+            e.target.reset();
+            document.getElementById('newPostImagesContainer').innerHTML = `
+                <div class="dynamic-img-row">
+                    <input type="url" class="new-post-img-input" placeholder="https://... (Direct Image URL)" required style="flex:2;">
+                    <input type="file" accept="image/*" style="flex:1;font-size:0.8rem;" onchange="uploadRowImage(this)">
+                    <button type="button" class="btn btn-danger" style="padding:8px 12px;" onclick="removeImgRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `;
+            notify('Multi-photo item published successfully!');
+        }
+
+        function cleanAndMigrateOldImages() {
+            if (confirm('Clean up heavy local cached images?')) {
+                let cleanedCount = 0;
+                POST_SECTIONS.forEach(page => {
+                    if (siteData.posts[page]) {
+                        siteData.posts[page].forEach(p => {
+                            if (p.image && p.image.startsWith('data:')) {
+                                p.image = 'assets/images/logo.png';
+                                cleanedCount++;
+                            }
+                        });
+                    }
+                });
+                saveData();
+                renderAdminPosts();
+                alert(`Cleaned ${cleanedCount} images!`);
+            }
+        }
+
+        function renderAdminVideos() {
+            const page = document.getElementById('filterVidPage').value;
+            const vids = siteData.videos[page] || [];
+            const tbody = document.getElementById('adminVideosBody');
+            tbody.innerHTML = vids.map((v, idx) => `
+                <tr>
+                    <td>${idx + 1}</td>
+                    <td>${v.title}</td>
+                    <td style="max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${v.url}</td>
+                    <td>
+                        <button class="btn btn-secondary" style="padding:6px 10px;" onclick="moveVideo('${page}', ${idx}, -1)"><i class="fa-solid fa-arrow-up"></i></button>
+                        <button class="btn btn-secondary" style="padding:6px 10px;" onclick="moveVideo('${page}', ${idx}, 1)"><i class="fa-solid fa-arrow-down"></i></button>
+                        <button class="btn btn-danger" style="padding:6px 10px;" onclick="deleteVideo('${page}', ${idx})"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function moveVideo(page, idx, dir) {
+            const arr = siteData.videos[page];
+            const target = idx + dir;
+            if (target < 0 || target >= arr.length) return;
+            [arr[idx], arr[target]] = [arr[target], arr[idx]];
+            saveData();
+            renderAdminVideos();
+        }
+
+        function deleteVideo(page, idx) {
+            siteData.videos[page].splice(idx, 1);
+            saveData();
+            renderAdminVideos();
+        }
+
+        function addNewVideo(e) {
+            e.preventDefault();
+            const page = document.getElementById('newVidPage').value;
+            const title = document.getElementById('newVidTitle').value;
+            const url = document.getElementById('newVidUrl').value;
+            const fileInput = document.getElementById('newVidFile');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    siteData.videos[page].push({ id: 'v_' + Date.now(), title, url: ev.target.result });
+                    saveData();
+                    renderAdminVideos();
+                    e.target.reset();
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else if (url) {
+                siteData.videos[page].push({ id: 'v_' + Date.now(), title, url });
+                saveData();
+                renderAdminVideos();
+                e.target.reset();
+            }
+        }
+
+        function renderAdminMarquee() {
+            const tbody = document.getElementById('adminMarqueeBody');
+            const items = siteData.marqueeItems || [];
+            tbody.innerHTML = items.map((m, idx) => `
+                <tr>
+                    <td>${m.name}</td>
+                    <td>${m.price || '-'}</td>
+                    <td>
+                        <button class="btn btn-secondary" style="padding:6px 10px;" onclick="editMarquee(${idx})"><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn btn-danger" style="padding:6px 10px;" onclick="deleteMarquee(${idx})"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function addOrUpdateMarqueeItem(e) {
+            e.preventDefault();
+            const editIdx = parseInt(document.getElementById('editMarqueeIdx').value, 10);
+            const name = document.getElementById('mqName').value.trim();
+            const price = document.getElementById('mqPrice').value.trim();
+
+            if (!siteData.marqueeItems) siteData.marqueeItems = [];
+
+            if (editIdx >= 0) {
+                siteData.marqueeItems[editIdx] = { name, price };
+                document.getElementById('editMarqueeIdx').value = -1;
+                document.getElementById('mqSubmitBtn').textContent = 'Add to Ticker';
+            } else {
+                siteData.marqueeItems.push({ id: 'm_' + Date.now(), name, price });
+            }
+
+            saveData();
+            renderAdminMarquee();
+            e.target.reset();
+            notify('تم تحديث شريط الأسعار بنجاح!');
+        }
+
+        function editMarquee(idx) {
+            const item = siteData.marqueeItems[idx];
+            document.getElementById('mqName').value = item.name;
+            document.getElementById('mqPrice').value = item.price || '';
+            document.getElementById('editMarqueeIdx').value = idx;
+            document.getElementById('mqSubmitBtn').textContent = 'Update Item';
+        }
+
+        function deleteMarquee(idx) {
+            siteData.marqueeItems.splice(idx, 1);
+            saveData();
+            renderAdminMarquee();
+        }
+
+        function loadBrandingFields() {
+            if (!siteData.topHeader) siteData.topHeader = { en: "", fr: "", ar: "" };
+            if (!siteData.topLocation) siteData.topLocation = { en: "", ar: "" };
+            if (!siteData.welcomeTitle) siteData.welcomeTitle = { en: "", fr: "", ar: "" };
+            if (!siteData.socials) siteData.socials = { page1: {instagram:"", facebook:"", tiktok:""}, page2: {instagram:"", facebook:"", tiktok:""}, page3: {instagram:"", facebook:"", tiktok:""} };
+            if (!siteData.footerDesc) siteData.footerDesc = { en: "", fr: "", ar: "" };
+
+            document.getElementById('topHeaderEn').value = siteData.topHeader.en || '';
+            document.getElementById('topHeaderFr').value = siteData.topHeader.fr || '';
+            document.getElementById('topHeaderAr').value = siteData.topHeader.ar || '';
+
+            document.getElementById('topLocEn').value = siteData.topLocation.en || '';
+            document.getElementById('topLocAr').value = siteData.topLocation.ar || '';
+            document.getElementById('topPhone').value = siteData.whatsappNumber || SITE_CONFIG.whatsappNumber || '';
+
+            document.getElementById('welcomeTitleEn').value = siteData.welcomeTitle.en || '';
+            document.getElementById('welcomeTitleFr').value = siteData.welcomeTitle.fr || '';
+            document.getElementById('welcomeTitleAr').value = siteData.welcomeTitle.ar || '';
+
+            document.getElementById('soc1Ig').value = siteData.socials.page1?.instagram || '';
+            document.getElementById('soc1Fb').value = siteData.socials.page1?.facebook || '';
+            document.getElementById('soc1Tt').value = siteData.socials.page1?.tiktok || '';
+
+            document.getElementById('soc2Ig').value = siteData.socials.page2?.instagram || '';
+            document.getElementById('soc2Fb').value = siteData.socials.page2?.facebook || '';
+            document.getElementById('soc2Tt').value = siteData.socials.page2?.tiktok || '';
+
+            document.getElementById('soc3Ig').value = siteData.socials.page3?.instagram || '';
+            document.getElementById('soc3Fb').value = siteData.socials.page3?.facebook || '';
+            document.getElementById('soc3Tt').value = siteData.socials.page3?.tiktok || '';
+
+            document.getElementById('socialWhatsapp').value = siteData.whatsappNumber || SITE_CONFIG.whatsappNumber || '';
+            document.getElementById('socialGmail').value = siteData.email || 'dardyafa@gmail.com';
+
+            document.getElementById('footerDescEn').value = siteData.footerTagline?.en || '';
+            document.getElementById('footerDescFr').value = siteData.footerTagline?.fr || '';
+            document.getElementById('footerDescAr').value = siteData.footerTagline?.ar || '';
+
+            document.getElementById('footerTitleText').value = siteData.footerTitle || 'DAR DYAFA — BOSTON, USA';
+            document.getElementById('footerCopyrightText').value = siteData.copyrightText || '© 2026 Dar Dyafa USA. All Rights Reserved.';
+        }
+
+        function saveBranding() {
+            if (!siteData.topHeader) siteData.topHeader = {};
+            siteData.topHeader.en = document.getElementById('topHeaderEn').value;
+            siteData.topHeader.fr = document.getElementById('topHeaderFr').value;
+            siteData.topHeader.ar = document.getElementById('topHeaderAr').value;
+
+            if (!siteData.topLocation) siteData.topLocation = {};
+            siteData.topLocation.en = document.getElementById('topLocEn').value;
+            siteData.topLocation.ar = document.getElementById('topLocAr').value;
+            
+            const newPhone = document.getElementById('topPhone').value;
+            siteData.whatsappNumber = newPhone;
+            siteData.contactPhone = newPhone;
+
+            if (!siteData.welcomeTitle) siteData.welcomeTitle = {};
+            siteData.welcomeTitle.en = document.getElementById('welcomeTitleEn').value;
+            siteData.welcomeTitle.fr = document.getElementById('welcomeTitleFr').value;
+            siteData.welcomeTitle.ar = document.getElementById('welcomeTitleAr').value;
+
+            if (!siteData.socials) siteData.socials = { page1:{}, page2:{}, page3:{} };
+            siteData.socials.page1 = {
+                instagram: document.getElementById('soc1Ig').value,
+                facebook: document.getElementById('soc1Fb').value,
+                tiktok: document.getElementById('soc1Tt').value
+            };
+            siteData.socials.page2 = {
+                instagram: document.getElementById('soc2Ig').value,
+                facebook: document.getElementById('soc2Fb').value,
+                tiktok: document.getElementById('soc2Tt').value
+            };
+            siteData.socials.page3 = {
+                instagram: document.getElementById('soc3Ig').value,
+                facebook: document.getElementById('soc3Fb').value,
+                tiktok: document.getElementById('soc3Tt').value
+            };
+
+            siteData.whatsappNumber = document.getElementById('socialWhatsapp').value;
+            siteData.email = document.getElementById('socialGmail').value;
+
+            if (!siteData.footerTagline) siteData.footerTagline = {};
+            siteData.footerTagline.en = document.getElementById('footerDescEn').value;
+            siteData.footerTagline.fr = document.getElementById('footerDescFr').value;
+            siteData.footerTagline.ar = document.getElementById('footerDescAr').value;
+
+            siteData.footerTitle = document.getElementById('footerTitleText').value;
+            siteData.copyrightText = document.getElementById('footerCopyrightText').value;
+
+            saveData();
+            notify('تم حفظ إعدادات الهوية، السوشيال ميديا والتذييل بنجاح!');
+        }
+
+        function resetAllDefaults() {
+            if (confirm('Reset everything back to defaults?')) {
+                localStorage.removeItem('dardyafa_site_data');
+                location.reload();
+            }
+        }
+
+        function exportDataJs() {
+            const content = `const DEFAULT_SITE_DATA = ${JSON.stringify(siteData, null, 4)};\n`;
+            const blob = new Blob([content], { type: 'application/javascript' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'data.js';
+            a.click();
+        }
+
+        if (sessionStorage.getItem('dardyafa_admin_logged') === 'true') {
+            showDashboard();
+        }
+    </script>
+</body>
+</html>
