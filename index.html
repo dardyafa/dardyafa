@@ -169,12 +169,29 @@
             50% { transform: translateY(-5px); }
         }
 
+        /* Unified Cover Framing for Post Cards & Gallery */
+        .post-img-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            background: #0b0a09;
+        }
+        .post-img-wrap img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            object-position: center !important;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+
         /* Multi-Photo Badge on Gallery Cards */
         .photo-count-badge {
             position: absolute;
             top: 12px;
             right: 12px;
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.78);
             color: var(--gold-light);
             border: 1px solid var(--gold);
             padding: 4px 10px;
@@ -187,11 +204,31 @@
             z-index: 5;
         }
 
-        /* Gallery Slider Modal Styles */
+        .card-gallery-btn {
+            background: rgba(212, 175, 55, 0.14);
+            color: var(--gold-light);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: 0.2s;
+        }
+        .card-gallery-btn:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        /* Gallery Slider Modal Styles (Full Cover Framing) */
         .gallery-slider-stage {
             position: relative;
             width: 100%;
-            max-height: 420px;
+            aspect-ratio: 4 / 3;
+            max-height: 440px;
             background: #000;
             border-radius: 12px;
             overflow: hidden;
@@ -200,16 +237,18 @@
             justify-content: center;
         }
         .gallery-slider-stage img {
-            max-width: 100%;
-            max-height: 420px;
-            object-fit: contain;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            object-position: center !important;
             border-radius: 10px;
+            display: block;
         }
         .gallery-nav-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.72);
             color: var(--gold);
             border: 1px solid var(--gold);
             width: 40px;
@@ -406,7 +445,7 @@
         </div>
     </div>
 
-    <!-- Multi-Photo Gallery Modal (For Page 2 & 3) -->
+    <!-- Multi-Photo Gallery Modal -->
     <div class="modal-overlay" id="galleryModal">
         <div class="modal-box" style="max-width:560px;">
             <button class="modal-close" onclick="closeGalleryModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -517,6 +556,7 @@
     <script src="js/data.js"></script>
     <script>
         const TAX_RATE = 0.0225; // 2.25%
+        const AUTO_SLIDE_MS = 3200;
 
         const UI_TRANSLATIONS = {
             en: {
@@ -526,6 +566,8 @@
                 menuHeading2: "Royal Moroccan Weddings & Events in USA",
                 menuHeading3: "Bridal Negafa, Caftans & Makeup",
                 orderNow: "Order Now",
+                inquireNow: "Inquire",
+                viewPhotosBtn: "Photos",
                 bookNow: "View Gallery / Inquire",
                 bookEventNow: "Book Your Celebration",
                 floatingOrderBtn: "Order / Book Now",
@@ -560,6 +602,8 @@
                 menuHeading2: "Mariages Royaux & Événements aux USA",
                 menuHeading3: "Negafa Mariée, Caftans & Maquillage",
                 orderNow: "Commander",
+                inquireNow: "Infos",
+                viewPhotosBtn: "Photos",
                 bookNow: "Voir Galerie",
                 bookEventNow: "Réserver Votre Événement",
                 floatingOrderBtn: "Commander / Réserver",
@@ -594,6 +638,8 @@
                 menuHeading2: "تنظيم الأعراس والحفلات المغربية في أمريكا",
                 menuHeading3: "خدمات النكافة، القفطان المغربي ومكياج العروس",
                 orderNow: "اطلب الآن",
+                inquireNow: "استفسر الآن",
+                viewPhotosBtn: "الصور",
                 bookNow: "عرض الصور والحجز",
                 bookEventNow: "احجز حفلتك الآن",
                 floatingOrderBtn: "اطلب الآن",
@@ -630,7 +676,38 @@
 
         // Multi-Photo Gallery State
         let activeGalleryImages = [];
+        let activeGalleryMode = 'manual';
         let currentGalleryIdx = 0;
+        let modalAutoTimer = null;
+        let cardAutoTimers = [];
+
+        function getPostImages(post) {
+            if (Array.isArray(post.images) && post.images.length > 0) {
+                return post.images.filter(Boolean);
+            }
+            return post.image ? [post.image] : ['assets/images/logo.png'];
+        }
+
+        function clearCardAutoTimers() {
+            cardAutoTimers.forEach(timer => clearInterval(timer));
+            cardAutoTimers = [];
+        }
+
+        function clearModalAutoTimer() {
+            if (modalAutoTimer) {
+                clearInterval(modalAutoTimer);
+                modalAutoTimer = null;
+            }
+        }
+
+        function startModalAutoIfNeeded() {
+            clearModalAutoTimer();
+            if (activeGalleryMode === 'auto' && activeGalleryImages.length > 1) {
+                modalAutoTimer = setInterval(() => {
+                    nextGalleryImage(true);
+                }, AUTO_SLIDE_MS);
+            }
+        }
 
         function initSite() {
             const activeSocials = siteData.socials || SITE_CONFIG.socials;
@@ -642,9 +719,9 @@
             document.getElementById('topPhoneLink').href = `tel:${phoneVal.replace(/\D/g, '')}`;
             document.getElementById('topPhoneText').textContent = phoneVal;
 
-            document.getElementById('topIg').href = activeSocials.page1.instagram || '#';
-            document.getElementById('topFb').href = activeSocials.page1.facebook || '#';
-            document.getElementById('topTt').href = activeSocials.page1.tiktok || '#';
+            document.getElementById('topIg').href = activeSocials.page1?.instagram || '#';
+            document.getElementById('topFb').href = activeSocials.page1?.facebook || '#';
+            document.getElementById('topTt').href = activeSocials.page1?.tiktok || '#';
 
             const waUrl = `https://wa.me/${waNum}`;
             document.getElementById('topWa').href = waUrl;
@@ -827,21 +904,50 @@
             if (e.key === 'ArrowLeft') prevVideo();
         });
 
+        function setupCardAutoSlides() {
+            clearCardAutoTimers();
+            const posts = siteData.posts[`page${currentTab}`] || [];
+            posts.forEach((post, index) => {
+                const mode = post.slideMode || 'manual';
+                const imagesArr = getPostImages(post);
+                if (mode === 'auto' && imagesArr.length > 1) {
+                    let imgIdx = 0;
+                    const timer = setInterval(() => {
+                        const imgEl = document.getElementById(`cardImg_${currentTab}_${index}`);
+                        if (!imgEl || imgEl.dataset.paused === 'true') return;
+                        imgIdx = (imgIdx + 1) % imagesArr.length;
+                        imgEl.src = imagesArr[imgIdx];
+                    }, AUTO_SLIDE_MS);
+                    cardAutoTimers.push(timer);
+                }
+            });
+        }
+
         function renderPosts() {
             const posts = siteData.posts[`page${currentTab}`] || [];
             const grid = document.getElementById('postsGrid');
             const t = UI_TRANSLATIONS[currentLang];
 
             if (currentTab === 1) {
-                // Page 1: Food Truck with ID badge, price, and Order Now button
                 grid.innerHTML = posts.map((post, index) => {
                     const title = post.title[currentLang] || post.title.en;
                     const desc = post.desc[currentLang] || post.desc.en;
+                    const imagesArr = getPostImages(post);
+                    const photoCount = imagesArr.length;
+                    const hasPrice = Boolean(post.price && post.price.toString().trim() !== '');
+
                     return `
-                        <div class="post-card" onclick="openOrderModal(${index})">
-                            <div class="post-img-wrap">
+                        <div class="post-card"
+                             onmouseenter="pauseCardSlide(${currentTab}, ${index}, true)"
+                             onmouseleave="pauseCardSlide(${currentTab}, ${index}, false)">
+                            <div class="post-img-wrap" onclick="${hasPrice ? `openOrderModal(${index})` : `openGalleryModal(${index})`}" style="cursor:pointer;">
                                 <span class="post-id-badge">#${post.id}</span>
-                                <img src="${post.image}" alt="${title}" onerror="this.src='assets/images/logo.png'">
+                                ${photoCount > 1 ? `
+                                    <span class="photo-count-badge">
+                                        <i class="fa-solid fa-images"></i> ${photoCount} ${t.photosCountLabel}
+                                    </span>
+                                ` : ''}
+                                <img id="cardImg_${currentTab}_${index}" src="${imagesArr[0]}" alt="${title}" onerror="this.src='assets/images/logo.png'">
                             </div>
                             <div class="post-body">
                                 <div>
@@ -849,32 +955,42 @@
                                     <p class="post-desc">${desc}</p>
                                 </div>
                                 <div class="post-footer">
-                                    <div class="post-price">${post.price ? post.price : ''}</div>
-                                    <button class="btn-order" type="button">
-                                        <i class="fa-brands fa-whatsapp"></i> ${t.orderNow}
-                                    </button>
+                                    <div class="post-price">${hasPrice ? post.price : ''}</div>
+                                    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                                        ${photoCount > 1 ? `
+                                            <button class="card-gallery-btn" type="button" onclick="event.stopPropagation(); openGalleryModal(${index})">
+                                                <i class="fa-solid fa-images"></i> ${t.viewPhotosBtn}
+                                            </button>
+                                        ` : ''}
+                                        <button class="btn-order" type="button" onclick="event.stopPropagation(); ${hasPrice ? `openOrderModal(${index})` : `openGeneralBooking()`}">
+                                            <i class="fa-brands fa-whatsapp"></i> ${hasPrice ? t.orderNow : t.inquireNow}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     `;
                 }).join('');
             } else {
-                // Page 2 & Page 3: Multi-Photo Gallery Portfolio
                 grid.innerHTML = posts.map((post, index) => {
                     const title = post.title[currentLang] || post.title.en;
                     const desc = post.desc[currentLang] || post.desc.en;
-                    const imagesArr = (post.images && post.images.length > 0) ? post.images : [post.image];
+                    const imagesArr = getPostImages(post);
                     const photoCount = imagesArr.length;
 
                     return `
-                        <div class="post-card" onclick="openGalleryModal(${index})" style="cursor:pointer;">
+                        <div class="post-card"
+                             onclick="openGalleryModal(${index})"
+                             onmouseenter="pauseCardSlide(${currentTab}, ${index}, true)"
+                             onmouseleave="pauseCardSlide(${currentTab}, ${index}, false)"
+                             style="cursor:pointer;">
                             <div class="post-img-wrap">
                                 ${photoCount > 1 ? `
                                     <span class="photo-count-badge">
                                         <i class="fa-solid fa-images"></i> ${photoCount} ${t.photosCountLabel}
                                     </span>
                                 ` : ''}
-                                <img src="${imagesArr[0]}" alt="${title}" onerror="this.src='assets/images/logo.png'">
+                                <img id="cardImg_${currentTab}_${index}" src="${imagesArr[0]}" alt="${title}" onerror="this.src='assets/images/logo.png'">
                             </div>
                             <div class="post-body">
                                 <div>
@@ -891,6 +1007,15 @@
                     `;
                 }).join('');
             }
+
+            setupCardAutoSlides();
+        }
+
+        function pauseCardSlide(tabNum, index, paused) {
+            const imgEl = document.getElementById(`cardImg_${tabNum}_${index}`);
+            if (imgEl) {
+                imgEl.dataset.paused = paused ? 'true' : 'false';
+            }
         }
 
         // Multi-Photo Gallery Modal Handlers
@@ -899,46 +1024,60 @@
             const title = post.title[currentLang] || post.title.en;
             const desc = post.desc[currentLang] || post.desc.en;
 
-            activeGalleryImages = (post.images && post.images.length > 0) ? post.images : [post.image];
+            activeGalleryImages = getPostImages(post);
+            activeGalleryMode = post.slideMode || 'manual';
             currentGalleryIdx = 0;
 
             document.getElementById('galleryTitle').textContent = title;
             document.getElementById('galleryDesc').textContent = desc;
 
             renderGalleryStage();
+            startModalAutoIfNeeded();
             document.getElementById('galleryModal').classList.add('open');
         }
 
         function closeGalleryModal() {
+            clearModalAutoTimer();
             document.getElementById('galleryModal').classList.remove('open');
         }
 
         function renderGalleryStage() {
             const imgEl = document.getElementById('galleryActiveImg');
             const dotsEl = document.getElementById('galleryDots');
+            const prevBtn = document.querySelector('#galleryModal .gallery-prev');
+            const nextBtn = document.querySelector('#galleryModal .gallery-next');
             
             if (activeGalleryImages.length === 0) return;
 
+            const showNav = activeGalleryImages.length > 1;
+            if (prevBtn) prevBtn.style.display = showNav ? 'flex' : 'none';
+            if (nextBtn) nextBtn.style.display = showNav ? 'flex' : 'none';
+
             imgEl.src = activeGalleryImages[currentGalleryIdx];
 
-            dotsEl.innerHTML = activeGalleryImages.map((_, idx) => `
-                <span class="g-dot ${idx === currentGalleryIdx ? 'active' : ''}" onclick="goToGalleryImage(${idx})"></span>
-            `).join('');
+            dotsEl.innerHTML = showNav ? activeGalleryImages.map((_, idx) => `
+                <span class="g-dot ${idx === currentGalleryIdx ? 'active' : ''}" onclick="goToGalleryImage(${idx}, false)"></span>
+            `).join('') : '';
         }
 
-        function nextGalleryImage() {
+        function nextGalleryImage(isAuto = false) {
+            if (activeGalleryImages.length <= 1) return;
             currentGalleryIdx = (currentGalleryIdx + 1) % activeGalleryImages.length;
             renderGalleryStage();
+            if (!isAuto) startModalAutoIfNeeded();
         }
 
-        function prevGalleryImage() {
+        function prevGalleryImage(isAuto = false) {
+            if (activeGalleryImages.length <= 1) return;
             currentGalleryIdx = (currentGalleryIdx - 1 + activeGalleryImages.length) % activeGalleryImages.length;
             renderGalleryStage();
+            if (!isAuto) startModalAutoIfNeeded();
         }
 
-        function goToGalleryImage(idx) {
+        function goToGalleryImage(idx, isAuto = false) {
             currentGalleryIdx = idx;
             renderGalleryStage();
+            if (!isAuto) startModalAutoIfNeeded();
         }
 
         // Touch Swipe Support for Gallery Mobile View
@@ -960,10 +1099,10 @@
 
         function handleSwipeGesture() {
             if (touchEndX < touchStartX - 50) {
-                nextGalleryImage(); // Swipe Left
+                nextGalleryImage(false);
             }
             if (touchEndX > touchStartX + 50) {
-                prevGalleryImage(); // Swipe Right
+                prevGalleryImage(false);
             }
         }
 
@@ -992,6 +1131,7 @@
             const title = post.title[currentLang] || post.title.en;
             const t = UI_TRANSLATIONS[currentLang];
             const unitNum = parsePriceNumber(post.price);
+            const imagesArr = getPostImages(post);
 
             document.getElementById('orderItemId').value = post.id;
             document.getElementById('orderItemTitle').value = post.title.en;
@@ -1001,7 +1141,7 @@
 
             document.getElementById('modalHeading').textContent = t.orderNow;
             document.getElementById('modalPreview').innerHTML = `
-                <img src="${post.image}" alt="${title}">
+                <img src="${imagesArr[0]}" alt="${title}" style="object-fit:cover;">
                 <div>
                     <div style="font-size:0.8rem;color:var(--gold);font-weight:700;">ID: #${post.id}</div>
                     <div style="font-weight:800;font-size:1.05rem;">${title}</div>
@@ -1025,7 +1165,7 @@
 
             document.getElementById('modalHeading').textContent = t.bookEventNow;
             document.getElementById('modalPreview').innerHTML = `
-                <img src="assets/images/logo.png" alt="Dar Dyafa">
+                <img src="assets/images/logo.png" alt="Dar Dyafa" style="object-fit:cover;">
                 <div>
                     <div style="font-weight:800;font-size:1.05rem;">${deptName}</div>
                     <div style="color:var(--text-muted);font-size:0.85rem;">Dar Dyafa USA</div>
