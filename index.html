@@ -223,7 +223,7 @@
             color: #000;
         }
 
-        /* 3D Animated Friday Banner */
+        /* 3D Animated Separator Banners (Between Sections 1->2 and 2->3) */
         .friday-3d-wrapper {
             margin: 44px 0 22px;
             perspective: 900px;
@@ -233,12 +233,11 @@
             background: linear-gradient(135deg, rgba(139, 30, 45, 0.92), rgba(38, 28, 18, 0.96) 50%, rgba(139, 30, 45, 0.92));
             border: 2px solid var(--gold);
             border-radius: 18px;
-            padding: 18px 24px;
+            padding: 16px 22px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 16px;
-            flex-wrap: wrap;
             overflow: hidden;
             box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65), 0 0 28px rgba(212, 175, 55, 0.25);
             transform-style: preserve-3d;
@@ -255,21 +254,40 @@
             transform: skewX(-22deg);
             animation: fridayShine 3.8s infinite;
         }
+        .section-separator-marquee {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            overflow: hidden;
+            white-space: nowrap;
+            mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+        }
+        .section-separator-track {
+            display: inline-flex;
+            align-items: center;
+            gap: 36px;
+            animation: separatorScroll 16s linear infinite;
+        }
+        .friday-3d-banner:hover .section-separator-track {
+            animation-play-state: paused;
+        }
         .friday-3d-title {
             position: relative;
             z-index: 2;
-            font-size: 1.45rem;
+            font-size: 1.38rem;
             font-weight: 900;
             letter-spacing: 1px;
             color: var(--gold-light);
             text-shadow: 0 2px 0 #7c5800, 0 5px 14px rgba(0, 0, 0, 0.85);
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 12px;
         }
         .friday-3d-pill {
             position: relative;
             z-index: 2;
+            flex-shrink: 0;
             background: var(--gold);
             color: #0f0d0c;
             padding: 7px 15px;
@@ -277,6 +295,10 @@
             font-size: 0.84rem;
             font-weight: 800;
             box-shadow: 0 6px 16px rgba(212, 175, 55, 0.35);
+        }
+        @keyframes separatorScroll {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
         }
         @keyframes friday3dFloat {
             0%, 100% {
@@ -449,26 +471,38 @@
                     <i class="fa-solid fa-calendar-check"></i> <span data-i18n="bookEventNow">Book Your Celebration</span>
                 </button>
             </div>
+            <!-- Paragraph 1: Daily Menu (page1) -->
             <div class="posts-grid" id="postsGrid"></div>
 
-            <!-- Page 1 Extra Sections: 3D Friday Banner + Friday Posts + Photo Gallery Without Price -->
+            <!-- Page 1 Extra Sections: Moving Banner 1 -> Friday Posts (page1_friday) -> Moving Banner 2 -> Gallery (page1_gallery) -->
             <div id="page1ExtraSections" style="display:none;">
                 <div class="friday-3d-wrapper">
                     <div class="friday-3d-banner">
-                        <div class="friday-3d-title">
-                            <i class="fa-solid fa-moon-star" style="color:var(--gold);"></i>
-                            <span data-i18n="friday3dTitle">SPECIAL EVERY FRIDAY</span>
+                        <div class="section-separator-marquee">
+                            <div class="section-separator-track" id="fridaySeparatorTrack"></div>
                         </div>
-                        <div class="friday-3d-pill" data-i18n="friday3dPill">Couscous & Friday Tradition</div>
+                        <div class="friday-3d-pill" id="fridaySeparatorPill" data-i18n="friday3dPill">Couscous & Friday Tradition</div>
                     </div>
                 </div>
 
+                <!-- Paragraph 2: Friday Specials & Couscous (page1_friday) -->
                 <div class="section-header">
                     <h3><i class="fa-solid fa-bowl-rice"></i> <span data-i18n="fridayMenuHeading">Friday Specials & Couscous</span></h3>
                 </div>
                 <div class="posts-grid" id="fridayPostsGrid"></div>
 
-                <div style="margin-top:44px;">
+                <!-- Moving Banner 2 Separating Paragraph 2 & Paragraph 3 -->
+                <div class="friday-3d-wrapper">
+                    <div class="friday-3d-banner">
+                        <div class="section-separator-marquee">
+                            <div class="section-separator-track" id="gallerySeparatorTrack"></div>
+                        </div>
+                        <div class="friday-3d-pill" id="gallerySeparatorPill" data-i18n="gallerySection3Pill">Dar Dyafa Photo Gallery</div>
+                    </div>
+                </div>
+
+                <!-- Paragraph 3: Moments at Dar Dyafa (page1_gallery) -->
+                <div style="margin-top:16px;">
                     <div class="section-header">
                         <h3><i class="fa-solid fa-photo-film"></i> <span data-i18n="gallerySection3Title">Moments at Dar Dyafa</span></h3>
                     </div>
@@ -655,6 +689,7 @@
                 friday3dPill: "Moroccan Couscous & Friday Tradition",
                 fridayMenuHeading: "Friday Specials & Couscous",
                 gallerySection3Title: "Moments at Dar Dyafa",
+                gallerySection3Pill: "Dar Dyafa Photo Gallery",
                 menuHeading2: "Royal Moroccan Weddings & Events in USA",
                 menuHeading3: "Bridal Negafa, Caftans & Makeup",
                 orderNow: "Order Now",
@@ -694,7 +729,8 @@
                 friday3dTitle: "SPÉCIAL CHAQUE VENDREDI",
                 friday3dPill: "Couscous Marocain du Vendredi",
                 fridayMenuHeading: "Spécialités du Vendredi & Couscous",
-                gallerySection3Title: "Instants Dar Dyafa",
+                gallerySection3Title: "Moments at Dar Dyafa",
+                gallerySection3Pill: "Galerie Photos Dar Dyafa",
                 menuHeading2: "Mariages Royaux & Événements aux USA",
                 menuHeading3: "Negafa Mariée, Caftans & Maquillage",
                 orderNow: "Commander",
@@ -731,10 +767,11 @@
                 locationLabel: "ريفير وبوسطن، أمريكا",
                 featuredVideos: "فيديوهات ومقاطع مميزة",
                 menuHeading1: "قائمة مأكولات الشاحنة والأطباق المغربية",
-                friday3dTitle: "خاص كل يوم جمعة • SPECIAL EVERY FRIDAY",
+                friday3dTitle: "SPECIAL EVERY FRIDAY",
                 friday3dPill: "كسكس الجمعة المغربي الأصيل",
                 fridayMenuHeading: "أطباق الجمعة والكسكس الخاص",
-                gallerySection3Title: "لقطات من دار الضيافة",
+                gallerySection3Title: "Moments at Dar Dyafa",
+                gallerySection3Pill: "ألبوم صور دار الضيافة",
                 menuHeading2: "تنظيم الأعراس والحفلات المغربية في أمريكا",
                 menuHeading3: "خدمات النكافة، القفطان المغربي ومكياج العروس",
                 orderNow: "اطلب الآن",
@@ -838,6 +875,32 @@
             return html;
         }
 
+        function renderSeparatorMarquees(lang) {
+            const t = UI_TRANSLATIONS[lang] || UI_TRANSLATIONS.en;
+
+            const fridayText = (siteData.fridayBannerTitle && siteData.fridayBannerTitle[lang]) || t.friday3dTitle;
+            const fridayPill = (siteData.fridayBannerPill && siteData.fridayBannerPill[lang]) || t.friday3dPill;
+
+            const galleryText = (siteData.galleryBannerTitle && siteData.galleryBannerTitle[lang]) || t.gallerySection3Title;
+            const galleryPill = (siteData.galleryBannerPill && siteData.galleryBannerPill[lang]) || t.gallerySection3Pill;
+
+            const fridayTrack = document.getElementById('fridaySeparatorTrack');
+            const fridayPillEl = document.getElementById('fridaySeparatorPill');
+            if (fridayTrack) {
+                const oneItem = `<span class="friday-3d-title"><i class="fa-solid fa-moon-star" style="color:var(--gold);"></i> ${fridayText}</span>`;
+                fridayTrack.innerHTML = oneItem.repeat(6);
+            }
+            if (fridayPillEl) fridayPillEl.textContent = fridayPill;
+
+            const galleryTrack = document.getElementById('gallerySeparatorTrack');
+            const galleryPillEl = document.getElementById('gallerySeparatorPill');
+            if (galleryTrack) {
+                const oneItem = `<span class="friday-3d-title"><i class="fa-solid fa-camera-retro" style="color:var(--gold);"></i> ${galleryText}</span>`;
+                galleryTrack.innerHTML = oneItem.repeat(6);
+            }
+            if (galleryPillEl) galleryPillEl.textContent = galleryPill;
+        }
+
         function clearCardAutoTimers() {
             cardAutoTimers.forEach(timer => clearInterval(timer));
             cardAutoTimers = [];
@@ -927,6 +990,7 @@
             const customExp = siteData.expertiseText && siteData.expertiseText[lang];
             document.getElementById('expModalBody').textContent = customExp || t.expFullText;
 
+            renderSeparatorMarquees(lang);
             renderCurrentTabContent();
         }
 
@@ -971,6 +1035,7 @@
                 bookingBtn.style.display = 'none';
                 floatingBtn.style.display = 'none';
                 page1Extra.style.display = 'block';
+                renderSeparatorMarquees(currentLang);
             } else if (currentTab === 2) {
                 headingEl.textContent = t.menuHeading2;
                 bookingBtn.style.display = 'inline-flex';
