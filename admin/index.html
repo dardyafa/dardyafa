@@ -215,6 +215,17 @@
                                 <label>Article ID (e.g. FD-107 or EV-207)</label>
                                 <input type="text" id="newPostId" required placeholder="FD-107">
                             </div>
+                            <div class="input-group">
+                                <label>Gallery Slide Mode (Auto vs Manual)</label>
+                                <select id="newPostSlideMode">
+                                    <option value="manual">Manual (Client clicks arrows / swipes)</option>
+                                    <option value="auto">Auto Slide (Automatic rotation)</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Price (Optional)</label>
+                                <input type="text" id="newPostPrice" placeholder="$12.99 or leave empty">
+                            </div>
                             <div class="input-group" style="grid-column: 1 / -1;">
                                 <label>Post Images (First image is main cover, add up to 8 photos)</label>
                                 <div id="newPostImagesContainer">
@@ -225,10 +236,6 @@
                                     </div>
                                 </div>
                                 <button type="button" class="btn btn-secondary" style="margin-top:8px;" onclick="addImgInputRow()"><i class="fa-solid fa-plus"></i> Add Another Photo</button>
-                            </div>
-                            <div class="input-group">
-                                <label>Price (Optional for Page 1)</label>
-                                <input type="text" id="newPostPrice" placeholder="$12.99 or leave empty">
                             </div>
                         </div>
                         <div class="grid-3">
@@ -278,7 +285,7 @@
                             <thead>
                                 <tr>
                                     <th>Photos (Cover & Gallery)</th>
-                                    <th>ID</th>
+                                    <th>ID & Slide Mode</th>
                                     <th>Titles (EN / FR / AR)</th>
                                     <th>Price</th>
                                     <th>Actions</th>
@@ -691,7 +698,6 @@
             notify('AI Translation completed!');
         }
 
-        // Dynamic Multi-Image Row Handlers in Add Form
         function addImgInputRow() {
             const container = document.getElementById('newPostImagesContainer');
             const row = document.createElement('div');
@@ -731,6 +737,8 @@
             
             tbody.innerHTML = posts.map((p, idx) => {
                 const images = (p.images && p.images.length > 0) ? p.images : [p.image];
+                const currentMode = p.slideMode || 'manual';
+
                 const thumbsHtml = images.map((img, imgIdx) => `
                     <div style="display:inline-block;position:relative;margin:2px;">
                         <img src="${img && img.startsWith('assets/') ? '../' + img : img}" class="thumb" onerror="this.src='${img}'">
@@ -749,7 +757,13 @@
                                 <button class="btn" style="padding:4px 8px;font-size:0.75rem;" onclick="addPostImage('${page}', ${idx})"><i class="fa-solid fa-plus"></i></button>
                             </div>
                         </td>
-                        <td><input type="text" value="${p.id}" style="width:75px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;" onchange="updatePostField('${page}', ${idx}, 'id', this.value)"></td>
+                        <td>
+                            <input type="text" value="${p.id}" style="width:85px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;margin-bottom:6px;" onchange="updatePostField('${page}', ${idx}, 'id', this.value)"><br>
+                            <select style="width:105px;padding:4px;background:#0b0a09;color:var(--gold);border:1px solid #333;border-radius:6px;font-size:0.75rem;" onchange="updatePostField('${page}', ${idx}, 'slideMode', this.value)">
+                                <option value="manual" ${currentMode === 'manual' ? 'selected' : ''}>Manual</option>
+                                <option value="auto" ${currentMode === 'auto' ? 'selected' : ''}>Auto Slide</option>
+                            </select>
+                        </td>
                         <td>
                             <div style="margin-bottom:4px;"><span style="color:var(--gold);font-size:0.75rem;">EN:</span> <input type="text" value="${p.title.en}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'en', this.value)"></div>
                             <div style="margin-bottom:4px;"><span style="color:var(--gold);font-size:0.75rem;">FR:</span> <input type="text" value="${p.title.fr || ''}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'fr', this.value)"></div>
@@ -817,7 +831,7 @@
         function addNewPost(e) {
             e.preventDefault();
             const page = document.getElementById('newPostPage').value;
-            const publishBtn = document.getElementById('publishBtn');
+            const slideMode = document.getElementById('newPostSlideMode').value;
             const imgInputs = document.querySelectorAll('.new-post-img-input');
             
             let imagesArr = [];
@@ -831,6 +845,7 @@
                 id: document.getElementById('newPostId').value,
                 image: imagesArr[0],
                 images: imagesArr,
+                slideMode: slideMode,
                 price: document.getElementById('newPostPrice').value,
                 title: {
                     en: document.getElementById('newPostTitleEn').value,
@@ -933,7 +948,6 @@
             }
         }
 
-        // Marquee Ticker Management with Edit & Add
         function renderAdminMarquee() {
             const tbody = document.getElementById('adminMarqueeBody');
             const items = siteData.marqueeItems || [];
@@ -1004,17 +1018,14 @@
             document.getElementById('welcomeTitleFr').value = siteData.welcomeTitle.fr || '';
             document.getElementById('welcomeTitleAr').value = siteData.welcomeTitle.ar || '';
 
-            // Page 1 socials
             document.getElementById('soc1Ig').value = siteData.socials.page1?.instagram || '';
             document.getElementById('soc1Fb').value = siteData.socials.page1?.facebook || '';
             document.getElementById('soc1Tt').value = siteData.socials.page1?.tiktok || '';
 
-            // Page 2 socials
             document.getElementById('soc2Ig').value = siteData.socials.page2?.instagram || '';
             document.getElementById('soc2Fb').value = siteData.socials.page2?.facebook || '';
             document.getElementById('soc2Tt').value = siteData.socials.page2?.tiktok || '';
 
-            // Page 3 socials
             document.getElementById('soc3Ig').value = siteData.socials.page3?.instagram || '';
             document.getElementById('soc3Fb').value = siteData.socials.page3?.facebook || '';
             document.getElementById('soc3Tt').value = siteData.socials.page3?.tiktok || '';
