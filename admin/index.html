@@ -370,7 +370,18 @@
             <!-- 5. Comprehensive Branding, Socials & Footer Panel -->
             <div class="panel" id="panel-branding">
                 <div class="card">
-                    <h3 style="color:var(--gold);margin-bottom:15px;"><i class="fa-solid fa-arrow-up"></i> أعلى الصفحة (Top Bar Header - 3 Languages)</h3>
+                    <h3 style="color:var(--gold);margin-bottom:15px;"><i class="fa-solid fa-percent"></i> إعدادات الضريبة والحساب (Tax Rate)</h3>
+                    <div class="sub-box">
+                        <h4>نسبة الضريبة المئوية (%) — الافتراضية 6.25%</h4>
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label>Tax Rate (%)</label>
+                                <input type="number" id="taxRateInput" step="0.01" min="0" max="100" placeholder="6.25">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 style="color:var(--gold);margin:25px 0 15px;"><i class="fa-solid fa-arrow-up"></i> أعلى الصفحة (Top Bar Header - 3 Languages)</h3>
                     <div class="grid-3">
                         <div class="input-group">
                             <label>Top Header Bio (English)</label>
@@ -592,6 +603,8 @@
         function ensureSiteDataStructure(raw) {
             const base = JSON.parse(JSON.stringify(typeof DEFAULT_SITE_DATA !== 'undefined' ? DEFAULT_SITE_DATA : {}));
             const merged = Object.assign({}, base, raw || {});
+            const parsedTax = parseFloat(merged.taxRate);
+            merged.taxRate = Number.isFinite(parsedTax) && parsedTax >= 0 ? parsedTax : 6.25;
             merged.posts = Object.assign({}, base.posts || {}, (raw && raw.posts) || {});
             POST_SECTIONS.forEach(sec => {
                 if (!Array.isArray(merged.posts[sec])) {
@@ -1096,6 +1109,9 @@
         }
 
         function loadBrandingFields() {
+            const parsedTax = parseFloat(siteData.taxRate);
+            document.getElementById('taxRateInput').value = Number.isFinite(parsedTax) && parsedTax >= 0 ? parsedTax : 6.25;
+
             if (!siteData.topHeader) siteData.topHeader = { en: "", fr: "", ar: "" };
             if (!siteData.topLocation) siteData.topLocation = { en: "", ar: "" };
             if (!siteData.welcomeTitle) siteData.welcomeTitle = { en: "", fr: "", ar: "" };
@@ -1156,6 +1172,9 @@
         }
 
         function saveBranding() {
+            const taxVal = parseFloat(document.getElementById('taxRateInput').value);
+            siteData.taxRate = Number.isFinite(taxVal) && taxVal >= 0 ? taxVal : 6.25;
+
             if (!siteData.topHeader) siteData.topHeader = {};
             siteData.topHeader.en = document.getElementById('topHeaderEn').value;
             siteData.topHeader.fr = document.getElementById('topHeaderFr').value;
@@ -1225,7 +1244,7 @@
             siteData.copyrightText = document.getElementById('footerCopyrightText').value;
 
             saveData();
-            notify('تم حفظ إعدادات الهوية، الأشرطة المتحركة، السوشيال ميديا والتذييل بنجاح!');
+            notify(`تم حفظ الإعدادات ونسبة الضريبة (${siteData.taxRate}%) بنجاح!`);
         }
 
         function resetAllDefaults() {
