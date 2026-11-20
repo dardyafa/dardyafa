@@ -1,4 +1,5 @@
 const DEFAULT_SITE_DATA = {
+    "taxRate": 6.25,
     "headerBio": {
         "en": "Authentic Moroccan Hospitality, Street Food & Luxury Event Planning in Boston, USA",
         "fr": "Hospitalité Marocaine Authentique, Street Food & Organisation d'Événements à Boston, USA",
