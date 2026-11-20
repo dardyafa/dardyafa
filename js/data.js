@@ -34,38 +34,62 @@ const DEFAULT_SITE_DATA = {
     },
     "marqueeItems": [
         {
-            "id": "m1",
-            "name": "Halal Shawarma with Moroccan Bread",
-            "price": "$12.99"
+            "name": "RICE PLATTER",
+            "price": "15.00"
         },
         {
-            "id": "m2",
-            "name": "Halal Rice Bowl",
-            "price": "$10.00"
+            "name": "RICE BOWL",
+            "price": "15.00"
         },
         {
-            "id": "m3",
-            "name": "Halal Burrito",
-            "price": "$10.00"
+            "name": "BURRITO",
+            "price": "15.00"
         },
         {
-            "name": "Gyro Chicken  with Fries/Salad",
-            "price": "$15.00"
+            "name": "SHAWARMA",
+            "price": "15.00"
         },
         {
-            "id": "m5",
-            "name": "Friday Special: Royal Moroccan Couscous",
-            "price": "$10.00"
+            "id": "m_1795179719767",
+            "name": "steak cheese",
+            "price": "14.00"
         },
         {
-            "id": "m6",
-            "name": "Sides: French Fries / Rice / Vegetables",
-            "price": "$3.99"
+            "name": "CHICKEN FINGER",
+            "price": "12.00"
         },
         {
-            "id": "m7",
-            "name": "Moroccan Mint Tea & Drinks",
-            "price": "$2.00"
+            "name": "TACO",
+            "price": "12.00"
+        },
+        {
+            "name": "GYRO WITH FRENCH FRIES",
+            "price": "15.00"
+        },
+        {
+            "id": "m_1795179809991",
+            "name": "FLAN",
+            "price": "5.00"
+        },
+        {
+            "id": "m_1795179821823",
+            "name": "TIRAMISU",
+            "price": "6.00"
+        },
+        {
+            "id": "m_1795179829158",
+            "name": "SODA",
+            "price": "2.00"
+        },
+        {
+            "id": "m_1795179839286",
+            "name": "TEA",
+            "price": "2.00"
+        },
+        {
+            "id": "m_1795179891215",
+            "name": "WATER",
+            "price": "2.00"
         }
     ],
     "videos": {
