@@ -518,7 +518,7 @@
         </div>
     </main>
 
-    <!-- Floating Side Action Button (Visible on Page 2 & Page 3) -->
+    <!-- Floating Side Action Button (Visible on Page 2 & 3) -->
     <button type="button" class="floating-book-btn" id="floatingBookBtn" onclick="openGeneralBooking()">
         <i class="fa-solid fa-calendar-check" style="font-size:1.2rem;"></i>
         <span data-i18n="floatingOrderBtn">Order / Book Now</span>
@@ -620,14 +620,14 @@
                         <input type="tel" id="custPhone" required placeholder="(774) 000-0000">
                     </div>
 
-                    <!-- Automatic 2.25% Tax Calculator Box -->
+                    <!-- Dynamic Tax Calculator Box (Default 6.25%, editable from Admin) -->
                     <div class="tax-summary-box" id="taxSummaryBox">
                         <div class="tax-row">
                             <span data-i18n="subtotalLabel">Subtotal:</span>
                             <span id="calcSubtotal">$0.00</span>
                         </div>
                         <div class="tax-row">
-                            <span data-i18n="taxLabel">MA Meals Tax (+2.25%):</span>
+                            <span data-i18n="taxLabel" id="taxRateLabelText">Tax (+6.25%):</span>
                             <span id="calcTaxAmount">+$0.00</span>
                         </div>
                         <div class="tax-row total-row">
@@ -677,139 +677,154 @@
     <script src="js/config.js"></script>
     <script src="js/data.js"></script>
     <script>
-        const TAX_RATE = 0.0225; // 2.25%
+        const DEFAULT_TAX_RATE_PERCENT = 6.25; // 6.25% default
         const AUTO_SLIDE_MS = 3200;
-
-        const UI_TRANSLATIONS = {
-            en: {
-                locationLabel: "Revere & Boston, MA",
-                featuredVideos: "Featured Videos & Reels",
-                menuHeading1: "Food Truck Menu & Specials",
-                friday3dTitle: "SPECIAL EVERY FRIDAY",
-                friday3dPill: "Moroccan Couscous & Friday Tradition",
-                fridayMenuHeading: "Friday Specials & Couscous",
-                gallerySection3Title: "Moments at Dar Dyafa",
-                gallerySection3Pill: "Dar Dyafa Photo Gallery",
-                menuHeading2: "Royal Moroccan Weddings & Events in USA",
-                menuHeading3: "Bridal Negafa, Caftans & Makeup",
-                orderNow: "Order Now",
-                inquireNow: "Inquire",
-                viewPhotosBtn: "Photos",
-                bookNow: "View Gallery / Inquire",
-                bookEventNow: "Book Your Celebration",
-                floatingOrderBtn: "Order / Book Now",
-                followSection: "Follow this department on social media:",
-                footerTagline: "Authentic Moroccan Food Truck, Luxury Wedding Catering & Negafa Services",
-                labelName: "Full Name",
-                labelQty: "Quantity",
-                labelAddress: "Exact Delivery Address / Pickup Location",
-                labelPhone: "Phone Number",
-                labelEventType: "Celebration Type",
-                labelEventDate: "Celebration Date",
-                labelEventCity: "City & Exact Venue Address",
-                confirmOrderBtn: "Confirm Order via WhatsApp",
-                subtotalLabel: "Subtotal:",
-                taxLabel: "Tax (+2.25%):",
-                totalLabel: "Total:",
-                expShortBadge: "Experience Since 2007 • Certified Culinary & Event Diploma (2004)",
-                expBtnLabel: "Our Expertise",
-                expModalTitle: "Our Expertise & Accredited Diploma",
-                expFullText: "Bringing authentic Moroccan culinary excellence and luxury event catering to the USA since 2007. Backed by a certified professional diploma in Culinary Arts and Event Management earned in 2004, we combine decades of mastery across our Food Truck and high-end wedding & catering services to make your celebrations unforgettable.",
-                expStat1: "Certified Diploma",
-                expStat2: "Experience Since",
-                expStat3: "Quality & Authenticity",
-                expCloseBtn: "Close",
-                bookThisEventBtn: "Inquire / Book This Service",
-                photosCountLabel: "Photos"
-            },
-            fr: {
-                locationLabel: "Revere & Boston, MA",
-                featuredVideos: "Vidéos & Reels en Vedette",
-                menuHeading1: "Menu Food Truck & Spécialités",
-                friday3dTitle: "SPÉCIAL CHAQUE VENDREDI",
-                friday3dPill: "Couscous Marocain du Vendredi",
-                fridayMenuHeading: "Spécialités du Vendredi & Couscous",
-                gallerySection3Title: "Moments at Dar Dyafa",
-                gallerySection3Pill: "Galerie Photos Dar Dyafa",
-                menuHeading2: "Mariages Royaux & Événements aux USA",
-                menuHeading3: "Negafa Mariée, Caftans & Maquillage",
-                orderNow: "Commander",
-                inquireNow: "Infos",
-                viewPhotosBtn: "Photos",
-                bookNow: "Voir Galerie",
-                bookEventNow: "Réserver Votre Événement",
-                floatingOrderBtn: "Commander / Réserver",
-                followSection: "Suivez ce département sur les réseaux sociaux :",
-                footerTagline: "Food Truck Marocain Authentique, Traiteur Mariage & Services Negafa",
-                labelName: "Nom Complet",
-                labelQty: "Quantité",
-                labelAddress: "Adresse Exacte de Livraison / Retrait",
-                labelPhone: "Numéro de Téléphone",
-                labelEventType: "Type de Célébration",
-                labelEventDate: "Date de l'Événement",
-                labelEventCity: "Ville et Adresse Exacte de la Salle",
-                confirmOrderBtn: "Confirmer via WhatsApp",
-                subtotalLabel: "Sous-total :",
-                taxLabel: "Taxe (+2.25%) :",
-                totalLabel: "Total :",
-                expShortBadge: "Expérience depuis 2007 • Diplôme reconnu en Cuisine & Événementiel (2004)",
-                expBtnLabel: "Notre Savoir-Faire",
-                expModalTitle: "Notre Savoir-Faire & Diplôme Certifié",
-                expFullText: "Excellence culinaire marocaine et service traiteur haut de gamme aux USA depuis 2007. Forts d'un diplôme professionnel reconnu en cuisine et organisation d'événements obtenu en 2004, nous mettons notre savoir-faire de décennies à votre service, du Food Truck aux plus grands mariages et réceptions.",
-                expStat1: "Diplôme Certifié",
-                expStat2: "Expérience Depuis",
-                expStat3: "Qualité & Authenticité",
-                expCloseBtn: "Fermer",
-                bookThisEventBtn: "Réserver ce Service",
-                photosCountLabel: "Photos"
-            },
-            ar: {
-                locationLabel: "ريفير وبوسطن، أمريكا",
-                featuredVideos: "فيديوهات ومقاطع مميزة",
-                menuHeading1: "قائمة مأكولات الشاحنة والأطباق المغربية",
-                friday3dTitle: "SPECIAL EVERY FRIDAY",
-                friday3dPill: "كسكس الجمعة المغربي الأصيل",
-                fridayMenuHeading: "أطباق الجمعة والكسكس الخاص",
-                gallerySection3Title: "Moments at Dar Dyafa",
-                gallerySection3Pill: "ألبوم صور دار الضيافة",
-                menuHeading2: "تنظيم الأعراس والحفلات المغربية في أمريكا",
-                menuHeading3: "خدمات النكافة، القفطان المغربي ومكياج العروس",
-                orderNow: "اطلب الآن",
-                inquireNow: "استفسر الآن",
-                viewPhotosBtn: "الصور",
-                bookNow: "عرض الصور والحجز",
-                bookEventNow: "احجز حفلتك الآن",
-                floatingOrderBtn: "اطلب الآن",
-                followSection: "تابع هذا القسم على مواقع التواصل الاجتماعي:",
-                footerTagline: "مأكولات مغربية أصيلة، تنظيم أعراس ملكية وخدمات النكافة في أمريكا",
-                labelName: "الاسم الكامل",
-                labelQty: "الكمية المطلوبة",
-                labelAddress: "العنوان الدقيق للتوصيل أو الاستلام",
-                labelPhone: "رقم الهاتف",
-                labelEventType: "نوع الحفل (عرس، خطوبة، حناء، ختانة...)",
-                labelEventDate: "تاريخ الحفل",
-                labelEventCity: "المدينة ومكان القاعة بالتحديد",
-                confirmOrderBtn: "تأكيد الطلب عبر واتساب",
-                subtotalLabel: "المجموع الفرعي:",
-                taxLabel: "الضريبة (+2.25%):",
-                totalLabel: "المجموع النهائي:",
-                expShortBadge: "خبرة منذ 2007 • دبلوم معتمد في الطبخ وتنظيم الأفراح (2004)",
-                expBtnLabel: "خبرتنا",
-                expModalTitle: "خبرتنا والدبلوم المعتمد",
-                expFullText: "خبرة متواصلة منذ 2007 في فنون الطبخ العصري والأصيل وتنظيم الحفلات الكبرى. نستند في إبداعاتنا إلى دبلوم معتمد في الطبخ وتنظيم الأفراح يعود لسنة 2004، لنقدم لكم جودة لا تُعلى وتجربة ضيافة استثنائية سواء عبر شاحنة الطعام (Food Truck) أو خدمات التموين الفاخر (Traiteur) لأعراسكم وحفلاتكم.",
-                expStat1: "دبلوم معتمد",
-                expStat2: "خبرة منذ",
-                expStat3: "جودة وأصالة",
-                expCloseBtn: "إغلاق",
-                bookThisEventBtn: "احجز أو استفسر عن هذه الخدمة",
-                photosCountLabel: "صور"
-            }
-        };
 
         let currentLang = 'en';
         let currentTab = 1;
         let currentVideoIdx = 0;
         let siteData = JSON.parse(localStorage.getItem('dardyafa_site_data')) || DEFAULT_SITE_DATA;
+
+        function getActiveTaxRatePercent() {
+            const rawRate = (siteData && siteData.taxRate !== undefined && siteData.taxRate !== null && siteData.taxRate !== '')
+                ? siteData.taxRate
+                : (typeof DEFAULT_SITE_DATA !== 'undefined' && DEFAULT_SITE_DATA.taxRate !== undefined ? DEFAULT_SITE_DATA.taxRate : DEFAULT_TAX_RATE_PERCENT);
+            const parsed = parseFloat(rawRate);
+            return Number.isFinite(parsed) && parsed >= 0 ? parsed : DEFAULT_TAX_RATE_PERCENT;
+        }
+
+        function formatTaxPercentText(rate) {
+            return Number.isInteger(rate) ? `${rate}%` : `${parseFloat(rate.toFixed(4))}%`;
+        }
+
+        function buildUiTranslations(ratePercent) {
+            const pctStr = formatTaxPercentText(ratePercent);
+            return {
+                en: {
+                    locationLabel: "Revere & Boston, MA",
+                    featuredVideos: "Featured Videos & Reels",
+                    menuHeading1: "Food Truck Menu & Specials",
+                    friday3dTitle: "SPECIAL EVERY FRIDAY",
+                    friday3dPill: "Moroccan Couscous & Friday Tradition",
+                    fridayMenuHeading: "Friday Specials & Couscous",
+                    gallerySection3Title: "Moments at Dar Dyafa",
+                    gallerySection3Pill: "Dar Dyafa Photo Gallery",
+                    menuHeading2: "Royal Moroccan Weddings & Events in USA",
+                    menuHeading3: "Bridal Negafa, Caftans & Makeup",
+                    orderNow: "Order Now",
+                    inquireNow: "Inquire",
+                    viewPhotosBtn: "Photos",
+                    bookNow: "View Gallery / Inquire",
+                    bookEventNow: "Book Your Celebration",
+                    floatingOrderBtn: "Order / Book Now",
+                    followSection: "Follow this department on social media:",
+                    footerTagline: "Authentic Moroccan Food Truck, Luxury Wedding Catering & Negafa Services",
+                    labelName: "Full Name",
+                    labelQty: "Quantity",
+                    labelAddress: "Exact Delivery Address / Pickup Location",
+                    labelPhone: "Phone Number",
+                    labelEventType: "Celebration Type",
+                    labelEventDate: "Celebration Date",
+                    labelEventCity: "City & Exact Venue Address",
+                    confirmOrderBtn: "Confirm Order via WhatsApp",
+                    subtotalLabel: "Subtotal:",
+                    taxLabel: `Tax (+${pctStr}):`,
+                    totalLabel: "Total:",
+                    expShortBadge: "Experience Since 2007 • Certified Culinary & Event Diploma (2004)",
+                    expBtnLabel: "Our Expertise",
+                    expModalTitle: "Our Expertise & Accredited Diploma",
+                    expFullText: "Bringing authentic Moroccan culinary excellence and luxury event catering to the USA since 2007. Backed by a certified professional diploma in Culinary Arts and Event Management earned in 2004, we combine decades of mastery across our Food Truck and high-end wedding & catering services to make your celebrations unforgettable.",
+                    expStat1: "Certified Diploma",
+                    expStat2: "Experience Since",
+                    expStat3: "Quality & Authenticity",
+                    expCloseBtn: "Close",
+                    bookThisEventBtn: "Inquire / Book This Service",
+                    photosCountLabel: "Photos"
+                },
+                fr: {
+                    locationLabel: "Revere & Boston, MA",
+                    featuredVideos: "Vidéos & Reels en Vedette",
+                    menuHeading1: "Menu Food Truck & Spécialités",
+                    friday3dTitle: "SPÉCIAL CHAQUE VENDREDI",
+                    friday3dPill: "Couscous Marocain du Vendredi",
+                    fridayMenuHeading: "Spécialités du Vendredi & Couscous",
+                    gallerySection3Title: "Moments at Dar Dyafa",
+                    gallerySection3Pill: "Galerie Photos Dar Dyafa",
+                    menuHeading2: "Mariages Royaux & Événements aux USA",
+                    menuHeading3: "Negafa Mariée, Caftans & Maquillage",
+                    orderNow: "Commander",
+                    inquireNow: "Infos",
+                    viewPhotosBtn: "Photos",
+                    bookNow: "Voir Galerie",
+                    bookEventNow: "Réserver Votre Événement",
+                    floatingOrderBtn: "Commander / Réserver",
+                    followSection: "Suivez ce département sur les réseaux sociaux :",
+                    footerTagline: "Food Truck Marocain Authentique, Traiteur Mariage & Services Negafa",
+                    labelName: "Nom Complet",
+                    labelQty: "Quantité",
+                    labelAddress: "Adresse Exacte de Livraison / Retrait",
+                    labelPhone: "Numéro de Téléphone",
+                    labelEventType: "Type de Célébration",
+                    labelEventDate: "Date de l'Événement",
+                    labelEventCity: "Ville et Adresse Exacte de la Salle",
+                    confirmOrderBtn: "Confirmer via WhatsApp",
+                    subtotalLabel: "Sous-total :",
+                    taxLabel: `Taxe (+${pctStr}) :`,
+                    totalLabel: "Total :",
+                    expShortBadge: "Expérience depuis 2007 • Diplôme reconnu en Cuisine & Événementiel (2004)",
+                    expBtnLabel: "Notre Savoir-Faire",
+                    expModalTitle: "Notre Savoir-Faire & Diplôme Certifié",
+                    expFullText: "Excellence culinaire marocaine et service traiteur haut de gamme aux USA depuis 2007. Forts d'un diplôme professionnel reconnu en cuisine et organisation d'événements obtenu en 2004, nous mettons notre savoir-faire de décennies à votre service, du Food Truck aux plus grands mariages et réceptions.",
+                    expStat1: "Diplôme Certifié",
+                    expStat2: "Expérience Depuis",
+                    expStat3: "Qualité & Authenticité",
+                    expCloseBtn: "Fermer",
+                    bookThisEventBtn: "Réserver ce Service",
+                    photosCountLabel: "Photos"
+                },
+                ar: {
+                    locationLabel: "ريفير وبوسطن، أمريكا",
+                    featuredVideos: "فيديوهات ومقاطع مميزة",
+                    menuHeading1: "قائمة مأكولات الشاحنة والأطباق المغربية",
+                    friday3dTitle: "SPECIAL EVERY FRIDAY",
+                    friday3dPill: "كسكس الجمعة المغربي الأصيل",
+                    fridayMenuHeading: "أطباق الجمعة والكسكس الخاص",
+                    gallerySection3Title: "Moments at Dar Dyafa",
+                    gallerySection3Pill: "ألبوم صور دار الضيافة",
+                    menuHeading2: "تنظيم الأعراس والحفلات المغربية في أمريكا",
+                    menuHeading3: "خدمات النكافة، القفطان المغربي ومكياج العروس",
+                    orderNow: "اطلب الآن",
+                    inquireNow: "استفسر الآن",
+                    viewPhotosBtn: "الصور",
+                    bookNow: "عرض الصور والحجز",
+                    bookEventNow: "احجز حفلتك الآن",
+                    floatingOrderBtn: "اطلب الآن",
+                    followSection: "تابع هذا القسم على مواقع التواصل الاجتماعي:",
+                    footerTagline: "مأكولات مغربية أصيلة، تنظيم أعراس ملكية وخدمات النكافة في أمريكا",
+                    labelName: "الاسم الكامل",
+                    labelQty: "الكمية المطلوبة",
+                    labelAddress: "العنوان الدقيق للتوصيل أو الاستلام",
+                    labelPhone: "رقم الهاتف",
+                    labelEventType: "نوع الحفل (عرس، خطوبة، حناء، ختانة...)",
+                    labelEventDate: "تاريخ الحفل",
+                    labelEventCity: "المدينة ومكان القاعة بالتحديد",
+                    confirmOrderBtn: "تأكيد الطلب عبر واتساب",
+                    subtotalLabel: "المجموع الفرعي:",
+                    taxLabel: `الضريبة (+${pctStr}):`,
+                    totalLabel: "المجموع النهائي:",
+                    expShortBadge: "خبرة منذ 2007 • دبلوم معتمد في الطبخ وتنظيم الأفراح (2004)",
+                    expBtnLabel: "خبرتنا",
+                    expModalTitle: "خبرتنا والدبلوم المعتمد",
+                    expFullText: "خبرة متواصلة منذ 2007 في فنون الطبخ العصري والأصيل وتنظيم الحفلات الكبرى. نستند في إبداعاتنا إلى دبلوم معتمد في الطبخ وتنظيم الأفراح يعود لسنة 2004، لنقدم لكم جودة لا تُعلى وتجربة ضيافة استثنائية سواء عبر شاحنة الطعام (Food Truck) أو خدمات التموين الفاخر (Traiteur) لأعراسكم وحفلاتكم.",
+                    expStat1: "دبلوم معتمد",
+                    expStat2: "خبرة منذ",
+                    expStat3: "جودة وأصالة",
+                    expCloseBtn: "إغلاق",
+                    bookThisEventBtn: "احجز أو استفسر عن هذه الخدمة",
+                    photosCountLabel: "صور"
+                }
+            };
+        }
 
         // Multi-Photo Gallery State
         let activeGalleryImages = [];
@@ -876,6 +891,7 @@
         }
 
         function renderSeparatorMarquees(lang) {
+            const UI_TRANSLATIONS = buildUiTranslations(getActiveTaxRatePercent());
             const t = UI_TRANSLATIONS[lang] || UI_TRANSLATIONS.en;
 
             const fridayText = (siteData.fridayBannerTitle && siteData.fridayBannerTitle[lang]) || t.friday3dTitle;
@@ -954,6 +970,7 @@
             }
 
             renderMarquee();
+            recalculateFoodTax();
             setLanguage('en');
             switchTab(1);
         }
@@ -967,6 +984,7 @@
                 btn.classList.toggle('active', btn.dataset.lang === lang);
             });
 
+            const UI_TRANSLATIONS = buildUiTranslations(getActiveTaxRatePercent());
             const t = UI_TRANSLATIONS[lang];
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
@@ -1024,6 +1042,7 @@
         }
 
         function renderCurrentTabContent() {
+            const UI_TRANSLATIONS = buildUiTranslations(getActiveTaxRatePercent());
             const t = UI_TRANSLATIONS[currentLang];
             const headingEl = document.getElementById('sectionPostsHeading');
             const bookingBtn = document.getElementById('generalBookingBtn');
@@ -1133,6 +1152,7 @@
         }
 
         function renderOrderableCardsHtml(postsList, bucketKey) {
+            const UI_TRANSLATIONS = buildUiTranslations(getActiveTaxRatePercent());
             const t = UI_TRANSLATIONS[currentLang];
             return postsList.map((post, index) => {
                 const title = post.title[currentLang] || post.title.en;
@@ -1179,6 +1199,7 @@
         }
 
         function renderGalleryCardsHtml(postsList, bucketKey) {
+            const UI_TRANSLATIONS = buildUiTranslations(getActiveTaxRatePercent());
             const t = UI_TRANSLATIONS[currentLang];
             return postsList.map((post, index) => {
                 const title = post.title[currentLang] || post.title.en;
@@ -1352,11 +1373,22 @@
         }
 
         function recalculateFoodTax() {
+            const taxRatePercent = getActiveTaxRatePercent();
+            const taxRateDecimal = taxRatePercent / 100;
+            const pctStr = formatTaxPercentText(taxRatePercent);
+            const UI_TRANSLATIONS = buildUiTranslations(taxRatePercent);
+            const t = UI_TRANSLATIONS[currentLang] || UI_TRANSLATIONS.en;
+
+            const taxLabelEl = document.getElementById('taxRateLabelText');
+            if (taxLabelEl) {
+                taxLabelEl.textContent = t.taxLabel;
+            }
+
             const unitPrice = parseFloat(document.getElementById('orderUnitPriceNum').value) || 0;
             const qty = Math.max(1, parseInt(document.getElementById('custQty').value, 10) || 1);
 
             const subtotal = unitPrice * qty;
-            const taxAmount = subtotal * TAX_RATE;
+            const taxAmount = subtotal * taxRateDecimal;
             const totalAmount = subtotal + taxAmount;
 
             document.getElementById('calcSubtotal').textContent = `$${subtotal.toFixed(2)}`;
@@ -1370,6 +1402,7 @@
             if (!post) return;
 
             const title = post.title[currentLang] || post.title.en;
+            const UI_TRANSLATIONS = buildUiTranslations(getActiveTaxRatePercent());
             const t = UI_TRANSLATIONS[currentLang];
             const unitNum = parsePriceNumber(post.price);
             const imagesArr = getPostImages(post);
@@ -1396,6 +1429,7 @@
         }
 
         function openGeneralBooking() {
+            const UI_TRANSLATIONS = buildUiTranslations(getActiveTaxRatePercent());
             const t = UI_TRANSLATIONS[currentLang];
             const deptName = currentTab === 1
                 ? 'Dar Dyafa Special Inquiry'
@@ -1466,20 +1500,24 @@
                 const address = document.getElementById('custAddress').value;
                 const phone = document.getElementById('custPhone').value;
 
+                const taxRatePercent = getActiveTaxRatePercent();
+                const taxRateDecimal = taxRatePercent / 100;
+                const pctStr = formatTaxPercentText(taxRatePercent);
+
                 const unitPrice = parseFloat(document.getElementById('orderUnitPriceNum').value) || 0;
                 const subtotal = unitPrice * qty;
-                const taxAmount = subtotal * TAX_RATE;
+                const taxAmount = subtotal * taxRateDecimal;
                 const totalAmount = subtotal + taxAmount;
 
                 orderRecord.customerName = name;
-                orderRecord.details = `Qty: ${qty} | Subtotal: $${subtotal.toFixed(2)} | Tax (2.25%): $${taxAmount.toFixed(2)} | Total: $${totalAmount.toFixed(2)} | Address: ${address}`;
+                orderRecord.details = `Qty: ${qty} | Subtotal: $${subtotal.toFixed(2)} | Tax (${pctStr}): $${taxAmount.toFixed(2)} | Total: $${totalAmount.toFixed(2)} | Address: ${address}`;
                 orderRecord.phone = phone;
                 orderRecord.itemPrice = `$${totalAmount.toFixed(2)}`;
 
                 waMessage += `*Unit Price:* $${unitPrice.toFixed(2)}%0A`;
                 waMessage += `*Quantity:* ${qty}%0A`;
                 waMessage += `*Subtotal:* $${subtotal.toFixed(2)}%0A`;
-                waMessage += `*Tax (+2.25%):* +$${taxAmount.toFixed(2)}%0A`;
+                waMessage += `*Tax (+${pctStr}):* +$${taxAmount.toFixed(2)}%0A`;
                 waMessage += `*TOTAL AMOUNT:* $${totalAmount.toFixed(2)}%0A`;
                 waMessage += `----------------------------%0A`;
                 waMessage += `*Customer Name:* ${name}%0A`;
