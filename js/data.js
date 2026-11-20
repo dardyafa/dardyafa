@@ -49,9 +49,8 @@ const DEFAULT_SITE_DATA = {
             "price": "$10.00"
         },
         {
-            "id": "m4",
-            "name": "Chicken or Falafel Gyro with Fries/Salad",
-            "price": "$11.99"
+            "name": "Gyro Chicken  with Fries/Salad",
+            "price": "$15.00"
         },
         {
             "id": "m5",
@@ -230,77 +229,251 @@ const DEFAULT_SITE_DATA = {
     "posts": {
         "page1": [
             {
-                "id": "FD-321",
-                "image": "https://i.ibb.co/j9N8Wy7n/Chicken-platter-everyone-halalfood-foodtruck-massachaussetts-Events-bostonevents.jpg",
+                "id": "FD-1252",
+                "image": "https://i.ibb.co/Z1BN7N5v/Gemini-Generated-Image-olocj8olocj8oloc.jpg",
                 "images": [
-                    "https://i.ibb.co/j9N8Wy7n/Chicken-platter-everyone-halalfood-foodtruck-massachaussetts-Events-bostonevents.jpg"
+                    "https://i.ibb.co/Z1BN7N5v/Gemini-Generated-Image-olocj8olocj8oloc.jpg"
                 ],
                 "slideMode": "manual",
-                "price": "$15.00",
+                "price": "2.00",
                 "title": {
-                    "en": "Seasoned Chicken Pieces with Rice, Fries, and Salad",
-                    "fr": "Morceaux de poulet épicés avec riz, frites et salade",
-                    "ar": "قطع دجاج متبّلة مع أرز، بطاطس مقلية وسلطة"
+                    "en": "Water",
+                    "fr": "Eau",
+                    "ar": "الماء"
                 },
                 "desc": {
-                    "en": "Our dishes stand out with an amazing flavor, a blend of Moroccan culinary culture and modernity. Dar Dyafa, the magical touch in every dish",
-                    "fr": "Nos plats se distinguent par leur goût exquis, un alliance entre la culture culinaire marocaine et la modernité. Dar Dyafa, la touche magique dans chaque assiette",
-                    "ar": "تتميّز أطباقنا بالمذاق الرائع، مزيج بين الثقافة المغربية في الطبخ والعصرنة. دار ضيافة، اللمسة السحرية في الأطباق"
+                    "en": "Water",
+                    "fr": "Eau",
+                    "ar": "الماء"
                 }
             },
             {
-                "id": "FD-101",
-                "image": "https://i.ibb.co/mV8h2xfV/3db45be11722472a8e0bbb39a2a20722.jpg",
-                "price": "$11.99",
+                "id": "FD-1251",
+                "image": "https://i.ibb.co/N2WG9dRT/Gemini-Generated-Image-umdhzyumdhzyumdh.jpg",
+                "images": [
+                    "https://i.ibb.co/N2WG9dRT/Gemini-Generated-Image-umdhzyumdhzyumdh.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "2.00",
                 "title": {
-                    "en": "Chicken or Falafel Gyro & Rice Platter",
-                    "fr": "Gyro Poulet/Falafel & Assiette de Riz",
-                    "ar": "شاورما جيرو وطبق الأرز المغربي"
+                    "en": "Moroccan Tea",
+                    "fr": "thé marocain",
+                    "ar": "شاي مغربي"
                 },
                 "desc": {
-                    "en": "Served with crispy fries or fresh salad, hummus, pickles, feta cheese, pita, and signature garlic sauce.",
-                    "fr": "Servi avec frites croustillantes ou salade fraîche, houmous, cornichons, feta, pain pita et sauce à l'ail.",
-                    "ar": "يقدم مع بطاطس مقرمشة أو سلطة طازجة، حمص، مخللات، جبن فيتا، خبز بيتا وصلصة الثوم الخاصة."
-                },
-                "images": [
-                    "https://i.ibb.co/mV8h2xfV/3db45be11722472a8e0bbb39a2a20722.jpg"
-                ]
+                    "en": "Moroccan Tea",
+                    "fr": "thé marocain",
+                    "ar": "شاي مغربي"
+                }
             },
             {
-                "id": "FD-102",
-                "image": "https://i.ibb.co/4H2wzWC/945449791a465a23f4d2bec2292d0e05.jpg",
-                "price": "$12.99",
+                "id": "FD-1250",
+                "image": "https://i.ibb.co/Mxb6h3dG/Gemini-Generated-Image-zh6me7zh6me7zh6m.jpg",
+                "images": [
+                    "https://i.ibb.co/Mxb6h3dG/Gemini-Generated-Image-zh6me7zh6me7zh6m.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "2.00",
                 "title": {
-                    "en": "Halal Shawarma with Moroccan Bread",
-                    "fr": "Shawarma Halal au Pain Marocain",
-                    "ar": "شاورما حلال بالخبز المغربي"
+                    "en": "Soda",
+                    "fr": "Soda ",
+                    "ar": "Soda "
                 },
                 "desc": {
-                    "en": "Authentic marinated halal meat wrapped in warm Moroccan bread with lettuce, tomatoes, tahini & garlic sauce.",
-                    "fr": "Viande halal marinée dans un pain marocain chaud avec laitue, tomates, tahini et sauce à l'ail.",
-                    "ar": "لحم حلال متبل في خبز مغربي دافئ مع خس، طماطم، طحينة وصلصة الثوم."
-                },
-                "images": [
-                    "https://i.ibb.co/4H2wzWC/945449791a465a23f4d2bec2292d0e05.jpg"
-                ]
+                    "en": "Soda ",
+                    "fr": "Soda ",
+                    "ar": "Soda "
+                }
             },
             {
-                "id": "FD-103",
-                "image": "https://i.ibb.co/G42b34g1/e32ff0ba6fc1bdc0c05edefa280d923f.jpg",
-                "price": "$10.00",
+                "id": "FD-1249",
+                "image": "https://i.ibb.co/GQHFyfjB/0544f8bb-0098-4b22-b090-6d3481422188.webp",
+                "images": [
+                    "https://i.ibb.co/GQHFyfjB/0544f8bb-0098-4b22-b090-6d3481422188.webp"
+                ],
+                "slideMode": "manual",
+                "price": "6.00",
                 "title": {
-                    "en": "Halal Chicken & Rice Platter",
-                    "fr": "Assiette Riz & Poulet Halal",
-                    "ar": "طبق الأرز بالدجاج الحلال"
+                    "en": "TIRAMISU",
+                    "fr": "TIRAMISU",
+                    "ar": "تيراميسو"
                 },
                 "desc": {
-                    "en": "Seasoned basmati rice topped with tender grilled halal chicken, creamy white sauce, and fresh garden salad.",
-                    "fr": "Riz basmati assaisonné garni de poulet halal grillé tendre, sauce blanche crémeuse et salade fraîche.",
-                    "ar": "أرز بسمتي متبل مع دجاج حلال مشوي طري، صلصة بيضاء كريمية وسلطة طازجة."
-                },
+                    "en": "Classic Italian dessert with rich layers of coffee, mascarpone and cocoa",
+                    "fr": "Description: Dessert italien classique aux riches couches de café, mascarpone et cacao",
+                    "ar": "حلوى إيطالية كلاسيكية بطبقات غنية من القهوة، الماسكاربوني والكاكاو"
+                }
+            },
+            {
+                "id": "FD-1248",
+                "image": "https://i.ibb.co/ymLfYbVN/Gemini-Generated-Image-ykfjegykfjegykfj.jpg",
                 "images": [
-                    "https://i.ibb.co/G42b34g1/e32ff0ba6fc1bdc0c05edefa280d923f.jpg"
-                ]
+                    "https://i.ibb.co/ymLfYbVN/Gemini-Generated-Image-ykfjegykfjegykfj.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "5.00",
+                "title": {
+                    "en": "FLAN",
+                    "fr": "FLAN",
+                    "ar": "فلان"
+                },
+                "desc": {
+                    "en": "Traditional Moroccan caramel custard",
+                    "fr": "Flan au caramel traditionnel marocain",
+                    "ar": "فلان بالكراميل المغربي التقليدي"
+                }
+            },
+            {
+                "id": "FD-1247",
+                "image": "https://i.ibb.co/hFFGc4nn/Gemini-Generated-Image-cnym4acnym4acnym.jpg",
+                "images": [
+                    "https://i.ibb.co/hFFGc4nn/Gemini-Generated-Image-cnym4acnym4acnym.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "15.00",
+                "title": {
+                    "en": "GYRO WITH FRENCH FRIES",
+                    "fr": "GYRO AVEC FRITES",
+                    "ar": "جيرو مع بطاطس مقلية"
+                },
+                "desc": {
+                    "en": "Description: Tender gyro meat, fresh salad, tomato, onion, tzatziki sauce, and a side of crispy French fries",
+                    "fr": "Description: Viande de gyro tendre, salade fraîche, tomate, oignon, sauce tzatziki et accompagnement de frites croustillantes",
+                    "ar": "لحم جيرو طري، سلطة طازجة، طماطم، بصل، صلصة تزاتزيكي وجانب من البطاطس المقلية المقرمشة"
+                }
+            },
+            {
+                "id": "FD-1246",
+                "image": "https://i.ibb.co/9HMdCVrF/Gemini-Generated-Image-7wstvp7wstvp7wst.jpg",
+                "images": [
+                    "https://i.ibb.co/9HMdCVrF/Gemini-Generated-Image-7wstvp7wstvp7wst.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "15.00",
+                "title": {
+                    "en": "BURGER CHEESE",
+                    "fr": "BURGER FROMAGE",
+                    "ar": "برجر بالجبن"
+                },
+                "desc": {
+                    "en": "Description: Classic cheeseburger with fresh toppings and house seasoning",
+                    "fr": "Description: Cheeseburger classique avec garnitures fraîches et assaisonnement maison",
+                    "ar": "برجر جبن كلاسيكي مع إضافات طازجة وتتبيلة خاصة"
+                }
+            },
+            {
+                "id": "FD-1245",
+                "image": "https://i.ibb.co/RTL3wJCC/Gemini-Generated-Image-qayfk3qayfk3qayf.jpg",
+                "images": [
+                    "https://i.ibb.co/RTL3wJCC/Gemini-Generated-Image-qayfk3qayfk3qayf.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "12.00",
+                "title": {
+                    "en": "TACO",
+                    "fr": "TACO",
+                    "ar": "تاكو"
+                },
+                "desc": {
+                    "en": "Choice of chicken, beef or falafel, with lettuce, tomato, onion, cheese and special sauce",
+                    "fr": "Au choix poulet, bœuf ou falafel, avec laitue, tomate, oignon, fromage et sauce spéciale",
+                    "ar": "اختيارك من الدجاج، لحم البقر أو الفلافل، مع الخس، الطماطم، البصل، الجبن والصلصة الخاصة"
+                }
+            },
+            {
+                "id": "FD-1243",
+                "image": "https://i.ibb.co/WNv5gTf7/Gemini-Generated-Image-qayfk3qayfk3qayf.jpg",
+                "images": [
+                    "https://i.ibb.co/WNv5gTf7/Gemini-Generated-Image-qayfk3qayfk3qayf.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "12.00",
+                "title": {
+                    "en": "CHICKEN FINGER",
+                    "fr": "AIGUILLETTES DE POULET",
+                    "ar": "أصابع الدجاج"
+                },
+                "desc": {
+                    "en": "Crispy chicken fingers with fries and your choice of sauce",
+                    "fr": "Aiguillettes de poulet croustillantes avec frites et sauce au choix",
+                    "ar": "أصابع دجاج مقرمشة مع بطاطس مقلية واختيارك من الصلصة"
+                }
+            },
+            {
+                "id": "FD-1243",
+                "image": "https://i.ibb.co/3mNqwgmW/Gemini-Generated-Image-wsg6xgwsg6xgwsg6.jpg",
+                "images": [
+                    "https://i.ibb.co/3mNqwgmW/Gemini-Generated-Image-wsg6xgwsg6xgwsg6.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "15.00",
+                "title": {
+                    "en": "STEAK CHEESE",
+                    "fr": "STEAK FROMAGE",
+                    "ar": "ستيك بالجبن"
+                },
+                "desc": {
+                    "en": "Tender steak, melted cheese, onions, peppers and our special sauce",
+                    "fr": "Steak tendre, fromage fondu, oignons, poivrons et notre sauce spéciale",
+                    "ar": "لحم ستيك طري، جبن مذاب، بصل، فلفل وصلصتنا الخاصة"
+                }
+            },
+            {
+                "id": "FD-1242",
+                "image": "https://i.ibb.co/NnbzGwBX/Gemini-Generated-Image-oblf6joblf6joblf.jpg",
+                "images": [
+                    "https://i.ibb.co/NnbzGwBX/Gemini-Generated-Image-oblf6joblf6joblf.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "15.00",
+                "title": {
+                    "en": "SHAWARMA",
+                    "fr": "SHAWARMA",
+                    "ar": "شاورما"
+                },
+                "desc": {
+                    "en": "Marinated chicken shawarma with fresh salad, tomato, onion, pickles, tahini sauce and our special garlic sauce",
+                    "fr": "Shawarma au poulet mariné avec salade fraîche, tomate, oignon, cornichons, sauce tahini et notre sauce à l'ail spéciale",
+                    "ar": "شاورما دجاج متبلة مع سلطة طازجة، طماطم، بصل، مخللات، صلصة الطحينة وصلصة الثوم الخاصة بنا"
+                }
+            },
+            {
+                "id": "FD-1241",
+                "image": "https://i.ibb.co/twkP0wqW/Gemini-Generated-Image-paefz1paefz1paef.jpg",
+                "images": [
+                    "https://i.ibb.co/twkP0wqW/Gemini-Generated-Image-paefz1paefz1paef.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "15.00",
+                "title": {
+                    "en": "BURRITO",
+                    "fr": "BURRITO",
+                    "ar": "بوريتو"
+                },
+                "desc": {
+                    "en": "Description: Your choice of chicken, beef or falafel with rice, lettuce, tomato, cheese and special sauces",
+                    "fr": "Au choix poulet, bœuf ou falafel avec riz, laitue, tomate, fromage et sauces spéciales",
+                    "ar": "اختيارك من الدجاج، لحم البقر أو الفلافل مع الأرز، الخس، الطماطم، الجبن والصلصات الخاصة"
+                }
+            },
+            {
+                "id": "FD-1240",
+                "image": "https://i.ibb.co/ksy82Vmx/Gemini-Generated-Image-5icmv95icmv95icm.jpg",
+                "images": [
+                    "https://i.ibb.co/ksy82Vmx/Gemini-Generated-Image-5icmv95icmv95icm.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "15.00",
+                "title": {
+                    "en": "RICE BOWL",
+                    "fr": "BOL DE RIZ",
+                    "ar": "وعاؤ الأرز"
+                },
+                "desc": {
+                    "en": "Your choice of chicken, beef or falafel over rice with salad, pickled onions and our special sauces",
+                    "fr": "Votre choix de poulet, bœuf ou falafel sur du riz avec salade, oignons marinés et nos sauces spéciales",
+                    "ar": "اختيارك من الدجاج، لحم البقر أو الفلافل فوق الأرز مع السلطة، البصل المخلل وصلصاتنا الخاصة"
+                }
             }
         ],
         "page2": [
@@ -621,9 +794,9 @@ const DEFAULT_SITE_DATA = {
                 "slideMode": "manual",
                 "price": "$18.00",
                 "title": {
-                    "en": "Lamb Couscous with Vegetables and Tfaya",
-                    "fr": "Couscous à l'agneau avec légumes et tfaya",
-                    "ar": "كسكس باللحم مع الخضار والتفاية"
+                    "en": "Beef Couscous with Vegetables and Tfaya",
+                    "fr": "Couscous au bœuf avec légumes et tfaya",
+                    "ar": "كسكس باللحم البقري مع الخضار والتفاية"
                 },
                 "desc": {
                     "en": "Our dishes stand out with an amazing flavor, a blend of Moroccan culinary culture and modernity. Dar Dyafa, the magical touch in every dish",
@@ -729,5 +902,25 @@ const DEFAULT_SITE_DATA = {
         "ar": ""
     },
     "footerTitle": "DAR DYAFA — BOSTON, USA",
-    "copyrightText": "© 2026 Dar Dyafa USA. All Rights Reserved."
+    "copyrightText": "© 2026 Dar Dyafa USA. All Rights Reserved.",
+    "fridayBannerTitle": {
+        "en": "SPECIAL EVERY FRIDAY",
+        "fr": "SPÉCIAL CHAQUE VENDREDI",
+        "ar": "SPECIAL EVERY FRIDAY"
+    },
+    "fridayBannerPill": {
+        "en": "Moroccan Couscous & Friday Tradition",
+        "fr": "Couscous Marocain du Vendredi",
+        "ar": "كسكس الجمعة المغربي الأصيل"
+    },
+    "galleryBannerTitle": {
+        "en": "Moments at Dar Dyafa",
+        "fr": "Moments at Dar Dyafa",
+        "ar": "Moments at Dar Dyafa"
+    },
+    "galleryBannerPill": {
+        "en": "Dar Dyafa Photo Gallery",
+        "fr": "Galerie Photos Dar Dyafa",
+        "ar": "ألبوم صور دار الضيافة"
+    }
 };
