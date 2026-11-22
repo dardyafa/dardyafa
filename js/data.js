@@ -566,7 +566,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Moroccan Tea",
                     "fr": "thé marocain",
                     "ar": "شاي مغربي"
-                }
+                },
+                "sortOrder": 1,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1250",
@@ -585,7 +588,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Soda",
                     "fr": "Soda",
                     "ar": "مشروب غازي"
-                }
+                },
+                "sortOrder": 2,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1252",
@@ -604,7 +610,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Water",
                     "fr": "Eau",
                     "ar": "الماء"
-                }
+                },
+                "sortOrder": 3,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1451",
@@ -623,7 +632,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Tender gyro meat, fresh salad, tomato, onion, Tahini sauce, garlic sauce, humus, feta cheese and French fries.",
                     "fr": "Viande de gyro tendre, salade fraîche, tomate, oignon, sauce tahini, sauce à l'ail, houmous, fromage feta et frites.",
                     "ar": "لحم جيرو طري، سلطة طازجة، طماطم، بصل، صلصة الطحينة، صلصة الثوم، حمص، جبن فيتا، وبطاطس مقلية."
-                }
+                },
+                "sortOrder": 4,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1340",
@@ -642,7 +654,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "rice, your choice of chicken, beef or falafel, with fresh salad and French fries,  tahini sauce and our special sauces",
                     "fr": "Riz, au choix poulet, bœuf ou falafel, avec salade fraîche et frites, sauce tahini et nos sauces spéciales",
                     "ar": "دجاج، لحم بقري أو فلافل، مع سلطة طازجة وبطاطس مقلية، صلصة الطحينة وصلصاتنا الخاصة."
-                }
+                },
+                "sortOrder": 5,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1240",
@@ -661,7 +676,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "chicken, beef or flafel with rice, picco, lettuce, corne, guacamole , black beans, cheese and special sauce",
                     "fr": "Poulet, bœuf ou falafel avec riz, pico de gallo, laitue, maïs, guacamole, haricots noirs, fromage et sauce spéciale",
                     "ar": "دجاج، لحم بقري أو فلافل مع الأرز، صلصة البيكو، خس، ذرة، غواكامولي، فاصوليا سوداء، جبن وصلصة خاصة"
-                }
+                },
+                "sortOrder": 6,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1247",
@@ -680,7 +698,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Tender gyro meat, fresh salad, tomato, onion, Tahini sauce, garlic sauce, humus, feta cheese and French fries.",
                     "fr": "Viande de gyro tendre, salade fraîche, tomate, oignon, sauce tahini, sauce à l'ail, houmous, fromage feta et frites",
                     "ar": "لحم جيرو طري، سلطة طازجة، طماطم، بصل، صلصة الطحينة، صلصة الثوم، حمص، جبن فيتا وبطاطس مقلية"
-                }
+                },
+                "sortOrder": 7,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1241",
@@ -699,7 +720,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "chicken, beef or flafel with rice, picco, lettuce, corne, black beans and cheese and special sauce",
                     "fr": "Poulet, bœuf ou falafel avec riz, pico de gallo, laitue, maïs, haricots noirs, fromage et sauce spécial",
                     "ar": "دجاج، لحم بقري أو فلافل مع الأرز، صلصة البيكو (طماطم وبصل)، خس، ذرة، فاصوليا سوداء، جبن وصلصة خاصة."
-                }
+                },
+                "sortOrder": 8,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1249",
@@ -718,7 +742,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Classic Italian dessert with rich layers of coffee, mascarpone and cocoa",
                     "fr": "Description: Dessert italien classique aux riches couches de café, mascarpone et cacao",
                     "ar": "حلوى إيطالية كلاسيكية بطبقات غنية من القهوة، الماسكاربوني والكاكاو"
-                }
+                },
+                "sortOrder": 9,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1248",
@@ -737,7 +764,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Traditional Moroccan caramel custard",
                     "fr": "Flan au caramel traditionnel marocain",
                     "ar": "فلان بالكراميل المغربي التقليدي"
-                }
+                },
+                "sortOrder": 10,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1246",
@@ -756,7 +786,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Description: Classic cheeseburger with fresh toppings and house seasoning",
                     "fr": "Description: Cheeseburger classique avec garnitures fraîches et assaisonnement maison",
                     "ar": "برجر جبن كلاسيكي مع إضافات طازجة وتتبيلة خاصة"
-                }
+                },
+                "sortOrder": 11,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1245",
@@ -775,7 +808,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Choice of chicken, beef or falafel, with lettuce, tomato, onion, cheese and special sauce",
                     "fr": "Au choix poulet, bœuf ou falafel, avec laitue, tomate, oignon, fromage et sauce spéciale",
                     "ar": "اختيارك من الدجاج، لحم البقر أو الفلافل، مع الخس، الطماطم، البصل، الجبن والصلصة الخاصة"
-                }
+                },
+                "sortOrder": 12,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1243",
@@ -794,7 +830,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Crispy chicken fingers with fries and your choice of sauce",
                     "fr": "Aiguillettes de poulet croustillantes avec frites et sauce au choix",
                     "ar": "أصابع دجاج مقرمشة مع بطاطس مقلية واختيارك من الصلصة"
-                }
+                },
+                "sortOrder": 13,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1343",
@@ -813,7 +852,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Tender steak, melted cheese, onions, peppers and our special sauce",
                     "fr": "Steak tendre, fromage fondu, oignons, poivrons et notre sauce spéciale",
                     "ar": "لحم ستيك طري، جبن مذاب، بصل، فلفل وصلصتنا الخاصة"
-                }
+                },
+                "sortOrder": 14,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1242",
@@ -832,7 +874,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Marinated chicken shawarma with fresh salad, tomato, onion, pickles, tahini sauce and our special garlic sauce",
                     "fr": "Shawarma au poulet mariné avec salade fraîche, tomate, oignon, cornichons, sauce tahini et notre sauce à l'ail spéciale",
                     "ar": "شاورما دجاج متبلة مع سلطة طازجة، طماطم، بصل، مخللات، صلصة الطحينة وصلصة الثوم الخاصة بنا"
-                }
+                },
+                "sortOrder": 15,
+                "rowIndex": 0,
+                "rowAlign": "left"
             }
         ],
         "page2": [
@@ -856,7 +901,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "A dedicated, professional team ensuring your events are brought to life in their finest form.",
                     "fr": "Une équipe professionnelle veille à animer vos événements pour qu'ils soient sous leur plus beau jour.",
                     "ar": "طاقم احترافي يسهر على إحياء حفلاتكم لتكون في أبهى حلة."
-                }
+                },
+                "sortOrder": 1,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1552",
@@ -881,7 +929,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Sweetheart Stage",
                     "fr": "Trône des mariés",
                     "ar": "منصة العروس"
-                }
+                },
+                "sortOrder": 2,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1551",
@@ -909,7 +960,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "A hall fully equipped with all the essentials and amenities to make your wedding and celebrations shine at their finest",
                     "fr": "Une salle entièrement équipée de tout le matériel et les commodités nécessaires pour rendre votre mariage et vos célébrations sous leur plus beau jour",
                     "ar": "قاعة مجهزة بكل اللوازم والمعدات لجعل عرسكم وأفراحكم في أبهى حلة."
-                }
+                },
+                "sortOrder": 3,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-320",
@@ -933,7 +987,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "We provide top musical entertainment—from Chaâbi and Issawa to Reggada—featuring talented singers and hosts to bring authentic energy and joy to your celebrations. Lively, unforgettable moments that keep the dance floor moving all night long",
                     "fr": "Nous mettons à votre disposition les meilleures animations musicales — Chaâbi, Issawa, Reggada — avec des chanteurs et animateurs talentueux pour faire vibrer vos réceptions dans une ambiance authentique et chaleureuse. Des moments de joie intense qui marqueront les esprits de vos invités",
                     "ar": "نوفّر لكم أروع الفقرات الموسيقية والفنية من شعبي، عيساوة، وركادة مع نخبة من المغنين والمنشطين والمنشطات لإحياء حفلاتكم بأجواء أصيلة ومليئة بالحيوية. نضمن لكم سهرة عامرة بالفرح والبهجة تبقى راسخة في ذاكرة ضيوفكم"
-                }
+                },
+                "sortOrder": 4,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-319",
@@ -960,7 +1017,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "We present the Moroccan Taifour with refined styling worthy of your guests at weddings and special occasions. Authentic traditional touches and luxurious details that reflect genuine hospitality and make every moment unforgettable",
                     "fr": "Nous mettons à l'honneur le Taifour marocain avec un dressage raffiné digne de vos invités lors de vos mariages et célébrations. Des touches traditionnelles authentiques et des détails luxueux qui reflètent la générosité de l'accueil et rendent chaque instant unique",
                     "ar": "نقدم لكم الطيفور المغربي بأرقى حُلة وتنسيق يليق بضيوفكم في ليالي الفرح والعرس. لمسات تقليدية أصيلة وتفاصيل فاخرة تعكس كرم الضيافة وتجعل كل لحظة استثنائية"
-                }
+                },
+                "sortOrder": 5,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-318",
@@ -986,7 +1046,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "We offer fully equipped wedding venues with refined decor, and we also provide luxury decor and equipment to elevate your home celebrations. Thoughtful details that turn your special occasions into a magical work of ar",
                     "fr": "Nous mettons à votre disposition des salles des fêtes entièrement équipées avec les plus beaux décors, et nous vous fournissons également une décoration et du matériel haut de gamme pour sublimer vos réceptions à domicile. Des détails soignés qui transforment vos événements en un véritable tableau enchanteur",
                     "ar": "نضع رهن إشارتكم قاعات أفراح مجهزة بالكامل بأرقى الديكورات وأحدث المستلزمات، كما نوفر لكم ديكوراً ومعدات فاخرة لتجهيز حفلاتكم المنزلية بكل رقي. تفاصيل متقنة تحول مناسباتكم إلى لوحة فنية ساحرة"
-                }
+                },
+                "sortOrder": 6,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-317",
@@ -1020,7 +1083,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "We offer a curated selection of fresh fruits, artfully arranged to combine vibrant colors with refreshing flavors. A luxurious hospitality touch that elevates your wedding and event tables",
                     "fr": "Nous vous proposons une sélection de fruits frais soigneusement choisis, dressés avec élégance pour allier couleurs éclatantes et fraîcheur. Une touche d'hospitalité luxueuse qui sublime la table de vos mariages et événements",
                     "ar": "نقدّم لكم أشهى الفواكه الطازجة والمختارة بعناية، منسّقة بأسلوب فني راقٍ يجمع بين الألوان الزاهية والمذاق المنعش. لمسة ضيافة فاخرة تضفي حيوية وتميزاً على مائدة أفراحكم ومناسباتكم"
-                }
+                },
+                "sortOrder": 7,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-316",
@@ -1052,7 +1118,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "We offer an exquisite selection of fine desserts and luxury pastries, crafted with the finest ingredients and artistic presentation to dazzle your guests. Unforgettable flavors to add a magical finale to your weddings and special events",
                     "fr": "Découvrez notre sélection exclusive de desserts gastronomiques et de pâtisseries fines, préparés avec soin et élégance pour émerveiller vos invités. Des saveurs exquises pour couronner vos mariages et événements d'exception",
                     "ar": "نقدم لكم أشهى وأرقى تشكيلة من الحلويات الفاخرة والديسير العصري والتقليدي، مُعدّة بأجود المكونات وتقديم فني يبهر الضيوف. مذاق لا يُقاوم يضفي لمسة ساحرة على سهراتكم ومناسباتكم السعيدة"
-                }
+                },
+                "sortOrder": 8,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-315",
@@ -1084,7 +1153,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "We bring you the finest and most delicious dishes of luxury Moroccan cuisine, crafted with passion and perfection for your weddings and special occasions. Authentic flavors and a royal presentation to honor your guests",
                     "fr": "Nous vous proposons les mets les plus raffinés de la gastronomie marocaine, préparés avec passion et savoir-faire pour sublimer vos mariages et événements. Des saveurs authentiques et une présentation royale pour honorer vos invités",
                     "ar": "نقدم لكم أرقى وأشهى أطباق المطبخ المغربي الفاخر، مُحضّرة بكل حب وإتقان لتليق بمناسباتكم السعيدة. نكهات أصيلة وتقديم ملكي يشرّفكم أمام ضيوفكم في ليلة العمر وكل أفراحكم"
-                }
+                },
+                "sortOrder": 9,
+                "rowIndex": 0,
+                "rowAlign": "left"
             }
         ],
         "page3": [
@@ -1107,10 +1179,14 @@ const DEFAULT_SITE_DATA = {
                     "ar": "الأناقة المغربية الأصيلة.. لتتألقي كالأميرات في ليلة العمر ✨👑"
                 },
                 "desc": {
-                    "en": "With Nggafa Nadia, luxury meets grace in every look. Through our signature touch and attention to detail, we give you a royal presence so you look and feel like a true princess on your big day",
-                    "fr": "Avec Nggafa Nadia, le raffinement sublime chacune de vos apparitions. Nous sublimons votre beauté avec notre touche unique pour vous offrir une allure royale et faire de vous la princesse d'un jour inoubliable",
-                    "ar": "مع النكافة نادية، تلتقي الفخامة بالرقي في كل إطلالة. نهتم بأدق التفاصيل لنمنحكِ حضوراً ملكياً يفيض بالجمال والأناقة، ويجعلكِ تسطعين كالأميرة في أهم يوم في حياتكِ"
-                }
+                    "en": "With Nggafa Nora, luxury meets grace in every look. Through our signature touch and attention to detail, we give you a royal presence so you look and feel like a true princess on your big day",
+                    "fr": "Avec Nggafa nora, le raffinement sublime chacune de vos apparitions. Nous sublimons votre beauté avec notre touche unique pour vous offrir une allure royale et faire de vous la princesse d'un jour inoubliable",
+                    "ar": "مع النكافة نورة، تلتقي الفخامة بالرقي في كل إطلالة. نهتم بأدق التفاصيل لنمنحكِ حضوراً ملكياً يفيض بالجمال والأناقة، ويجعلكِ تسطعين كالأميرة في أهم يوم في حياتكِ"
+                },
+                "sortOrder": 1,
+                "rowIndex": 0,
+                "rowAlign": "left",
+                "slideMode": "manual"
             },
             {
                 "id": "FD-3012",
@@ -1136,7 +1212,11 @@ const DEFAULT_SITE_DATA = {
                     "en": "Magical moments from a night to remember, where the luxury of the Moroccan takchita meets the elegance of royal details... The Nggafa Nadia touch",
                     "fr": "Des instants magiques d'une nuit inoubliable, où le raffinement de la takchita marocaine rencontre l'élégance des détails royaux... La touche Nggafa Nadia",
                     "ar": "لحظات ساحرة من ليلة العمر، حيث تلتقي فخامة التكشيطة المغربية مع رقي التفاصيل الملكية. أبلمسة النكافة نادية"
-                }
+                },
+                "sortOrder": 2,
+                "rowIndex": 0,
+                "rowAlign": "left",
+                "slideMode": "manual"
             },
             {
                 "id": "FD-311",
@@ -1153,17 +1233,21 @@ const DEFAULT_SITE_DATA = {
                     "ar": "إطلالات مغربية فاخرة"
                 },
                 "desc": {
-                    "en": "Authenticity in taste with Nggafa Nadia... An authentic Moroccan hospitality house",
-                    "fr": "L'authenticité du goût avec la Nggafa Nadia... Une maison d'hôtes aux touches 100% marocaines",
-                    "ar": "الأصالة في الذوق مع النكافة نادية.. دار ضيافة لمسة مغربية أصيلة"
-                }
+                    "en": "Authenticity in taste with Nggafa Nora... An authentic Moroccan hospitality house",
+                    "fr": "L'authenticité du goût avec la Nggafa Nora... Une maison d'hôtes aux touches 100% marocaines",
+                    "ar": "الأصالة في الذوق مع النكافة نورة.. دار ضيافة لمسة مغربية أصيلة"
+                },
+                "sortOrder": 3,
+                "rowIndex": 0,
+                "rowAlign": "left",
+                "slideMode": "manual"
             },
             {
                 "id": "NG-303",
                 "image": "https://i.ibb.co/bgcTyXmm/Whats-App-Image-2026-11-22-at-15-53-29-1.jpg",
                 "price": "",
                 "title": {
-                    "en": "Makeu",
+                    "en": "Makeup",
                     "fr": "Maquillage",
                     "ar": "التَّزْيِين"
                 },
@@ -1179,7 +1263,11 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/QjJcM9x2/Whats-App-Image-2026-11-22-at-15-53-30-1.jpg",
                     "https://i.ibb.co/x8BcnyB3/Whats-App-Image-2026-11-22-at-15-53-29.jpg",
                     "https://i.ibb.co/HpnMqBXZ/Whats-App-Image-2026-11-22-at-15-53-30-6.jpg"
-                ]
+                ],
+                "sortOrder": 4,
+                "rowIndex": 0,
+                "rowAlign": "left",
+                "slideMode": "manual"
             },
             {
                 "id": "NG-304",
@@ -1206,7 +1294,11 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/Z9BnVVv/Whats-App-Image-2026-11-22-at-15-53-24.jpg",
                     "https://i.ibb.co/KQPLdgZ/Whats-App-Image-2026-11-22-at-15-53-26-4.jpg",
                     "https://i.ibb.co/PbG4Cg1/Whats-App-Image-2026-11-22-at-15-53-32-2.jpg"
-                ]
+                ],
+                "sortOrder": 5,
+                "rowIndex": 0,
+                "rowAlign": "left",
+                "slideMode": "manual"
             },
             {
                 "id": "NG-305",
@@ -1239,7 +1331,11 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/m5b5H5mQ/Whats-App-Image-2026-11-22-at-15-53-38.jpg",
                     "https://i.ibb.co/hFGmDb1g/Whats-App-Image-2026-11-22-at-15-53-36-3.jpg",
                     "https://i.ibb.co/Z6wB9VLF/Whats-App-Image-2026-11-22-at-15-53-33.jpg"
-                ]
+                ],
+                "sortOrder": 6,
+                "rowIndex": 0,
+                "rowAlign": "left",
+                "slideMode": "manual"
             }
         ],
         "page1_friday": [
@@ -1260,7 +1356,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "An authentic Moroccan couscous prepared with care and craftsmanship, which at Dar Dyafa we make with full professionalism and a special touch that gives it a rich flavor and balanced sweetness in both taste and presentation",
                     "fr": "Un couscous marocain authentique préparé avec soin et savoir-faire, que chez Dar Dyafa nous réalisons avec professionnalisme et une touche spéciale qui lui donne une saveur riche et une douceur équilibrée, aussi bien dans le goût que dans la présentation",
                     "ar": "طبق كسكس مغربي أصيل يُحضّر بعناية وإتقان، وفي Dar Dyafa نُقدّمه بكل حرفية وبلمسة خاصة تمنحه مذاقاً غنياً وحلاوة متوازنة في الطعم وفي التقديم"
-                }
+                },
+                "sortOrder": 1,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-332",
@@ -1279,7 +1378,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Our dishes stand out with an amazing flavor, a blend of Moroccan culinary culture and modernity. Dar Dyafa, the magical touch in every dish",
                     "fr": "Nos plats se distinguent par une saveur exceptionnelle, un savant mélange entre la culture culinaire marocaine et la modernité. Dar Dyafa, la touche magique dans chaque plat",
                     "ar": "تتميز أطباقنا بنكهة مذهلة، تجمع بين أصالة الثقافة المطبخية المغربية ولمسة العصرنة. دار الضيافة، اللمسة السحرية في كل طبق."
-                }
+                },
+                "sortOrder": 2,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1502",
@@ -1298,7 +1400,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Meal for 10 People: Moroccan Couscous with Beef, Vegetables, and Tfaya",
                     "fr": "Un repas pour 10 personnes, couscous marocain au bœuf, aux légumes et à la tfaya.",
                     "ar": "وجبة لـ 10 شخصاً، كسكس مغربي باللحم البقري والخضار والتفاية"
-                }
+                },
+                "sortOrder": 3,
+                "rowIndex": 0,
+                "rowAlign": "left"
             },
             {
                 "id": "FD-1501",
@@ -1317,7 +1422,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "A meal for 10 people, Moroccan couscous with chicken and vegetables and tfaya",
                     "fr": "Un repas pour 10 personnes, couscous marocain au poulet, aux légumes et à la tfaya.",
                     "ar": "وجبة لـ 15 شخصاً، كسكس مغربي بالدجاج والخضار والتفاية."
-                }
+                },
+                "sortOrder": 4,
+                "rowIndex": 0,
+                "rowAlign": "left"
             }
         ],
         "page1_gallery": [
@@ -1343,7 +1451,10 @@ const DEFAULT_SITE_DATA = {
                     "en": "Visit us at 61 Squire Rd, Revere, MA 02151 or book our truck for private events & festivals.",
                     "fr": "Rendez-nous visite au 61 Squire Rd, Revere, MA 02151 ou réservez notre camion pour des événements privés et des festivals.",
                     "ar": "تفضل بزيارتنا على العنوان التالي: 61 Squire Rd, Revere, MA 02151 أو احجز شاحنتنا للمناسبات والمهرجانات الخاصة."
-                }
+                },
+                "sortOrder": 1,
+                "rowIndex": 0,
+                "rowAlign": "left"
             }
         ]
     },
@@ -1417,5 +1528,22 @@ const DEFAULT_SITE_DATA = {
         "en": "Dar Dyafa Photo Gallery",
         "fr": "Galerie Photos Dar Dyafa",
         "ar": "ألبوم صور دار الضيافة"
+    },
+    "layoutConfig": {
+        "page1": {
+            "rows": []
+        },
+        "page1_friday": {
+            "rows": []
+        },
+        "page1_gallery": {
+            "rows": []
+        },
+        "page2": {
+            "rows": []
+        },
+        "page3": {
+            "rows": []
+        }
     }
 };
