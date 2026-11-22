@@ -34,62 +34,79 @@ const DEFAULT_SITE_DATA = {
     },
     "marqueeItems": [
         {
-            "name": "RICE PLATTER",
-            "price": "15.00"
+            "id": "m_1795320899851",
+            "name": "Gyro lamb and beef WITH FRENCH FRIES",
+            "price": "$16.00"
         },
         {
+            "id": "m_1795320909034",
+            "name": "Rice platter",
+            "price": "$18.00"
+        },
+        {
+            "id": "m_1795320927434",
             "name": "RICE BOWL",
-            "price": "15.00"
+            "price": "$15.00"
         },
         {
-            "name": "BURRITO",
-            "price": "15.00"
-        },
-        {
-            "name": "SHAWARMA",
-            "price": "15.00"
-        },
-        {
-            "id": "m_1795179719767",
-            "name": "steak cheese",
-            "price": "14.00"
-        },
-        {
-            "name": "CHICKEN FINGER",
-            "price": "12.00"
-        },
-        {
-            "name": "TACO",
-            "price": "12.00"
-        },
-        {
+            "id": "m_1795320946106",
             "name": "GYRO WITH FRENCH FRIES",
-            "price": "15.00"
+            "price": "$15.00"
         },
         {
-            "id": "m_1795179809991",
-            "name": "FLAN",
-            "price": "5.00"
+            "id": "m_1795320961586",
+            "name": "BURRITO WITH FRENCH FRIES",
+            "price": "$15.00"
         },
         {
-            "id": "m_1795179821823",
+            "id": "m_1795320967810",
+            "name": "Water",
+            "price": "$2.00"
+        },
+        {
+            "id": "m_1795320979282",
+            "name": "Moroccan Tea",
+            "price": "$2.00"
+        },
+        {
+            "id": "m_1795320989058",
+            "name": "Soda",
+            "price": "$2.00"
+        },
+        {
+            "id": "m_1795320999570",
             "name": "TIRAMISU",
-            "price": "6.00"
+            "price": "$6.00"
         },
         {
-            "id": "m_1795179829158",
-            "name": "SODA",
-            "price": "2.00"
+            "id": "m_1795321010515",
+            "name": "FLAN",
+            "price": "$5.00"
         },
         {
-            "id": "m_1795179839286",
-            "name": "TEA",
-            "price": "2.00"
+            "id": "m_1795321019386",
+            "name": "BURGER CHEESE",
+            "price": "$15.00"
         },
         {
-            "id": "m_1795179891215",
-            "name": "WATER",
-            "price": "2.00"
+            "id": "m_1795321028363",
+            "name": "TACO",
+            "price": "$12.00"
+        },
+        {
+            "id": "m_1795321042218",
+            "name": "CHICKEN FINGER",
+            "price": "$12.00"
+        },
+        {
+            "id": "m_1795321052579",
+            "name": "STEAK CHEESE",
+            "price": "$15.00"
+        },
+        {
+            "id": "m_1795321062859",
+            "name": "SHAWARMA",
+            "price": "$15.00"
         }
     ],
     "videos": {
@@ -253,6 +270,63 @@ const DEFAULT_SITE_DATA = {
     "posts": {
         "page1": [
             {
+                "id": "FD-1251",
+                "image": "https://i.ibb.co/5XHZnXTT/Gemini-Generated-Image-umdhzyumdhzyumdh.jpg",
+                "images": [
+                    "https://i.ibb.co/5XHZnXTT/Gemini-Generated-Image-umdhzyumdhzyumdh.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "$2.00",
+                "title": {
+                    "en": "Moroccan Tea",
+                    "fr": "thé marocain",
+                    "ar": "شاي مغربي"
+                },
+                "desc": {
+                    "en": "Moroccan Tea",
+                    "fr": "thé marocain",
+                    "ar": "شاي مغربي"
+                }
+            },
+            {
+                "id": "FD-1250",
+                "image": "https://i.ibb.co/kgp71xFQ/Gemini-Generated-Image-7pexns7pexns7pex.jpg",
+                "images": [
+                    "https://i.ibb.co/kgp71xFQ/Gemini-Generated-Image-7pexns7pexns7pex.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "$2.00",
+                "title": {
+                    "en": "Soda",
+                    "fr": "Soda",
+                    "ar": "مشروب غازي"
+                },
+                "desc": {
+                    "en": "Soda",
+                    "fr": "Soda",
+                    "ar": "مشروب غازي"
+                }
+            },
+            {
+                "id": "FD-1252",
+                "image": "https://i.ibb.co/cXy2qHv1/Gemini-Generated-Image-aako0daako0daako.jpg",
+                "images": [
+                    "https://i.ibb.co/cXy2qHv1/Gemini-Generated-Image-aako0daako0daako.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "$2.00",
+                "title": {
+                    "en": "Water",
+                    "fr": "Eau",
+                    "ar": "الماء"
+                },
+                "desc": {
+                    "en": "Water",
+                    "fr": "Eau",
+                    "ar": "الماء"
+                }
+            },
+            {
                 "id": "FD-1451",
                 "image": "https://i.ibb.co/9kv4qmbs/Gemini-Generated-Image-42zc6o42zc6o42zc.jpg",
                 "images": [
@@ -345,63 +419,6 @@ const DEFAULT_SITE_DATA = {
                     "en": "chicken, beef or flafel with rice, picco, lettuce, corne, black beans and cheese and special sauce",
                     "fr": "Poulet, bœuf ou falafel avec riz, pico de gallo, laitue, maïs, haricots noirs, fromage et sauce spécial",
                     "ar": "دجاج، لحم بقري أو فلافل مع الأرز، صلصة البيكو (طماطم وبصل)، خس، ذرة، فاصوليا سوداء، جبن وصلصة خاصة."
-                }
-            },
-            {
-                "id": "FD-1252",
-                "image": "https://i.ibb.co/cXy2qHv1/Gemini-Generated-Image-aako0daako0daako.jpg",
-                "images": [
-                    "https://i.ibb.co/cXy2qHv1/Gemini-Generated-Image-aako0daako0daako.jpg"
-                ],
-                "slideMode": "manual",
-                "price": "$2.00",
-                "title": {
-                    "en": "Water",
-                    "fr": "Eau",
-                    "ar": "الماء"
-                },
-                "desc": {
-                    "en": "Water",
-                    "fr": "Eau",
-                    "ar": "الماء"
-                }
-            },
-            {
-                "id": "FD-1251",
-                "image": "https://i.ibb.co/N2WG9dRT/Gemini-Generated-Image-umdhzyumdhzyumdh.jpg",
-                "images": [
-                    "https://i.ibb.co/N2WG9dRT/Gemini-Generated-Image-umdhzyumdhzyumdh.jpg"
-                ],
-                "slideMode": "manual",
-                "price": "$2.00",
-                "title": {
-                    "en": "Moroccan Tea",
-                    "fr": "thé marocain",
-                    "ar": "شاي مغربي"
-                },
-                "desc": {
-                    "en": "Moroccan Tea",
-                    "fr": "thé marocain",
-                    "ar": "شاي مغربي"
-                }
-            },
-            {
-                "id": "FD-1250",
-                "image": "https://i.ibb.co/kgp71xFQ/Gemini-Generated-Image-7pexns7pexns7pex.jpg",
-                "images": [
-                    "https://i.ibb.co/kgp71xFQ/Gemini-Generated-Image-7pexns7pexns7pex.jpg"
-                ],
-                "slideMode": "manual",
-                "price": "$2.00",
-                "title": {
-                    "en": "Soda",
-                    "fr": "Soda ",
-                    "ar": "Soda "
-                },
-                "desc": {
-                    "en": "Soda ",
-                    "fr": "Soda ",
-                    "ar": "Soda "
                 }
             },
             {
@@ -540,6 +557,48 @@ const DEFAULT_SITE_DATA = {
         ],
         "page2": [
             {
+                "id": "FD-1552",
+                "image": "https://i.ibb.co/dJ2DQR6N/Whats-App-Image-2026-11-22-at-05-10-56.jpg",
+                "images": [
+                    "https://i.ibb.co/dJ2DQR6N/Whats-App-Image-2026-11-22-at-05-10-56.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "",
+                "title": {
+                    "en": "Sweetheart Stage",
+                    "fr": "Trône des mariés",
+                    "ar": "منصة العروس"
+                },
+                "desc": {
+                    "en": "Sweetheart Stage",
+                    "fr": "Trône des mariés",
+                    "ar": "منصة العروس"
+                }
+            },
+            {
+                "id": "FD-1551",
+                "image": "https://i.ibb.co/mrKbxKDq/Whats-App-Image-2026-11-22-at-05-06-16.jpg",
+                "images": [
+                    "https://i.ibb.co/mrKbxKDq/Whats-App-Image-2026-11-22-at-05-06-16.jpg",
+                    "https://i.ibb.co/MD4KYFng/Whats-App-Image-2026-11-22-at-05-06-13.jpg",
+                    "https://i.ibb.co/nMdn61wQ/Whats-App-Image-2026-11-22-at-05-06-14.jpg",
+                    "https://i.ibb.co/v4h1Ry18/Whats-App-Image-2026-11-22-at-04-48-59-3.jpg",
+                    "https://i.ibb.co/3yLgfMMY/Whats-App-Image-2026-11-22-at-05-01-39.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "",
+                "title": {
+                    "en": "Dar Dyafa Event & Banquet Hall",
+                    "fr": "Salle des Fêtes Dar Dyafa",
+                    "ar": "قاعة أفراح دار الضيافة"
+                },
+                "desc": {
+                    "en": "A hall fully equipped with all the essentials and amenities to make your wedding and celebrations shine at their finest",
+                    "fr": "Une salle entièrement équipée de tout le matériel et les commodités nécessaires pour rendre votre mariage et vos célébrations sous leur plus beau jour",
+                    "ar": "قاعة مجهزة بكل اللوازم والمعدات لجعل عرسكم وأفراحكم في أبهى حلة."
+                }
+            },
+            {
                 "id": "FD-320",
                 "image": "https://i.ibb.co/Y4nNjzYV/cf79429924d64218b0f1dca9b966e7d8.jpg",
                 "images": [
@@ -565,20 +624,14 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "FD-319",
-                "image": "https://i.ibb.co/QF9sfqnw/20230803-095452-orig.jpg",
+                "image": "https://i.ibb.co/5W7xJK3y/Whats-App-Image-2026-11-22-at-04-31-29.jpg",
                 "images": [
-                    "https://i.ibb.co/QF9sfqnw/20230803-095452-orig.jpg",
-                    "https://i.ibb.co/nN9dqkpV/b6f76efd63deb28e7e93689c9a49d983.jpg",
-                    "https://i.ibb.co/VWQDgJsJ/9f41ccf588f3c05ced78ab6a45fa6225.jpg",
-                    "https://i.ibb.co/4wCVNdFF/6b0b466d4f3eb4d0d41aea5466d1d246.jpg",
-                    "https://i.ibb.co/jvG6qMcN/0480288f762e6d9b8d4466d4e71998dc.jpg",
-                    "https://i.ibb.co/F4k9rm3p/6679e7620bedb8fb5e27cc10e96ab36d.jpg",
-                    "https://i.ibb.co/c7yN6fQ/6d08f7f2c78f265b6c3e5058c24e652b.jpg",
-                    "https://i.ibb.co/BHH192NZ/c62e980cdf0be881b67ecf2000d7bd60.jpg",
-                    "https://i.ibb.co/qQqgY0s/55b2297f4244bee61e711bdbba46e06b.jpg",
-                    "https://i.ibb.co/j0s3RG7/23c9ace44db0b68d13252f5ad3fc430c.jpg",
-                    "https://i.ibb.co/ycnYd4yf/695358c9fba6384bb1cae8c73fd56b7e.jpg",
-                    "https://i.ibb.co/23r3Wm5N/03e2bf92238b18e2d99e8b148d668357.jpg"
+                    "https://i.ibb.co/5W7xJK3y/Whats-App-Image-2026-11-22-at-04-31-29.jpg",
+                    "https://i.ibb.co/0j8rYwNK/Whats-App-Image-2026-11-22-at-04-27-36.jpg",
+                    "https://i.ibb.co/0jZHpBqw/Whats-App-Image-2026-11-22-at-04-26-28-4.jpg",
+                    "https://i.ibb.co/TFztn8s/Whats-App-Image-2026-11-22-at-04-26-28-5.jpg",
+                    "https://i.ibb.co/9HxCKh7b/Whats-App-Image-2026-11-22-at-04-26-28-6.jpg",
+                    "https://i.ibb.co/67dLR3W0/Whats-App-Image-2026-11-22-at-04-58-34.jpg"
                 ],
                 "price": "",
                 "title": {
@@ -594,17 +647,10 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "FD-318",
-                "image": "https://i.ibb.co/MyYCKVJm/662092266-18197847766345012-30431575738356626-n.jpg",
+                "image": "https://i.ibb.co/jZ6h6GPD/Whats-App-Image-2026-11-22-at-04-34-06.jpg",
                 "images": [
-                    "https://i.ibb.co/MyYCKVJm/662092266-18197847766345012-30431575738356626-n.jpg",
-                    "https://i.ibb.co/Y4PGDMmG/508690912-18166798573345012-708228481368407423-n.jpg",
-                    "https://i.ibb.co/BK7xhNWJ/508670871-18166798564345012-7297570338351617094-n.jpg",
-                    "https://i.ibb.co/jk7Dgrfw/508654620-18166798594345012-6569483155199258005-n.jpg",
-                    "https://i.ibb.co/20wNDYtq/480570613-18155460013345012-5697798118811987025-n.jpg",
-                    "https://i.ibb.co/Q3rqXQwk/480213793-18155460028345012-3247614741897691541-n.jpg",
-                    "https://i.ibb.co/Df4WLp9f/480231914-18155460067345012-3303534094313146311-n.jpg",
-                    "https://i.ibb.co/ZpxX4h30/480012620-18155459953345012-5177751975042610759-n.jpg",
-                    "https://i.ibb.co/HTxqZcsc/480669994-18155459932345012-8773814139088365922-n.jpg"
+                    "https://i.ibb.co/jZ6h6GPD/Whats-App-Image-2026-11-22-at-04-34-06.jpg",
+                    "https://i.ibb.co/qFn6TYGy/Whats-App-Image-2026-11-22-at-04-26-28-3.jpg"
                 ],
                 "price": "",
                 "title": {
@@ -631,7 +677,14 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/1t5Kf1TY/c32818706e8de91581481306448fffde.jpg",
                     "https://i.ibb.co/fPNfYJw/0937f0fe6413e3c9f60d07d5760cfc44.jpg",
                     "https://i.ibb.co/DfYHvKNJ/6be0919ac041770d24eae9d344ad6c87.jpg",
-                    "https://i.ibb.co/vxZtGHpH/2f23d3667b4c920fc6cec31ca93bae0a.jpg"
+                    "https://i.ibb.co/vxZtGHpH/2f23d3667b4c920fc6cec31ca93bae0a.jpg",
+                    "https://i.ibb.co/1tbS91RC/Whats-App-Image-2026-11-22-at-05-06-16-1.jpg",
+                    "https://i.ibb.co/TxFN2WzZ/Whats-App-Image-2026-11-22-at-05-05-47.jpg",
+                    "https://i.ibb.co/KpR71NcW/Whats-App-Image-2026-11-22-at-05-01-23.jpg",
+                    "https://i.ibb.co/fGDQ8y7k/Whats-App-Image-2026-11-22-at-05-05-57.jpg",
+                    "https://i.ibb.co/5gCdH985/Whats-App-Image-2026-11-22-at-05-06-07.jpg",
+                    "https://i.ibb.co/vCRK52wc/Whats-App-Image-2026-11-22-at-04-58-43.jpg",
+                    "https://i.ibb.co/WhHNYHt/Whats-App-Image-2026-11-22-at-04-58-20.jpg"
                 ],
                 "price": "",
                 "title": {
@@ -658,7 +711,12 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/0jzhBTWK/76787c821fc7125e46b89d9bedceffc5.jpg",
                     "https://i.ibb.co/MxvcBYHQ/928a467e862e4484a0572192ac2c3a1a.jpg",
                     "https://i.ibb.co/svKDkzDL/bca7e8383cd46691a456690fdcb13630.jpg",
-                    "https://i.ibb.co/N2bv6Yyn/c20a5e039d0ee564f0c216e32e5fead7.jpg"
+                    "https://i.ibb.co/N2bv6Yyn/c20a5e039d0ee564f0c216e32e5fead7.jpg",
+                    "https://i.ibb.co/rf7DgcbG/Whats-App-Image-2026-11-22-at-05-10-39.jpg",
+                    "https://i.ibb.co/V0R4M0B4/Whats-App-Image-2026-11-22-at-05-10-39-1.jpg",
+                    "https://i.ibb.co/S4zTLqQj/Whats-App-Image-2026-11-22-at-04-58-57.jpg",
+                    "https://i.ibb.co/BK6RCKJV/Whats-App-Image-2026-11-22-at-04-58-51.jpg",
+                    "https://i.ibb.co/pBH9j7vH/Whats-App-Image-2026-11-22-at-04-58-34-1.jpg"
                 ],
                 "price": "",
                 "title": {
@@ -674,9 +732,8 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "FD-315",
-                "image": "https://i.ibb.co/xKYqmHM3/509187363-18166798582345012-9010465350068636847-n.jpg",
+                "image": "https://i.ibb.co/s9HtTtWD/508683035-18166798603345012-2366714121716835032-n.jpg",
                 "images": [
-                    "https://i.ibb.co/xKYqmHM3/509187363-18166798582345012-9010465350068636847-n.jpg",
                     "https://i.ibb.co/s9HtTtWD/508683035-18166798603345012-2366714121716835032-n.jpg",
                     "https://i.ibb.co/qY8C7wyY/508998904-18166798612345012-6260607270775418004-n.jpg",
                     "https://i.ibb.co/qbSrp3k/447499532-18128540890345012-3154824115255312587-n.jpg",
@@ -685,7 +742,16 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/jk7Dgrfw/508654620-18166798594345012-6569483155199258005-n.jpg",
                     "https://i.ibb.co/Zz4NNC1t/fg.jpg",
                     "https://i.ibb.co/5hXNTXJQ/0000.jpg",
-                    "https://i.ibb.co/xtvYh30m/00.jpg"
+                    "https://i.ibb.co/xtvYh30m/00.jpg",
+                    "https://i.ibb.co/ycWDykGp/Whats-App-Image-2026-11-22-at-05-11-35.jpg",
+                    "https://i.ibb.co/hx8yFrGq/Whats-App-Image-2026-11-22-at-05-11-21.jpg",
+                    "https://i.ibb.co/nNCtHbKd/Whats-App-Image-2026-11-22-at-05-11-45.jpg",
+                    "https://i.ibb.co/939Mf94C/Whats-App-Image-2026-11-22-at-05-10-39-2.jpg",
+                    "https://i.ibb.co/GQWQWVv0/Whats-App-Image-2026-11-22-at-05-06-05.jpg",
+                    "https://i.ibb.co/Y4hD1sBB/Whats-App-Image-2026-11-22-at-05-05-56.jpg",
+                    "https://i.ibb.co/PsKrfN3d/Whats-App-Image-2026-11-22-at-04-58-54.jpg",
+                    "https://i.ibb.co/60Z9n7Lp/Whats-App-Image-2026-11-22-at-04-58-36.jpg",
+                    "https://i.ibb.co/nNCtHbKd/Whats-App-Image-2026-11-22-at-05-11-45.jpg"
                 ],
                 "price": "",
                 "title": {
@@ -706,13 +772,11 @@ const DEFAULT_SITE_DATA = {
                 "image": "https://i.ibb.co/M5f2Hs5s/749986210-17950507290230291-1553966851783896193-n.webp",
                 "images": [
                     "https://i.ibb.co/M5f2Hs5s/749986210-17950507290230291-1553966851783896193-n.webp",
-                    "https://i.ibb.co/pjtwnZYc/image.webp",
-                    "https://i.ibb.co/1f9RLyvs/600758696-17920409442230291-3115244680522077082-n.jpg",
-                    "https://i.ibb.co/hxmDsTrr/image.webp",
-                    "https://i.ibb.co/p6JZtD1Y/1.webp",
-                    "https://i.ibb.co/1J8br8HP/Ma-Reine-houda-mashaa-Allah.webp",
-                    "https://i.ibb.co/HfMVn1WS/image.webp",
-                    "https://i.ibb.co/LXtzyNNG/makeup-by-ennimi-marrakech-negafa-des-mains-douces-oushadi-visuals.jpg"
+                    "https://i.ibb.co/rCRj5yr/Whats-App-Image-2026-11-22-at-04-44-59.jpg",
+                    "https://i.ibb.co/HTF73jMN/Whats-App-Image-2026-11-22-at-04-43-27.jpg",
+                    "https://i.ibb.co/M5hYVqrG/Whats-App-Image-2026-11-22-at-04-43-29-1.jpg",
+                    "https://i.ibb.co/VYN5hDK5/Whats-App-Image-2026-11-22-at-04-48-58-1.jpg",
+                    "https://i.ibb.co/Hfr9zbqQ/Whats-App-Image-2026-11-22-at-04-48-58-2.jpg"
                 ],
                 "price": "",
                 "title": {
@@ -728,13 +792,15 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "FD-3012",
-                "image": "https://i.ibb.co/Hf1dftDh/Bcp-de-bonheur-a-toi-ch-rie-hananebh-tradionsmarocaines-bridetobe-caftan-marocain-morocc-1.jpg",
+                "image": "https://i.ibb.co/DH1sL549/Whats-App-Image-2026-11-22-at-04-43-23-1.jpg",
                 "images": [
-                    "https://i.ibb.co/Hf1dftDh/Bcp-de-bonheur-a-toi-ch-rie-hananebh-tradionsmarocaines-bridetobe-caftan-marocain-morocc-1.jpg",
-                    "https://i.ibb.co/XZDzZYGQ/640396885-17928088245230291-3848234034713282620-n.webp",
-                    "https://i.ibb.co/d4S5B50T/image.webp",
-                    "https://i.ibb.co/21ZXPNHz/image.webp",
-                    "https://i.ibb.co/ZRCGnh8j/image.webp"
+                    "https://i.ibb.co/DH1sL549/Whats-App-Image-2026-11-22-at-04-43-23-1.jpg",
+                    "https://i.ibb.co/cSvbsGWf/Whats-App-Image-2026-11-22-at-04-43-26-1.jpg",
+                    "https://i.ibb.co/5hznfxbQ/Whats-App-Image-2026-11-22-at-04-43-29.jpg",
+                    "https://i.ibb.co/xqg77F1h/Whats-App-Image-2026-11-22-at-04-36-43-2.jpg",
+                    "https://i.ibb.co/S7r1VhCB/Whats-App-Image-2026-11-22-at-04-36-43-1.jpg",
+                    "https://i.ibb.co/Qzb1jkG/Whats-App-Image-2026-11-22-at-04-48-59.jpg",
+                    "https://i.ibb.co/jP29Q1jR/Whats-App-Image-2026-11-22-at-04-49-00.jpg"
                 ],
                 "price": "",
                 "title": {
@@ -750,15 +816,10 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "FD-311",
-                "image": "https://i.ibb.co/pjwFkJmw/888229735-17967901638230291-1973084118280327432-n.jpg",
+                "image": "https://i.ibb.co/Kz0Sv1cP/Whats-App-Image-2026-11-22-at-04-43-26.jpg",
                 "images": [
-                    "https://i.ibb.co/pjwFkJmw/888229735-17967901638230291-1973084118280327432-n.jpg",
-                    "https://i.ibb.co/60S6xDbj/La-magie-de-la-Tamghrabit-2.webp",
-                    "https://i.ibb.co/zT7cJg4r/Pure-l-gance.webp",
-                    "https://i.ibb.co/nN5H2X4V/L-clat-d-une-reine.webp",
-                    "https://i.ibb.co/X0hXQBX/726526120-17945659734230291-7320987722076179943-n.webp",
-                    "https://i.ibb.co/HLyKBqX3/673035835-17936521782230291-4871163425922591639-n.webp",
-                    "https://i.ibb.co/YB6nhLvj/Corail-scintillant-Luxe-absolu.webp"
+                    "https://i.ibb.co/Kz0Sv1cP/Whats-App-Image-2026-11-22-at-04-43-26.jpg",
+                    "https://i.ibb.co/XfmRXRYv/Whats-App-Image-2026-11-22-at-04-44-51.jpg"
                 ],
                 "price": "",
                 "title": {
@@ -799,7 +860,7 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "NG-304",
-                "image": "assets/images/page3/pg3.jfif",
+                "image": "https://i.ibb.co/M5S9ps38/Whats-App-Image-2026-11-22-at-04-44-53.jpg",
                 "price": "",
                 "title": {
                     "en": "The Ammaria vibe with Nggafa Nadia",
@@ -812,19 +873,18 @@ const DEFAULT_SITE_DATA = {
                     "ar": "إطلالة ملكية باللون العنابي المطرز بخيوط الذهب مع تاج مرصع."
                 },
                 "images": [
-                    "assets/images/page3/pg3.jfif",
-                    "https://i.ibb.co/W40zYG6Y/Moroccan-Traditions-are-definitely-the-best-fees-maison-by-kaoutar-a-2.jpg",
-                    "https://i.ibb.co/84nJmQR6/Moroccan-Traditions-are-definitely-the-best-fees-maison-by-kaoutar-a.jpg",
-                    "https://i.ibb.co/B26X0LWm/Veiled-in-love-beautiful-rabab-ftm-tradition-morocco-mariagemarocain-1.jpg",
-                    "https://i.ibb.co/60kPg6D6/Beautiful-Marwa-je-te-souhaite-le-meilleur-traditionmarocaine-morocco-caftandumaroc.jpg",
-                    "https://i.ibb.co/67LJhXxj/Traditions-ayaelfilaliiofficiel-mahane-makeup-artist-chaimaa-hairstylist-luxur-1.jpg",
-                    "https://i.ibb.co/b5cwgZQx/Bcp-de-bonheur-a-toi-ch-rie-hananebh-tradionsmarocaines-bridetobe-caftan-marocain-morocc.jpg",
-                    "https://i.ibb.co/Mkmw9qcm/748353984-17950529829230291-8419934362755801905-n.webp"
+                    "https://i.ibb.co/M5S9ps38/Whats-App-Image-2026-11-22-at-04-44-53.jpg",
+                    "https://i.ibb.co/s9ptJ91Z/Whats-App-Image-2026-11-22-at-04-43-27-2.jpg",
+                    "https://i.ibb.co/gLHDJ69D/Whats-App-Image-2026-11-22-at-04-43-27-3.jpg",
+                    "https://i.ibb.co/nN6GFZ8W/Whats-App-Image-2026-11-22-at-04-43-23.jpg",
+                    "https://i.ibb.co/RGgK26MN/Whats-App-Image-2026-11-22-at-04-36-45.jpg",
+                    "https://i.ibb.co/nsZ6MmDf/2775792e-6948-482c-8d6f-22b8bb811cfb.jpg",
+                    "https://i.ibb.co/B29Ck9nN/Whats-App-Image-2026-11-22-at-04-48-58.jpg"
                 ]
             },
             {
                 "id": "NG-305",
-                "image": "assets/images/page3/3.jfif",
+                "image": "https://i.ibb.co/wrNs6R5M/Sans-titre-1.jpg",
                 "price": "",
                 "title": {
                     "en": "Full Henna Ceremony Rituals",
@@ -837,16 +897,49 @@ const DEFAULT_SITE_DATA = {
                     "ar": "تجهيز طقوس الحناء المغربية بالأواني النحاسية التقليدية ونقش الحناء في بوسطن."
                 },
                 "images": [
-                    "assets/images/page3/3.jfif",
-                    "https://i.ibb.co/Ps2rbcTr/3.jpg",
-                    "https://i.ibb.co/bMtWctWK/2.jpg",
-                    "https://i.ibb.co/YTwFgj2P/image.jpg",
-                    "https://i.ibb.co/jvQjF2c4/And-she-said-yes-hennanight-art-bride-wedding.jpg",
-                    "https://i.ibb.co/s9H70BmV/image.webp"
+                    "https://i.ibb.co/wrNs6R5M/Sans-titre-1.jpg"
                 ]
             }
         ],
         "page1_friday": [
+            {
+                "id": "FD-330",
+                "image": "https://i.ibb.co/5gYwJjBp/Gemini-Generated-Image-z7iktz7iktz7iktz.jpg",
+                "images": [
+                    "https://i.ibb.co/5gYwJjBp/Gemini-Generated-Image-z7iktz7iktz7iktz.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "$16.00",
+                "title": {
+                    "en": "Moroccan Chicken Couscous with Vegetables & Tfaya",
+                    "fr": "Couscous au Poulet, Légumes & Tfaya",
+                    "ar": "كسكس بالدجاج مع الخضار والتفاية"
+                },
+                "desc": {
+                    "en": "An authentic Moroccan couscous prepared with care and craftsmanship, which at Dar Dyafa we make with full professionalism and a special touch that gives it a rich flavor and balanced sweetness in both taste and presentation",
+                    "fr": "Un couscous marocain authentique préparé avec soin et savoir-faire, que chez Dar Dyafa nous réalisons avec professionnalisme et une touche spéciale qui lui donne une saveur riche et une douceur équilibrée, aussi bien dans le goût que dans la présentation",
+                    "ar": "طبق كسكس مغربي أصيل يُحضّر بعناية وإتقان، وفي Dar Dyafa نُقدّمه بكل حرفية وبلمسة خاصة تمنحه مذاقاً غنياً وحلاوة متوازنة في الطعم وفي التقديم"
+                }
+            },
+            {
+                "id": "FD-332",
+                "image": "https://i.ibb.co/RGjkjVkH/lamb.jpg",
+                "images": [
+                    "https://i.ibb.co/RGjkjVkH/lamb.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "$18.00",
+                "title": {
+                    "en": "Beef Couscous with Vegetables and Tfaya",
+                    "fr": "Couscous au bœuf avec légumes et tfaya",
+                    "ar": "كسكس باللحم البقري مع الخضار والتفاية"
+                },
+                "desc": {
+                    "en": "Our dishes stand out with an amazing flavor, a blend of Moroccan culinary culture and modernity. Dar Dyafa, the magical touch in every dish",
+                    "fr": "Nos plats se distinguent par une saveur exceptionnelle, un savant mélange entre la culture culinaire marocaine et la modernité. Dar Dyafa, la touche magique dans chaque plat",
+                    "ar": "تتميز أطباقنا بنكهة مذهلة، تجمع بين أصالة الثقافة المطبخية المغربية ولمسة العصرنة. دار الضيافة، اللمسة السحرية في كل طبق."
+                }
+            },
             {
                 "id": "FD-1502",
                 "image": "https://i.ibb.co/84jjNXrC/Gemini-Generated-Image-u9hxysu9hxysu9hx.jpg",
@@ -883,44 +976,6 @@ const DEFAULT_SITE_DATA = {
                     "en": "A meal for 10 people, Moroccan couscous with chicken and vegetables and tfaya",
                     "fr": "Un repas pour 10 personnes, couscous marocain au poulet, aux légumes et à la tfaya.",
                     "ar": "وجبة لـ 15 شخصاً، كسكس مغربي بالدجاج والخضار والتفاية."
-                }
-            },
-            {
-                "id": "FD-332",
-                "image": "https://i.ibb.co/LhvKbZfs/lamb.jpg",
-                "images": [
-                    "https://i.ibb.co/LhvKbZfs/lamb.jpg"
-                ],
-                "slideMode": "manual",
-                "price": "$18.00",
-                "title": {
-                    "en": "Beef Couscous with Vegetables and Tfaya",
-                    "fr": "Couscous au bœuf avec légumes et tfaya",
-                    "ar": "كسكس باللحم البقري مع الخضار والتفاية"
-                },
-                "desc": {
-                    "en": "Our dishes stand out with an amazing flavor, a blend of Moroccan culinary culture and modernity. Dar Dyafa, the magical touch in every dish",
-                    "fr": "Nos plats se distinguent par leur goût exquis, un alliance entre la culture culinaire marocaine et la modernité. Dar Dyafa, la touche magique dans chaque assiette",
-                    "ar": "تتميّز أطباقنا بالمذاق الرائع، مزيج بين الثقافة المغربية في الطبخ والعصرنة. دار ضيافة، اللمسة السحرية في الأطباق"
-                }
-            },
-            {
-                "id": "FD-330",
-                "image": "https://i.ibb.co/Pyk9ntM/chekan.jpg",
-                "images": [
-                    "https://i.ibb.co/Pyk9ntM/chekan.jpg"
-                ],
-                "slideMode": "manual",
-                "price": "$16.00",
-                "title": {
-                    "en": "Moroccan Chicken Couscous with Vegetables & Tfaya",
-                    "fr": "Couscous au Poulet, Légumes & Tfaya",
-                    "ar": "كسكس بالدجاج مع الخضار والتفاية"
-                },
-                "desc": {
-                    "en": "An authentic Moroccan couscous prepared with care and craftsmanship, which at Dar Dyafa we make with full professionalism and a special touch that gives it a rich flavor and balanced sweetness in both taste and presentation",
-                    "fr": "Un couscous marocain authentique préparé avec soin et savoir-faire, que chez Dar Dyafa nous réalisons avec professionnalisme et une touche spéciale qui lui donne une saveur riche et une douceur équilibrée, aussi bien dans le goût que dans la présentation",
-                    "ar": "طبق كسكس مغربي أصيل يُحضّر بعناية وإتقان، وفي Dar Dyafa نُقدّمه بكل حرفية وبلمسة خاصة تمنحه مذاقاً غنياً وحلاوة متوازنة في الطعم وفي التقديم"
                 }
             }
         ],
