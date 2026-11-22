@@ -169,6 +169,38 @@
             50% { transform: translateY(-5px); }
         }
 
+        /* Custom Row Layout & Alignment Support */
+        .custom-rows-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .post-layout-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            align-items: stretch;
+        }
+        .post-layout-row.align-right {
+            justify-content: flex-end;
+        }
+        .post-layout-row.align-center {
+            justify-content: center;
+        }
+        .post-layout-row.align-left {
+            justify-content: flex-start;
+        }
+        .post-layout-row .post-card {
+            width: calc((100% - (var(--row-cols, 3) - 1) * 24px) / var(--row-cols, 3));
+            min-width: 280px;
+            max-width: 100%;
+        }
+        @media (max-width: 768px) {
+            .post-layout-row .post-card {
+                width: 100%;
+            }
+        }
+
         /* Unified Cover Framing for Post Cards & Gallery */
         .post-img-wrap {
             position: relative;
@@ -472,7 +504,7 @@
                 </button>
             </div>
             <!-- Paragraph 1: Daily Menu (page1) -->
-            <div class="posts-grid" id="postsGrid"></div>
+            <div id="postsGridContainer"><div class="posts-grid" id="postsGrid"></div></div>
 
             <!-- Page 1 Extra Sections: Moving Banner 1 -> Friday Posts (page1_friday) -> Moving Banner 2 -> Gallery (page1_gallery) -->
             <div id="page1ExtraSections" style="display:none;">
@@ -489,7 +521,7 @@
                 <div class="section-header">
                     <h3><i class="fa-solid fa-bowl-rice"></i> <span data-i18n="fridayMenuHeading">Friday Specials & Couscous</span></h3>
                 </div>
-                <div class="posts-grid" id="fridayPostsGrid"></div>
+                <div id="fridayPostsGridContainer"><div class="posts-grid" id="fridayPostsGrid"></div></div>
 
                 <!-- Moving Banner 2 Separating Paragraph 2 & Paragraph 3 -->
                 <div class="friday-3d-wrapper">
@@ -506,7 +538,7 @@
                     <div class="section-header">
                         <h3><i class="fa-solid fa-photo-film"></i> <span data-i18n="gallerySection3Title">Moments at Dar Dyafa</span></h3>
                     </div>
-                    <div class="posts-grid" id="galleryNoPriceGrid"></div>
+                    <div id="galleryNoPriceGridContainer"><div class="posts-grid" id="galleryNoPriceGrid"></div></div>
                 </div>
             </div>
         </div>
@@ -862,6 +894,91 @@
             return [];
         }
 
+        function getOrderedPostsEntries(bucketKey) {
+            const rawList = getPostsByBucket(bucketKey);
+            return rawList
+                .map((post, originalIndex) => {
+                    const ord = Number.isFinite(parseInt(post.sortOrder, 10))
+                        ? parseInt(post.sortOrder, 10)
+                        : (originalIndex + 1);
+                    return { post, originalIndex, sortOrder: ord };
+                })
+                .sort((a, b) => a.sortOrder - b.sortOrder || a.originalIndex - b.originalIndex);
+        }
+
+        function renderOrderedCardsIntoContainer(containerId, bucketKey, cardBuilderFn) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const entries = getOrderedPostsEntries(bucketKey);
+            if (!entries.length) {
+                container.innerHTML = `<div class="posts-grid"></div>`;
+                return;
+            }
+
+            const layoutCfg = (siteData.layoutConfig && siteData.layoutConfig[bucketKey] && Array.isArray(siteData.layoutConfig[bucketKey].rows))
+                ? siteData.layoutConfig[bucketKey].rows
+                : [];
+            const hasExplicitPostRows = entries.some(e => Number.isFinite(parseInt(e.post.rowIndex, 10)) && parseInt(e.post.rowIndex, 10) >= 1);
+
+            if (layoutCfg.length === 0 && !hasExplicitPostRows) {
+                container.innerHTML = `<div class="posts-grid">${entries.map(e => cardBuilderFn(e.post, e.originalIndex)).join('')}</div>`;
+                return;
+            }
+
+            // Build rows either from explicit post.rowIndex or sequential row counts in layoutCfg.rows
+            const bucketsByRow = new Map();
+            let cursor = 0;
+
+            if (layoutCfg.length > 0) {
+                layoutCfg.forEach((rowDef, rIdx) => {
+                    const rowNum = rIdx + 1;
+                    const count = Math.max(1, parseInt(rowDef.count, 10) || 1);
+                    const align = ['right', 'center', 'left'].includes(rowDef.align) ? rowDef.align : 'left';
+                    const slice = entries.slice(cursor, cursor + count);
+                    cursor += count;
+                    bucketsByRow.set(rowNum, {
+                        cols: count,
+                        align,
+                        items: slice
+                    });
+                });
+            }
+
+            // Any items with explicit rowIndex or remaining items after layoutCfg
+            const leftovers = entries.slice(cursor);
+            leftovers.forEach((entry, idx) => {
+                const expRow = parseInt(entry.post.rowIndex, 10);
+                const targetRowNum = (Number.isFinite(expRow) && expRow >= 1)
+                    ? expRow
+                    : (layoutCfg.length + Math.floor(idx / 3) + 1);
+                if (!bucketsByRow.has(targetRowNum)) {
+                    bucketsByRow.set(targetRowNum, {
+                        cols: 3,
+                        align: ['right', 'center', 'left'].includes(entry.post.rowAlign) ? entry.post.rowAlign : 'left',
+                        items: []
+                    });
+                }
+                const rowObj = bucketsByRow.get(targetRowNum);
+                if (Number.isFinite(expRow) && expRow >= 1 && ['right', 'center', 'left'].includes(entry.post.rowAlign)) {
+                    rowObj.align = entry.post.rowAlign;
+                }
+                rowObj.items.push(entry);
+            });
+
+            const sortedRowNums = Array.from(bucketsByRow.keys()).sort((a, b) => a - b);
+            const rowsHtml = sortedRowNums.map(rNum => {
+                const rowObj = bucketsByRow.get(rNum);
+                if (!rowObj || !rowObj.items.length) return '';
+                const colsCount = Math.max(1, rowObj.cols || rowObj.items.length);
+                const alignClass = `align-${rowObj.align || 'left'}`;
+                const cardsHtml = rowObj.items.map(e => cardBuilderFn(e.post, e.originalIndex)).join('');
+                return `<div class="post-layout-row ${alignClass}" style="--row-cols:${colsCount};">${cardsHtml}</div>`;
+            }).join('');
+
+            container.innerHTML = `<div class="custom-rows-wrapper">${rowsHtml}</div>`;
+        }
+
         function getPageSocials(pageKey) {
             const cfgPage = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.socials && SITE_CONFIG.socials[pageKey]) ? SITE_CONFIG.socials[pageKey] : {};
             const dataPage = (siteData && siteData.socials && siteData.socials[pageKey]) ? siteData.socials[pageKey] : {};
@@ -947,7 +1064,6 @@
             document.getElementById('topPhoneLink').href = `tel:${phoneVal.replace(/\D/g, '')}`;
             document.getElementById('topPhoneText').textContent = phoneVal;
 
-            // Top bar always keeps Page 1 (Dar Dyafa) social links + WhatsApp
             const page1Socials = getPageSocials('page1');
             document.getElementById('topSocialsBar').innerHTML = buildSocialIconsHtml(page1Socials, waNum);
 
@@ -1151,116 +1267,107 @@
             });
         }
 
-        function renderOrderableCardsHtml(postsList, bucketKey) {
+        function buildOrderableCardHtml(post, index, bucketKey) {
             const UI_TRANSLATIONS = buildUiTranslations(getActiveTaxRatePercent());
             const t = UI_TRANSLATIONS[currentLang];
-            return postsList.map((post, index) => {
-                const title = post.title[currentLang] || post.title.en;
-                const desc = post.desc[currentLang] || post.desc.en;
-                const imagesArr = getPostImages(post);
-                const photoCount = imagesArr.length;
-                const hasPrice = Boolean(post.price && post.price.toString().trim() !== '');
+            const title = (post.title && (post.title[currentLang] || post.title.en)) || '';
+            const desc = (post.desc && (post.desc[currentLang] || post.desc.en)) || '';
+            const imagesArr = getPostImages(post);
+            const photoCount = imagesArr.length;
+            const hasPrice = Boolean(post.price && post.price.toString().trim() !== '');
 
-                return `
-                    <div class="post-card"
-                         onmouseenter="pauseCardSlide('${bucketKey}', ${index}, true)"
-                         onmouseleave="pauseCardSlide('${bucketKey}', ${index}, false)">
-                        <div class="post-img-wrap" onclick="${hasPrice ? `openOrderModal('${bucketKey}', ${index})` : `openGalleryModal('${bucketKey}', ${index})`}" style="cursor:pointer;">
-                            <span class="post-id-badge">#${post.id}</span>
-                            ${photoCount > 1 ? `
-                                <span class="photo-count-badge">
-                                    <i class="fa-solid fa-images"></i> ${photoCount} ${t.photosCountLabel}
-                                </span>
-                            ` : ''}
-                            <img id="cardImg_${bucketKey}_${index}" src="${imagesArr[0]}" alt="${title}" onerror="this.src='assets/images/logo.png'">
+            return `
+                <div class="post-card"
+                     onmouseenter="pauseCardSlide('${bucketKey}', ${index}, true)"
+                     onmouseleave="pauseCardSlide('${bucketKey}', ${index}, false)">
+                    <div class="post-img-wrap" onclick="${hasPrice ? `openOrderModal('${bucketKey}', ${index})` : `openGalleryModal('${bucketKey}', ${index})`}" style="cursor:pointer;">
+                        <span class="post-id-badge">#${post.id}</span>
+                        ${photoCount > 1 ? `
+                            <span class="photo-count-badge">
+                                <i class="fa-solid fa-images"></i> ${photoCount} ${t.photosCountLabel}
+                            </span>
+                        ` : ''}
+                        <img id="cardImg_${bucketKey}_${index}" src="${imagesArr[0]}" alt="${title}" onerror="this.src='assets/images/logo.png'">
+                    </div>
+                    <div class="post-body">
+                        <div>
+                            <h4 class="post-title">${title}</h4>
+                            <p class="post-desc">${desc}</p>
                         </div>
-                        <div class="post-body">
-                            <div>
-                                <h4 class="post-title">${title}</h4>
-                                <p class="post-desc">${desc}</p>
-                            </div>
-                            <div class="post-footer">
-                                <div class="post-price">${hasPrice ? post.price : ''}</div>
-                                <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-                                    ${photoCount > 1 ? `
-                                        <button class="card-gallery-btn" type="button" onclick="event.stopPropagation(); openGalleryModal('${bucketKey}', ${index})">
-                                            <i class="fa-solid fa-images"></i> ${t.viewPhotosBtn}
-                                        </button>
-                                    ` : ''}
-                                    <button class="btn-order" type="button" onclick="event.stopPropagation(); ${hasPrice ? `openOrderModal('${bucketKey}', ${index})` : `openGeneralBooking()`}">
-                                        <i class="fa-brands fa-whatsapp"></i> ${hasPrice ? t.orderNow : t.inquireNow}
+                        <div class="post-footer">
+                            <div class="post-price">${hasPrice ? post.price : ''}</div>
+                            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                                ${photoCount > 1 ? `
+                                    <button class="card-gallery-btn" type="button" onclick="event.stopPropagation(); openGalleryModal('${bucketKey}', ${index})">
+                                        <i class="fa-solid fa-images"></i> ${t.viewPhotosBtn}
                                     </button>
-                                </div>
+                                ` : ''}
+                                <button class="btn-order" type="button" onclick="event.stopPropagation(); ${hasPrice ? `openOrderModal('${bucketKey}', ${index})` : `openGeneralBooking()`}">
+                                    <i class="fa-brands fa-whatsapp"></i> ${hasPrice ? t.orderNow : t.inquireNow}
+                                </button>
                             </div>
                         </div>
                     </div>
-                `;
-            }).join('');
+                </div>
+            `;
         }
 
-        function renderGalleryCardsHtml(postsList, bucketKey) {
+        function buildGalleryCardHtml(post, index, bucketKey) {
             const UI_TRANSLATIONS = buildUiTranslations(getActiveTaxRatePercent());
             const t = UI_TRANSLATIONS[currentLang];
-            return postsList.map((post, index) => {
-                const title = post.title[currentLang] || post.title.en;
-                const desc = post.desc[currentLang] || post.desc.en;
-                const imagesArr = getPostImages(post);
-                const photoCount = imagesArr.length;
+            const title = (post.title && (post.title[currentLang] || post.title.en)) || '';
+            const desc = (post.desc && (post.desc[currentLang] || post.desc.en)) || '';
+            const imagesArr = getPostImages(post);
+            const photoCount = imagesArr.length;
 
-                return `
-                    <div class="post-card"
-                         onclick="openGalleryModal('${bucketKey}', ${index})"
-                         onmouseenter="pauseCardSlide('${bucketKey}', ${index}, true)"
-                         onmouseleave="pauseCardSlide('${bucketKey}', ${index}, false)"
-                         style="cursor:pointer;">
-                        <div class="post-img-wrap">
-                            ${photoCount > 1 ? `
-                                <span class="photo-count-badge">
-                                    <i class="fa-solid fa-images"></i> ${photoCount} ${t.photosCountLabel}
-                                </span>
-                            ` : ''}
-                            <img id="cardImg_${bucketKey}_${index}" src="${imagesArr[0]}" alt="${title}" onerror="this.src='assets/images/logo.png'">
+            return `
+                <div class="post-card"
+                     onclick="openGalleryModal('${bucketKey}', ${index})"
+                     onmouseenter="pauseCardSlide('${bucketKey}', ${index}, true)"
+                     onmouseleave="pauseCardSlide('${bucketKey}', ${index}, false)"
+                     style="cursor:pointer;">
+                    <div class="post-img-wrap">
+                        ${photoCount > 1 ? `
+                            <span class="photo-count-badge">
+                                <i class="fa-solid fa-images"></i> ${photoCount} ${t.photosCountLabel}
+                            </span>
+                        ` : ''}
+                        <img id="cardImg_${bucketKey}_${index}" src="${imagesArr[0]}" alt="${title}" onerror="this.src='assets/images/logo.png'">
+                    </div>
+                    <div class="post-body">
+                        <div>
+                            <h4 class="post-title">${title}</h4>
+                            <p class="post-desc">${desc}</p>
                         </div>
-                        <div class="post-body">
-                            <div>
-                                <h4 class="post-title">${title}</h4>
-                                <p class="post-desc">${desc}</p>
-                            </div>
-                            <div class="post-footer" style="margin-top:10px;">
-                                <span style="font-size:0.82rem;color:var(--gold);font-weight:700;">
-                                    <i class="fa-solid fa-eye"></i> ${t.bookNow}
-                                </span>
-                            </div>
+                        <div class="post-footer" style="margin-top:10px;">
+                            <span style="font-size:0.82rem;color:var(--gold);font-weight:700;">
+                                <i class="fa-solid fa-eye"></i> ${t.bookNow}
+                            </span>
                         </div>
                     </div>
-                `;
-            }).join('');
+                </div>
+            `;
         }
 
         function renderPosts() {
             clearCardAutoTimers();
-            const grid = document.getElementById('postsGrid');
 
             if (currentTab === 1) {
-                const mainPosts = siteData.posts.page1 || [];
+                const mainPosts = getPostsByBucket('page1');
                 const fridayPosts = getPostsByBucket('page1_friday');
                 const galleryPosts = getPostsByBucket('page1_gallery');
 
-                grid.innerHTML = renderOrderableCardsHtml(mainPosts, 'page1');
-                document.getElementById('fridayPostsGrid').innerHTML = fridayPosts.length
-                    ? renderOrderableCardsHtml(fridayPosts, 'page1_friday')
-                    : '';
-                document.getElementById('galleryNoPriceGrid').innerHTML = galleryPosts.length
-                    ? renderGalleryCardsHtml(galleryPosts, 'page1_gallery')
-                    : '';
+                renderOrderedCardsIntoContainer('postsGridContainer', 'page1', (p, i) => buildOrderableCardHtml(p, i, 'page1'));
+                renderOrderedCardsIntoContainer('fridayPostsGridContainer', 'page1_friday', (p, i) => buildOrderableCardHtml(p, i, 'page1_friday'));
+                renderOrderedCardsIntoContainer('galleryNoPriceGridContainer', 'page1_gallery', (p, i) => buildGalleryCardHtml(p, i, 'page1_gallery'));
 
                 registerCardAutoSlide(mainPosts, 'page1');
                 registerCardAutoSlide(fridayPosts, 'page1_friday');
                 registerCardAutoSlide(galleryPosts, 'page1_gallery');
             } else {
                 const bucketKey = `page${currentTab}`;
-                const posts = siteData.posts[bucketKey] || [];
-                grid.innerHTML = renderGalleryCardsHtml(posts, bucketKey);
+                const posts = getPostsByBucket(bucketKey);
+                renderOrderedCardsIntoContainer('postsGridContainer', bucketKey, (p, i) => buildGalleryCardHtml(p, i, bucketKey));
                 registerCardAutoSlide(posts, bucketKey);
             }
         }
@@ -1274,14 +1381,12 @@
 
         // Multi-Photo Gallery Modal Handlers
         function openGalleryModal(bucketKey, postIndex) {
-            const list = (bucketKey === 'page1_friday' || bucketKey === 'page1_gallery')
-                ? getPostsByBucket(bucketKey)
-                : (siteData.posts[bucketKey] || []);
+            const list = getPostsByBucket(bucketKey);
             const post = list[postIndex];
             if (!post) return;
 
-            const title = post.title[currentLang] || post.title.en;
-            const desc = post.desc[currentLang] || post.desc.en;
+            const title = (post.title && (post.title[currentLang] || post.title.en)) || '';
+            const desc = (post.desc && (post.desc[currentLang] || post.desc.en)) || '';
 
             activeGalleryImages = getPostImages(post);
             activeGalleryMode = post.slideMode || 'manual';
@@ -1375,7 +1480,6 @@
         function recalculateFoodTax() {
             const taxRatePercent = getActiveTaxRatePercent();
             const taxRateDecimal = taxRatePercent / 100;
-            const pctStr = formatTaxPercentText(taxRatePercent);
             const UI_TRANSLATIONS = buildUiTranslations(taxRatePercent);
             const t = UI_TRANSLATIONS[currentLang] || UI_TRANSLATIONS.en;
 
@@ -1397,11 +1501,11 @@
         }
 
         function openOrderModal(bucketKey, postIndex) {
-            const list = (bucketKey === 'page1_friday') ? getPostsByBucket('page1_friday') : (siteData.posts[bucketKey] || []);
+            const list = getPostsByBucket(bucketKey);
             const post = list[postIndex];
             if (!post) return;
 
-            const title = post.title[currentLang] || post.title.en;
+            const title = (post.title && (post.title[currentLang] || post.title.en)) || '';
             const UI_TRANSLATIONS = buildUiTranslations(getActiveTaxRatePercent());
             const t = UI_TRANSLATIONS[currentLang];
             const unitNum = parsePriceNumber(post.price);
