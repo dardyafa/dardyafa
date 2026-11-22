@@ -617,9 +617,9 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "FD-1451",
-                "image": "https://i.ibb.co/9kv4qmbs/Gemini-Generated-Image-42zc6o42zc6o42zc.jpg",
+                "image": "https://i.ibb.co/qFjwBjbt/Whats-App-Image-2026-11-22-at-02-33-13.jpg",
                 "images": [
-                    "https://i.ibb.co/9kv4qmbs/Gemini-Generated-Image-42zc6o42zc6o42zc.jpg"
+                    "https://i.ibb.co/qFjwBjbt/Whats-App-Image-2026-11-22-at-02-33-13.jpg"
                 ],
                 "slideMode": "manual",
                 "price": "$16.00",
@@ -1190,9 +1190,8 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "FD-3012",
-                "image": "https://i.ibb.co/DH1sL549/Whats-App-Image-2026-11-22-at-04-43-23-1.jpg",
+                "image": "https://i.ibb.co/cSvbsGWf/Whats-App-Image-2026-11-22-at-04-43-26-1.jpg",
                 "images": [
-                    "https://i.ibb.co/DH1sL549/Whats-App-Image-2026-11-22-at-04-43-23-1.jpg",
                     "https://i.ibb.co/cSvbsGWf/Whats-App-Image-2026-11-22-at-04-43-26-1.jpg",
                     "https://i.ibb.co/5hznfxbQ/Whats-App-Image-2026-11-22-at-04-43-29.jpg",
                     "https://i.ibb.co/xqg77F1h/Whats-App-Image-2026-11-22-at-04-36-43-2.jpg",
@@ -1220,11 +1219,11 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "FD-311",
-                "image": "https://i.ibb.co/XfmRXRYv/Whats-App-Image-2026-11-22-at-04-44-51.jpg",
+                "image": "https://i.ibb.co/Y4r45SP8/Whats-App-Image-2026-11-22-at-15-53-14-3.jpg",
                 "images": [
-                    "https://i.ibb.co/XfmRXRYv/Whats-App-Image-2026-11-22-at-04-44-51.jpg",
                     "https://i.ibb.co/Y4r45SP8/Whats-App-Image-2026-11-22-at-15-53-14-3.jpg",
-                    "https://i.ibb.co/VWcXRv96/Whats-App-Image-2026-11-22-at-15-53-31-7.jpg"
+                    "https://i.ibb.co/VWcXRv96/Whats-App-Image-2026-11-22-at-15-53-31-7.jpg",
+                    "https://i.ibb.co/XfmRXRYv/Whats-App-Image-2026-11-22-at-04-44-51.jpg"
                 ],
                 "price": "",
                 "title": {
