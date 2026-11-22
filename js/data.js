@@ -253,6 +253,25 @@ const DEFAULT_SITE_DATA = {
     "posts": {
         "page1": [
             {
+                "id": "FD-1451",
+                "image": "https://i.ibb.co/9kv4qmbs/Gemini-Generated-Image-42zc6o42zc6o42zc.jpg",
+                "images": [
+                    "https://i.ibb.co/9kv4qmbs/Gemini-Generated-Image-42zc6o42zc6o42zc.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "$16.00",
+                "title": {
+                    "en": "Gyro lamb and beef WITH FRENCH FRIES",
+                    "fr": "Gyro d'agneau et de bœuf AVEC FRITES",
+                    "ar": "جيرو لحم خروف والبقر مع البطاطس المقلية"
+                },
+                "desc": {
+                    "en": "Tender gyro meat, fresh salad, tomato, onion, Tahini sauce, garlic sauce, humus, feta cheese and French fries.",
+                    "fr": "Viande de gyro tendre, salade fraîche, tomate, oignon, sauce tahini, sauce à l'ail, houmous, fromage feta et frites.",
+                    "ar": "لحم جيرو طري، سلطة طازجة، طماطم، بصل، صلصة الطحينة، صلصة الثوم، حمص، جبن فيتا، وبطاطس مقلية."
+                }
+            },
+            {
                 "id": "FD-1340",
                 "image": "https://i.ibb.co/JLDHsFw/Gemini-Generated-Image-yaj5gyyaj5gyyaj5.jpg",
                 "images": [
@@ -292,9 +311,9 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "FD-1247",
-                "image": "https://i.ibb.co/9kv4qmbs/Gemini-Generated-Image-42zc6o42zc6o42zc.jpg",
+                "image": "https://i.ibb.co/dsMGYfLf/Gemini-Generated-Image-cwbhn5cwbhn5cwbh.jpg",
                 "images": [
-                    "https://i.ibb.co/9kv4qmbs/Gemini-Generated-Image-42zc6o42zc6o42zc.jpg"
+                    "https://i.ibb.co/dsMGYfLf/Gemini-Generated-Image-cwbhn5cwbhn5cwbh.jpg"
                 ],
                 "slideMode": "manual",
                 "price": "$15.00",
@@ -316,11 +335,11 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/03TbQM1/Gemini-Generated-Image-rf8187rf8187rf81-1.jpg"
                 ],
                 "slideMode": "manual",
-                "price": "$16.00",
+                "price": "$15.00",
                 "title": {
-                    "en": "BURRITO",
-                    "fr": "BURRITO",
-                    "ar": "بوريتو"
+                    "en": "BURRITO WITH FRENCH FRIES",
+                    "fr": "BURRITO AVEC FRITES",
+                    "ar": "بوريتو مع بطاطس مقلية"
                 },
                 "desc": {
                     "en": "chicken, beef or flafel with rice, picco, lettuce, corne, black beans and cheese and special sauce",
@@ -444,9 +463,9 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "FD-1245",
-                "image": "https://i.ibb.co/RTL3wJCC/Gemini-Generated-Image-qayfk3qayfk3qayf.jpg",
+                "image": "https://i.ibb.co/Z3wrvkp/Whats-App-Image-2026-11-22-at-03-51-22.jpg",
                 "images": [
-                    "https://i.ibb.co/RTL3wJCC/Gemini-Generated-Image-qayfk3qayfk3qayf.jpg"
+                    "https://i.ibb.co/Z3wrvkp/Whats-App-Image-2026-11-22-at-03-51-22.jpg"
                 ],
                 "slideMode": "manual",
                 "price": "$12.00",
@@ -829,26 +848,26 @@ const DEFAULT_SITE_DATA = {
         ],
         "page1_friday": [
             {
-                "id": "402",
-                "image": "https://i.ibb.co/xKVf9k0y/Gemini-Generated-Image-2g00fj2g00fj2g00.jpg",
+                "id": "FD-1502",
+                "image": "https://i.ibb.co/84jjNXrC/Gemini-Generated-Image-u9hxysu9hxysu9hx.jpg",
                 "images": [
-                    "https://i.ibb.co/xKVf9k0y/Gemini-Generated-Image-2g00fj2g00fj2g00.jpg"
+                    "https://i.ibb.co/84jjNXrC/Gemini-Generated-Image-u9hxysu9hxysu9hx.jpg"
                 ],
                 "slideMode": "manual",
                 "price": "$200.00",
                 "title": {
-                    "en": "Repas de couscous marocain convivial (ou à partager)",
-                    "fr": "Un repas pour 15 personnes, couscous marocain au bœuf, aux légumes et à la tfaya.",
+                    "en": "Group Moroccan Couscous Meal",
+                    "fr": "Repas de Couscous Marocain en Groupe",
                     "ar": "وجبة كسكس مغربي جماعية"
                 },
                 "desc": {
-                    "en": "Meal for 15 people, Moroccan couscous with beef, vegetables, and tefaya",
-                    "fr": "Un repas pour 15 personnes, couscous marocain au bœuf, aux légumes et à la tfaya.",
-                    "ar": "وجبة لـ 15 شخصاً، كسكس مغربي باللحم البقري والخضار والتفاية."
+                    "en": "Meal for 10 People: Moroccan Couscous with Beef, Vegetables, and Tfaya",
+                    "fr": "Un repas pour 10 personnes, couscous marocain au bœuf, aux légumes et à la tfaya.",
+                    "ar": "وجبة لـ 10 شخصاً، كسكس مغربي باللحم البقري والخضار والتفاية"
                 }
             },
             {
-                "id": "401",
+                "id": "FD-1501",
                 "image": "https://i.ibb.co/84jjNXrC/Gemini-Generated-Image-u9hxysu9hxysu9hx.jpg",
                 "images": [
                     "https://i.ibb.co/84jjNXrC/Gemini-Generated-Image-u9hxysu9hxysu9hx.jpg"
@@ -856,13 +875,13 @@ const DEFAULT_SITE_DATA = {
                 "slideMode": "manual",
                 "price": "$180.00",
                 "title": {
-                    "en": "A communal Moroccan couscous meal",
-                    "fr": "Repas de couscous marocain convivial (ou à partager)",
+                    "en": "Chicken Couscous with Vegetables and Tfaya",
+                    "fr": "Couscous au Poulet avec légumes et tfaya",
                     "ar": "وجبة كسكس مغربي جماعية"
                 },
                 "desc": {
-                    "en": "A meal for 15 people, Moroccan couscous with chicken and vegetables and tfaya",
-                    "fr": "Un repas pour 15 personnes, couscous marocain au poulet, aux légumes et à la tfaya.",
+                    "en": "A meal for 10 people, Moroccan couscous with chicken and vegetables and tfaya",
+                    "fr": "Un repas pour 10 personnes, couscous marocain au poulet, aux légumes et à la tfaya.",
                     "ar": "وجبة لـ 15 شخصاً، كسكس مغربي بالدجاج والخضار والتفاية."
                 }
             },
@@ -913,7 +932,6 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/Z9S0Vg5/9.jpg",
                     "https://i.ibb.co/Xx5WLQ9G/6.jpg",
                     "https://i.ibb.co/FL5dWd3H/7.jpg",
-                    "https://i.ibb.co/Gf4hzzLs/8.jpg",
                     "https://i.ibb.co/HfNv71fM/5.jpg",
                     "https://i.ibb.co/cKshS7fT/p-2.jpg",
                     "https://i.ibb.co/tMBNQYYF/page-02.jpg"
