@@ -56,6 +56,7 @@
             transition: 0.25s;
         }
         .btn:hover { opacity: 0.92; transform: translateY(-1px); }
+        .btn-save-all { background: #eab308; color: #0f0d0c; border: 1px solid #fef08a; }
         .btn-danger { background: #dc2626; color: #fff; }
         .btn-secondary { background: #2a2421; color: #fff; border: 1px solid var(--border); }
         .btn-ai { background: #7c3aed; color: #fff; }
@@ -75,7 +76,7 @@
             background: #1c1816; color: var(--muted); cursor: pointer; font-weight: 700; font-size: 0.88rem; transition: 0.2s;
         }
         .pill.active, .pill:hover { background: var(--gold); color: #0f0d0c; }
-        .content { padding: 28px 4%; max-width: 1280px; margin: 0 auto; }
+        .content { padding: 28px 4%; max-width: 1380px; margin: 0 auto; }
         .panel { display: none; }
         .panel.active { display: block; }
         .card {
@@ -85,9 +86,9 @@
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
         table { width: 100%; border-collapse: collapse; margin-top: 12px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; vertical-align: middle; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.88rem; vertical-align: top; }
         th { color: var(--gold); }
-        .thumb { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); margin: 2px; }
+        .thumb { width: 48px; height: 48px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); margin: 2px; }
         .alert-toast {
             position: fixed; bottom: 20px; right: 20px; background: #16a34a; color: #fff;
             padding: 12px 20px; border-radius: 10px; font-weight: 700; display: none; z-index: 3000;
@@ -106,6 +107,76 @@
             gap: 8px;
             align-items: center;
             margin-bottom: 8px;
+        }
+        .mini-field-label {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 0.72rem;
+            font-weight: 700;
+            width: 24px;
+        }
+        .mini-input {
+            width: 190px;
+            padding: 4px 6px;
+            background: #0b0a09;
+            color: #fff;
+            border: 1px solid #333;
+            border-radius: 4px;
+            font-size: 0.78rem;
+        }
+        .mini-textarea {
+            width: 190px;
+            padding: 4px 6px;
+            background: #0b0a09;
+            color: #e5e7eb;
+            border: 1px solid #333;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            resize: vertical;
+        }
+        .layout-box {
+            background: #120f0e;
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 8px;
+            padding: 8px;
+            min-width: 155px;
+        }
+        .layout-row-line {
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            font-size: 0.75rem;
+        }
+        .layout-input-sm {
+            width: 66px;
+            padding: 3px 5px;
+            background: #0b0a09;
+            color: #fff;
+            border: 1px solid #333;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+        .row-builder-card {
+            background: #120f0e;
+            border: 1px dashed rgba(212,175,55,0.35);
+            border-radius: 12px;
+            padding: 14px;
+            margin-top: 14px;
+            margin-bottom: 16px;
+        }
+        .row-config-item {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            background: #191513;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            font-size: 0.82rem;
         }
     </style>
 </head>
@@ -141,12 +212,15 @@
         <div class="topbar">
             <div>
                 <h2 style="color:var(--gold);font-size:1.3rem;">DAR DYAFA — ADMIN CONTROL CENTER</h2>
-                <span style="font-size:0.82rem;color:var(--muted);">Manage Live Website Content & Orders</span>
+                <span style="font-size:0.82rem;color:var(--muted);">Manage Live Website Content, Layout & Orders</span>
             </div>
             <div style="display:flex;gap:10px;flex-wrap:wrap;">
                 <a href="../index.html" target="_blank" class="btn btn-secondary" style="text-decoration:none;">
                     <i class="fa-solid fa-globe"></i> View Live Site
                 </a>
+                <button class="btn btn-save-all" onclick="saveAllChanges()">
+                    <i class="fa-solid fa-check-double"></i> Save All
+                </button>
                 <button class="btn btn-publish" onclick="publishLiveToGitHub()">
                     <i class="fa-solid fa-cloud-arrow-up"></i> Publish Live to Website
                 </button>
@@ -273,8 +347,14 @@
                 </div>
 
                 <div class="card">
-                    <h3>Manage, Edit & Update Existing Items & Galleries</h3>
-                    <div class="input-group" style="max-width:380px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
+                        <h3>Manage, Edit, Order & Layout Existing Items</h3>
+                        <button type="button" class="btn btn-save-all" onclick="saveAllChanges()">
+                            <i class="fa-solid fa-check-double"></i> Save All Posts & Layout
+                        </button>
+                    </div>
+
+                    <div class="input-group" style="max-width:400px;">
                         <label>Filter by Section</label>
                         <select id="filterPostPage" onchange="renderAdminPosts()">
                             <option value="page1">Page 1 — Moroccan Cuisine</option>
@@ -284,6 +364,26 @@
                             <option value="page3">Page 3 — Bridal Negafa</option>
                         </select>
                     </div>
+
+                    <!-- Custom Rows & Alignment Builder per Section -->
+                    <div class="row-builder-card">
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                            <div>
+                                <strong style="color:var(--gold);font-size:0.95rem;"><i class="fa-solid fa-table-cells-large"></i> تقسيم السطور ومحاذاة العناصر في القسم (Rows Count & Alignment)</strong>
+                                <p style="color:var(--muted);font-size:0.78rem;margin-top:2px;">مثال: السطر 1 فيه عنصر واحد (في الوسط أو اليمين أو اليسار)، السطر 2 فيه 3 عناصر، السطر 3 فيه عنصران...</p>
+                            </div>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                <button type="button" class="btn btn-secondary" style="padding:7px 12px;font-size:0.8rem;" onclick="addSectionLayoutRow()">
+                                    <i class="fa-solid fa-plus"></i> إضافة سطر جديد (Add Row)
+                                </button>
+                                <button type="button" class="btn" style="padding:7px 12px;font-size:0.8rem;" onclick="applySectionOrderNow()">
+                                    <i class="fa-solid fa-sort"></i> تطبيق الترتيب حسب الأرقام
+                                </button>
+                            </div>
+                        </div>
+                        <div id="sectionLayoutRowsList"></div>
+                    </div>
+
                     <div style="overflow-x:auto;">
                         <table>
                             <thead>
@@ -291,7 +391,9 @@
                                     <th>Photos (Cover & Gallery)</th>
                                     <th>ID & Slide Mode</th>
                                     <th>Titles (EN / FR / AR)</th>
+                                    <th>Descriptions (EN / FR / AR)</th>
                                     <th>Price</th>
+                                    <th>Order, Row & Align</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -575,6 +677,7 @@
                     </div>
 
                     <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
+                        <button class="btn btn-save-all" onclick="saveAllChanges()"><i class="fa-solid fa-check-double"></i> Save All</button>
                         <button class="btn" onclick="saveBranding()"><i class="fa-solid fa-floppy-disk"></i> Save All Header, Socials & Footer Settings</button>
                         <button class="btn btn-ai" onclick="cleanAndMigrateOldImages()"><i class="fa-solid fa-cloud-arrow-up"></i> Clean & Convert Heavy Data</button>
                         <button class="btn btn-danger" onclick="resetAllDefaults()">Reset Site to Factory Defaults</button>
@@ -591,6 +694,21 @@
     <script>
         const POST_SECTIONS = ['page1', 'page1_friday', 'page1_gallery', 'page2', 'page3'];
 
+        function escapeAttr(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function escapeText(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
         function copyFullCode() {
             const htmlContent = document.documentElement.outerHTML;
             navigator.clipboard.writeText(htmlContent).then(() => {
@@ -600,17 +718,46 @@
             });
         }
 
+        function normalizeSectionLayout(sectionConfig, postsList) {
+            const cfg = sectionConfig && typeof sectionConfig === 'object' ? sectionConfig : {};
+            const rows = Array.isArray(cfg.rows) ? cfg.rows.map((r, idx) => {
+                const count = Math.max(1, parseInt(r.count, 10) || 1);
+                const align = ['right', 'center', 'left'].includes(r.align) ? r.align : 'left';
+                return { rowNumber: idx + 1, count, align };
+            }) : [];
+            return { rows };
+        }
+
         function ensureSiteDataStructure(raw) {
             const base = JSON.parse(JSON.stringify(typeof DEFAULT_SITE_DATA !== 'undefined' ? DEFAULT_SITE_DATA : {}));
             const merged = Object.assign({}, base, raw || {});
             const parsedTax = parseFloat(merged.taxRate);
             merged.taxRate = Number.isFinite(parsedTax) && parsedTax >= 0 ? parsedTax : 6.25;
             merged.posts = Object.assign({}, base.posts || {}, (raw && raw.posts) || {});
+            if (!merged.layoutConfig || typeof merged.layoutConfig !== 'object') {
+                merged.layoutConfig = {};
+            }
+
             POST_SECTIONS.forEach(sec => {
                 if (!Array.isArray(merged.posts[sec])) {
                     merged.posts[sec] = [];
                 }
+                merged.posts[sec].forEach((post, idx) => {
+                    if (!post.title || typeof post.title !== 'object') {
+                        post.title = { en: '', fr: '', ar: '' };
+                    }
+                    if (!post.desc || typeof post.desc !== 'object') {
+                        post.desc = { en: '', fr: '', ar: '' };
+                    }
+                    const parsedOrder = parseInt(post.sortOrder, 10);
+                    post.sortOrder = Number.isFinite(parsedOrder) ? parsedOrder : (idx + 1);
+                    const parsedRow = parseInt(post.rowIndex, 10);
+                    post.rowIndex = Number.isFinite(parsedRow) && parsedRow >= 1 ? parsedRow : 0;
+                    post.rowAlign = ['right', 'center', 'left'].includes(post.rowAlign) ? post.rowAlign : 'left';
+                });
+                merged.layoutConfig[sec] = normalizeSectionLayout(merged.layoutConfig[sec], merged.posts[sec]);
             });
+
             merged.videos = Object.assign({ page1: [], page2: [], page3: [] }, base.videos || {}, (raw && raw.videos) || {});
             if (!Array.isArray(merged.marqueeItems)) merged.marqueeItems = [];
             return merged;
@@ -625,12 +772,167 @@
             setTimeout(() => t.style.display = 'none', 3000);
         }
 
-        function saveData() {
+        function saveData(silentToast = false) {
             try {
                 localStorage.setItem('dardyafa_site_data', JSON.stringify(siteData));
-                notify('Changes saved locally!');
+                if (!silentToast) notify('Changes saved locally!');
+                return true;
             } catch (e) {
                 alert('Storage full! Please use the Clean & Convert button.');
+                return false;
+            }
+        }
+
+        function collectCurrentPostsAndLayoutFromDom() {
+            const pageSelect = document.getElementById('filterPostPage');
+            if (!pageSelect) return;
+            const page = pageSelect.value;
+            if (!Array.isArray(siteData.posts[page])) siteData.posts[page] = [];
+
+            // Collect rows builder config for current section
+            const rowItems = document.querySelectorAll('#sectionLayoutRowsList .row-config-item');
+            const rowsArr = [];
+            rowItems.forEach((item, idx) => {
+                const countInp = item.querySelector('.row-count-input');
+                const alignSel = item.querySelector('.row-align-select');
+                rowsArr.push({
+                    rowNumber: idx + 1,
+                    count: Math.max(1, parseInt(countInp ? countInp.value : 1, 10) || 1),
+                    align: ['right', 'center', 'left'].includes(alignSel ? alignSel.value : '') ? alignSel.value : 'left'
+                });
+            });
+            if (!siteData.layoutConfig) siteData.layoutConfig = {};
+            siteData.layoutConfig[page] = { rows: rowsArr };
+
+            // Collect individual post edits from table rows
+            siteData.posts[page].forEach((p, idx) => {
+                if (!p.title) p.title = { en: '', fr: '', ar: '' };
+                if (!p.desc) p.desc = { en: '', fr: '', ar: '' };
+
+                const idEl = document.getElementById(`postId_${page}_${idx}`);
+                const modeEl = document.getElementById(`postMode_${page}_${idx}`);
+                const priceEl = document.getElementById(`postPrice_${page}_${idx}`);
+
+                const tEn = document.getElementById(`titleEn_${page}_${idx}`);
+                const tFr = document.getElementById(`titleFr_${page}_${idx}`);
+                const tAr = document.getElementById(`titleAr_${page}_${idx}`);
+
+                const dEn = document.getElementById(`descEn_${page}_${idx}`);
+                const dFr = document.getElementById(`descFr_${page}_${idx}`);
+                const dAr = document.getElementById(`descAr_${page}_${idx}`);
+
+                const orderEl = document.getElementById(`postOrder_${page}_${idx}`);
+                const rowEl = document.getElementById(`postRow_${page}_${idx}`);
+                const alignEl = document.getElementById(`postAlign_${page}_${idx}`);
+
+                if (idEl) p.id = idEl.value.trim();
+                if (modeEl) p.slideMode = modeEl.value;
+                if (priceEl) p.price = priceEl.value.trim();
+
+                if (tEn) p.title.en = tEn.value;
+                if (tFr) p.title.fr = tFr.value;
+                if (tAr) p.title.ar = tAr.value;
+
+                if (dEn) p.desc.en = dEn.value;
+                if (dFr) p.desc.fr = dFr.value;
+                if (dAr) p.desc.ar = dAr.value;
+
+                if (orderEl) {
+                    const parsedOrd = parseInt(orderEl.value, 10);
+                    p.sortOrder = Number.isFinite(parsedOrd) ? parsedOrd : (idx + 1);
+                }
+                if (rowEl) {
+                    const parsedRow = parseInt(rowEl.value, 10);
+                    p.rowIndex = Number.isFinite(parsedRow) && parsedRow >= 1 ? parsedRow : 0;
+                }
+                if (alignEl && ['right', 'center', 'left'].includes(alignEl.value)) {
+                    p.rowAlign = alignEl.value;
+                }
+            });
+        }
+
+        function saveAllChanges() {
+            collectCurrentPostsAndLayoutFromDom();
+
+            const taxInput = document.getElementById('taxRateInput');
+            if (taxInput) {
+                const taxVal = parseFloat(taxInput.value);
+                siteData.taxRate = Number.isFinite(taxVal) && taxVal >= 0 ? taxVal : 6.25;
+            }
+
+            if (document.getElementById('topHeaderEn')) {
+                siteData.topHeader = {
+                    en: document.getElementById('topHeaderEn').value,
+                    fr: document.getElementById('topHeaderFr').value,
+                    ar: document.getElementById('topHeaderAr').value
+                };
+                siteData.topLocation = {
+                    en: document.getElementById('topLocEn').value,
+                    ar: document.getElementById('topLocAr').value
+                };
+                const newPhone = document.getElementById('topPhone').value;
+                siteData.whatsappNumber = document.getElementById('socialWhatsapp').value || newPhone;
+                siteData.contactPhone = newPhone;
+                siteData.email = document.getElementById('socialGmail').value;
+
+                siteData.welcomeTitle = {
+                    en: document.getElementById('welcomeTitleEn').value,
+                    fr: document.getElementById('welcomeTitleFr').value,
+                    ar: document.getElementById('welcomeTitleAr').value
+                };
+
+                siteData.fridayBannerTitle = {
+                    en: document.getElementById('fridayBannerEn').value.trim(),
+                    fr: document.getElementById('fridayBannerFr').value.trim(),
+                    ar: document.getElementById('fridayBannerAr').value.trim()
+                };
+                siteData.fridayBannerPill = {
+                    en: document.getElementById('fridayPillEn').value.trim(),
+                    fr: document.getElementById('fridayPillFr').value.trim(),
+                    ar: document.getElementById('fridayPillAr').value.trim()
+                };
+
+                siteData.galleryBannerTitle = {
+                    en: document.getElementById('galleryBannerEn').value.trim(),
+                    fr: document.getElementById('galleryBannerFr').value.trim(),
+                    ar: document.getElementById('galleryBannerAr').value.trim()
+                };
+                siteData.galleryBannerPill = {
+                    en: document.getElementById('galleryPillEn').value.trim(),
+                    fr: document.getElementById('galleryPillFr').value.trim(),
+                    ar: document.getElementById('galleryPillAr').value.trim()
+                };
+
+                siteData.socials = {
+                    page1: {
+                        instagram: document.getElementById('soc1Ig').value,
+                        facebook: document.getElementById('soc1Fb').value,
+                        tiktok: document.getElementById('soc1Tt').value
+                    },
+                    page2: {
+                        instagram: document.getElementById('soc2Ig').value,
+                        facebook: document.getElementById('soc2Fb').value,
+                        tiktok: document.getElementById('soc2Tt').value
+                    },
+                    page3: {
+                        instagram: document.getElementById('soc3Ig').value,
+                        facebook: document.getElementById('soc3Fb').value,
+                        tiktok: document.getElementById('soc3Tt').value
+                    }
+                };
+
+                siteData.footerTagline = {
+                    en: document.getElementById('footerDescEn').value,
+                    fr: document.getElementById('footerDescFr').value,
+                    ar: document.getElementById('footerDescAr').value
+                };
+                siteData.footerTitle = document.getElementById('footerTitleText').value;
+                siteData.copyrightText = document.getElementById('footerCopyrightText').value;
+            }
+
+            if (saveData(true)) {
+                renderAdminPosts();
+                notify('✅ تم حفظ جميع التعديلات (Save All) بنجاح!');
             }
         }
 
@@ -645,6 +947,7 @@
         }
 
         function publishLiveToGitHub() {
+            saveAllChanges();
             const hookUrl = localStorage.getItem('dardyafa_gh_token') || document.getElementById('ghTokenInput').value.trim();
             if (!hookUrl) {
                 alert('Please go to Branding tab, paste your Vercel Deployment Hook URL or Token, and click "Save Hook Securely" first!');
@@ -830,20 +1133,109 @@
             });
         }
 
+        function renderSectionLayoutRows(page) {
+            const container = document.getElementById('sectionLayoutRowsList');
+            if (!container) return;
+            const cfg = normalizeSectionLayout(siteData.layoutConfig && siteData.layoutConfig[page], siteData.posts[page] || []);
+            if (!siteData.layoutConfig) siteData.layoutConfig = {};
+            siteData.layoutConfig[page] = cfg;
+
+            if (cfg.rows.length === 0) {
+                container.innerHTML = `<div style="color:var(--muted);font-size:0.8rem;">لا توجد سطور مخصصة بعد — يمكنك الضغط على "إضافة سطر جديد" لتحديد عدد العناصر والمحاذاة في كل سطر (مثلاً: السطر 1 = 1 عنصر، السطر 2 = 3 عناصر، السطر 3 = 2 عناصر).</div>`;
+                return;
+            }
+
+            container.innerHTML = cfg.rows.map((r, idx) => `
+                <div class="row-config-item">
+                    <strong style="color:var(--gold-light);">السطر ${idx + 1}:</strong>
+                    <label style="font-size:0.78rem;color:var(--muted);">عدد العناصر في السطر:</label>
+                    <input type="number" min="1" max="12" value="${r.count}" class="row-count-input layout-input-sm" onchange="updateSectionRowField('${page}', ${idx}, 'count', this.value)">
+                    <label style="font-size:0.78rem;color:var(--muted);">المحاذاة:</label>
+                    <select class="row-align-select layout-input-sm" style="width:92px;" onchange="updateSectionRowField('${page}', ${idx}, 'align', this.value)">
+                        <option value="right" ${r.align === 'right' ? 'selected' : ''}>يمين (Right)</option>
+                        <option value="center" ${r.align === 'center' ? 'selected' : ''}>وسط (Center)</option>
+                        <option value="left" ${r.align === 'left' ? 'selected' : ''}>يسار (Left)</option>
+                    </select>
+                    <button type="button" class="btn btn-danger" style="padding:4px 8px;font-size:0.75rem;margin-left:auto;" onclick="removeSectionLayoutRow('${page}', ${idx})"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('');
+        }
+
+        function addSectionLayoutRow() {
+            const page = document.getElementById('filterPostPage').value;
+            collectCurrentPostsAndLayoutFromDom();
+            if (!siteData.layoutConfig) siteData.layoutConfig = {};
+            const cfg = normalizeSectionLayout(siteData.layoutConfig[page], siteData.posts[page] || []);
+            const nextRowNum = cfg.rows.length + 1;
+            const defaultCount = nextRowNum === 1 ? 1 : 3;
+            const defaultAlign = nextRowNum === 1 ? 'center' : 'left';
+            cfg.rows.push({ rowNumber: nextRowNum, count: defaultCount, align: defaultAlign });
+            siteData.layoutConfig[page] = cfg;
+            saveData(true);
+            renderSectionLayoutRows(page);
+            notify(`تمت إضافة السطر ${nextRowNum}`);
+        }
+
+        function updateSectionRowField(page, idx, field, val) {
+            const cfg = normalizeSectionLayout(siteData.layoutConfig && siteData.layoutConfig[page], siteData.posts[page] || []);
+            if (!cfg.rows[idx]) return;
+            if (field === 'count') {
+                cfg.rows[idx].count = Math.max(1, parseInt(val, 10) || 1);
+            } else if (field === 'align' && ['right', 'center', 'left'].includes(val)) {
+                cfg.rows[idx].align = val;
+            }
+            siteData.layoutConfig[page] = cfg;
+            saveData(true);
+        }
+
+        function removeSectionLayoutRow(page, idx) {
+            collectCurrentPostsAndLayoutFromDom();
+            const cfg = normalizeSectionLayout(siteData.layoutConfig && siteData.layoutConfig[page], siteData.posts[page] || []);
+            cfg.rows.splice(idx, 1);
+            cfg.rows.forEach((r, i) => r.rowNumber = i + 1);
+            siteData.layoutConfig[page] = cfg;
+            saveData(true);
+            renderSectionLayoutRows(page);
+        }
+
+        function applySectionOrderNow() {
+            const page = document.getElementById('filterPostPage').value;
+            collectCurrentPostsAndLayoutFromDom();
+            const arr = siteData.posts[page] || [];
+            arr.sort((a, b) => {
+                const oa = Number.isFinite(parseInt(a.sortOrder, 10)) ? parseInt(a.sortOrder, 10) : 9999;
+                const ob = Number.isFinite(parseInt(b.sortOrder, 10)) ? parseInt(b.sortOrder, 10) : 9999;
+                return oa - ob;
+            });
+            arr.forEach((p, i) => {
+                p.sortOrder = i + 1;
+            });
+            saveData(true);
+            renderAdminPosts();
+            notify('تم ترتيب العناصر حسب الأرقام المحددة!');
+        }
+
         function renderAdminPosts() {
             const page = document.getElementById('filterPostPage').value;
             if (!Array.isArray(siteData.posts[page])) siteData.posts[page] = [];
+            renderSectionLayoutRows(page);
+
             const posts = siteData.posts[page];
             const tbody = document.getElementById('adminPostsBody');
             
             if (posts.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="color:#888;text-align:center;">No items in this section yet.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="7" style="color:#888;text-align:center;">No items in this section yet.</td></tr>';
                 return;
             }
 
             tbody.innerHTML = posts.map((p, idx) => {
                 const images = (p.images && p.images.length > 0) ? p.images : [p.image || 'assets/images/logo.png'];
                 const currentMode = p.slideMode || 'manual';
+                const titleObj = p.title || {};
+                const descObj = p.desc || {};
+                const orderNum = Number.isFinite(parseInt(p.sortOrder, 10)) ? parseInt(p.sortOrder, 10) : (idx + 1);
+                const rowNum = Number.isFinite(parseInt(p.rowIndex, 10)) && parseInt(p.rowIndex, 10) >= 1 ? parseInt(p.rowIndex, 10) : 0;
+                const alignVal = ['right', 'center', 'left'].includes(p.rowAlign) ? p.rowAlign : 'left';
 
                 const thumbsHtml = images.map((img, imgIdx) => `
                     <div style="display:inline-block;position:relative;margin:2px;">
@@ -855,30 +1247,55 @@
                 return `
                     <tr>
                         <td>
-                            <div style="max-height:140px;overflow-y:auto;margin-bottom:6px;">
+                            <div style="max-height:130px;overflow-y:auto;margin-bottom:6px;">
                                 ${thumbsHtml}
                             </div>
                             <div style="display:flex;gap:4px;margin-top:4px;">
                                 <input type="url" id="newImg_${page}_${idx}" placeholder="Add image URL" style="font-size:0.75rem;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;flex:1;">
-                                <button class="btn" style="padding:4px 8px;font-size:0.75rem;" onclick="addPostImage('${page}', ${idx})"><i class="fa-solid fa-plus"></i></button>
+                                <button type="button" class="btn" style="padding:4px 8px;font-size:0.75rem;" onclick="addPostImage('${page}', ${idx})"><i class="fa-solid fa-plus"></i></button>
                             </div>
                         </td>
                         <td>
-                            <input type="text" value="${p.id}" style="width:85px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;margin-bottom:6px;" onchange="updatePostField('${page}', ${idx}, 'id', this.value)"><br>
-                            <select style="width:105px;padding:4px;background:#0b0a09;color:var(--gold);border:1px solid #333;border-radius:6px;font-size:0.75rem;" onchange="updatePostField('${page}', ${idx}, 'slideMode', this.value)">
+                            <input type="text" id="postId_${page}_${idx}" value="${escapeAttr(p.id)}" style="width:90px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;margin-bottom:6px;"><br>
+                            <select id="postMode_${page}_${idx}" style="width:105px;padding:4px;background:#0b0a09;color:var(--gold);border:1px solid #333;border-radius:6px;font-size:0.75rem;">
                                 <option value="manual" ${currentMode === 'manual' ? 'selected' : ''}>Manual</option>
                                 <option value="auto" ${currentMode === 'auto' ? 'selected' : ''}>Auto Slide</option>
                             </select>
                         </td>
                         <td>
-                            <div style="margin-bottom:4px;"><span style="color:var(--gold);font-size:0.75rem;">EN:</span> <input type="text" value="${p.title.en}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'en', this.value)"></div>
-                            <div style="margin-bottom:4px;"><span style="color:var(--gold);font-size:0.75rem;">FR:</span> <input type="text" value="${p.title.fr || ''}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'fr', this.value)"></div>
-                            <div><span style="color:var(--gold);font-size:0.75rem;">AR:</span> <input type="text" value="${p.title.ar || ''}" style="width:180px;padding:4px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:4px;" onchange="updatePostTitle('${page}', ${idx}, 'ar', this.value)"></div>
+                            <div style="margin-bottom:4px;"><span class="mini-field-label">EN:</span> <input type="text" id="titleEn_${page}_${idx}" value="${escapeAttr(titleObj.en)}" class="mini-input"></div>
+                            <div style="margin-bottom:4px;"><span class="mini-field-label">FR:</span> <input type="text" id="titleFr_${page}_${idx}" value="${escapeAttr(titleObj.fr)}" class="mini-input"></div>
+                            <div><span class="mini-field-label">AR:</span> <input type="text" id="titleAr_${page}_${idx}" value="${escapeAttr(titleObj.ar)}" class="mini-input"></div>
                         </td>
-                        <td><input type="text" value="${p.price || ''}" placeholder="Empty" style="width:85px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;" onchange="updatePostField('${page}', ${idx}, 'price', this.value)"></td>
                         <td>
-                            <button class="btn" style="padding:6px 10px;margin-bottom:4px;" onclick="saveItemChanges()"><i class="fa-solid fa-floppy-disk"></i></button><br>
-                            <button class="btn btn-danger" style="padding:6px 10px;" onclick="deletePost('${page}', ${idx})"><i class="fa-solid fa-trash"></i></button>
+                            <div style="margin-bottom:4px;"><span class="mini-field-label">EN:</span> <textarea id="descEn_${page}_${idx}" rows="2" class="mini-textarea">${escapeText(descObj.en)}</textarea></div>
+                            <div style="margin-bottom:4px;"><span class="mini-field-label">FR:</span> <textarea id="descFr_${page}_${idx}" rows="2" class="mini-textarea">${escapeText(descObj.fr)}</textarea></div>
+                            <div><span class="mini-field-label">AR:</span> <textarea id="descAr_${page}_${idx}" rows="2" class="mini-textarea">${escapeText(descObj.ar)}</textarea></div>
+                        </td>
+                        <td><input type="text" id="postPrice_${page}_${idx}" value="${escapeAttr(p.price || '')}" placeholder="Empty" style="width:82px;padding:6px;background:#0b0a09;color:#fff;border:1px solid #333;border-radius:6px;"></td>
+                        <td>
+                            <div class="layout-box">
+                                <div class="layout-row-line">
+                                    <span style="color:var(--muted);">رقم الترتيب:</span>
+                                    <input type="number" id="postOrder_${page}_${idx}" value="${orderNum}" min="1" class="layout-input-sm">
+                                </div>
+                                <div class="layout-row-line">
+                                    <span style="color:var(--muted);">رقم السطر:</span>
+                                    <input type="number" id="postRow_${page}_${idx}" value="${rowNum}" min="0" placeholder="تلقائي" class="layout-input-sm">
+                                </div>
+                                <div class="layout-row-line" style="margin-bottom:0;">
+                                    <span style="color:var(--muted);">المكان:</span>
+                                    <select id="postAlign_${page}_${idx}" class="layout-input-sm">
+                                        <option value="right" ${alignVal === 'right' ? 'selected' : ''}>يمين</option>
+                                        <option value="center" ${alignVal === 'center' ? 'selected' : ''}>وسط</option>
+                                        <option value="left" ${alignVal === 'left' ? 'selected' : ''}>يسار</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn" style="padding:6px 10px;margin-bottom:4px;" onclick="saveAllChanges()" title="Save All"><i class="fa-solid fa-floppy-disk"></i></button><br>
+                            <button type="button" class="btn btn-danger" style="padding:6px 10px;" onclick="deletePost('${page}', ${idx})" title="Delete"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 `;
@@ -886,6 +1303,7 @@
         }
 
         function addPostImage(page, idx) {
+            collectCurrentPostsAndLayoutFromDom();
             const input = document.getElementById(`newImg_${page}_${idx}`);
             const url = input.value.trim();
             if (!url) return;
@@ -893,12 +1311,13 @@
             if (!post.images) post.images = [post.image || 'assets/images/logo.png'];
             post.images.push(url);
             post.image = post.images[0];
-            saveData();
+            saveData(true);
             renderAdminPosts();
             notify('Image added to gallery!');
         }
 
         function removePostImage(page, idx, imgIdx) {
+            collectCurrentPostsAndLayoutFromDom();
             const post = siteData.posts[page][idx];
             let images = (post.images && post.images.length > 0) ? post.images : [post.image];
             if (images.length <= 1) {
@@ -908,34 +1327,24 @@
             images.splice(imgIdx, 1);
             post.images = images;
             post.image = images[0];
-            saveData();
+            saveData(true);
             renderAdminPosts();
             notify('Image removed from gallery!');
         }
 
-        function updatePostField(page, idx, field, val) {
-            siteData.posts[page][idx][field] = val;
-            saveData();
-        }
-
-        function updatePostTitle(page, idx, lang, val) {
-            if (!siteData.posts[page][idx].title) siteData.posts[page][idx].title = {};
-            siteData.posts[page][idx].title[lang] = val;
-            saveData();
-        }
-
-        function saveItemChanges() { saveData(); notify('تم حفظ التعديلات بنجاح!'); }
-
         function deletePost(page, idx) {
             if (confirm('Delete this item?')) {
+                collectCurrentPostsAndLayoutFromDom();
                 siteData.posts[page].splice(idx, 1);
-                saveData();
+                siteData.posts[page].forEach((p, i) => p.sortOrder = i + 1);
+                saveData(true);
                 renderAdminPosts();
             }
         }
 
         function addNewPost(e) {
             e.preventDefault();
+            collectCurrentPostsAndLayoutFromDom();
             const page = document.getElementById('newPostPage').value;
             if (!Array.isArray(siteData.posts[page])) siteData.posts[page] = [];
 
@@ -955,6 +1364,9 @@
                 images: imagesArr,
                 slideMode: slideMode,
                 price: page === 'page1_gallery' ? '' : document.getElementById('newPostPrice').value,
+                sortOrder: 1,
+                rowIndex: 0,
+                rowAlign: 'left',
                 title: {
                     en: document.getElementById('newPostTitleEn').value,
                     fr: document.getElementById('newPostTitleFr').value || document.getElementById('newPostTitleEn').value,
@@ -967,7 +1379,11 @@
                 }
             });
 
-            saveData();
+            siteData.posts[page].forEach((p, idx) => {
+                p.sortOrder = idx + 1;
+            });
+
+            saveData(true);
             document.getElementById('filterPostPage').value = page;
             renderAdminPosts();
             e.target.reset();
@@ -994,7 +1410,7 @@
                         });
                     }
                 });
-                saveData();
+                saveData(true);
                 renderAdminPosts();
                 alert(`Cleaned ${cleanedCount} images!`);
             }
@@ -1172,79 +1588,7 @@
         }
 
         function saveBranding() {
-            const taxVal = parseFloat(document.getElementById('taxRateInput').value);
-            siteData.taxRate = Number.isFinite(taxVal) && taxVal >= 0 ? taxVal : 6.25;
-
-            if (!siteData.topHeader) siteData.topHeader = {};
-            siteData.topHeader.en = document.getElementById('topHeaderEn').value;
-            siteData.topHeader.fr = document.getElementById('topHeaderFr').value;
-            siteData.topHeader.ar = document.getElementById('topHeaderAr').value;
-
-            if (!siteData.topLocation) siteData.topLocation = {};
-            siteData.topLocation.en = document.getElementById('topLocEn').value;
-            siteData.topLocation.ar = document.getElementById('topLocAr').value;
-            
-            const newPhone = document.getElementById('topPhone').value;
-            siteData.whatsappNumber = newPhone;
-            siteData.contactPhone = newPhone;
-
-            if (!siteData.welcomeTitle) siteData.welcomeTitle = {};
-            siteData.welcomeTitle.en = document.getElementById('welcomeTitleEn').value;
-            siteData.welcomeTitle.fr = document.getElementById('welcomeTitleFr').value;
-            siteData.welcomeTitle.ar = document.getElementById('welcomeTitleAr').value;
-
-            siteData.fridayBannerTitle = {
-                en: document.getElementById('fridayBannerEn').value.trim(),
-                fr: document.getElementById('fridayBannerFr').value.trim(),
-                ar: document.getElementById('fridayBannerAr').value.trim()
-            };
-            siteData.fridayBannerPill = {
-                en: document.getElementById('fridayPillEn').value.trim(),
-                fr: document.getElementById('fridayPillFr').value.trim(),
-                ar: document.getElementById('fridayPillAr').value.trim()
-            };
-
-            siteData.galleryBannerTitle = {
-                en: document.getElementById('galleryBannerEn').value.trim(),
-                fr: document.getElementById('galleryBannerFr').value.trim(),
-                ar: document.getElementById('galleryBannerAr').value.trim()
-            };
-            siteData.galleryBannerPill = {
-                en: document.getElementById('galleryPillEn').value.trim(),
-                fr: document.getElementById('galleryPillFr').value.trim(),
-                ar: document.getElementById('galleryPillAr').value.trim()
-            };
-
-            if (!siteData.socials) siteData.socials = { page1:{}, page2:{}, page3:{} };
-            siteData.socials.page1 = {
-                instagram: document.getElementById('soc1Ig').value,
-                facebook: document.getElementById('soc1Fb').value,
-                tiktok: document.getElementById('soc1Tt').value
-            };
-            siteData.socials.page2 = {
-                instagram: document.getElementById('soc2Ig').value,
-                facebook: document.getElementById('soc2Fb').value,
-                tiktok: document.getElementById('soc2Tt').value
-            };
-            siteData.socials.page3 = {
-                instagram: document.getElementById('soc3Ig').value,
-                facebook: document.getElementById('soc3Fb').value,
-                tiktok: document.getElementById('soc3Tt').value
-            };
-
-            siteData.whatsappNumber = document.getElementById('socialWhatsapp').value;
-            siteData.email = document.getElementById('socialGmail').value;
-
-            if (!siteData.footerTagline) siteData.footerTagline = {};
-            siteData.footerTagline.en = document.getElementById('footerDescEn').value;
-            siteData.footerTagline.fr = document.getElementById('footerDescFr').value;
-            siteData.footerTagline.ar = document.getElementById('footerDescAr').value;
-
-            siteData.footerTitle = document.getElementById('footerTitleText').value;
-            siteData.copyrightText = document.getElementById('footerCopyrightText').value;
-
-            saveData();
-            notify(`تم حفظ الإعدادات ونسبة الضريبة (${siteData.taxRate}%) بنجاح!`);
+            saveAllChanges();
         }
 
         function resetAllDefaults() {
@@ -1255,6 +1599,7 @@
         }
 
         function exportDataJs() {
+            saveAllChanges();
             const content = `const DEFAULT_SITE_DATA = ${JSON.stringify(siteData, null, 4)};\n`;
             const blob = new Blob([content], { type: 'application/javascript' });
             const a = document.createElement('a');
