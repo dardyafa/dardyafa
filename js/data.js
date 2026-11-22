@@ -134,14 +134,19 @@ const DEFAULT_SITE_DATA = {
         ],
         "page2": [
             {
-                "id": "v_1795039953386",
-                "title": "Evat Dar Dyafa Bostan ",
-                "url": "https://www.youtube.com/shorts/SKv26szQqRA"
+                "id": "v_1795040347650",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/iR7EwXRKxOE"
             },
             {
                 "id": "v_1795039987890",
                 "title": "Evant Dar dyafa Bostan",
                 "url": "https://www.youtube.com/shorts/4YzXEf8JRsI"
+            },
+            {
+                "id": "v_1795039953386",
+                "title": "Evat Dar Dyafa Bostan ",
+                "url": "https://www.youtube.com/shorts/SKv26szQqRA"
             },
             {
                 "id": "v_1795040047002",
@@ -152,11 +157,6 @@ const DEFAULT_SITE_DATA = {
                 "id": "v_1795040071058",
                 "title": "\tEvat Dar Dyafa Bostan",
                 "url": "https://www.youtube.com/shorts/2QSExt5jmc8"
-            },
-            {
-                "id": "v_1795040088690",
-                "title": "\tEvat Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/4YzXEf8JRsI"
             },
             {
                 "id": "v_1795040119898",
@@ -204,19 +204,9 @@ const DEFAULT_SITE_DATA = {
                 "url": "https://www.youtube.com/shorts/mq2ayGpKMvg"
             },
             {
-                "id": "v_1795040309826",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/AQloCAavZtE"
-            },
-            {
                 "id": "v_1795040334034",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/ODeq01LJsJo"
-            },
-            {
-                "id": "v_1795040347650",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/iR7EwXRKxOE"
             },
             {
                 "id": "v_1795040359298",
@@ -252,6 +242,226 @@ const DEFAULT_SITE_DATA = {
                 "id": "v_1795040453826",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/QZiagQCcX_A"
+            },
+            {
+                "id": "v_1795362075336",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/vmoAtGIWdYU"
+            },
+            {
+                "id": "v_1795362090992",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/jUk4aivWueI"
+            },
+            {
+                "id": "v_1795362149391",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/OkHPkEzFYXI"
+            },
+            {
+                "id": "v_1795362158264",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/GqpQjzXToOY"
+            },
+            {
+                "id": "v_1795362190472",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/RRQ71f1hGWM"
+            },
+            {
+                "id": "v_1795362200464",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/CDg7k7pQd2g"
+            },
+            {
+                "id": "v_1795362207951",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/yC8A1WBjEm4"
+            },
+            {
+                "id": "v_1795362214472",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/7czA4979vHs"
+            },
+            {
+                "id": "v_1795362222920",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/Oh4dI9de3Vk"
+            },
+            {
+                "id": "v_1795362230440",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/rmKbhpEDxIw"
+            },
+            {
+                "id": "v_1795362237392",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/SvBx_PXg9sw"
+            },
+            {
+                "id": "v_1795362248888",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/cO6IuhhimHQ"
+            },
+            {
+                "id": "v_1795362257800",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/KTGAoN8DXDY"
+            },
+            {
+                "id": "v_1795362264528",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/ZIImPq1hVlA"
+            },
+            {
+                "id": "v_1795362275448",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/DQwtoRkU5ks"
+            },
+            {
+                "id": "v_1795362282736",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/fgr1zCArYOc"
+            },
+            {
+                "id": "v_1795362293159",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/K1WBip8KYSg"
+            },
+            {
+                "id": "v_1795362300384",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/Epl4r_5Pncc"
+            },
+            {
+                "id": "v_1795362306736",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/cV2h7ib_Txk"
+            },
+            {
+                "id": "v_1795362328632",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/M4ySrtxTI8M"
+            },
+            {
+                "id": "v_1795362341096",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/UtLoK-iJpLw"
+            },
+            {
+                "id": "v_1795362350199",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/6Gfj_KapIBI"
+            },
+            {
+                "id": "v_1795362356776",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/sfX4Gzmqe6A"
+            },
+            {
+                "id": "v_1795362364231",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/DXkxAuATLfg"
+            },
+            {
+                "id": "v_1795362373528",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/I6lGAuaU6kA"
+            },
+            {
+                "id": "v_1795362384745",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/LYtN-3HnvHo"
+            },
+            {
+                "id": "v_1795362392864",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/5BiLDdy7Y5g"
+            },
+            {
+                "id": "v_1795362424768",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/rIP7q4OnLTg"
+            },
+            {
+                "id": "v_1795362434104",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/GQ7qkCopZJ0"
+            },
+            {
+                "id": "v_1795362442152",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/iljPxG12avg"
+            },
+            {
+                "id": "v_1795362462792",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/e1_pC0zTRPw"
+            },
+            {
+                "id": "v_1795362513089",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/45CUX9w8Ukg"
+            },
+            {
+                "id": "v_1795362533409",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/VEtqNwH2DS4"
+            },
+            {
+                "id": "v_1795362541824",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/vVW9Shey7gg"
+            },
+            {
+                "id": "v_1795362552161",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/f5CHK2Icmic"
+            },
+            {
+                "id": "v_1795362567752",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/BJuvGvVmZ50"
+            },
+            {
+                "id": "v_1795362574489",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/5dibhVjhyXo"
+            },
+            {
+                "id": "v_1795362585216",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/CNBniuDlvqY"
+            },
+            {
+                "id": "v_1795362595825",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/V-agNzvqynQ"
+            },
+            {
+                "id": "v_1795362602945",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/6B_dwuFzcJ8"
+            },
+            {
+                "id": "v_1795362609497",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/0emizbDLCdU"
+            },
+            {
+                "id": "v_1795362630752",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/uYEm4x3MxxE"
+            },
+            {
+                "id": "v_1795362637352",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/YK2lm7fGWuk"
+            },
+            {
+                "id": "v_1795362656657",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/vK01LimGEC8"
             }
         ],
         "page3": [
@@ -264,6 +474,76 @@ const DEFAULT_SITE_DATA = {
                 "id": "v_1795040181010",
                 "title": "negafa nadia Dar Dyafa Bostan",
                 "url": "https://www.youtube.com/shorts/a4Evy6WV6T8"
+            },
+            {
+                "id": "v_1795362131479",
+                "title": "nagafa  dar  dyafa bostan",
+                "url": "https://www.youtube.com/shorts/-wyqQOv9wIg"
+            },
+            {
+                "id": "v_1795362169520",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/Puyjj_oYTW4"
+            },
+            {
+                "id": "v_1795362182631",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/ZVOaDLDPriE"
+            },
+            {
+                "id": "v_1795362416896",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/ysq9DPmPA-4"
+            },
+            {
+                "id": "v_1795362454935",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/QI3DdbwRPCE"
+            },
+            {
+                "id": "v_1795362473177",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/e1_pC0zTRPw"
+            },
+            {
+                "id": "v_1795362485056",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/ZZjyHWXhxOY"
+            },
+            {
+                "id": "v_1795362493880",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/HW3SV_1fvg4"
+            },
+            {
+                "id": "v_1795362504752",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/hLct30mLejA"
+            },
+            {
+                "id": "v_1795362517825",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/45CUX9w8Ukg"
+            },
+            {
+                "id": "v_1795362526304",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/JR_UkgQXjhY"
+            },
+            {
+                "id": "v_1795362616137",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/XnUDOYGYmwk"
+            },
+            {
+                "id": "v_1795362623696",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/eliapl7bC4A"
+            },
+            {
+                "id": "v_1795362644784",
+                "title": "Dar Dyafa Bostan",
+                "url": "https://www.youtube.com/shorts/yIp--bMtT3Q"
             }
         ]
     },
@@ -557,10 +837,38 @@ const DEFAULT_SITE_DATA = {
         ],
         "page2": [
             {
+                "id": "FD-1571",
+                "image": "https://i.ibb.co/QzHqF49/Whats-App-Image-2026-11-22-at-15-53-30.jpg",
+                "images": [
+                    "https://i.ibb.co/QzHqF49/Whats-App-Image-2026-11-22-at-15-53-30.jpg",
+                    "https://i.ibb.co/nNCtHbKd/Whats-App-Image-2026-11-22-at-05-11-45.jpg",
+                    "https://i.ibb.co/60Z9n7Lp/Whats-App-Image-2026-11-22-at-04-58-36.jpg",
+                    "https://i.ibb.co/dwrcDBGB/Whats-App-Image-2026-11-22-at-04-58-43-1.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "",
+                "title": {
+                    "en": "Dar Diafa Bostan Team",
+                    "fr": "L'équipe de Dar Diafa Bostan",
+                    "ar": "طاقم دار الضيافة بستان"
+                },
+                "desc": {
+                    "en": "A dedicated, professional team ensuring your events are brought to life in their finest form.",
+                    "fr": "Une équipe professionnelle veille à animer vos événements pour qu'ils soient sous leur plus beau jour.",
+                    "ar": "طاقم احترافي يسهر على إحياء حفلاتكم لتكون في أبهى حلة."
+                }
+            },
+            {
                 "id": "FD-1552",
                 "image": "https://i.ibb.co/dJ2DQR6N/Whats-App-Image-2026-11-22-at-05-10-56.jpg",
                 "images": [
-                    "https://i.ibb.co/dJ2DQR6N/Whats-App-Image-2026-11-22-at-05-10-56.jpg"
+                    "https://i.ibb.co/dJ2DQR6N/Whats-App-Image-2026-11-22-at-05-10-56.jpg",
+                    "https://i.ibb.co/zhLmrCBS/Whats-App-Image-2026-11-22-at-15-53-25-1.jpg",
+                    "https://i.ibb.co/0yXQT6r7/Whats-App-Image-2026-11-22-at-15-53-24-2.jpg",
+                    "https://i.ibb.co/hRgZT8GQ/Whats-App-Image-2026-11-22-at-15-53-26-2.jpg",
+                    "https://i.ibb.co/WNwPZbKG/Whats-App-Image-2026-11-22-at-15-53-28-3.jpg",
+                    "https://i.ibb.co/LjQHdtB/Whats-App-Image-2026-11-22-at-15-53-31-5.jpg",
+                    "https://i.ibb.co/VY34VTPQ/Whats-App-Image-2026-11-22-at-15-53-32-3.jpg"
                 ],
                 "slideMode": "manual",
                 "price": "",
@@ -583,7 +891,12 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/MD4KYFng/Whats-App-Image-2026-11-22-at-05-06-13.jpg",
                     "https://i.ibb.co/nMdn61wQ/Whats-App-Image-2026-11-22-at-05-06-14.jpg",
                     "https://i.ibb.co/v4h1Ry18/Whats-App-Image-2026-11-22-at-04-48-59-3.jpg",
-                    "https://i.ibb.co/3yLgfMMY/Whats-App-Image-2026-11-22-at-05-01-39.jpg"
+                    "https://i.ibb.co/3yLgfMMY/Whats-App-Image-2026-11-22-at-05-01-39.jpg",
+                    "https://i.ibb.co/MDkJbxXc/Whats-App-Image-2026-11-22-at-15-53-30-4.jpg",
+                    "https://i.ibb.co/PZ1kzPC5/Whats-App-Image-2026-11-22-at-15-53-31-3.jpg",
+                    "https://i.ibb.co/0yGLT3j3/Whats-App-Image-2026-11-22-at-15-53-35-1.jpg",
+                    "https://i.ibb.co/zHFqHSWk/Whats-App-Image-2026-11-22-at-15-53-35-5.jpg",
+                    "https://i.ibb.co/99ZHM3ZG/Whats-App-Image-2026-11-22-at-15-53-35-3.jpg"
                 ],
                 "slideMode": "manual",
                 "price": "",
@@ -631,7 +944,11 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/0jZHpBqw/Whats-App-Image-2026-11-22-at-04-26-28-4.jpg",
                     "https://i.ibb.co/TFztn8s/Whats-App-Image-2026-11-22-at-04-26-28-5.jpg",
                     "https://i.ibb.co/9HxCKh7b/Whats-App-Image-2026-11-22-at-04-26-28-6.jpg",
-                    "https://i.ibb.co/67dLR3W0/Whats-App-Image-2026-11-22-at-04-58-34.jpg"
+                    "https://i.ibb.co/67dLR3W0/Whats-App-Image-2026-11-22-at-04-58-34.jpg",
+                    "https://i.ibb.co/zHQk2DBP/Whats-App-Image-2026-11-22-at-15-53-26-3.jpg",
+                    "https://i.ibb.co/Wvn7hF1B/Whats-App-Image-2026-11-22-at-15-53-27-1.jpg",
+                    "https://i.ibb.co/8gHxvBqt/Whats-App-Image-2026-11-22-at-15-53-26.jpg",
+                    "https://i.ibb.co/nsbNPL1R/Whats-App-Image-2026-11-22-at-15-53-30-2.jpg"
                 ],
                 "price": "",
                 "title": {
@@ -650,7 +967,14 @@ const DEFAULT_SITE_DATA = {
                 "image": "https://i.ibb.co/jZ6h6GPD/Whats-App-Image-2026-11-22-at-04-34-06.jpg",
                 "images": [
                     "https://i.ibb.co/jZ6h6GPD/Whats-App-Image-2026-11-22-at-04-34-06.jpg",
-                    "https://i.ibb.co/qFn6TYGy/Whats-App-Image-2026-11-22-at-04-26-28-3.jpg"
+                    "https://i.ibb.co/qFn6TYGy/Whats-App-Image-2026-11-22-at-04-26-28-3.jpg",
+                    "https://i.ibb.co/T6yxj2J/Whats-App-Image-2026-11-22-at-15-53-26-1.jpg",
+                    "https://i.ibb.co/ks8Hb23n/Whats-App-Image-2026-11-22-at-15-53-32-4.jpg",
+                    "https://i.ibb.co/zWZNX4tv/Whats-App-Image-2026-11-22-at-15-53-35-2.jpg",
+                    "https://i.ibb.co/1ft50pqT/Whats-App-Image-2026-11-22-at-15-53-35-7.jpg",
+                    "https://i.ibb.co/99ZHM3ZG/Whats-App-Image-2026-11-22-at-15-53-35-3.jpg",
+                    "https://i.ibb.co/q3M2b9ZX/Whats-App-Image-2026-11-22-at-15-53-37.jpg",
+                    "https://i.ibb.co/F4gKfVjx/Whats-App-Image-2026-11-22-at-15-53-36-4.jpg"
                 ],
                 "price": "",
                 "title": {
@@ -745,13 +1069,10 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/xtvYh30m/00.jpg",
                     "https://i.ibb.co/ycWDykGp/Whats-App-Image-2026-11-22-at-05-11-35.jpg",
                     "https://i.ibb.co/hx8yFrGq/Whats-App-Image-2026-11-22-at-05-11-21.jpg",
-                    "https://i.ibb.co/nNCtHbKd/Whats-App-Image-2026-11-22-at-05-11-45.jpg",
                     "https://i.ibb.co/939Mf94C/Whats-App-Image-2026-11-22-at-05-10-39-2.jpg",
                     "https://i.ibb.co/GQWQWVv0/Whats-App-Image-2026-11-22-at-05-06-05.jpg",
                     "https://i.ibb.co/Y4hD1sBB/Whats-App-Image-2026-11-22-at-05-05-56.jpg",
-                    "https://i.ibb.co/PsKrfN3d/Whats-App-Image-2026-11-22-at-04-58-54.jpg",
-                    "https://i.ibb.co/60Z9n7Lp/Whats-App-Image-2026-11-22-at-04-58-36.jpg",
-                    "https://i.ibb.co/nNCtHbKd/Whats-App-Image-2026-11-22-at-05-11-45.jpg"
+                    "https://i.ibb.co/PsKrfN3d/Whats-App-Image-2026-11-22-at-04-58-54.jpg"
                 ],
                 "price": "",
                 "title": {
@@ -776,7 +1097,8 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/HTF73jMN/Whats-App-Image-2026-11-22-at-04-43-27.jpg",
                     "https://i.ibb.co/M5hYVqrG/Whats-App-Image-2026-11-22-at-04-43-29-1.jpg",
                     "https://i.ibb.co/VYN5hDK5/Whats-App-Image-2026-11-22-at-04-48-58-1.jpg",
-                    "https://i.ibb.co/Hfr9zbqQ/Whats-App-Image-2026-11-22-at-04-48-58-2.jpg"
+                    "https://i.ibb.co/Hfr9zbqQ/Whats-App-Image-2026-11-22-at-04-48-58-2.jpg",
+                    "https://i.ibb.co/jvfgZqDd/Whats-App-Image-2026-11-22-at-15-53-29-2.jpg"
                 ],
                 "price": "",
                 "title": {
@@ -800,7 +1122,9 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/xqg77F1h/Whats-App-Image-2026-11-22-at-04-36-43-2.jpg",
                     "https://i.ibb.co/S7r1VhCB/Whats-App-Image-2026-11-22-at-04-36-43-1.jpg",
                     "https://i.ibb.co/Qzb1jkG/Whats-App-Image-2026-11-22-at-04-48-59.jpg",
-                    "https://i.ibb.co/jP29Q1jR/Whats-App-Image-2026-11-22-at-04-49-00.jpg"
+                    "https://i.ibb.co/jP29Q1jR/Whats-App-Image-2026-11-22-at-04-49-00.jpg",
+                    "https://i.ibb.co/WvF3dX4N/Whats-App-Image-2026-11-22-at-15-53-31.jpg",
+                    "https://i.ibb.co/9HdjQsPw/Whats-App-Image-2026-11-22-at-15-53-30-5.jpg"
                 ],
                 "price": "",
                 "title": {
@@ -816,10 +1140,11 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "FD-311",
-                "image": "https://i.ibb.co/Kz0Sv1cP/Whats-App-Image-2026-11-22-at-04-43-26.jpg",
+                "image": "https://i.ibb.co/XfmRXRYv/Whats-App-Image-2026-11-22-at-04-44-51.jpg",
                 "images": [
-                    "https://i.ibb.co/Kz0Sv1cP/Whats-App-Image-2026-11-22-at-04-43-26.jpg",
-                    "https://i.ibb.co/XfmRXRYv/Whats-App-Image-2026-11-22-at-04-44-51.jpg"
+                    "https://i.ibb.co/XfmRXRYv/Whats-App-Image-2026-11-22-at-04-44-51.jpg",
+                    "https://i.ibb.co/Y4r45SP8/Whats-App-Image-2026-11-22-at-15-53-14-3.jpg",
+                    "https://i.ibb.co/VWcXRv96/Whats-App-Image-2026-11-22-at-15-53-31-7.jpg"
                 ],
                 "price": "",
                 "title": {
@@ -835,7 +1160,7 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "NG-303",
-                "image": "assets/images/page3/p03   .jpg",
+                "image": "https://i.ibb.co/bgcTyXmm/Whats-App-Image-2026-11-22-at-15-53-29-1.jpg",
                 "price": "",
                 "title": {
                     "en": "Makeu",
@@ -848,14 +1173,12 @@ const DEFAULT_SITE_DATA = {
                     "ar": "إشراف كامل للنكافة، تنسيق المجوهرات، ومكياج احترافي لليلة الحناء ويوم الزفاف."
                 },
                 "images": [
-                    "assets/images/page3/p03   .jpg",
-                    "https://i.ibb.co/prvtVbhX/Veiled-in-love-beautiful-rabab-ftm-tradition-morocco-mariagemarocain.jpg",
-                    "https://i.ibb.co/zh3DMW4p/Traditions-ayaelfilaliiofficiel-mahane-makeup-artist-chaimaa-hairstylist-luxur.jpg",
-                    "https://i.ibb.co/QR8XdbL/La-magie-de-la-Tamghrabit.webp",
-                    "https://i.ibb.co/xqc4WY3n/La-magie-de-la-Tamghrabit-1.webp",
-                    "https://i.ibb.co/hx8LncLt/723126765-17945659704230291-29078563820264878-n.webp",
-                    "https://i.ibb.co/9HDYqNPn/1.webp",
-                    "https://i.ibb.co/zTs54sm2/image.webp"
+                    "https://i.ibb.co/bgcTyXmm/Whats-App-Image-2026-11-22-at-15-53-29-1.jpg",
+                    "https://i.ibb.co/67T5qgNC/Whats-App-Image-2026-11-22-at-15-53-28-5.jpg",
+                    "https://i.ibb.co/F4VMdbmx/Whats-App-Image-2026-11-22-at-15-53-28-4.jpg",
+                    "https://i.ibb.co/QjJcM9x2/Whats-App-Image-2026-11-22-at-15-53-30-1.jpg",
+                    "https://i.ibb.co/x8BcnyB3/Whats-App-Image-2026-11-22-at-15-53-29.jpg",
+                    "https://i.ibb.co/HpnMqBXZ/Whats-App-Image-2026-11-22-at-15-53-30-6.jpg"
                 ]
             },
             {
@@ -879,7 +1202,10 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/nN6GFZ8W/Whats-App-Image-2026-11-22-at-04-43-23.jpg",
                     "https://i.ibb.co/RGgK26MN/Whats-App-Image-2026-11-22-at-04-36-45.jpg",
                     "https://i.ibb.co/nsZ6MmDf/2775792e-6948-482c-8d6f-22b8bb811cfb.jpg",
-                    "https://i.ibb.co/B29Ck9nN/Whats-App-Image-2026-11-22-at-04-48-58.jpg"
+                    "https://i.ibb.co/B29Ck9nN/Whats-App-Image-2026-11-22-at-04-48-58.jpg",
+                    "https://i.ibb.co/Z9BnVVv/Whats-App-Image-2026-11-22-at-15-53-24.jpg",
+                    "https://i.ibb.co/KQPLdgZ/Whats-App-Image-2026-11-22-at-15-53-26-4.jpg",
+                    "https://i.ibb.co/PbG4Cg1/Whats-App-Image-2026-11-22-at-15-53-32-2.jpg"
                 ]
             },
             {
@@ -897,7 +1223,22 @@ const DEFAULT_SITE_DATA = {
                     "ar": "تجهيز طقوس الحناء المغربية بالأواني النحاسية التقليدية ونقش الحناء في بوسطن."
                 },
                 "images": [
-                    "https://i.ibb.co/wrNs6R5M/Sans-titre-1.jpg"
+                    "https://i.ibb.co/wrNs6R5M/Sans-titre-1.jpg",
+                    "https://i.ibb.co/ymCvbTnN/Whats-App-Image-2026-11-22-at-15-53-23.jpg",
+                    "https://i.ibb.co/N6QDLzZc/Whats-App-Image-2026-11-22-at-15-53-14-1.jpg",
+                    "https://i.ibb.co/3mdSxVvP/Whats-App-Image-2026-11-22-at-15-53-14-2.jpg",
+                    "https://i.ibb.co/1Yh9GB2b/Whats-App-Image-2026-11-22-at-15-53-27-3.jpg",
+                    "https://i.ibb.co/bjPgVH2P/Whats-App-Image-2026-11-22-at-15-53-27.jpg",
+                    "https://i.ibb.co/Z1V5kLS2/Whats-App-Image-2026-11-22-at-15-53-29-3.jpg",
+                    "https://i.ibb.co/2188kTv4/Whats-App-Image-2026-11-22-at-15-53-28.jpg",
+                    "https://i.ibb.co/MkzV6CWL/Whats-App-Image-2026-11-22-at-15-53-34-1.jpg",
+                    "https://i.ibb.co/WTPCDPL/Whats-App-Image-2026-11-22-at-15-53-34.jpg",
+                    "https://i.ibb.co/Hcd5TBf/Whats-App-Image-2026-11-22-at-15-53-31-9.jpg",
+                    "https://i.ibb.co/fY5863yj/Whats-App-Image-2026-11-22-at-15-53-37-1.jpg",
+                    "https://i.ibb.co/PG5yCn3G/Whats-App-Image-2026-11-22-at-15-53-37-2.jpg",
+                    "https://i.ibb.co/m5b5H5mQ/Whats-App-Image-2026-11-22-at-15-53-38.jpg",
+                    "https://i.ibb.co/hFGmDb1g/Whats-App-Image-2026-11-22-at-15-53-36-3.jpg",
+                    "https://i.ibb.co/Z6wB9VLF/Whats-App-Image-2026-11-22-at-15-53-33.jpg"
                 ]
             }
         ],
