@@ -253,13 +253,89 @@ const DEFAULT_SITE_DATA = {
     "posts": {
         "page1": [
             {
-                "id": "FD-1252",
-                "image": "https://i.ibb.co/Z1BN7N5v/Gemini-Generated-Image-olocj8olocj8oloc.jpg",
+                "id": "FD-1340",
+                "image": "https://i.ibb.co/JLDHsFw/Gemini-Generated-Image-yaj5gyyaj5gyyaj5.jpg",
                 "images": [
-                    "https://i.ibb.co/Z1BN7N5v/Gemini-Generated-Image-olocj8olocj8oloc.jpg"
+                    "https://i.ibb.co/JLDHsFw/Gemini-Generated-Image-yaj5gyyaj5gyyaj5.jpg"
                 ],
                 "slideMode": "manual",
-                "price": "2.00",
+                "price": "$18.00",
+                "title": {
+                    "en": "Rice platter",
+                    "fr": "Assiette de riz",
+                    "ar": "طبق الأرز"
+                },
+                "desc": {
+                    "en": "rice, your choice of chicken, beef or falafel, with fresh salad and French fries,  tahini sauce and our special sauces",
+                    "fr": "Riz, au choix poulet, bœuf ou falafel, avec salade fraîche et frites, sauce tahini et nos sauces spéciales",
+                    "ar": "دجاج، لحم بقري أو فلافل، مع سلطة طازجة وبطاطس مقلية، صلصة الطحينة وصلصاتنا الخاصة."
+                }
+            },
+            {
+                "id": "FD-1240",
+                "image": "https://i.ibb.co/yBsBvn4C/Gemini-Generated-Image-45kzv545kzv545kz.jpg",
+                "images": [
+                    "https://i.ibb.co/yBsBvn4C/Gemini-Generated-Image-45kzv545kzv545kz.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "$15.00",
+                "title": {
+                    "en": "RICE BOWL",
+                    "fr": "BOL DE RIZ",
+                    "ar": "وعاؤ الأرز"
+                },
+                "desc": {
+                    "en": "chicken, beef or flafel with rice, picco, lettuce, corne, guacamole , black beans, cheese and special sauce",
+                    "fr": "Poulet, bœuf ou falafel avec riz, pico de gallo, laitue, maïs, guacamole, haricots noirs, fromage et sauce spéciale",
+                    "ar": "دجاج، لحم بقري أو فلافل مع الأرز، صلصة البيكو، خس، ذرة، غواكامولي، فاصوليا سوداء، جبن وصلصة خاصة"
+                }
+            },
+            {
+                "id": "FD-1247",
+                "image": "https://i.ibb.co/9kv4qmbs/Gemini-Generated-Image-42zc6o42zc6o42zc.jpg",
+                "images": [
+                    "https://i.ibb.co/9kv4qmbs/Gemini-Generated-Image-42zc6o42zc6o42zc.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "$15.00",
+                "title": {
+                    "en": "GYRO WITH FRENCH FRIES",
+                    "fr": "GYRO AVEC FRITES",
+                    "ar": "جيرو مع بطاطس مقلية"
+                },
+                "desc": {
+                    "en": "Tender gyro meat, fresh salad, tomato, onion, Tahini sauce, garlic sauce, humus, feta cheese and French fries.",
+                    "fr": "Viande de gyro tendre, salade fraîche, tomate, oignon, sauce tahini, sauce à l'ail, houmous, fromage feta et frites",
+                    "ar": "لحم جيرو طري، سلطة طازجة، طماطم، بصل، صلصة الطحينة، صلصة الثوم، حمص، جبن فيتا وبطاطس مقلية"
+                }
+            },
+            {
+                "id": "FD-1241",
+                "image": "https://i.ibb.co/03TbQM1/Gemini-Generated-Image-rf8187rf8187rf81-1.jpg",
+                "images": [
+                    "https://i.ibb.co/03TbQM1/Gemini-Generated-Image-rf8187rf8187rf81-1.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "$16.00",
+                "title": {
+                    "en": "BURRITO",
+                    "fr": "BURRITO",
+                    "ar": "بوريتو"
+                },
+                "desc": {
+                    "en": "chicken, beef or flafel with rice, picco, lettuce, corne, black beans and cheese and special sauce",
+                    "fr": "Poulet, bœuf ou falafel avec riz, pico de gallo, laitue, maïs, haricots noirs, fromage et sauce spécial",
+                    "ar": "دجاج، لحم بقري أو فلافل مع الأرز، صلصة البيكو (طماطم وبصل)، خس، ذرة، فاصوليا سوداء، جبن وصلصة خاصة."
+                }
+            },
+            {
+                "id": "FD-1252",
+                "image": "https://i.ibb.co/cXy2qHv1/Gemini-Generated-Image-aako0daako0daako.jpg",
+                "images": [
+                    "https://i.ibb.co/cXy2qHv1/Gemini-Generated-Image-aako0daako0daako.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "$2.00",
                 "title": {
                     "en": "Water",
                     "fr": "Eau",
@@ -278,7 +354,7 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/N2WG9dRT/Gemini-Generated-Image-umdhzyumdhzyumdh.jpg"
                 ],
                 "slideMode": "manual",
-                "price": "2.00",
+                "price": "$2.00",
                 "title": {
                     "en": "Moroccan Tea",
                     "fr": "thé marocain",
@@ -292,12 +368,12 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "FD-1250",
-                "image": "https://i.ibb.co/Mxb6h3dG/Gemini-Generated-Image-zh6me7zh6me7zh6m.jpg",
+                "image": "https://i.ibb.co/kgp71xFQ/Gemini-Generated-Image-7pexns7pexns7pex.jpg",
                 "images": [
-                    "https://i.ibb.co/Mxb6h3dG/Gemini-Generated-Image-zh6me7zh6me7zh6m.jpg"
+                    "https://i.ibb.co/kgp71xFQ/Gemini-Generated-Image-7pexns7pexns7pex.jpg"
                 ],
                 "slideMode": "manual",
-                "price": "2.00",
+                "price": "$2.00",
                 "title": {
                     "en": "Soda",
                     "fr": "Soda ",
@@ -311,12 +387,12 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "FD-1249",
-                "image": "https://i.ibb.co/GQHFyfjB/0544f8bb-0098-4b22-b090-6d3481422188.webp",
+                "image": "https://i.ibb.co/cGcq3YJ/Whats-App-Image-2026-11-22-at-03-09-57.jpg",
                 "images": [
-                    "https://i.ibb.co/GQHFyfjB/0544f8bb-0098-4b22-b090-6d3481422188.webp"
+                    "https://i.ibb.co/cGcq3YJ/Whats-App-Image-2026-11-22-at-03-09-57.jpg"
                 ],
                 "slideMode": "manual",
-                "price": "6.00",
+                "price": "$6.00",
                 "title": {
                     "en": "TIRAMISU",
                     "fr": "TIRAMISU",
@@ -335,7 +411,7 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/ymLfYbVN/Gemini-Generated-Image-ykfjegykfjegykfj.jpg"
                 ],
                 "slideMode": "manual",
-                "price": "5.00",
+                "price": "$5.00",
                 "title": {
                     "en": "FLAN",
                     "fr": "FLAN",
@@ -348,32 +424,13 @@ const DEFAULT_SITE_DATA = {
                 }
             },
             {
-                "id": "FD-1247",
-                "image": "https://i.ibb.co/hFFGc4nn/Gemini-Generated-Image-cnym4acnym4acnym.jpg",
-                "images": [
-                    "https://i.ibb.co/hFFGc4nn/Gemini-Generated-Image-cnym4acnym4acnym.jpg"
-                ],
-                "slideMode": "manual",
-                "price": "15.00",
-                "title": {
-                    "en": "GYRO WITH FRENCH FRIES",
-                    "fr": "GYRO AVEC FRITES",
-                    "ar": "جيرو مع بطاطس مقلية"
-                },
-                "desc": {
-                    "en": "Description: Tender gyro meat, fresh salad, tomato, onion, tzatziki sauce, and a side of crispy French fries",
-                    "fr": "Description: Viande de gyro tendre, salade fraîche, tomate, oignon, sauce tzatziki et accompagnement de frites croustillantes",
-                    "ar": "لحم جيرو طري، سلطة طازجة، طماطم، بصل، صلصة تزاتزيكي وجانب من البطاطس المقلية المقرمشة"
-                }
-            },
-            {
                 "id": "FD-1246",
                 "image": "https://i.ibb.co/9HMdCVrF/Gemini-Generated-Image-7wstvp7wstvp7wst.jpg",
                 "images": [
                     "https://i.ibb.co/9HMdCVrF/Gemini-Generated-Image-7wstvp7wstvp7wst.jpg"
                 ],
                 "slideMode": "manual",
-                "price": "15.00",
+                "price": "$15.00",
                 "title": {
                     "en": "BURGER CHEESE",
                     "fr": "BURGER FROMAGE",
@@ -392,7 +449,7 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/RTL3wJCC/Gemini-Generated-Image-qayfk3qayfk3qayf.jpg"
                 ],
                 "slideMode": "manual",
-                "price": "12.00",
+                "price": "$12.00",
                 "title": {
                     "en": "TACO",
                     "fr": "TACO",
@@ -411,7 +468,7 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/WNv5gTf7/Gemini-Generated-Image-qayfk3qayfk3qayf.jpg"
                 ],
                 "slideMode": "manual",
-                "price": "12.00",
+                "price": "$12.00",
                 "title": {
                     "en": "CHICKEN FINGER",
                     "fr": "AIGUILLETTES DE POULET",
@@ -424,13 +481,13 @@ const DEFAULT_SITE_DATA = {
                 }
             },
             {
-                "id": "FD-1243",
+                "id": "FD-1343",
                 "image": "https://i.ibb.co/3mNqwgmW/Gemini-Generated-Image-wsg6xgwsg6xgwsg6.jpg",
                 "images": [
                     "https://i.ibb.co/3mNqwgmW/Gemini-Generated-Image-wsg6xgwsg6xgwsg6.jpg"
                 ],
                 "slideMode": "manual",
-                "price": "15.00",
+                "price": "$15.00",
                 "title": {
                     "en": "STEAK CHEESE",
                     "fr": "STEAK FROMAGE",
@@ -449,7 +506,7 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/NnbzGwBX/Gemini-Generated-Image-oblf6joblf6joblf.jpg"
                 ],
                 "slideMode": "manual",
-                "price": "15.00",
+                "price": "$15.00",
                 "title": {
                     "en": "SHAWARMA",
                     "fr": "SHAWARMA",
@@ -459,44 +516,6 @@ const DEFAULT_SITE_DATA = {
                     "en": "Marinated chicken shawarma with fresh salad, tomato, onion, pickles, tahini sauce and our special garlic sauce",
                     "fr": "Shawarma au poulet mariné avec salade fraîche, tomate, oignon, cornichons, sauce tahini et notre sauce à l'ail spéciale",
                     "ar": "شاورما دجاج متبلة مع سلطة طازجة، طماطم، بصل، مخللات، صلصة الطحينة وصلصة الثوم الخاصة بنا"
-                }
-            },
-            {
-                "id": "FD-1241",
-                "image": "https://i.ibb.co/twkP0wqW/Gemini-Generated-Image-paefz1paefz1paef.jpg",
-                "images": [
-                    "https://i.ibb.co/twkP0wqW/Gemini-Generated-Image-paefz1paefz1paef.jpg"
-                ],
-                "slideMode": "manual",
-                "price": "15.00",
-                "title": {
-                    "en": "BURRITO",
-                    "fr": "BURRITO",
-                    "ar": "بوريتو"
-                },
-                "desc": {
-                    "en": "Description: Your choice of chicken, beef or falafel with rice, lettuce, tomato, cheese and special sauces",
-                    "fr": "Au choix poulet, bœuf ou falafel avec riz, laitue, tomate, fromage et sauces spéciales",
-                    "ar": "اختيارك من الدجاج، لحم البقر أو الفلافل مع الأرز، الخس، الطماطم، الجبن والصلصات الخاصة"
-                }
-            },
-            {
-                "id": "FD-1240",
-                "image": "https://i.ibb.co/ksy82Vmx/Gemini-Generated-Image-5icmv95icmv95icm.jpg",
-                "images": [
-                    "https://i.ibb.co/ksy82Vmx/Gemini-Generated-Image-5icmv95icmv95icm.jpg"
-                ],
-                "slideMode": "manual",
-                "price": "15.00",
-                "title": {
-                    "en": "RICE BOWL",
-                    "fr": "BOL DE RIZ",
-                    "ar": "وعاؤ الأرز"
-                },
-                "desc": {
-                    "en": "Your choice of chicken, beef or falafel over rice with salad, pickled onions and our special sauces",
-                    "fr": "Votre choix de poulet, bœuf ou falafel sur du riz avec salade, oignons marinés et nos sauces spéciales",
-                    "ar": "اختيارك من الدجاج، لحم البقر أو الفلافل فوق الأرز مع السلطة، البصل المخلل وصلصاتنا الخاصة"
                 }
             }
         ],
@@ -809,6 +828,44 @@ const DEFAULT_SITE_DATA = {
             }
         ],
         "page1_friday": [
+            {
+                "id": "402",
+                "image": "https://i.ibb.co/xKVf9k0y/Gemini-Generated-Image-2g00fj2g00fj2g00.jpg",
+                "images": [
+                    "https://i.ibb.co/xKVf9k0y/Gemini-Generated-Image-2g00fj2g00fj2g00.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "$200.00",
+                "title": {
+                    "en": "Repas de couscous marocain convivial (ou à partager)",
+                    "fr": "Un repas pour 15 personnes, couscous marocain au bœuf, aux légumes et à la tfaya.",
+                    "ar": "وجبة كسكس مغربي جماعية"
+                },
+                "desc": {
+                    "en": "Meal for 15 people, Moroccan couscous with beef, vegetables, and tefaya",
+                    "fr": "Un repas pour 15 personnes, couscous marocain au bœuf, aux légumes et à la tfaya.",
+                    "ar": "وجبة لـ 15 شخصاً، كسكس مغربي باللحم البقري والخضار والتفاية."
+                }
+            },
+            {
+                "id": "401",
+                "image": "https://i.ibb.co/84jjNXrC/Gemini-Generated-Image-u9hxysu9hxysu9hx.jpg",
+                "images": [
+                    "https://i.ibb.co/84jjNXrC/Gemini-Generated-Image-u9hxysu9hxysu9hx.jpg"
+                ],
+                "slideMode": "manual",
+                "price": "$180.00",
+                "title": {
+                    "en": "A communal Moroccan couscous meal",
+                    "fr": "Repas de couscous marocain convivial (ou à partager)",
+                    "ar": "وجبة كسكس مغربي جماعية"
+                },
+                "desc": {
+                    "en": "A meal for 15 people, Moroccan couscous with chicken and vegetables and tfaya",
+                    "fr": "Un repas pour 15 personnes, couscous marocain au poulet, aux légumes et à la tfaya.",
+                    "ar": "وجبة لـ 15 شخصاً، كسكس مغربي بالدجاج والخضار والتفاية."
+                }
+            },
             {
                 "id": "FD-332",
                 "image": "https://i.ibb.co/LhvKbZfs/lamb.jpg",
