@@ -134,406 +134,206 @@ const DEFAULT_SITE_DATA = {
         ],
         "page2": [
             {
-                "id": "v_1795040347650",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/iR7EwXRKxOE"
-            },
-            {
-                "id": "v_1795039987890",
-                "title": "Evant Dar dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/4YzXEf8JRsI"
-            },
-            {
-                "id": "v_1795039953386",
-                "title": "Evat Dar Dyafa Bostan ",
-                "url": "https://www.youtube.com/shorts/SKv26szQqRA"
-            },
-            {
-                "id": "v_1795040047002",
-                "title": "Evat Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/kqKw_PhTpWk"
-            },
-            {
-                "id": "v_1795040071058",
-                "title": "\tEvat Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/2QSExt5jmc8"
-            },
-            {
-                "id": "v_1795040119898",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/I83W8G1YiTA"
-            },
-            {
-                "id": "v_1795040148514",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/a4Evy6WV6T8"
-            },
-            {
-                "id": "v_1795040162050",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/Di7lW3EB-Q8"
-            },
-            {
-                "id": "v_1795040198562",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/r9J1QyehIyw"
-            },
-            {
-                "id": "v_1795040214490",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/Xf26zwJ7vac"
-            },
-            {
-                "id": "v_1795040248674",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/7P49wSelo6E"
-            },
-            {
-                "id": "v_1795040258106",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/l0DyxxIbcqg"
-            },
-            {
-                "id": "v_1795040279618",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/ZLrsXPr2nXs"
-            },
-            {
-                "id": "v_1795040288066",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/mq2ayGpKMvg"
-            },
-            {
-                "id": "v_1795040334034",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/ODeq01LJsJo"
-            },
-            {
-                "id": "v_1795040359298",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/TvAhfFWLdCw"
-            },
-            {
-                "id": "v_1795040372426",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/pAb0HR6f1pY"
-            },
-            {
-                "id": "v_1795040384802",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/f_NYMCYeT58"
-            },
-            {
-                "id": "v_1795040403754",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/uKliT3RgNAA"
-            },
-            {
-                "id": "v_1795040429242",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/s7BvEOWCBME"
-            },
-            {
-                "id": "v_1795040438250",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/ZhFHRhu0S0s"
-            },
-            {
-                "id": "v_1795040453826",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/QZiagQCcX_A"
-            },
-            {
-                "id": "v_1795362075336",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/vmoAtGIWdYU"
-            },
-            {
-                "id": "v_1795362090992",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/jUk4aivWueI"
-            },
-            {
-                "id": "v_1795362149391",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/OkHPkEzFYXI"
-            },
-            {
-                "id": "v_1795362158264",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/GqpQjzXToOY"
-            },
-            {
-                "id": "v_1795362190472",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/RRQ71f1hGWM"
-            },
-            {
-                "id": "v_1795362200464",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/CDg7k7pQd2g"
-            },
-            {
-                "id": "v_1795362207951",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/yC8A1WBjEm4"
-            },
-            {
-                "id": "v_1795362214472",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/7czA4979vHs"
-            },
-            {
-                "id": "v_1795362222920",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/Oh4dI9de3Vk"
-            },
-            {
-                "id": "v_1795362230440",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/rmKbhpEDxIw"
-            },
-            {
-                "id": "v_1795362237392",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/SvBx_PXg9sw"
-            },
-            {
-                "id": "v_1795362248888",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/cO6IuhhimHQ"
-            },
-            {
-                "id": "v_1795362257800",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/KTGAoN8DXDY"
-            },
-            {
-                "id": "v_1795362264528",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/ZIImPq1hVlA"
-            },
-            {
-                "id": "v_1795362275448",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/DQwtoRkU5ks"
-            },
-            {
-                "id": "v_1795362282736",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/fgr1zCArYOc"
-            },
-            {
-                "id": "v_1795362293159",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/K1WBip8KYSg"
-            },
-            {
-                "id": "v_1795362300384",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/Epl4r_5Pncc"
-            },
-            {
-                "id": "v_1795362306736",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/cV2h7ib_Txk"
-            },
-            {
-                "id": "v_1795362328632",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/M4ySrtxTI8M"
-            },
-            {
-                "id": "v_1795362341096",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/UtLoK-iJpLw"
-            },
-            {
-                "id": "v_1795362350199",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/6Gfj_KapIBI"
-            },
-            {
-                "id": "v_1795362356776",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/sfX4Gzmqe6A"
-            },
-            {
-                "id": "v_1795362364231",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/DXkxAuATLfg"
-            },
-            {
-                "id": "v_1795362373528",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/I6lGAuaU6kA"
-            },
-            {
-                "id": "v_1795362384745",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/LYtN-3HnvHo"
-            },
-            {
-                "id": "v_1795362392864",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/5BiLDdy7Y5g"
-            },
-            {
-                "id": "v_1795362424768",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/rIP7q4OnLTg"
-            },
-            {
-                "id": "v_1795362434104",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/GQ7qkCopZJ0"
-            },
-            {
-                "id": "v_1795362442152",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/iljPxG12avg"
-            },
-            {
-                "id": "v_1795362462792",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/e1_pC0zTRPw"
-            },
-            {
-                "id": "v_1795362513089",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/45CUX9w8Ukg"
-            },
-            {
-                "id": "v_1795362533409",
+                "id": "v_1795436695512",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/VEtqNwH2DS4"
             },
             {
-                "id": "v_1795362541824",
+                "id": "v_1795436091333",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/OkHPkEzFYXI"
+            },
+            {
+                "id": "v_1795436143327",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/GqpQjzXToOY"
+            },
+            {
+                "id": "v_1795436164367",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/RRQ71f1hGWM"
+            },
+            {
+                "id": "v_1795436218115",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/CDg7k7pQd2g"
+            },
+            {
+                "id": "v_1795436227819",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/yC8A1WBjEm4"
+            },
+            {
+                "id": "v_1795436321406",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/7czA4979vHs"
+            },
+            {
+                "id": "v_1795436337422",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/Oh4dI9de3Vk"
+            },
+            {
+                "id": "v_1795436352894",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/rmKbhpEDxIw"
+            },
+            {
+                "id": "v_1795436364326",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/SvBx_PXg9sw"
+            },
+            {
+                "id": "v_1795436383463",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/cO6IuhhimHQ"
+            },
+            {
+                "id": "v_1795436394863",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/KTGAoN8DXDY"
+            },
+            {
+                "id": "v_1795436413511",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/DQwtoRkU5ks"
+            },
+            {
+                "id": "v_1795436431607",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/fgr1zCArYOc"
+            },
+            {
+                "id": "v_1795436450487",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/K1WBip8KYSg"
+            },
+            {
+                "id": "v_1795436466687",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/Epl4r_5Pncc"
+            },
+            {
+                "id": "v_1795436489303",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/cV2h7ib_Txk"
+            },
+            {
+                "id": "v_1795436501023",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/M4ySrtxTI8M"
+            },
+            {
+                "id": "v_1795436512496",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/UtLoK-iJpLw"
+            },
+            {
+                "id": "v_1795436529168",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/6Gfj_KapIBI"
+            },
+            {
+                "id": "v_1795436539304",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/sfX4Gzmqe6A"
+            },
+            {
+                "id": "v_1795436554712",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/DXkxAuATLfg"
+            },
+            {
+                "id": "v_1795436589719",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/LYtN-3HnvHo"
+            },
+            {
+                "id": "v_1795436599783",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/ctEeLRnIDSc"
+            },
+            {
+                "id": "v_1795436628959",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/rIP7q4OnLTg"
+            },
+            {
+                "id": "v_1795436648096",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/GQ7qkCopZJ0"
+            },
+            {
+                "id": "v_1795436706497",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/vVW9Shey7gg"
             },
             {
-                "id": "v_1795362552161",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/f5CHK2Icmic"
-            },
-            {
-                "id": "v_1795362567752",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/BJuvGvVmZ50"
-            },
-            {
-                "id": "v_1795362574489",
+                "id": "v_1795436726193",
                 "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/5dibhVjhyXo"
-            },
-            {
-                "id": "v_1795362585216",
-                "title": "Dar Dyafa Bostan",
                 "url": "https://www.youtube.com/shorts/CNBniuDlvqY"
             },
             {
-                "id": "v_1795362595825",
+                "id": "v_1795436736705",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/V-agNzvqynQ"
             },
             {
-                "id": "v_1795362602945",
+                "id": "v_1795436755249",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/6B_dwuFzcJ8"
             },
             {
-                "id": "v_1795362609497",
-                "title": "Dar Dyafa Bostan",
+                "id": "v_1795436770083",
+                "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/0emizbDLCdU"
             },
             {
-                "id": "v_1795362630752",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/uYEm4x3MxxE"
-            },
-            {
-                "id": "v_1795362637352",
+                "id": "v_1795436802187",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/YK2lm7fGWuk"
             },
             {
-                "id": "v_1795362656657",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/vK01LimGEC8"
+                "id": "v_1795436928988",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/2QSExt5jmc8"
+            },
+            {
+                "id": "v_1795436996705",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/mq2ayGpKMvg"
+            },
+            {
+                "id": "v_1795437021833",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/eH3LtyoCfzQ"
+            },
+            {
+                "id": "v_1795437037441",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/iR7EwXRKxOE"
+            },
+            {
+                "id": "v_1795437085231",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/ZhFHRhu0S0s"
+            },
+            {
+                "id": "v_1795437097935",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/s7BvEOWCBME"
+            },
+            {
+                "id": "v_1795437111375",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/yoM33-Ivt38"
             }
         ],
         "page3": [
             {
-                "id": "v_1795039906154",
-                "title": "negafa nadia Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/ebE6ycuODkY"
-            },
-            {
-                "id": "v_1795040181010",
-                "title": "negafa nadia Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/a4Evy6WV6T8"
-            },
-            {
-                "id": "v_1795362131479",
-                "title": "nagafa  dar  dyafa bostan",
-                "url": "https://www.youtube.com/shorts/-wyqQOv9wIg"
-            },
-            {
-                "id": "v_1795362169520",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/Puyjj_oYTW4"
-            },
-            {
-                "id": "v_1795362182631",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/ZVOaDLDPriE"
-            },
-            {
-                "id": "v_1795362416896",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/ysq9DPmPA-4"
-            },
-            {
-                "id": "v_1795362454935",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/QI3DdbwRPCE"
-            },
-            {
-                "id": "v_1795362473177",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/e1_pC0zTRPw"
-            },
-            {
                 "id": "v_1795362485056",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/ZZjyHWXhxOY"
-            },
-            {
-                "id": "v_1795362493880",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/HW3SV_1fvg4"
-            },
-            {
-                "id": "v_1795362504752",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/hLct30mLejA"
-            },
-            {
-                "id": "v_1795362517825",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/45CUX9w8Ukg"
-            },
-            {
-                "id": "v_1795362526304",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/JR_UkgQXjhY"
-            },
-            {
-                "id": "v_1795362616137",
-                "title": "Dar Dyafa Bostan",
-                "url": "https://www.youtube.com/shorts/XnUDOYGYmwk"
             },
             {
                 "id": "v_1795362623696",
@@ -541,9 +341,64 @@ const DEFAULT_SITE_DATA = {
                 "url": "https://www.youtube.com/shorts/eliapl7bC4A"
             },
             {
-                "id": "v_1795362644784",
-                "title": "Dar Dyafa Bostan",
+                "id": "v_1795435781956",
+                "title": "negafa nora Dar Dyafa Boston",
+                "url": "https://www.youtube.com/shorts/vmoAtGIWdYU"
+            },
+            {
+                "id": "v_1795435826794",
+                "title": "negafa nora Dar Dyafa Boston",
+                "url": "https://www.youtube.com/shorts/ebE6ycuODkY"
+            },
+            {
+                "id": "v_1795435839890",
+                "title": "negafa nora Dar Dyafa Boston",
+                "url": "https://www.youtube.com/shorts/a4Evy6WV6T8"
+            },
+            {
+                "id": "v_1795435856034",
+                "title": "negafa nora Dar Dyafa Boston",
+                "url": "https://www.youtube.com/shorts/-wyqQOv9wIg"
+            },
+            {
+                "id": "v_1795435865898",
+                "title": "negafa nora Dar Dyafa Boston",
+                "url": "https://www.youtube.com/shorts/ysq9DPmPA-4"
+            },
+            {
+                "id": "v_1795435878194",
+                "title": "negafa nora Dar Dyafa Boston",
+                "url": "https://www.youtube.com/shorts/e1_pC0zTRPw"
+            },
+            {
+                "id": "v_1795435915088",
+                "title": "negafa nora Dar Dyafa Boston",
+                "url": "https://www.youtube.com/shorts/HW3SV_1fvg4"
+            },
+            {
+                "id": "v_1795435927096",
+                "title": "negafa nora Dar Dyafa Boston",
+                "url": "https://www.youtube.com/shorts/hLct30mLejA"
+            },
+            {
+                "id": "v_1795435939543",
+                "title": "negafa nora Dar Dyafa Boston",
+                "url": "https://www.youtube.com/shorts/45CUX9w8Ukg"
+            },
+            {
+                "id": "v_1795435951350",
+                "title": "negafa nora Dar Dyafa Boston",
+                "url": "https://www.youtube.com/shorts/JR_UkgQXjhY"
+            },
+            {
+                "id": "v_1795435963982",
+                "title": "negafa nora Dar Dyafa Boston",
                 "url": "https://www.youtube.com/shorts/yIp--bMtT3Q"
+            },
+            {
+                "id": "v_1795436896300",
+                "title": "negafa nora Dar Dyafa Boston",
+                "url": "https://www.youtube.com/shorts/vK01LimGEC8"
             }
         ]
     },
@@ -1003,9 +858,7 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/9HxCKh7b/Whats-App-Image-2026-11-22-at-04-26-28-6.jpg",
                     "https://i.ibb.co/67dLR3W0/Whats-App-Image-2026-11-22-at-04-58-34.jpg",
                     "https://i.ibb.co/zHQk2DBP/Whats-App-Image-2026-11-22-at-15-53-26-3.jpg",
-                    "https://i.ibb.co/Wvn7hF1B/Whats-App-Image-2026-11-22-at-15-53-27-1.jpg",
-                    "https://i.ibb.co/8gHxvBqt/Whats-App-Image-2026-11-22-at-15-53-26.jpg",
-                    "https://i.ibb.co/nsbNPL1R/Whats-App-Image-2026-11-22-at-15-53-30-2.jpg"
+                    "https://i.ibb.co/Wvn7hF1B/Whats-App-Image-2026-11-22-at-15-53-27-1.jpg"
                 ],
                 "price": "",
                 "title": {
@@ -1020,7 +873,8 @@ const DEFAULT_SITE_DATA = {
                 },
                 "sortOrder": 5,
                 "rowIndex": 0,
-                "rowAlign": "left"
+                "rowAlign": "left",
+                "slideMode": "manual"
             },
             {
                 "id": "FD-318",
@@ -1049,7 +903,8 @@ const DEFAULT_SITE_DATA = {
                 },
                 "sortOrder": 6,
                 "rowIndex": 0,
-                "rowAlign": "left"
+                "rowAlign": "left",
+                "slideMode": "manual"
             },
             {
                 "id": "FD-317",
@@ -1086,7 +941,8 @@ const DEFAULT_SITE_DATA = {
                 },
                 "sortOrder": 7,
                 "rowIndex": 0,
-                "rowAlign": "left"
+                "rowAlign": "left",
+                "slideMode": "manual"
             },
             {
                 "id": "FD-316",
@@ -1121,7 +977,8 @@ const DEFAULT_SITE_DATA = {
                 },
                 "sortOrder": 8,
                 "rowIndex": 0,
-                "rowAlign": "left"
+                "rowAlign": "left",
+                "slideMode": "manual"
             },
             {
                 "id": "FD-315",
@@ -1156,7 +1013,8 @@ const DEFAULT_SITE_DATA = {
                 },
                 "sortOrder": 9,
                 "rowIndex": 0,
-                "rowAlign": "left"
+                "rowAlign": "left",
+                "slideMode": "manual"
             }
         ],
         "page3": [
@@ -1203,14 +1061,14 @@ const DEFAULT_SITE_DATA = {
                 ],
                 "price": "",
                 "title": {
-                    "en": "A royal look brimming with elegance and grace... The Nggafa Nadia touch ✨👑",
-                    "fr": "Une allure royale empreinte d'élégance et de grâce... La touche Nggafa Nadia ✨👑",
-                    "ar": "إطلالة ملكية تفيض بالأناقة والجمال.. لمسة النكافة نادية ✨👑"
+                    "en": "A royal look brimming with elegance and grace... The Nggafa Nora touch ✨👑",
+                    "fr": "Une allure royale empreinte d'élégance et de grâce... La touche Nggafa Nora ✨👑",
+                    "ar": "إطلالة ملكية تفيض بالأناقة والجمال.. لمسة النكافة نورة ✨👑"
                 },
                 "desc": {
-                    "en": "Magical moments from a night to remember, where the luxury of the Moroccan takchita meets the elegance of royal details... The Nggafa Nadia touch",
-                    "fr": "Des instants magiques d'une nuit inoubliable, où le raffinement de la takchita marocaine rencontre l'élégance des détails royaux... La touche Nggafa Nadia",
-                    "ar": "لحظات ساحرة من ليلة العمر، حيث تلتقي فخامة التكشيطة المغربية مع رقي التفاصيل الملكية. أبلمسة النكافة نادية"
+                    "en": "Magical moments from a night to remember, where the luxury of the Moroccan takchita meets the elegance of royal details... The Nggafa Nora touch",
+                    "fr": "Des instants magiques d'une nuit inoubliable, où le raffinement de la takchita marocaine rencontre l'élégance des détails royaux... La touche Nggafa Nora",
+                    "ar": "لحظات ساحرة من ليلة العمر، حيث تلتقي فخامة التكشيطة المغربية مع رقي التفاصيل الملكية. أبلمسة النكافة نورة"
                 },
                 "sortOrder": 2,
                 "rowIndex": 0,
@@ -1273,9 +1131,9 @@ const DEFAULT_SITE_DATA = {
                 "image": "https://i.ibb.co/M5S9ps38/Whats-App-Image-2026-11-22-at-04-44-53.jpg",
                 "price": "",
                 "title": {
-                    "en": "The Ammaria vibe with Nggafa Nadia",
-                    "fr": "L'ambiance de l'Ammaria avec la Nggafa Nadia",
-                    "ar": "اجواء العمارية مع النكافة نادية"
+                    "en": "The Ammaria vibe with Nggafa Nora",
+                    "fr": "L'ambiance de l'Ammaria avec la Nggafa Nora",
+                    "ar": "اجواء العمارية مع النكافة نورة"
                 },
                 "desc": {
                     "en": "Opulent burgundy velvet gown with intricate gold threadwork and matching bridal tiara.",
@@ -1323,7 +1181,6 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/Z1V5kLS2/Whats-App-Image-2026-11-22-at-15-53-29-3.jpg",
                     "https://i.ibb.co/2188kTv4/Whats-App-Image-2026-11-22-at-15-53-28.jpg",
                     "https://i.ibb.co/MkzV6CWL/Whats-App-Image-2026-11-22-at-15-53-34-1.jpg",
-                    "https://i.ibb.co/WTPCDPL/Whats-App-Image-2026-11-22-at-15-53-34.jpg",
                     "https://i.ibb.co/Hcd5TBf/Whats-App-Image-2026-11-22-at-15-53-31-9.jpg",
                     "https://i.ibb.co/fY5863yj/Whats-App-Image-2026-11-22-at-15-53-37-1.jpg",
                     "https://i.ibb.co/PG5yCn3G/Whats-App-Image-2026-11-22-at-15-53-37-2.jpg",
