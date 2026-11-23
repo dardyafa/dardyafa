@@ -849,9 +849,8 @@ const DEFAULT_SITE_DATA = {
             },
             {
                 "id": "FD-319",
-                "image": "https://i.ibb.co/5W7xJK3y/Whats-App-Image-2026-11-22-at-04-31-29.jpg",
+                "image": "https://i.ibb.co/0j8rYwNK/Whats-App-Image-2026-11-22-at-04-27-36.jpg",
                 "images": [
-                    "https://i.ibb.co/5W7xJK3y/Whats-App-Image-2026-11-22-at-04-31-29.jpg",
                     "https://i.ibb.co/0j8rYwNK/Whats-App-Image-2026-11-22-at-04-27-36.jpg",
                     "https://i.ibb.co/0jZHpBqw/Whats-App-Image-2026-11-22-at-04-26-28-4.jpg",
                     "https://i.ibb.co/TFztn8s/Whats-App-Image-2026-11-22-at-04-26-28-5.jpg",
