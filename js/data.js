@@ -149,16 +149,6 @@ const DEFAULT_SITE_DATA = {
                 "url": "https://www.youtube.com/shorts/GqpQjzXToOY"
             },
             {
-                "id": "v_1795436164367",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/RRQ71f1hGWM"
-            },
-            {
-                "id": "v_1795436218115",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/CDg7k7pQd2g"
-            },
-            {
                 "id": "v_1795436227819",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/yC8A1WBjEm4"
@@ -169,29 +159,9 @@ const DEFAULT_SITE_DATA = {
                 "url": "https://www.youtube.com/shorts/7czA4979vHs"
             },
             {
-                "id": "v_1795436337422",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/Oh4dI9de3Vk"
-            },
-            {
                 "id": "v_1795436352894",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/rmKbhpEDxIw"
-            },
-            {
-                "id": "v_1795436364326",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/SvBx_PXg9sw"
-            },
-            {
-                "id": "v_1795436383463",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/cO6IuhhimHQ"
-            },
-            {
-                "id": "v_1795436394863",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/KTGAoN8DXDY"
             },
             {
                 "id": "v_1795436413511",
@@ -214,11 +184,6 @@ const DEFAULT_SITE_DATA = {
                 "url": "https://www.youtube.com/shorts/Epl4r_5Pncc"
             },
             {
-                "id": "v_1795436489303",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/cV2h7ib_Txk"
-            },
-            {
                 "id": "v_1795436501023",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/M4ySrtxTI8M"
@@ -234,44 +199,14 @@ const DEFAULT_SITE_DATA = {
                 "url": "https://www.youtube.com/shorts/6Gfj_KapIBI"
             },
             {
-                "id": "v_1795436539304",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/sfX4Gzmqe6A"
-            },
-            {
-                "id": "v_1795436554712",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/DXkxAuATLfg"
-            },
-            {
                 "id": "v_1795436589719",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/LYtN-3HnvHo"
             },
             {
-                "id": "v_1795436599783",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/ctEeLRnIDSc"
-            },
-            {
-                "id": "v_1795436628959",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/rIP7q4OnLTg"
-            },
-            {
-                "id": "v_1795436648096",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/GQ7qkCopZJ0"
-            },
-            {
                 "id": "v_1795436706497",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/vVW9Shey7gg"
-            },
-            {
-                "id": "v_1795436726193",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/CNBniuDlvqY"
             },
             {
                 "id": "v_1795436736705",
@@ -282,11 +217,6 @@ const DEFAULT_SITE_DATA = {
                 "id": "v_1795436755249",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/6B_dwuFzcJ8"
-            },
-            {
-                "id": "v_1795436770083",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/0emizbDLCdU"
             },
             {
                 "id": "v_1795436802187",
@@ -302,11 +232,6 @@ const DEFAULT_SITE_DATA = {
                 "id": "v_1795436996705",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/mq2ayGpKMvg"
-            },
-            {
-                "id": "v_1795437021833",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/eH3LtyoCfzQ"
             },
             {
                 "id": "v_1795437037441",
