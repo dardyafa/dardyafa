@@ -39,12 +39,10 @@ const DEFAULT_SITE_DATA = {
             "price": "$16.00"
         },
         {
-            "id": "m_1795320909034",
             "name": "Rice platter",
-            "price": "$18.00"
+            "price": "$15.00"
         },
         {
-            "id": "m_1795320927434",
             "name": "RICE BOWL",
             "price": "$15.00"
         },
@@ -209,11 +207,6 @@ const DEFAULT_SITE_DATA = {
                 "url": "https://www.youtube.com/shorts/vVW9Shey7gg"
             },
             {
-                "id": "v_1795436736705",
-                "title": "Moroccan Wedding Catering",
-                "url": "https://www.youtube.com/shorts/V-agNzvqynQ"
-            },
-            {
                 "id": "v_1795436755249",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/6B_dwuFzcJ8"
@@ -252,6 +245,16 @@ const DEFAULT_SITE_DATA = {
                 "id": "v_1795437111375",
                 "title": "Moroccan Wedding Catering",
                 "url": "https://www.youtube.com/shorts/yoM33-Ivt38"
+            },
+            {
+                "id": "v_1795648547337",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/rIP7q4OnLTg"
+            },
+            {
+                "id": "v_1795648567104",
+                "title": "Moroccan Wedding Catering",
+                "url": "https://www.youtube.com/shorts/GQ7qkCopZJ0"
             }
         ],
         "page3": [
@@ -324,6 +327,11 @@ const DEFAULT_SITE_DATA = {
                 "id": "v_1795436896300",
                 "title": "negafa nora Dar Dyafa Boston",
                 "url": "https://www.youtube.com/shorts/vK01LimGEC8"
+            },
+            {
+                "id": "v_1795646829193",
+                "title": "negafa nora Dar Dyafa Boston",
+                "url": "https://www.youtube.com/shorts/V-agNzvqynQ"
             }
         ]
     },
@@ -696,7 +704,13 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/hRgZT8GQ/Whats-App-Image-2026-11-22-at-15-53-26-2.jpg",
                     "https://i.ibb.co/WNwPZbKG/Whats-App-Image-2026-11-22-at-15-53-28-3.jpg",
                     "https://i.ibb.co/LjQHdtB/Whats-App-Image-2026-11-22-at-15-53-31-5.jpg",
-                    "https://i.ibb.co/VY34VTPQ/Whats-App-Image-2026-11-22-at-15-53-32-3.jpg"
+                    "https://i.ibb.co/VY34VTPQ/Whats-App-Image-2026-11-22-at-15-53-32-3.jpg",
+                    "https://i.ibb.co/1fJvjyqD/Whats-App-Image-2026-11-25-at-22-40-52-1.jpg",
+                    "https://i.ibb.co/5CkKfTQ/Whats-App-Image-2026-11-25-at-22-40-52.jpg",
+                    "https://i.ibb.co/zhdsChSS/Whats-App-Image-2026-11-25-at-22-40-50-1.jpg",
+                    "https://i.ibb.co/tTm8GqmT/Whats-App-Image-2026-11-25-at-22-40-50.jpg",
+                    "https://i.ibb.co/8DgG7hNt/Whats-App-Image-2026-11-25-at-22-40-51.jpg",
+                    "https://i.ibb.co/chS3dG9P/Whats-App-Image-2026-11-25-at-22-40-43-1.jpg"
                 ],
                 "slideMode": "manual",
                 "price": "",
@@ -782,7 +796,8 @@ const DEFAULT_SITE_DATA = {
                     "https://i.ibb.co/9HxCKh7b/Whats-App-Image-2026-11-22-at-04-26-28-6.jpg",
                     "https://i.ibb.co/67dLR3W0/Whats-App-Image-2026-11-22-at-04-58-34.jpg",
                     "https://i.ibb.co/zHQk2DBP/Whats-App-Image-2026-11-22-at-15-53-26-3.jpg",
-                    "https://i.ibb.co/Wvn7hF1B/Whats-App-Image-2026-11-22-at-15-53-27-1.jpg"
+                    "https://i.ibb.co/Wvn7hF1B/Whats-App-Image-2026-11-22-at-15-53-27-1.jpg",
+                    "https://i.ibb.co/jPQhjBf7/Whats-App-Image-2026-11-25-at-22-39-05.jpg"
                 ],
                 "price": "",
                 "title": {
